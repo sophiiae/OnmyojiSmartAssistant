@@ -431,21 +431,20 @@ if __name__ == "__main__":
 
         # Use context manager for proper cleanup
         with ProcessManager(config) as pm:
-            print(f"Starting process manager...")
+            logger.background(f"Starting process manager...")
             if pm.start_processing():
-                print("Process manager started successfully")
+                logger.background("Process manager started successfully")
 
                 # Let it run for a short time
                 time.sleep(5)
 
-                # Print status
                 status = pm.get_status()
-                print(f"Status: {status}")
+                logger.background(f"Status: {status}")
 
             else:
-                print("Failed to start process manager")
+                logger.error("Failed to start process manager")
 
     except KeyboardInterrupt:
-        print("\nShutdown requested...")
+        logger.error("\nShutdown requested...")
     except Exception as e:
-        print(f"Error: {e}")
+        logger.error(f"Error: {e}")

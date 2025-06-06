@@ -5,6 +5,7 @@ from module.base.logger import logger
 from module.base.timer import Timer
 from module.control.config.config import Config
 from module.control.server.connection import Connection
+import time
 
 
 class Device:
@@ -399,3 +400,57 @@ class Device:
         except Exception as e:
             logger.error(f"Error during click record check: {e}")
             raise
+
+
+if __name__ == '__main__':
+    # Test device connection and basic functionality
+    try:
+        # Initialize device with default settings
+        config = Config("osa")
+        device = Device(config)
+
+        # Test screenshot
+        print("\nTesting screenshot capture...")
+        screenshot = device.screenshot()
+        if screenshot is not None:
+            print(f"Screenshot captured successfully: {screenshot.shape}")
+
+            # Save test screenshot
+            import cv2
+            cv2.imwrite("test_screenshot.png", screenshot)
+            print("Screenshot saved as test_screenshot.png")
+
+        # Test click patterns
+        print("\nTesting click patterns...")
+        test_points = [
+            (100, 100),  # Top-left
+            # (540, 960),  # Bottom-right
+            # (540, 540),  # Center
+            # (100, 540),  # Left-center
+            # (980, 540),  # Right-center
+        ]
+
+        for x, y in test_points:
+            print(f"Clicking at ({x}, {y})...")
+            device.click(x, y)
+            time.sleep(0.5)  # Wait between clicks
+
+        # Test swipe patterns
+        print("\nTesting swipe patterns...")
+        test_swipes = [
+            # (start_x, start_y, end_x, end_y, description)
+            # (540, 960, 540, 100, "Up swipe"),      # Bottom to top
+            # (540, 100, 540, 960, "Down swipe"),    # Top to bottom
+            (100, 540, 980, 540, "Right swipe"),   # Left to right
+            (980, 540, 100, 540, "Left swipe"),    # Right to left
+            # (100, 100, 980, 960, "Diagonal swipe"),  # Diagonal
+        ]
+
+        for start_x, start_y, end_x, end_y, desc in test_swipes:
+            print(
+                f"Swiping {desc} from ({start_x}, {start_y}) to ({end_x}, {end_y})...")
+            device.swipe(start_x, start_y, end_x, end_y)
+            time.sleep(1.0)  # Wait between swipes
+
+    except Exception as e:
+        print(f"Error during testing: {e}")

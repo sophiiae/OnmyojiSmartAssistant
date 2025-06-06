@@ -5,8 +5,8 @@ from typing import Optional
 from ppadb.client import Client as AdbClient
 import numpy as np
 import cv2
-
-from control.config.config import Config
+from module.base.logger import logger
+from module.control.config.config import Config
 
 
 class Connection:
@@ -365,7 +365,7 @@ if __name__ == "__main__":
 
         # Use context manager for proper resource cleanup
         with Connection(config) as conn:
-            filepath = Path.cwd() / f"{filename}.png"
+            filepath = Path.cwd() / f"{filename}"  # 截图保存路径
             success = conn.capture_screenshot(filepath)
 
             if success:
