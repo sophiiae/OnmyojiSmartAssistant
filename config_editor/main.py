@@ -2,7 +2,7 @@ import sys
 import os
 import json
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
-                             QWidget, QScrollArea, QPushButton, QMessageBox, QTabWidget, QCheckBox, QComboBox, QSpinBox, QLineEdit)
+                             QWidget, QScrollArea, QTabWidget, QCheckBox, QComboBox, QSpinBox, QLineEdit)
 from config_editor.sections.script_section import ScriptSection
 from config_editor.sections.daily_routine_section import DailyRoutineSection
 from config_editor.sections.wanted_quests_section import WantedQuestsSection

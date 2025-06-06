@@ -248,10 +248,10 @@ class GameConsoleLogger:
         self._log_with_context('critical', f"💥 {msg}")
 
 
+logger = GameConsoleLogger(debug_mode=True)
+
 # 使用示例
 if __name__ == "__main__":
-    logger = GameConsoleLogger(debug_mode=True)
-
     # 测试不同类型的日志
     logger.info("游戏启动")
     logger.success("成功加载配置文件")
