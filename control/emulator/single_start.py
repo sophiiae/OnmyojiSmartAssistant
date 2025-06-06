@@ -38,7 +38,7 @@ def start_mumu12():
         print(f"启动MuMu12模拟器时出错: {e}")
         return False
 
-def connect_adb(port: int = DEFAULT_ADB_PORT) -> int:
+def connect_adb(port: int = DEFAULT_ADB_PORT) -> int | None:
     """连接ADB"""
     try:
         print(f"🔌 连接 ADB {port}...")

@@ -1,0 +1,185 @@
+{
+  "config_name": "qian",
+  "script": {
+    "device": {
+      "serial": "127.0.0.1:16384",
+      "handle": "984848",
+      "screenshot_method": "ADB_nc",
+      "control_method": "minitouch"
+    },
+    "optimization": {
+      "screenshot_interval": 0.3,
+      "combat_screenshot_interval": 1.0,
+      "schedule_rule": "FIFO"
+    },
+    "error_handler": {
+      "when_network_abnormal": "等待10秒",
+      "when_network_error": "重启",
+      "cache_clear_request": true
+    }
+  },
+  "daily_routine": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-08-16 15:03:54",
+      "priority": 0,
+      "success_interval": "01:00:00:00",
+      "failure_interval": "01:00:00:00"
+    },
+    "harvest_config": {
+      "enable_jade": true,
+      "enable_sign": true,
+      "enable_sign_999": true,
+      "enable_mail": true,
+      "enable_soul": true,
+      "enable_ap": true
+    },
+    "trifles_config": {
+      "one_summon": false,
+      "guild_wish": false,
+      "friend_love": false,
+      "store_sign": true
+    }
+  },
+  "wanted_quests": {
+    "accept_quest_config": {
+      "accept_type": "勾玉"
+    }
+  },
+  "exploration": {
+    "scheduler": {
+      "enable": true,
+      "next_run": "2025-06-01 10:40:21",
+      "priority": 5,
+      "success_interval": "00:00:10:00",
+      "failure_interval": "00:01:00:00"
+    },
+    "exploration_config": {
+      "buff_gold_50": false,
+      "buff_gold_100": false,
+      "buff_exp_50": true,
+      "buff_exp_100": false,
+      "count_max": 30,
+      "chapter": "第1章",
+      "auto_backup": false,
+      "backup_rarity": "素材",
+      "lock_team_enable": true
+    },
+    "scrolls": {
+      "scroll_mode_enable": true,
+      "scrolls_cd": "0:30:00",
+      "ticket_threshold": 22
+    },
+    "general_battle_config": {
+      "lock_team_enable": true,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "green_left1",
+      "random_click_swipt_enable": false
+    },
+    "switch_soul_config": {
+      "enable": false,
+      "switch_group_team": "-1,-1",
+      "enable_switch_by_name": false,
+      "group_name": "",
+      "team_name": ""
+    }
+  },
+  "realm_raid": {
+    "scheduler": {
+      "enable": true,
+      "next_run": "2025-05-29 09:19:32",
+      "priority": 5,
+      "success_interval": "00:00:10:00",
+      "failure_interval": "00:02:00:00"
+    },
+    "raid_config": {
+      "tickets_required": 22,
+      "exit_two": true,
+      "order_attack": "5 > 4 > 3 > 2 > 1 > 0",
+      "three_refresh": false,
+      "when_attack_fail": "Continue"
+    },
+    "general_battle_config": {
+      "lock_team_enable": true,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "green_left1",
+      "random_click_swipt_enable": false
+    },
+    "switch_soul_config": {
+      "enable": false,
+      "switch_group_team": "-1,-1",
+      "enable_switch_by_name": false,
+      "group_name": "",
+      "team_name": ""
+    }
+  },
+  "goryou_realm": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-08-15 21:07:19",
+      "priority": 5,
+      "success_interval": "00:00:30:00",
+      "failure_interval": "00:00:10:00"
+    },
+    "goryou_config": {
+      "goryou_class": "暗孔雀",
+      "count_max": 50,
+      "level": "三层",
+      "lock_team_enable": true
+    }
+  },
+  "shikigami_activity": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-07-22 10:40:48",
+      "priority": 5,
+      "success_interval": "00:00:10:00",
+      "failure_interval": "01:00:00:00"
+    },
+    "climb_config": {
+      "enable_ap_mode": false,
+      "auto_switch": false,
+      "ticket_max": 50,
+      "ap_max": 300,
+      "lock_team_enable": true
+    }
+  },
+  "area_boss": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2023-01-01 00:00:00",
+      "priority": 5,
+      "success_interval": "01 00:00:00",
+      "failure_interval": "01 00:00:00"
+    },
+    "boss": {
+      "boss_number": 3,
+      "boss_reward": false,
+      "reward_floor": "一星",
+      "use_collect": false,
+      "Attack_60": false
+    },
+    "general_battle": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "green_left1",
+      "random_click_swipt_enable": false
+    },
+    "switch_soul": {
+      "enable": false,
+      "switch_group_team": "-1,-1",
+      "enable_switch_by_name": false,
+      "group_name": "",
+      "team_name": ""
+    }
+  }
+}
