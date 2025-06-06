@@ -1,0 +1,3 @@
+"""
+Module package initialization
+"""
