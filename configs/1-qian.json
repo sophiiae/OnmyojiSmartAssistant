@@ -22,7 +22,7 @@
     "scheduler": {
       "enable": false,
       "next_run": "2024-08-16 15:03:54",
-      "priority": 0,
+      "priority": 1,
       "success_interval": "01:00:00:00",
       "failure_interval": "01:00:00:00"
     },

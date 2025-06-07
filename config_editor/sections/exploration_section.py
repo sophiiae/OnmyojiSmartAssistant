@@ -63,7 +63,7 @@ class ExplorationSection(QGroupBox):
         # 章节（无CheckBox，左对齐）
         self.chapter = SelectButton()
         self.chapter.addItems(
-            ["第1章", "第2章", "第3章", "第4章", "第5章", "第6章", "第7章", "第8章", "第9章", "第10章"])
+            ["第1章", "第2章", "第3章", "第4章", "第5章", "第6章", "第7章", "第8章", "第9章", "第10章", "第11章", "第12章", "第13章", "第14章", "第15章", "第16章", "第17章", "第18章", "第19章", "第20章", "第21章", "第22章", "第23章", "第24章", "第25章", "第26章", "第27章", "第28章"])
         self.chapter.setCurrentText(self.exploration_config["chapter"])
         add_left_row(exploration_layout, [QLabel("章节:"), self.chapter])
 
@@ -72,13 +72,13 @@ class ExplorationSection(QGroupBox):
         self.auto_backup.setChecked(self.exploration_config["auto_backup"])
         add_left_row(exploration_layout, [self.auto_backup])
 
-        # 备份稀有度（无CheckBox，左对齐）
+        # 狗粮稀有度（无CheckBox，左对齐）
         self.backup_rarity = SelectButton()
         self.backup_rarity.addItems(["素材", "N", "R", "SR", "SSR", "SP"])
         self.backup_rarity.setCurrentText(
             self.exploration_config["backup_rarity"])
         add_left_row(exploration_layout, [
-                     QLabel("备份稀有度:"), self.backup_rarity])
+                     QLabel("狗粮稀有度:"), self.backup_rarity])
 
         # 锁定队伍（CheckBox独占一行）
         self.lock_team_enable = QCheckBox("锁定队伍")

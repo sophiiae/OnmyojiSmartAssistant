@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QPushButton, QComboBox, QDialog, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QPushButton, QComboBox, QDialog, QVBoxLayout, QHBoxLayout, QSizePolicy
 from PyQt6.QtCore import Qt, pyqtSignal
 
 class ValueSelectDialog(QDialog):
@@ -36,12 +36,11 @@ class SelectButton(QPushButton):
         self._current_index = 0
         self.setStyleSheet("""
             QPushButton {
-                padding: 5px 10px;
+                padding: 2px 4px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 background: #f5f5f5;
                 color: #333;
-                min-width: 80px;
                 text-align: center;
             }
             QPushButton:hover {
@@ -51,6 +50,8 @@ class SelectButton(QPushButton):
         """)
         self.setText("请选择")  # 默认显示文本
         self.clicked.connect(self.show_dialog)
+        self.setSizePolicy(QSizePolicy.Policy.Preferred,
+                           QSizePolicy.Policy.Fixed)
 
     def addItems(self, items):
         self._items = items

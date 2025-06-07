@@ -13,9 +13,14 @@ class ScriptSection(QGroupBox):
     def __init__(self, config):
         super().__init__("脚本设置")
         self.config = config
+        self.create_widgets()
+
+    def create_widgets(self):
         layout = QVBoxLayout(self)
+        script_config = self.config["script"]
+
         # 设备设置
-        device = config["script"]["device"]
+        device = script_config["device"]
         self.serial_edit = QLineEdit(str(device.get("serial", "")))
         add_labeled_widget(layout, "设备序列号", self.serial_edit)
         self.handle_edit = QLineEdit(str(device.get("handle", "")))
@@ -31,22 +36,28 @@ class ScriptSection(QGroupBox):
         #     device.get("control_method", "minitouch"))
         # add_labeled_widget(layout, "控制方法", self.control_combo)
         # 优化设置
-        opt = config["script"]["optimization"]
-        self.screenshot_interval_spin = ValueButton()
-        self.screenshot_interval_spin.setRange(1, 50)  # 0.1-5.0 转换为 1-50
-        self.screenshot_interval_spin.setValue(
-            int(opt.get("screenshot_interval", 0.3) * 10))
-        add_labeled_widget(layout, "截图间隔(秒)", self.screenshot_interval_spin)
-        self.combat_interval_spin = ValueButton()
-        self.combat_interval_spin.setRange(1, 50)  # 0.1-5.0 转换为 1-50
-        self.combat_interval_spin.setValue(
-            int(opt.get("combat_screenshot_interval", 1.0) * 10))
-        add_labeled_widget(layout, "战斗截图间隔(秒)", self.combat_interval_spin)
+        opt = script_config["optimization"]
+        # 截图间隔和战斗截图间隔同一行
+        row = QHBoxLayout()
+        self.screenshot_interval = ValueButton()
+        self.screenshot_interval.setRange(1, 50)
+        self.screenshot_interval.setValue(
+            int(float(opt.get("screenshot_interval", 1)) * 10))
+        row.addWidget(QLabel("截图间隔"))
+        row.addWidget(self.screenshot_interval)
+        row.addSpacing(20)
+        self.combat_screenshot_interval = ValueButton()
+        self.combat_screenshot_interval.setRange(1, 50)
+        self.combat_screenshot_interval.setValue(
+            int(float(opt.get("combat_screenshot_interval", 1)) * 10))
+        row.addWidget(QLabel("战斗截图间隔"))
+        row.addWidget(self.combat_screenshot_interval)
+        layout.addLayout(row)
         self.schedule_rule_edit = QLineEdit(
             str(opt.get("schedule_rule", "FIFO")))
         add_labeled_widget(layout, "调度规则", self.schedule_rule_edit)
         # 错误处理
-        err = config["script"]["error_handler"]
+        err = script_config["error_handler"]
         self.when_network_abnormal_edit = QLineEdit(
             str(err.get("when_network_abnormal", "")))
         add_labeled_widget(layout, "网络异常时", self.when_network_abnormal_edit)
@@ -59,13 +70,15 @@ class ScriptSection(QGroupBox):
         layout.addWidget(self.cache_clear_request_check)
 
     def update_config(self):
-        self.config["script"]["device"]["serial"] = self.serial_edit.text()
-        self.config["script"]["device"]["handle"] = self.handle_edit.text()
-        # self.config["script"]["device"]["screenshot_method"] = self.screenshot_combo.currentText()
-        # self.config["script"]["device"]["control_method"] = self.control_combo.currentText()
-        self.config["script"]["optimization"]["screenshot_interval"] = self.screenshot_interval_spin.value() / 10
-        self.config["script"]["optimization"]["combat_screenshot_interval"] = self.combat_interval_spin.value() / 10
-        self.config["script"]["optimization"]["schedule_rule"] = self.schedule_rule_edit.text()
-        self.config["script"]["error_handler"]["when_network_abnormal"] = self.when_network_abnormal_edit.text()
-        self.config["script"]["error_handler"]["when_network_error"] = self.when_network_error_edit.text()
-        self.config["script"]["error_handler"]["cache_clear_request"] = self.cache_clear_request_check.isChecked()
+        script_config = self.config["script"]
+        script_config["device"]["serial"] = self.serial_edit.text()
+        script_config["device"]["handle"] = self.handle_edit.text()
+        # script_config["device"]["screenshot_method"] = self.screenshot_combo.currentText()
+        # script_config["device"]["control_method"] = self.control_combo.currentText()
+        script_config["optimization"]["screenshot_interval"] = self.screenshot_interval.value(
+        ) / 10
+        script_config["optimization"]["combat_screenshot_interval"] = self.combat_screenshot_interval.value() / 10
+        script_config["optimization"]["schedule_rule"] = self.schedule_rule_edit.text()
+        script_config["error_handler"]["when_network_abnormal"] = self.when_network_abnormal_edit.text()
+        script_config["error_handler"]["when_network_error"] = self.when_network_error_edit.text()
+        script_config["error_handler"]["cache_clear_request"] = self.cache_clear_request_check.isChecked()
