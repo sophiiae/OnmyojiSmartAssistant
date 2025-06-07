@@ -4,6 +4,7 @@ import json
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
                              QWidget, QScrollArea, QTabWidget, QCheckBox, QComboBox, QSpinBox, QLineEdit,
                              QPushButton, QHBoxLayout, QMessageBox, QLabel)
+from PyQt6.QtCore import Qt
 from config_editor.sections.script_section import ScriptSection
 from config_editor.sections.daily_routine_section import DailyRoutineSection
 from config_editor.sections.wanted_quests_section import WantedQuestsSection
@@ -12,6 +13,8 @@ from config_editor.sections.realm_raid_section import RealmRaidSection
 from config_editor.sections.goryou_realm_section import GoryouRealmSection
 from config_editor.sections.shikigami_activity_section import ShikigamiActivitySection
 from config_editor.sections.area_boss_section import AreaBossSection
+from config_editor.widgets.value_button import ValueButton
+from config_editor.widgets.select_button import SelectButton
 from module.control.config.config import Config
 
 CONFIG_DIR = "configs"
@@ -20,9 +23,13 @@ class ConfigTab(QWidget):
     def __init__(self, config_path):
         super().__init__()
         self.config_path = config_path
-        self.load_config()
+        self.config = self.load_config()
         self.is_running = False
+        self.nav_buttons = {}
+        self.setup_ui()
 
+    def setup_ui(self):
+        """设置UI界面"""
         # 主布局
         main_layout = QVBoxLayout(self)
 
@@ -59,7 +66,6 @@ class ConfigTab(QWidget):
         nav_layout.addWidget(QLabel("快速导航:"))
 
         # 创建导航按钮
-        self.nav_buttons = {}
         sections = [
             ("script", "脚本设置", None),  # 脚本设置没有启用状态
             ("daily_routine", "日常任务", "daily_routine.scheduler.enable"),
@@ -94,12 +100,18 @@ class ConfigTab(QWidget):
         # 滚动区域
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
+        scroll.setHorizontalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAlwaysOff)  # 禁用水平滚动条
+        scroll.setVerticalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAsNeeded)  # 只在需要时显示垂直滚动条
+
+        # 创建滚动区域的内容部件
         scroll_widget = QWidget()
         scroll_layout = QVBoxLayout(scroll_widget)
-        scroll.setWidget(scroll_widget)
-        main_layout.addWidget(scroll)
+        scroll_layout.setSpacing(10)  # 设置部件之间的间距
+        scroll_layout.setContentsMargins(10, 10, 10, 10)  # 设置边距
 
-        # 分组
+        # 添加所有配置部分
         self.script_section = ScriptSection(self.config)
         scroll_layout.addWidget(self.script_section)
         self.daily_routine_section = DailyRoutineSection(self.config)
@@ -117,9 +129,12 @@ class ConfigTab(QWidget):
         self.area_boss_section = AreaBossSection(self.config)
         scroll_layout.addWidget(self.area_boss_section)
 
-        # 保存滚动区域和布局的引用
-        self.scroll_area = scroll
-        self.scroll_layout = scroll_layout
+        # 添加弹性空间，使内容靠上
+        scroll_layout.addStretch()
+
+        # 设置滚动区域的内容
+        scroll.setWidget(scroll_widget)
+        main_layout.addWidget(scroll)
 
         # 自动保存
         self.install_auto_save()
@@ -129,7 +144,7 @@ class ConfigTab(QWidget):
 
     def load_config(self):
         with open(self.config_path, 'r', encoding='utf-8') as f:
-            self.config = json.load(f)
+            return json.load(f)
 
     def save_config(self):
         self.script_section.update_config()
@@ -271,7 +286,7 @@ class ConfigTab(QWidget):
         for section in [self.script_section, self.daily_routine_section, self.wanted_quests_section,
                         self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
                         self.shikigami_activity_section, self.area_boss_section]:
-            for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit)):
+            for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
                 if hasattr(child, 'textChanged'):
                     child.textChanged.connect(self.on_config_changed)
                 if hasattr(child, 'currentIndexChanged'):
@@ -287,7 +302,7 @@ class ConfigTab(QWidget):
         self.update_nav_buttons()
 
     def scroll_to_section(self, section_id):
-        """滚动到指定部分"""
+        """滚动到指定的配置部分"""
         section_map = {
             "script": self.script_section,
             "daily_routine": self.daily_routine_section,
@@ -301,8 +316,10 @@ class ConfigTab(QWidget):
 
         if section_id in section_map:
             section = section_map[section_id]
-            # 使用 ensureWidgetVisible 来滚动到目标部件
-            self.scroll_area.ensureWidgetVisible(section)
+            # 获取滚动区域
+            scroll_area = self.findChild(QScrollArea)
+            if scroll_area:
+                scroll_area.ensureWidgetVisible(section)
 
 class ConfigEditor(QMainWindow):
     def __init__(self):

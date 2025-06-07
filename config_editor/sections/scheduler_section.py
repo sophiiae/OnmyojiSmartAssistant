@@ -1,52 +1,65 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-                             QCheckBox, QSpinBox, QLineEdit, QGroupBox)
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGroupBox, QVBoxLayout,
+                             QHBoxLayout, QLabel, QLineEdit)
+from config_editor.widgets.value_button import ValueButton
+from config_editor.widgets.select_button import SelectButton
+
+def add_labeled_widget(layout, label_text, widget):
+    row = QHBoxLayout()
+    row.addWidget(QLabel(label_text))
+    row.addWidget(widget)
+    layout.addLayout(row)
 
 class SchedulerSection(QGroupBox):
     def __init__(self, config, section_name):
         super().__init__("调度设置")
         self.config = config
         self.section_name = section_name
-        self.scheduler_config = config[section_name]["scheduler"]
-        self.create_widgets()
-
-    def create_widgets(self):
         layout = QVBoxLayout(self)
+        scheduler = config[section_name].get("scheduler", {})
 
         # 启用调度
-        enable_layout = QHBoxLayout()
-        self.enable_checkbox = QCheckBox("启用调度")
-        self.enable_checkbox.setChecked(self.scheduler_config["enable"])
-        enable_layout.addWidget(self.enable_checkbox)
-        layout.addLayout(enable_layout)
+        self.enable_check = QCheckBox("启用调度")
+        self.enable_check.setChecked(scheduler.get("enable", False))
+        layout.addWidget(self.enable_check)
 
         # 优先级
-        priority_layout = QHBoxLayout()
-        priority_layout.addWidget(QLabel("优先级:"))
-        self.priority_spinbox = QSpinBox()
-        self.priority_spinbox.setRange(0, 10)
-        self.priority_spinbox.setValue(self.scheduler_config["priority"])
-        priority_layout.addWidget(self.priority_spinbox)
-        layout.addLayout(priority_layout)
+        self.priority_spin = ValueButton()
+        self.priority_spin.setRange(0, 9999)
+        self.priority_spin.setValue(scheduler.get("priority", 0))
+        add_labeled_widget(layout, "优先级", self.priority_spin)
 
         # 成功间隔
-        success_layout = QHBoxLayout()
-        success_layout.addWidget(QLabel("成功间隔:"))
+        success_interval_layout = QHBoxLayout()
+        success_interval_layout.addWidget(QLabel("成功间隔:"))
         self.success_interval = QLineEdit()
-        self.success_interval.setText(self.scheduler_config["success_interval"])
-        success_layout.addWidget(self.success_interval)
-        layout.addLayout(success_layout)
+        self.success_interval.setText(
+            scheduler.get("success_interval", "00:00:00:00"))
+        success_interval_layout.addWidget(self.success_interval)
+        layout.addLayout(success_interval_layout)
 
         # 失败间隔
-        failure_layout = QHBoxLayout()
-        failure_layout.addWidget(QLabel("失败间隔:"))
+        failure_interval_layout = QHBoxLayout()
+        failure_interval_layout.addWidget(QLabel("失败间隔:"))
         self.failure_interval = QLineEdit()
-        self.failure_interval.setText(self.scheduler_config["failure_interval"])
-        failure_layout.addWidget(self.failure_interval)
-        layout.addLayout(failure_layout)
+        self.failure_interval.setText(
+            scheduler.get("failure_interval", "00:00:00:00"))
+        failure_interval_layout.addWidget(self.failure_interval)
+        layout.addLayout(failure_interval_layout)
+
+        # 下次运行时间
+        next_run_layout = QHBoxLayout()
+        next_run_layout.addWidget(QLabel("下次运行时间:"))
+        self.next_run = QLineEdit()
+        self.next_run.setText(scheduler.get("next_run", "2023-01-01 00:00:00"))
+        next_run_layout.addWidget(self.next_run)
+        layout.addLayout(next_run_layout)
 
     def update_config(self):
-        self.scheduler_config["enable"] = self.enable_checkbox.isChecked()
-        self.scheduler_config["priority"] = self.priority_spinbox.value()
-        self.scheduler_config["success_interval"] = self.success_interval.text()
-        self.scheduler_config["failure_interval"] = self.failure_interval.text() 
+        if "scheduler" not in self.config[self.section_name]:
+            self.config[self.section_name]["scheduler"] = {}
+        scheduler = self.config[self.section_name]["scheduler"]
+        scheduler["enable"] = self.enable_check.isChecked()
+        scheduler["priority"] = self.priority_spin.value()
+        scheduler["success_interval"] = self.success_interval.text()
+        scheduler["failure_interval"] = self.failure_interval.text()
+        scheduler["next_run"] = self.next_run.text()
