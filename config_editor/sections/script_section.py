@@ -12,16 +12,16 @@ class ScriptSection(QGroupBox):
         add_labeled_widget(layout, "设备序列号", self.serial_edit)
         self.handle_edit = QLineEdit(str(device.get("handle", "")))
         add_labeled_widget(layout, "句柄", self.handle_edit)
-        self.screenshot_combo = QComboBox()
-        self.screenshot_combo.addItems(["ADB_nc", "ADB", "minicap"])
-        self.screenshot_combo.setCurrentText(
-            device.get("screenshot_method", "ADB_nc"))
-        add_labeled_widget(layout, "截图方法", self.screenshot_combo)
-        self.control_combo = QComboBox()
-        self.control_combo.addItems(["minitouch", "ADB"])
-        self.control_combo.setCurrentText(
-            device.get("control_method", "minitouch"))
-        add_labeled_widget(layout, "控制方法", self.control_combo)
+        # self.screenshot_combo = QComboBox()
+        # self.screenshot_combo.addItems(["ADB_nc", "ADB", "minicap"])
+        # self.screenshot_combo.setCurrentText(
+        #     device.get("screenshot_method", "ADB_nc"))
+        # add_labeled_widget(layout, "截图方法", self.screenshot_combo)
+        # self.control_combo = QComboBox()
+        # self.control_combo.addItems(["minitouch", "ADB"])
+        # self.control_combo.setCurrentText(
+        #     device.get("control_method", "minitouch"))
+        # add_labeled_widget(layout, "控制方法", self.control_combo)
         # 优化设置
         opt = config["script"]["optimization"]
         self.screenshot_interval_spin = QDoubleSpinBox()
@@ -55,8 +55,8 @@ class ScriptSection(QGroupBox):
     def update_config(self):
         self.config["script"]["device"]["serial"] = self.serial_edit.text()
         self.config["script"]["device"]["handle"] = self.handle_edit.text()
-        self.config["script"]["device"]["screenshot_method"] = self.screenshot_combo.currentText()
-        self.config["script"]["device"]["control_method"] = self.control_combo.currentText()
+        # self.config["script"]["device"]["screenshot_method"] = self.screenshot_combo.currentText()
+        # self.config["script"]["device"]["control_method"] = self.control_combo.currentText()
         self.config["script"]["optimization"]["screenshot_interval"] = self.screenshot_interval_spin.value()
         self.config["script"]["optimization"]["combat_screenshot_interval"] = self.combat_interval_spin.value()
         self.config["script"]["optimization"]["schedule_rule"] = self.schedule_rule_edit.text()
