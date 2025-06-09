@@ -1,9 +1,6 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-                             QCheckBox, QSpinBox, QComboBox, QGroupBox)
-from config_editor.sections.scheduler_section import SchedulerSection
-from config_editor.sections.general_battle_section import GeneralBattleSection
+from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel,
+                             QCheckBox, QGroupBox)
 from config_editor.widgets.value_button import ValueButton
-from config_editor.widgets.select_button import SelectButton
 
 def add_checkbox_right_row(layout, checkbox, right_widgets):
     row = QHBoxLayout()

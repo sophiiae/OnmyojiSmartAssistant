@@ -7,16 +7,16 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 import os
 import sys
 from config_editor.main import ConfigTab
-from config_editor.trifle_fairy.sections.area_boss_section import AreaBossSection
-from config_editor.trifle_fairy.sections.daily_routine_section import DailyRoutineSection
-from config_editor.trifle_fairy.sections.collaboration_section import CollaborationSection
-from config_editor.trifle_fairy.sections.goryou_realm_section import GoryouRealmSection
-from config_editor.trifle_fairy.sections.summon_section import SummonSection
-from config_editor.trifle_fairy.sections.script_section import ScriptSection
-from config_editor.trifle_fairy.sections.scrolls_section import ScrollsSection
-from config_editor.trifle_fairy.sections.shikigami_activity_section import ShikigamiActivitySection
-from config_editor.trifle_fairy.sections.royal_battle_section import RoyalBattleSection
-from config_editor.trifle_fairy.sections.wanted_quests_section import WantedQuestsSection
+from trifle_fairy.sections.area_boss_section import AreaBossSection
+from trifle_fairy.sections.daily_routine_section import DailyRoutineSection
+from trifle_fairy.sections.collaboration_section import CollaborationSection
+from trifle_fairy.sections.goryou_realm_section import GoryouRealmSection
+from trifle_fairy.sections.summon_section import SummonSection
+from trifle_fairy.sections.script_section import ScriptSection
+from trifle_fairy.sections.scrolls_section import ScrollsSection
+from trifle_fairy.sections.shikigami_activity_section import ShikigamiActivitySection
+from trifle_fairy.sections.royal_battle_section import RoyalBattleSection
+from trifle_fairy.sections.wanted_quests_section import WantedQuestsSection
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
 from PyQt6.QtWidgets import QTabWidget
