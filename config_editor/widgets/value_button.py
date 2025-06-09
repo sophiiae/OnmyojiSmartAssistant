@@ -5,6 +5,7 @@ class ValueEditDialog(QDialog):
     def __init__(self, value, min_value, max_value, parent=None):
         super().__init__(parent)
         self.setWindowTitle("修改数值")
+        self.setMinimumSize(160, 100)
         self.setModal(True)
 
         layout = QVBoxLayout(self)

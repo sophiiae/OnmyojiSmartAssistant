@@ -1,0 +1,108 @@
+{
+  "script": {
+    "main_host": "127.0.0.1:16384",
+    "subhosts": [
+      "16416",
+      "16448",
+      "16480",
+      "16512",
+      "16544"
+    ],
+    "accounts": [
+      {
+        "account": "abc@abc.com",
+        "regions": [
+          "1234",
+          "456",
+          "789"
+        ]
+      },
+      {
+        "account": "qwe@qersd.com",
+        "regions": [
+          "1234",
+          "456",
+          "789"
+        ]
+      }
+    ]
+  },
+  "daily_routine": {
+    "enable": false,
+    "enable_jade": true,
+    "enable_sign": true,
+    "enable_sign_999": true,
+    "enable_mail": true,
+    "enable_soul": true,
+    "enable_ap": true,
+    "one_summon": false,
+    "friend_love": true,
+    "store_sign": true
+  },
+  "wanted_quests": {
+    "accept_type": "勾玉",
+    "invite_type": "勾玉",
+    "invite_friend_name": "1234"
+  },
+  "collaboration": {
+    "enable": false,
+    "enable_daily_routine": true,
+    "choose_regions": [
+      {
+        "account": "abc@abc.com",
+        "regions": [
+          "1234",
+          "789"
+        ]
+      },
+      {
+        "account": "qwe@qersd.com",
+        "regions": [
+          "1234",
+          "456"
+        ]
+      }
+    ]
+  },
+  "royal_battle": {
+    "enable": false,
+    "grade_threshold": 2400
+  },
+  "scrolls": {
+    "enable": true,
+    "scrolls_cd": "0:30:00",
+    "ticket_threshold": 22,
+    "buff_gold_50": false,
+    "buff_gold_100": false,
+    "buff_exp_50": true,
+    "buff_exp_100": false,
+    "count_max": 30,
+    "auto_backup": false,
+    "backup_rarity": "素材",
+    "lock_team_enable": true
+  },
+  "shikigami_activity": {
+    "enable": false,
+    "enable_ap_mode": false,
+    "auto_switch": false,
+    "ticket_max": 50,
+    "ap_max": 300,
+    "lock_team_enable": true
+  },
+  "goryou_realm": {
+    "enable": false,
+    "goryou_class": "自动",
+    "count_max": 50,
+    "level": "三层",
+    "lock_team_enable": true
+  },
+  "area_boss": {
+    "enable": false,
+    "boss_number": 3,
+    "boss_reward": false
+  },
+  "summon": {
+    "enable": true,
+    "count_max": 1000
+  }
+}

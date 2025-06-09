@@ -5,6 +5,7 @@ class ValueSelectDialog(QDialog):
     def __init__(self, items, current_index, parent=None):
         super().__init__(parent)
         self.setWindowTitle("选择选项")
+        self.setMinimumSize(160, 100)
         self.setModal(True)
 
         layout = QVBoxLayout(self)

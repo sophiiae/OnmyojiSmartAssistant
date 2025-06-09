@@ -24,7 +24,10 @@
       "next_run": "2024-08-16 15:03:54",
       "priority": 1,
       "success_interval": "01:00:00:00",
-      "failure_interval": "01:00:00:00"
+      "failure_interval": "01:00:00:00",
+      "mode": "time",
+      "time": "12:00:00",
+      "interval": "00:00:30:00"
     },
     "harvest_config": {
       "enable_jade": true,
@@ -39,7 +42,16 @@
       "guild_wish": false,
       "friend_love": false,
       "store_sign": true
-    }
+    },
+    "login_rewards": {
+      "领取勾玉": false,
+      "签到": false,
+      "签到999": false,
+      "领取邮件": false,
+      "领取御魂": false,
+      "领取体力": false
+    },
+    "priority": 1
   },
   "wanted_quests": {
     "accept_quest_config": {
@@ -52,7 +64,10 @@
       "next_run": "2025-06-01 10:40:21",
       "priority": 5,
       "success_interval": "00:00:10:00",
-      "failure_interval": "00:01:00:00"
+      "failure_interval": "00:01:00:00",
+      "mode": "time",
+      "time": "12:00:00",
+      "interval": "00:00:30:00"
     },
     "exploration_config": {
       "buff_gold_50": false,
@@ -93,7 +108,10 @@
       "next_run": "2025-05-29 09:19:32",
       "priority": 5,
       "success_interval": "00:00:10:00",
-      "failure_interval": "00:02:00:00"
+      "failure_interval": "00:02:00:00",
+      "mode": "time",
+      "time": "12:00:00",
+      "interval": "00:00:30:00"
     },
     "raid_config": {
       "tickets_required": 22,
@@ -125,7 +143,10 @@
       "next_run": "2024-08-15 21:07:19",
       "priority": 5,
       "success_interval": "00:00:30:00",
-      "failure_interval": "00:00:10:00"
+      "failure_interval": "00:00:10:00",
+      "mode": "time",
+      "time": "12:00:00",
+      "interval": "00:00:30:00"
     },
     "goryou_config": {
       "goryou_class": "自动",
@@ -140,7 +161,10 @@
       "next_run": "2024-07-22 10:40:48",
       "priority": 5,
       "success_interval": "00:00:10:00",
-      "failure_interval": "01:00:00:00"
+      "failure_interval": "01:00:00:00",
+      "mode": "time",
+      "time": "12:00:00",
+      "interval": "00:00:30:00"
     },
     "climb_config": {
       "enable_ap_mode": false,
@@ -171,8 +195,11 @@
       "enable": false,
       "next_run": "2023-01-01 00:00:00",
       "priority": 5,
-      "success_interval": "01 00:00:00",
-      "failure_interval": "01 00:00:00"
+      "success_interval": "00:00:00:00",
+      "failure_interval": "00:00:00:00",
+      "mode": "time",
+      "time": "12:00:00",
+      "interval": "00:00:30:00"
     },
     "boss": {
       "boss_number": 3,

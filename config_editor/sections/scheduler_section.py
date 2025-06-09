@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGroupBox, QVBoxLayout,
-                             QHBoxLayout, QLabel, QLineEdit, QTimeEdit, QDateTimeEdit, QSizePolicy)
+                             QHBoxLayout, QLabel, QLineEdit, QTimeEdit, QDateTimeEdit, QSizePolicy, QRadioButton)
 from PyQt6.QtCore import QTime, QDateTime
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
@@ -85,6 +85,16 @@ class DateTimeSelectRow:
                     "-"), self.month, QLabel("-"), self.day, QLabel(" "),
                 self.hour, QLabel(":"), self.minute, QLabel(":"), self.second]
 
+    def update_gui(self, value):
+        """更新GUI显示"""
+        y, m, d, h, mi, s = parse_datetime(value)
+        self.year.setCurrentText(str(y))
+        self.month.setCurrentText(f"{m:02d}")
+        self.day.setCurrentText(f"{d:02d}")
+        self.hour.setCurrentText(f"{h:02d}")
+        self.minute.setCurrentText(f"{mi:02d}")
+        self.second.setCurrentText(f"{s:02d}")
+
 class IntervalSelectRow:
     def __init__(self, label, default_str):
         self.label = label
@@ -120,6 +130,14 @@ class IntervalSelectRow:
     def widgets(self):
         return [QLabel(self.label), 'STRETCH', self.day, QLabel('天'), self.hour, QLabel(":"), self.minute, QLabel(":"), self.second]
 
+    def update_gui(self, value):
+        """更新GUI显示"""
+        d, h, mi, s = parse_interval(value)
+        self.day.setCurrentText(f"{d:02d}")
+        self.hour.setCurrentText(f"{h:02d}")
+        self.minute.setCurrentText(f"{mi:02d}")
+        self.second.setCurrentText(f"{s:02d}")
+
 class SchedulerSection(QGroupBox):
     def __init__(self, config, section_name):
         super().__init__("调度设置")
@@ -130,7 +148,10 @@ class SchedulerSection(QGroupBox):
             "priority": 0,
             "next_run": "2023-01-01 00:00:00",
             "success_interval": "00:00:30:00",
-            "failure_interval": "00:00:10:00"
+            "failure_interval": "00:00:10:00",
+            "mode": "time",
+            "time": "12:00:00",
+            "interval": "00:00:30:00"
         })
         self.create_widgets()
 
@@ -148,6 +169,32 @@ class SchedulerSection(QGroupBox):
         self.priority_spin.setValue(self.scheduler.get("priority", 0))
         add_left_row(layout, [QLabel("优先级"), self.priority_spin])
 
+        # 模式选择
+        mode_layout = QHBoxLayout()
+        self.time_radio = QRadioButton("定时执行")
+        self.interval_radio = QRadioButton("间隔执行")
+        mode = self.scheduler.get("mode", "time")
+        self.time_radio.setChecked(mode == "time")
+        self.interval_radio.setChecked(mode == "interval")
+        self.time_radio.toggled.connect(self.on_mode_changed)
+        self.interval_radio.toggled.connect(self.on_mode_changed)
+        mode_layout.addWidget(self.time_radio)
+        mode_layout.addWidget(self.interval_radio)
+        mode_layout.addStretch()
+        layout.addLayout(mode_layout)
+
+        # 时间设置
+        self.time_edit = QTimeEdit()
+        time_str = self.scheduler.get("time", "12:00:00")
+        h, m, s = map(int, time_str.split(":"))
+        self.time_edit.setTime(QTime(h, m, s))
+        add_left_row(layout, [QLabel("执行时间"), self.time_edit])
+
+        # 间隔时间设置
+        self.interval_row = IntervalSelectRow(
+            "执行间隔", self.scheduler.get("interval", "00:00:30:00"))
+        add_left_row(layout, self.interval_row.widgets())
+
         # next_run 分段选择
         self.next_run_row = DateTimeSelectRow(
             "下次执行时间", self.scheduler.get("next_run", "2023-01-01 00:00:00"))
@@ -164,10 +211,63 @@ class SchedulerSection(QGroupBox):
         add_left_row(layout, self.failure_interval_row.widgets())
 
         self.setLayout(layout)
+        self.on_mode_changed()
+
+    def on_mode_changed(self):
+        """根据模式切换显示不同的控件"""
+        is_time_mode = self.time_radio.isChecked()
+        self.time_edit.setEnabled(is_time_mode)
+        self.interval_row.widgets()[0].setEnabled(not is_time_mode)
+        for widget in self.interval_row.widgets()[2:]:
+            widget.setEnabled(not is_time_mode)
 
     def update_config(self):
         self.scheduler["enable"] = self.enable_check.isChecked()
         self.scheduler["priority"] = self.priority_spin.value()
+        self.scheduler["mode"] = "time" if self.time_radio.isChecked(
+        ) else "interval"
+        self.scheduler["time"] = self.time_edit.time().toString("HH:mm:ss")
+        self.scheduler["interval"] = self.interval_row.get()
         self.scheduler["next_run"] = self.next_run_row.get()
         self.scheduler["success_interval"] = self.success_interval_row.get()
         self.scheduler["failure_interval"] = self.failure_interval_row.get()
+
+    def update_gui(self):
+        """更新GUI显示"""
+        scheduler_config = self.config.get(
+            self.section_name, {}).get("scheduler", {})
+
+        # 更新启用状态
+        self.enable_check.setChecked(scheduler_config.get("enable", False))
+
+        # 更新优先级
+        self.priority_spin.setValue(scheduler_config.get("priority", 0))
+
+        # 更新模式选择
+        mode = scheduler_config.get("mode", "time")
+        if mode == "time":
+            self.time_radio.setChecked(True)
+            self.interval_radio.setChecked(False)
+        else:
+            self.time_radio.setChecked(False)
+            self.interval_radio.setChecked(True)
+
+        # 更新时间设置
+        time_str = scheduler_config.get("time", "12:00:00")
+        h, m, s = map(int, time_str.split(":"))
+        self.time_edit.setTime(QTime(h, m, s))
+
+        # 更新间隔时间设置
+        self.interval_row.update_gui(
+            scheduler_config.get("interval", "00:00:30:00"))
+
+        # 更新其他时间设置
+        self.next_run_row.update_gui(
+            scheduler_config.get("next_run", "2023-01-01 00:00:00"))
+        self.success_interval_row.update_gui(
+            scheduler_config.get("success_interval", "00:00:30:00"))
+        self.failure_interval_row.update_gui(
+            scheduler_config.get("failure_interval", "00:00:10:00"))
+
+        # 更新控件状态
+        self.on_mode_changed()

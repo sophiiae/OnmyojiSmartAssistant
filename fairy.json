@@ -1,0 +1,18 @@
+{
+    "trifle_fairy": {
+        "soul_10": false,
+        "soul_11": false,
+        "awaken_10": false,
+        "explore_28": false,
+        "priority": 1,
+        "scheduler": {
+            "enable": false,
+            "mode": "time",
+            "time": "12:00:00",
+            "interval": "00:00:30:00",
+            "next_run": "2023-01-01 00:00:00",
+            "success_interval": "00:00:30:00",
+            "failure_interval": "00:00:10:00"
+        }
+    }
+}
