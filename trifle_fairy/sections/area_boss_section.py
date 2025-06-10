@@ -36,13 +36,7 @@ class AreaBossSection(QGroupBox):
         self.boss_number_spin.setValue(self.config.get("boss_number", 0))
         add_left_row(layout, [QLabel("鬼王数量"), self.boss_number_spin])
 
-        # 领取奖励（CheckBox独占一行）
-        self.boss_reward = QCheckBox("领取奖励")
-        self.boss_reward.setChecked(self.config["boss_reward"])
-        add_left_row(layout, [self.boss_reward])
-
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
         # 更新鬼王配置
         self.config["boss_number"] = self.boss_number_spin.value()
-        self.config["boss_reward"] = self.boss_reward.isChecked()

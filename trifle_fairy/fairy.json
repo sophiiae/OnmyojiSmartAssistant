@@ -46,23 +46,7 @@
   },
   "collaboration": {
     "enable": false,
-    "enable_daily_routine": true,
-    "choose_regions": [
-      {
-        "account": "abc@abc.com",
-        "regions": [
-          "1234",
-          "789"
-        ]
-      },
-      {
-        "account": "qwe@qersd.com",
-        "regions": [
-          "1234",
-          "456"
-        ]
-      }
-    ]
+    "enable_daily_routine": true
   },
   "royal_battle": {
     "enable": false,
@@ -77,6 +61,7 @@
     "buff_exp_50": true,
     "buff_exp_100": true,
     "count_max": 50,
+    "chapter": "第二十八章",
     "auto_backup": false,
     "backup_rarity": "素材",
     "lock_team_enable": true
@@ -91,15 +76,14 @@
   },
   "goryou_realm": {
     "enable": false,
-    "goryou_class": "自动",
+    "goryou_class": "随机",
     "count_max": 50,
     "level": "三层",
     "lock_team_enable": true
   },
   "area_boss": {
     "enable": false,
-    "boss_number": 3,
-    "boss_reward": false
+    "boss_number": 3
   },
   "summon": {
     "enable": true,

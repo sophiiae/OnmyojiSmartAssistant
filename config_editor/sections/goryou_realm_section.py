@@ -54,7 +54,7 @@ class GoryouRealmSection(QGroupBox):
 
         # 御灵类型（无CheckBox，左对齐）
         self.goryou_type_combo = SelectButton()
-        self.goryou_type_combo.addItems(["自动", "白藏主", "黑豹", "孔雀", "九尾狐"])
+        self.goryou_type_combo.addItems(["随机", "白藏主", "黑豹", "孔雀", "九尾狐"])
         self.goryou_type_combo.setCurrentText(
             goryou_config.get("goryou_class", "暗孔雀"))
         add_left_row(layout, [QLabel("御灵类型"), self.goryou_type_combo])
