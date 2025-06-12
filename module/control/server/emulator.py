@@ -9,11 +9,13 @@ import concurrent.futures
 from module.base.exception import DeviceNotRunningError
 from trifle_fairy.config.config import Config
 from module.image_processing.image_processor import ImageProcessor
-from module.base.logger import logger
+from module.base.logger import GameConsoleLogger
 from module.control.server.adb_device import ADBDevice
 
 mumu_path = r"C:\Program Files\Netease\MuMu Player 12\shell\MuMuPlayer.exe"
 mumu_multi_player_path = r"C:\Program Files\Netease\MuMu Player 12\shell\MuMuMultiPlayer.exe"
+
+logger = GameConsoleLogger(debug_mode=False)
 
 class Emulator:
     delay_between_instances = 15  # 实例启动间隔（秒）
@@ -169,6 +171,7 @@ class Emulator:
                 success = False
                 break
             activated_devices.append(d)
+            time.sleep(5)
         return activated_devices if success else []
 
     def get_image_path(self, file_name: str) -> str:
@@ -194,17 +197,14 @@ class Emulator:
         self.click_onmyoji(device, is_main)
 
     def click_onmyoji(self, device: ADBDevice, is_main: bool = False):
-        device.capture_screenshot(f"{device.port}.png")
+        # device.capture_screenshot(f"{device.port}.png")
         screenshot = device.get_screenshot()
         pro = ImageProcessor(screenshot)
 
-        logos = ['logo.png', 'logo_sub.png']
-        for logo in logos:
-            center = pro.get_match_center(self.get_image_path(logo))
-            if center is not None:
-                device.click(center[0], center[1])
-                logger.success(f"找到阴阳师Logo，正在启动...")
-                break
+        center = pro.get_match_center(self.get_image_path('logo.png'))
+        if center is not None:
+            device.click(center[0], center[1])
+            logger.success(f"找到阴阳师Logo，正在启动...")
         else:
             logger.error("未找到阴阳师Logo, 请检查图片路径和截图质量！")
             raise DeviceNotRunningError("未找到阴阳师Logo, 请检查图片路径和截图质量！")
@@ -234,8 +234,6 @@ class Emulator:
         logger.success("MUMU所有模拟器已启动！")
         with concurrent.futures.ProcessPoolExecutor() as executor:
             executor.map(self.start_onmyoji, self.sub_devices)
-        # for device in self.sub_devices:
-        #     self.start_onmyoji(device)
 
 
 if __name__ == "__main__":

@@ -40,3 +40,4 @@ ENV/
 Thumbs.db 
 
 test_screenshot.png
+compact_log.txt
