@@ -197,7 +197,7 @@ if __name__ == "__main__":
     print(f"args: {sys.argv}")
     from pathlib import Path
     sys.path.append(str(Path(__file__).parent.parent.parent))
-    from module.control.server.connection import Connection
+    from module.control.server.old_connection import Connection
     from module.control.config.config import Config
 
     if len(sys.argv) > 1:
