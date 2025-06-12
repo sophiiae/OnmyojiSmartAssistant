@@ -1,5 +1,9 @@
 from module.base.logger import logger
 
+class DeviceNotRunningError(Exception):
+    def __init__(self, msg="DeviceNotRunningError"):
+        logger.error(msg)
+        exit()
 class GamePageUnknownError(Exception):
     def __init__(self):
         exit()

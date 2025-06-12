@@ -3,16 +3,17 @@ import os
 from pathlib import Path
 import sys
 import cv2
+from cv2.typing import MatLike
 import numpy as np
 from typing import Optional, Tuple
 from module.base.logger import logger
 
 class ImageProcessor:
-    screenshot: Optional[np.ndarray] = None
+    screenshot: Optional[MatLike] = None
     target_rectangle_color = (101, 67, 196)
     area_rectangle_color = (56, 176, 0)
 
-    def __init__(self, screenshot: np.ndarray) -> None:
+    def __init__(self, screenshot: MatLike | None) -> None:
         self.screenshot = screenshot
 
     def parse_dir(self, dir: str, draw_output: bool = False):
@@ -80,17 +81,30 @@ class ImageProcessor:
         else:
             logger.error("Error: no target found.")
 
+    def get_match_center(self, path) -> Optional[Tuple[int, int]]:
+        image = cv2.imread(path)
+        result = self.find_target(image)
+        if result is not None:
+            x, y, w, h = result
+            center_x = int(x) + (int(w) // 2)
+            center_y = int(y) + (int(h) // 2)
+            return center_x, center_y
+        return None
+
     def get_name_from_path(self, path: str):
         file = path.split('\\')[-1]
         return file.split('.')[0]
 
-    # def match_all_target(self, path):
-    #     image = cv2.imread(path)
-    #     print(f"path: {path}")
-    #     # 目標取樣
-    #     result = cv2.matchTemplate(
-    #         self.screenshot, target, cv2.TM_CCORR_NORMED
-    #     )
+    def match_all_target(self, path):
+        image = cv2.imread(path)
+        print(f"path: {path}")
+        if self.screenshot is None or image is None:
+            return None
+        # 目標取樣
+        result = cv2.matchTemplate(
+            self.screenshot, image, cv2.TM_CCORR_NORMED
+        )
+        return result
 
     def find_target(self, target: np.ndarray) -> Optional[Tuple[int, int, int, int]]:
         # 目標取樣
