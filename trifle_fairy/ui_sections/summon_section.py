@@ -25,6 +25,18 @@ class SummonSection(QGroupBox):
         self.enable_checkbox.setChecked(self.config.get("enable", False))
         layout.addWidget(self.enable_checkbox)
 
+        # 优先级（无CheckBox，左对齐）
+        self.priority = ValueButton()
+        self.priority.setRange(1, 5)
+        self.priority.setValue(self.config["priority"])
+        add_left_row(layout, [QLabel("优先级:"), self.priority])
+
+        # 票数阈值（无CheckBox，左对齐）
+        self.ticket_threshold = ValueButton()
+        self.ticket_threshold.setRange(0, 999)
+        self.ticket_threshold.setValue(self.config["ticket_threshold"])
+        add_left_row(layout, [QLabel("票数阈值:"), self.ticket_threshold])
+
         # 最大次数（无CheckBox，左对齐）
         self.count_max = ValueButton()
         self.count_max.setRange(1, 5000)
@@ -33,5 +45,7 @@ class SummonSection(QGroupBox):
 
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
+        self.config["priority"] = self.priority.value()
         # 更新探索配置
+        self.config["ticket_threshold"] = self.ticket_threshold.value()
         self.config["count_max"] = self.count_max.value()

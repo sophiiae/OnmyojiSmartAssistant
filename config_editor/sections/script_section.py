@@ -2,12 +2,7 @@ from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGroupBox, QLineEdit,
                              QVBoxLayout, QHBoxLayout, QLabel)
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
-
-def add_labeled_widget(layout, label_text, widget):
-    row = QHBoxLayout()
-    row.addWidget(QLabel(label_text))
-    row.addWidget(widget)
-    layout.addLayout(row)
+from trifle_fairy.ui_sections.utils import add_labeled_widget
 
 class ScriptSection(QGroupBox):
     def __init__(self, config):

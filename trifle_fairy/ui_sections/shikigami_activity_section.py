@@ -33,6 +33,12 @@ class ShikigamiActivitySection(QGroupBox):
         self.enable_checkbox.setChecked(self.config.get("enable", False))
         layout.addWidget(self.enable_checkbox)
 
+        # 优先级（无CheckBox，左对齐）
+        self.priority = ValueButton()
+        self.priority.setRange(1, 5)
+        self.priority.setValue(self.config["priority"])
+        add_left_row(layout, [QLabel("优先级:"), self.priority])
+
         # 启用体力模式（CheckBox独占一行）
         self.enable_ap_mode = QCheckBox("启用体力模式")
         self.enable_ap_mode.setChecked(
@@ -64,6 +70,7 @@ class ShikigamiActivitySection(QGroupBox):
 
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
+        self.config["priority"] = self.priority.value()
         # 更新爬塔配置
         self.config["enable_ap_mode"] = self.enable_ap_mode.isChecked()
         self.config["auto_switch"] = self.auto_switch.isChecked()

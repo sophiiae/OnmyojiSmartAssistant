@@ -28,6 +28,7 @@
     ]
   },
   "daily_routine": {
+    "priority": 1,
     "enable": false,
     "enable_jade": true,
     "enable_sign": true,
@@ -45,14 +46,17 @@
     "invite_friend_name": "1234"
   },
   "collaboration": {
+    "priority": 5,
     "enable": false,
     "enable_daily_routine": true
   },
   "royal_battle": {
+    "priority": 2,
     "enable": false,
     "grade_threshold": 2400
   },
   "scrolls": {
+    "priority": 4,
     "enable": true,
     "scrolls_cd": "0:30:00",
     "ticket_threshold": 22,
@@ -67,6 +71,7 @@
     "lock_team_enable": true
   },
   "shikigami_activity": {
+    "priority": 5,
     "enable": false,
     "enable_ap_mode": false,
     "auto_switch": false,
@@ -75,6 +80,7 @@
     "lock_team_enable": true
   },
   "goryou_realm": {
+    "priority": 4,
     "enable": false,
     "goryou_class": "随机",
     "count_max": 50,
@@ -82,11 +88,14 @@
     "lock_team_enable": true
   },
   "area_boss": {
+    "priority": 3,
     "enable": false,
     "boss_number": 3
   },
   "summon": {
+    "priority": 1,
     "enable": true,
-    "count_max": 1000
+    "count_max": 1000,
+    "ticket_threshold": 500
   }
 }

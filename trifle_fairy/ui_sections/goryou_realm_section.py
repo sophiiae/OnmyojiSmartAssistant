@@ -32,6 +32,12 @@ class GoryouRealmSection(QGroupBox):
         self.enable_checkbox.setChecked(self.config.get("enable", False))
         layout.addWidget(self.enable_checkbox)
 
+        # 优先级（无CheckBox，左对齐）
+        self.priority = ValueButton()
+        self.priority.setRange(1, 5)
+        self.priority.setValue(self.config["priority"])
+        add_left_row(layout, [QLabel("优先级:"), self.priority])
+
         # 御灵类型（无CheckBox，左对齐）
         self.goryou_type_combo = SelectButton()
         self.goryou_type_combo.addItems(["随机", "白藏主", "黑豹", "孔雀", "九尾狐"])
@@ -59,6 +65,7 @@ class GoryouRealmSection(QGroupBox):
 
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
+        self.config["priority"] = self.priority.value()
         self.config["goryou_class"] = self.goryou_type_combo.currentText()
         self.config["count_max"] = self.max_count_spin.value()
         self.config["level"] = self.level_combo.currentText()

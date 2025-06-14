@@ -4,7 +4,9 @@ import numpy as np
 import cv2
 import os
 
-from module.base.logger import logger
+from module.base.logger import GameConsoleLogger
+
+logger = GameConsoleLogger(debug_mode=True)
 
 class ADBDevice:
     """ADBDevice class for Android device communication."""
@@ -34,7 +36,8 @@ class ADBDevice:
             if self.port is not None:
                 for i in range(3):
                     if self.adb.remote_connect(self.host, self.port + i):
-                        print(f"connected to {self.host}:{self.port + i}")
+                        logger.info(
+                            f"connected to {self.host}:{self.port + i}")
                         self.port = self.port + i
                         self.device = self.adb.device(
                             f"{self.host}:{self.port + i}")
@@ -60,20 +63,21 @@ class ADBDevice:
             np.ndarray:
         """
         if self.device is None:
-            print("Error: no device detected")
+            logger.error("Error: no device detected")
             return
         image = self.device.screencap()
         image = self.decode_image(image)
+        self.screenshot = image
         return image
 
     def capture_screenshot(self, filepath):
         """Capture the screenshot."""
         image = self.get_screenshot()
         if image is None:
-            print("no image captured.")
+            logger.error("no image captured.")
             return
         cv2.imwrite(filepath, image)
-        print(f"got a screenshot in {filepath}")
+        logger.info(f"got a screenshot in {filepath}")
 
     def click(self, x, y):
         """Click the screen."""

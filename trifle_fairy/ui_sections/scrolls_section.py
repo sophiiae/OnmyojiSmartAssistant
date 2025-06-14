@@ -4,20 +4,7 @@ from config_editor.sections.scheduler_section import SchedulerSection
 from config_editor.sections.general_battle_section import GeneralBattleSection
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
-
-def add_checkbox_right_row(layout, checkbox, right_widgets):
-    row = QHBoxLayout()
-    row.addWidget(checkbox)
-    row.addStretch()
-    for w in right_widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
-
-def add_left_row(layout, widgets):
-    row = QHBoxLayout()
-    for w in widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
+from trifle_fairy.ui_sections.utils import add_left_row, add_checkbox_right_row
 
 class ScrollsSection(QGroupBox):
     def __init__(self, config):
@@ -32,6 +19,12 @@ class ScrollsSection(QGroupBox):
         self.enable_checkbox = QCheckBox("启用绘卷")
         self.enable_checkbox.setChecked(self.config.get("enable", False))
         layout.addWidget(self.enable_checkbox)
+
+        # 优先级（无CheckBox，左对齐）
+        self.priority = ValueButton()
+        self.priority.setRange(1, 5)
+        self.priority.setValue(self.config["priority"])
+        add_left_row(layout, [QLabel("优先级:"), self.priority])
 
         # 卷轴CD（无CheckBox，左对齐）
         self.scrolls_cd = QLineEdit()
@@ -88,6 +81,8 @@ class ScrollsSection(QGroupBox):
 
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
+        self.config["priority"] = self.priority.value()
+
         # 更新探索配置
         self.config["buff_gold_50"] = self.buff_gold_50.isChecked()
         self.config["buff_gold_100"] = self.buff_gold_100.isChecked(

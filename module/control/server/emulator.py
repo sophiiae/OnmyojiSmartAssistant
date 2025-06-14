@@ -1,3 +1,4 @@
+from functools import cached_property
 import os
 import subprocess
 import sys
@@ -6,7 +7,7 @@ import psutil
 import pyautogui
 import concurrent.futures
 
-from module.base.exception import DeviceNotRunningError
+from module.base.exception import DeviceNotRunningError, RequestHumanTakeover
 from trifle_fairy.config.config import Config
 from module.image_processing.image_processor import ImageProcessor
 from module.base.logger import GameConsoleLogger
@@ -20,14 +21,25 @@ logger = GameConsoleLogger(debug_mode=False)
 class Emulator:
     delay_between_instances = 15  # 实例启动间隔（秒）
     max_retries = 2               # 失败重试次数
-    main_device = None
-    sub_devices = []  # Initialize as empty list
+    main_device: ADBDevice
+    sub_devices: list[ADBDevice]
     mumu_path = mumu_path  # MuMu模拟器路径
     mumu_multi_player_path = mumu_multi_player_path  # MuMu多开器路径
 
-    def __init__(self, config: Config):
-        self.config = config
-        self.name = config.config_name
+    def __init__(self, config_name: str):
+        self.name = config_name
+
+    @cached_property
+    def config(self) -> "Config":
+        try:
+            config = Config(config_name=self.name)
+            return config
+        except RequestHumanTakeover:
+            logger.critical('Request human takeover')
+            raise RequestHumanTakeover
+        except Exception as e:
+            logger.error(str(e))
+            raise RequestHumanTakeover
 
     def start_mumu12(self):
         # 检查MuMu12是否已经运行
@@ -145,9 +157,15 @@ class Emulator:
             logger.info(f"尝试第 {attempt + 1} 次启动...")
             is_started = self.check_mumu_process() or self.activate_all_mumu()
             if is_started:
-                activated_devices = self.get_all_devices()
-                if len(activated_devices) > 0:
-                    break
+                logger.info("正在获取所有设备...")
+                for attempt in range(self.max_retries):
+                    logger.info(f"尝试第 {attempt + 1} 次获取设备...")
+                    activated_devices = self.get_all_devices()
+                    if len(activated_devices) == len(self.config.model.script.subhosts) + 1:
+                        return activated_devices
+                    else:
+                        logger.info("设备数量不匹配，正在重试...")
+                        time.sleep(self.delay_between_instances)
 
             activated_devices = []
             self.kill_mumu_process()
@@ -171,7 +189,7 @@ class Emulator:
                 success = False
                 break
             activated_devices.append(d)
-            time.sleep(5)
+            time.sleep(2)
         return activated_devices if success else []
 
     def get_image_path(self, file_name: str) -> str:
@@ -231,13 +249,14 @@ class Emulator:
 
     def start_all_onmyoji(self):
         self.sub_devices = self.multi_mumu_start_with_retry()
+        self.kill_mumu_process(multi_only=True)
         logger.success("MUMU所有模拟器已启动！")
         with concurrent.futures.ProcessPoolExecutor() as executor:
             executor.map(self.start_onmyoji, self.sub_devices)
 
 
 if __name__ == "__main__":
-    emulator = Emulator(Config("fairy"))
+    emulator = Emulator(config_name="fairy")
 
     args = sys.argv
     if len(args) > 1 and sys.argv[1] == '-m':

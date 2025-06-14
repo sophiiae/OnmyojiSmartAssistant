@@ -30,6 +30,12 @@ class AreaBossSection(QGroupBox):
         self.enable_checkbox.setChecked(self.config.get("enable", False))
         layout.addWidget(self.enable_checkbox)
 
+        # 优先级（无CheckBox，左对齐）
+        self.priority = ValueButton()
+        self.priority.setRange(1, 5)
+        self.priority.setValue(self.config["priority"])
+        add_left_row(layout, [QLabel("优先级:"), self.priority])
+
         # 鬼王数量（无CheckBox，左对齐）
         self.boss_number_spin = ValueButton()
         self.boss_number_spin.setRange(0, 9999)
@@ -38,5 +44,6 @@ class AreaBossSection(QGroupBox):
 
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
+        self.config["priority"] = self.priority.value()
         # 更新鬼王配置
         self.config["boss_number"] = self.boss_number_spin.value()

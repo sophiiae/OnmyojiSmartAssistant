@@ -32,6 +32,12 @@ class RoyalBattleSection(QGroupBox):
         self.enable_checkbox.setChecked(self.config.get("enable", False))
         layout.addWidget(self.enable_checkbox)
 
+        # 优先级（无CheckBox，左对齐）
+        self.priority = ValueButton()
+        self.priority.setRange(1, 5)
+        self.priority.setValue(self.config["priority"])
+        add_left_row(layout, [QLabel("优先级:"), self.priority])
+
         self.grade_threshold = ValueButton()
         self.grade_threshold.setRange(0, 9999)
         self.grade_threshold.setValue(
@@ -41,3 +47,4 @@ class RoyalBattleSection(QGroupBox):
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
         self.config["grade_threshold"] = self.grade_threshold.value()
+        self.config["priority"] = self.priority.value()

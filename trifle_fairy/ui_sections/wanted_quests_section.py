@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QLabel, QHBoxLayout, QLineEdit
-from trifle_fairy.sections.script_section import add_labeled_widget
+from trifle_fairy.ui_sections.utils import add_labeled_widget
 from config_editor.widgets.select_button import SelectButton
 
 class WantedQuestsSection(QGroupBox):

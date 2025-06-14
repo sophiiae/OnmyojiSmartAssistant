@@ -4,44 +4,23 @@ from multiprocessing import Queue
 from pathlib import Path
 import importlib
 import importlib.util
+from typing import Optional
 import inflection
 import sys
 
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
+from module.control.server.adb_device import ADBDevice
+from module.control.server.emulator import Emulator
 from trifle_fairy.config.config import Config
-from trifle_fairy.control.device import Device
 
 class Script:
-    def __init__(self, config_name: str = 'fairy') -> None:
-        self.config_name = config_name
+    def __init__(self, config: Config, device: ADBDevice) -> None:
+        self.config = config
+        self.device = device
         self.state_queue: Queue = Queue()  # Initialize Queue properly
         # Key: str, task name, value: int, failure count
         self.failure_record: dict[str, int] = {}  # Add type annotation
-
-    @cached_property
-    def config(self) -> "Config":
-        try:
-            config = Config(config_name=self.config_name)
-            return config
-        except RequestHumanTakeover:
-            logger.critical('Request human takeover')
-            raise RequestHumanTakeover
-        except Exception as e:
-            logger.error(str(e))
-            raise RequestHumanTakeover
-
-    @cached_property
-    def device(self) -> "Device":
-        try:
-            device = Device(config=self.config)
-            return device
-        except RequestHumanTakeover:
-            logger.critical('Request human takeover')
-            exit(1)
-        except Exception as e:
-            logger.error(str(e))
-            exit(1)
 
     def run(self, name: str) -> bool:
         """
@@ -54,7 +33,7 @@ class Script:
             return False
 
         try:
-            self.device.screenshot()
+            self.device.get_screenshot()
             module_name = 'task_script'
             module_path = str(Path.cwd() / 'tasks' /
                               name / (module_name + '.py')
@@ -144,4 +123,7 @@ class Script:
 
 
 if __name__ == "__main__":
-    script = Script("fairy")
+    emulator = Emulator(config_name="fairy")
+    device = emulator.main_device
+    script = Script(emulator.config, device)
+    script.start()
