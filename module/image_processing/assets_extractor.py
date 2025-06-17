@@ -60,7 +60,8 @@ class ImageExtractor:
         """
         my_file = Path(item["file"])
         if item["file"] != "" and not my_file.is_file():
-            logger.error(f"Error: cannot find {item['name']} in {item['file']}")
+            logger.error(
+                f"Error: cannot find {item['name']} in {item['file']}")
 
         description: str = f'\t# {item["description"]} \n'
         name: str = f'\tI_{name_transform(item["name"])} = RuleImage(\n' \

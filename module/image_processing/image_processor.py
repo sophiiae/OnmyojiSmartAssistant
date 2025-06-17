@@ -13,7 +13,7 @@ class ImageProcessor:
     target_rectangle_color = (101, 67, 196)
     area_rectangle_color = (56, 176, 0)
 
-    def __init__(self, screenshot: MatLike | None) -> None:
+    def __init__(self, screenshot) -> None:
         self.screenshot = screenshot
 
     def parse_dir(self, dir: str, draw_output: bool = False):
@@ -193,36 +193,34 @@ class ImageProcessor:
             json.dump(content, fp, indent=2)
 
 
-if __name__ == "__main__":
-    print(f"args: {sys.argv}")
-    from pathlib import Path
-    sys.path.append(str(Path(__file__).parent.parent.parent))
-    from module.control.server.old_connection import Connection
-    from module.control.config.config import Config
+# if __name__ == "__main__":
+#     print(f"args: {sys.argv}")
+#     from pathlib import Path
+#     sys.path.append(str(Path(__file__).parent.parent.parent))
 
-    if len(sys.argv) > 1:
-        if len(sys.argv) == 2:
-            target = sys.argv[1]   # path of target image
-            config = Config("osa")
-            cn = Connection(config)
-            screenshot = cn.get_screenshot()
-        else:
-            screenshot = cv2.imread(sys.argv[1])
-            target = sys.argv[2]
+#     if len(sys.argv) > 1:
+#         if len(sys.argv) == 2:
+#             target = sys.argv[1]   # path of target image
+#             emulator = Emulator(config_name="osa")
+#             device = emulator.main_device
+#             screenshot = device.get_screenshot()
+#         else:
+#             screenshot = cv2.imread(sys.argv[1])
+#             target = sys.argv[2]
 
-        if screenshot is None:
-            logger.error("Error: Failed to get screenshot")
-            sys.exit(1)
-        pro = ImageProcessor(screenshot)
-        result = pro.parse_image_file(target)
-        logger.info(json.dumps(result))
-        pro.write_output(f"output")
-    else:
-        config = Config("backup")
-        cn = Connection(config)
-        screenshot = cn.get_screenshot()
-        if screenshot is None:
-            logger.error("Error: Failed to get screenshot")
-            sys.exit(1)
-        pro = ImageProcessor(screenshot)
-        pro.write_output(f"output-i")
+#         if screenshot is None:
+#             logger.error("Error: Failed to get screenshot")
+#             sys.exit(1)
+#         pro = ImageProcessor(screenshot)
+#         result = pro.parse_image_file(target)
+#         logger.info(json.dumps(result))
+#         pro.write_output(f"output")
+#     else:
+#         emulator = Emulator(config_name="osa")
+#         device = emulator.main_device
+#         screenshot = device.get_screenshot()
+#         if screenshot is None:
+#             logger.error("Error: Failed to get screenshot")
+#             sys.exit(1)
+#         pro = ImageProcessor(screenshot)
+#         pro.write_output(f"output-i")

@@ -323,6 +323,24 @@ class ExplorationConfig(BaseModel):
 
     Settings for chapter exploration and experience/gold farming.
     """
+    # 绘卷模式
+    scroll_mode_enable: bool = Field(
+        default=True,
+        description="绘卷模式"
+    )
+
+    scrolls_cd: str = Field(
+        default="0:30:00",
+        title="绘卷冷却",
+        description="绘卷冷却时间"
+    )
+
+    ticket_threshold: int = Field(
+        title="突破门票阈值",
+        default=25,
+        ge=1,
+        description="突破门票阈值"
+    )
 
     # Buff settings
     buff_gold_50: bool = Field(
@@ -377,31 +395,6 @@ class ExplorationConfig(BaseModel):
         description="锁定阵容"
     )
 
-# 绘卷模式
-class ScrollModeConfig(BaseModel):
-    """
-    Scroll mode configuration for exploration.
-
-    Settings for using exploration scrolls to reduce AP consumption.
-    """
-
-    scroll_mode_enable: bool = Field(
-        default=True,
-        description="绘卷模式"
-    )
-
-    scrolls_cd: str = Field(
-        default="0:30:00",
-        title="绘卷冷却",
-        description="绘卷冷却时间"
-    )
-
-    ticket_threshold: int = Field(
-        title="突破门票阈值",
-        default=25,
-        ge=1,
-        description="突破门票阈值"
-    )
 
 # 探索
 class Exploration(BaseModel):
@@ -418,12 +411,6 @@ class Exploration(BaseModel):
         default_factory=ExplorationConfig,
         title="探索设置",
         description="探索设置"
-    )
-
-    scroll_mode: ScrollModeConfig = Field(
-        default_factory=ScrollModeConfig,
-        title="绘卷模式设置",
-        description="绘卷模式设置"
     )
 
 class ClimbConfig(BaseModel):

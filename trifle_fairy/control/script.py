@@ -12,7 +12,7 @@ from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.control.server.adb_device import ADBDevice
 from module.control.server.emulator import Emulator
-from trifle_fairy.config.config import Config
+from module.control.config.config import Config
 
 class Script:
     def __init__(self, config: Config, device: ADBDevice) -> None:

@@ -7,16 +7,16 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 import os
 import sys
 from config_editor.main import ConfigTab
-from trifle_fairy.sections.area_boss_section import AreaBossSection
-from trifle_fairy.sections.daily_routine_section import DailyRoutineSection
-from trifle_fairy.sections.collaboration_section import CollaborationSection
-from trifle_fairy.sections.goryou_realm_section import GoryouRealmSection
-from trifle_fairy.sections.summon_section import SummonSection
-from trifle_fairy.sections.script_section import ScriptSection
-from trifle_fairy.sections.scrolls_section import ScrollsSection
-from trifle_fairy.sections.shikigami_activity_section import ShikigamiActivitySection
-from trifle_fairy.sections.royal_battle_section import RoyalBattleSection
-from trifle_fairy.sections.wanted_quests_section import WantedQuestsSection
+from trifle_fairy.ui_sections.area_boss_section import AreaBossSection
+from trifle_fairy.ui_sections.daily_routine_section import DailyRoutineSection
+from trifle_fairy.ui_sections.collaboration_section import CollaborationSection
+from trifle_fairy.ui_sections.goryou_realm_section import GoryouRealmSection
+from trifle_fairy.ui_sections.summon_section import SummonSection
+from trifle_fairy.ui_sections.script_section import ScriptSection
+from trifle_fairy.ui_sections.exploration_section import ExplorationSection
+from trifle_fairy.ui_sections.shikigami_activity_section import ShikigamiActivitySection
+from trifle_fairy.ui_sections.royal_battle_section import RoyalBattleSection
+from trifle_fairy.ui_sections.wanted_quests_section import WantedQuestsSection
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
 from PyQt6.QtWidgets import QTabWidget
@@ -124,7 +124,7 @@ class FairyEditor(ConfigTab):
         scroll_layout.addWidget(self.collaboration_section)
         self.royal_battle_section = RoyalBattleSection(self.config)
         scroll_layout.addWidget(self.royal_battle_section)
-        self.scrolls = ScrollsSection(self.config)
+        self.scrolls = ExplorationSection(self.config)
         scroll_layout.addWidget(self.scrolls)
         self.shikigami_activity_section = ShikigamiActivitySection(self.config)
         scroll_layout.addWidget(self.shikigami_activity_section)

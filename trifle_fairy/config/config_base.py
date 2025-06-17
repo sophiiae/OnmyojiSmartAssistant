@@ -25,7 +25,7 @@ class ScriptSetting(BaseModel):
 # Daily Routine  每日日常
 class DailyRoutine(BaseModel):
     enable: bool = Field(default=False)
-
+    priority: int = Field(default=1, title="优先级")
     enable_jade: bool = Field(default=True)  # 永久勾玉卡
     enable_sign: bool = Field(default=True)  # 签到
     enable_sign_999: bool = Field(default=True)  # 999天的签到福袋
@@ -47,16 +47,20 @@ class WantedQuests(BaseModel):
 # 好友协战（小号用）
 class Collaboration(BaseModel):
     enable: bool = Field(default=False)
+    priority: int = Field(default=1, title="优先级")
     enable_daily_routine: bool = Field(default=False)
 
 # 个人突破
 class RoyalBattle(BaseModel):
     enable: bool = Field(default=False)
+    priority: int = Field(default=1, title="优先级")
     grade_threshold: int = Field(title="斗技目标分数", default=2400)
 
 # 绘卷模式
-class ScrollConfig(BaseModel):
+class Exploration(BaseModel):
     enable: bool = Field(default=False)
+    priority: int = Field(default=1, title="优先级")
+    scroll_mode_enable: bool = Field(default=True)
     scrolls_cd: str = Field(default="0:30:00", title="间隔时间")
     ticket_threshold: int = Field(title="突破票数量", default=25,
                                   description="满足票数后任务自动转去个人突破")
@@ -76,6 +80,7 @@ class ScrollConfig(BaseModel):
 # 式神爬塔活动
 class ShikigamiActivity(BaseModel):
     enable: bool = Field(default=False)
+    priority: int = Field(default=1, title="优先级")
     enable_ap_mode: bool = Field(default=False)  # 开启体力模式，反之则用活动门票
     auto_switch: bool = Field(default=False)  # 挂完活动门票后自动切换到体力模式
     ticket_max: int = Field(default=50, title="门票爬塔次数",
@@ -85,8 +90,9 @@ class ShikigamiActivity(BaseModel):
 
 
 # 御灵
-class GoryouConfig(BaseModel):
+class Goryou(BaseModel):
     enable: bool = Field(default=False)
+    priority: int = Field(default=1, title="优先级")
     goryou_class: GoryouClass = Field(
         default=GoryouClass.RANDOM, title="御灵")
     count_max: int = Field(default=50, title="御灵次数", description="默认御灵50次")
@@ -96,8 +102,12 @@ class GoryouConfig(BaseModel):
 
 class AreaBoss(BaseModel):
     enable: bool = Field(default=False)
+    priority: int = Field(default=1, title="优先级")
     boss_number: int = Field(default=3, title="鬼王数量", description="默认3只")
 
-class SummonConfig(BaseModel):
+class Summon(BaseModel):
     enable: bool = Field(default=False)
+    priority: int = Field(default=1, title="优先级")
     count_max: int = Field(default=300, title="清票数量", description="默认1000张票")
+    ticket_threshold: int = Field(
+        default=300, title="最少票数", description="默认最少500张票")

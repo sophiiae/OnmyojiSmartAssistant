@@ -1,4 +1,5 @@
 {
+  "config_name": "fairy",
   "script": {
     "main_host": "127.0.0.1:16384",
     "subhosts": [
@@ -28,11 +29,11 @@
     ]
   },
   "daily_routine": {
-    "priority": 1,
-    "enable": false,
+    "priority": 2,
+    "enable": true,
     "enable_jade": true,
     "enable_sign": true,
-    "enable_sign_999": true,
+    "enable_sign_999": false,
     "enable_mail": true,
     "enable_soul": true,
     "enable_ap": true,
@@ -55,9 +56,10 @@
     "enable": false,
     "grade_threshold": 2400
   },
-  "scrolls": {
+  "exploration": {
     "priority": 4,
     "enable": true,
+    "scroll_mode_enable": true,
     "scrolls_cd": "0:30:00",
     "ticket_threshold": 22,
     "buff_gold_50": false,
@@ -94,8 +96,8 @@
   },
   "summon": {
     "priority": 1,
-    "enable": true,
+    "enable": false,
     "count_max": 1000,
-    "ticket_threshold": 500
+    "ticket_threshold": 300
   }
 }

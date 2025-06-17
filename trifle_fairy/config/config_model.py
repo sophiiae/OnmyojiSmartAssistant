@@ -1,8 +1,6 @@
 import json
 import os
 import re
-import copy
-from typing import Optional
 
 from pathlib import Path
 from pydantic import BaseModel, Field
@@ -12,7 +10,7 @@ from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover
 
 class ConfigModel(BaseModel):
-    config_name: str = Field(default="osa")
+    config_name: str = Field(default="fairy")
     script: ScriptSetting = Field(default_factory=ScriptSetting)
     daily_routine: DailyRoutine = Field(
         default_factory=DailyRoutine)
@@ -22,19 +20,19 @@ class ConfigModel(BaseModel):
         default_factory=Collaboration)
     royal_battle: RoyalBattle = Field(
         default_factory=RoyalBattle)
-    scrolls: ScrollConfig = Field(
-        default_factory=ScrollConfig)
+    exploration: Exploration = Field(
+        default_factory=Exploration)
     area_boss: AreaBoss = Field(default_factory=AreaBoss)
-    goryou_realm: GoryouConfig = Field(
-        default_factory=GoryouConfig)
+    goryou_realm: Goryou = Field(
+        default_factory=Goryou)
     shikigami_activity: ShikigamiActivity = Field(
         default_factory=ShikigamiActivity)
-    summon: SummonConfig = Field(
-        default_factory=SummonConfig)
+    summon: Summon = Field(
+        default_factory=Summon)
 
-    def __init__(self, config_name: str):
+    def __init__(self):
         data = self.read_json()
-        data["config_name"] = config_name
+        data["config_name"] = 'fairy'
         super().__init__(**data)
 
     @staticmethod
@@ -68,6 +66,21 @@ class ConfigModel(BaseModel):
             classname = re.findall(r"'([^']*)'", field_type)[0]
             return classname
 
-    
-
-    
+    @staticmethod
+    def deep_get(obj, keys: str | list[str], default=None):
+        """
+        递归获取模型的值
+        :param obj:
+        :param keys:
+        :param default:
+        :return:
+        """
+        if not isinstance(keys, list):
+            keys = keys.split('.')
+        value = obj
+        try:
+            for key in keys:
+                value = getattr(value, key)
+        except AttributeError:
+            return default
+        return value

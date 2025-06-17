@@ -6,19 +6,25 @@ from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
 from trifle_fairy.ui_sections.utils import add_left_row, add_checkbox_right_row
 
-class ScrollsSection(QGroupBox):
+class ExplorationSection(QGroupBox):
     def __init__(self, config):
-        super().__init__("绘卷[肝帝]设置")
-        self.config = config["scrolls"]
+        super().__init__("探索[肝帝]设置")
+        self.config = config["exploration"]
         self.create_widgets()
 
     def create_widgets(self):
         layout = QVBoxLayout(self)
 
         # 添加启用复选框
-        self.enable_checkbox = QCheckBox("启用绘卷")
+        self.enable_checkbox = QCheckBox("启用探索")
         self.enable_checkbox.setChecked(self.config.get("enable", False))
         layout.addWidget(self.enable_checkbox)
+
+        # 添加绘卷模式启用复选框
+        self.scroll_mode_enable = QCheckBox("启用绘卷模式")
+        self.scroll_mode_enable.setChecked(
+            self.config.get("scroll_mode_enable", False))
+        layout.addWidget(self.scroll_mode_enable)
 
         # 优先级（无CheckBox，左对齐）
         self.priority = ValueButton()
@@ -81,6 +87,7 @@ class ScrollsSection(QGroupBox):
 
     def update_config(self):
         self.config["enable"] = self.enable_checkbox.isChecked()
+        self.config["scroll_mode_enable"] = self.scroll_mode_enable.isChecked()
         self.config["priority"] = self.priority.value()
 
         # 更新探索配置

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from module.base.logger import logger
 
-DEFAULT_TIME = datetime(2024, 1, 1, 0, 0)
+DEFAULT_TIME = datetime(2025, 1, 1, 0, 0)
 
 class Function:
     enable = False

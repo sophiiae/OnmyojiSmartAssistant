@@ -1,0 +1,64 @@
+[
+  {
+    "name": "reg_summon",
+    "type": "image",
+    "roi": "448, 605, 42, 58",
+    "area": "427, 584, 84, 100",
+    "file": "./tasks/general/res/reg_summon.png",
+    "description": "普通召唤"
+  },
+  {
+    "name": "summon_again",
+    "type": "image",
+    "roi": "691, 621, 168, 53",
+    "area": "665, 595, 220, 105",
+    "file": "./tasks/general/res/summon_again.png",
+    "description": "再次召唤"
+  },
+  {
+    "name": "b_red_x",
+    "roi": "1184, 112, 46, 46",
+    "area": "1161, 89, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "红色X"
+  },
+  {
+    "name": "b_blue_left_angle",
+    "type": "image",
+    "roi": "24, 36, 53, 44",
+    "area": "0, 14, 106, 88",
+    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "description": "蓝色<退出"
+  },
+  {
+    "name": "b_yellow_left_angle",
+    "roi": "34, 9, 42, 41",
+    "area": "10, 0, 86, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "黄色<退出"
+  },
+  {
+    "name": "gain_reward",
+    "type": "image",
+    "roi": "476, 233, 329, 42",
+    "area": "312, 212, 658, 84",
+    "file": "./tasks/general/res/gain_reward.png",
+    "description": "获得奖励栏标"
+  },
+  {
+    "name": "reward",
+    "type": "image",
+    "roi": "565, 444, 137, 165",
+    "area": "497, 376, 273, 301",
+    "file": "./tasks/general/res/reward.png",
+    "description": "战斗/突破/宝箱奖励领取图标"
+  },
+  {
+    "name": "b_confirm",
+    "type": "image",
+    "roi": "727, 417, 63, 29",
+    "area": "500, 300, 500, 300",
+    "file": "./tasks/general/res/buttons/b_confirm.png",
+    "description": "确认按钮"
+  }
+]

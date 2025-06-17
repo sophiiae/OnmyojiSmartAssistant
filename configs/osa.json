@@ -60,12 +60,10 @@
       "buff_exp_50": true,
       "buff_exp_100": false,
       "count_max": 10,
-      "chapter": "第28章",
+      "chapter": "第1章",
       "auto_backup": false,
       "backup_rarity": "素材",
-      "lock_team_enable": true
-    },
-    "scrolls": {
+      "lock_team_enable": true,
       "scroll_mode_enable": true,
       "scrolls_cd": "0:30:00",
       "ticket_threshold": 20
@@ -76,7 +74,7 @@
       "preset_group": 1,
       "preset_team": 1,
       "green_enable": false,
-      "green_mark": "green_left1",
+      "green_mark": "不选择",
       "random_click_swipt_enable": false
     },
     "switch_soul_config": {
@@ -108,7 +106,7 @@
       "preset_group": 1,
       "preset_team": 1,
       "green_enable": false,
-      "green_mark": "green_left1",
+      "green_mark": "不选择",
       "random_click_swipt_enable": false
     },
     "switch_soul_config": {
@@ -128,7 +126,7 @@
       "failure_interval": "00:00:10:00"
     },
     "goryou_config": {
-      "goryou_class": "暗孔雀",
+      "goryou_class": "自动",
       "count_max": 50,
       "level": "三层",
       "lock_team_enable": true
@@ -143,11 +141,27 @@
       "failure_interval": "01:00:00:00"
     },
     "climb_config": {
-      "enable_ap_mode": false,
+      "enable_ap_mode": true,
       "auto_switch": false,
       "ticket_max": 50,
       "ap_max": 300,
       "lock_team_enable": true
+    },
+    "general_battle_config": {
+      "lock_team_enable": true,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "不选择",
+      "random_click_swipt_enable": false
+    },
+    "switch_soul_config": {
+      "enable": false,
+      "switch_group_team": "-1,-1",
+      "enable_switch_by_name": false,
+      "group_name": "",
+      "team_name": ""
     }
   },
   "area_boss": {
@@ -165,16 +179,16 @@
       "use_collect": false,
       "Attack_60": false
     },
-    "general_battle": {
+    "general_battle_config": {
       "lock_team_enable": false,
       "preset_enable": false,
       "preset_group": 1,
       "preset_team": 1,
       "green_enable": false,
-      "green_mark": "green_left1",
+      "green_mark": "不选择",
       "random_click_swipt_enable": false
     },
-    "switch_soul": {
+    "switch_soul_config": {
       "enable": false,
       "switch_group_team": "-1,-1",
       "enable_switch_by_name": false,

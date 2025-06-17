@@ -87,6 +87,18 @@ class ADBDevice:
         logger.info(f"[Device] Click {x} {y}.")
         self.device.shell("input tap {} {}".format(x, y))
 
+    def random_click(self, x, y, w, h):
+        """Random click within a rectangle."""
+        if self.device is None:
+            logger.error("Cannot click - no device connected")
+            return
+        if (x < 0 or y < 0 or x + w > 1280 or y + h > 720):
+            logger.error("Invalid rectangle.")
+            return
+        x = np.random.randint(x, x + w)
+        y = np.random.randint(y, y + h)
+        self.click(x, y)
+
     def swipe(self, start_x, start_y, end_x, end_y, duration=300):
         """Swipe the screen."""
         if self.device is None:
