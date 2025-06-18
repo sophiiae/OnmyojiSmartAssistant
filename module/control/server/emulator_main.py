@@ -5,7 +5,7 @@ import sys
 import time
 import psutil
 import pyautogui
-import concurrent.futures
+import cv2
 
 from module.base.exception import DeviceNotRunningError, RequestHumanTakeover
 from module.control.config.config import Config
@@ -151,13 +151,15 @@ class EmulatorMain:
                 proc.kill()
                 logger.info(f"已终止进程: {proc.info['name']} (PID: {proc.pid})")
 
-    def start_onmyoji(self, device: ADBDevice, is_main: bool = False):
+    def start_onmyoji(self, device: ADBDevice):
         logger.info(f" 🎮 启动阴阳师 {device.port}...")
 
         self.check_ad(device)
-        self.click_onmyoji(device, is_main)
+        self.click_onmyoji(device)
+        time.sleep(0.5)
+        self.login(device)
 
-    def click_onmyoji(self, device: ADBDevice, is_main: bool = False):
+    def click_onmyoji(self, device: ADBDevice):
         # device.capture_screenshot(f"{device.port}.png")
         screenshot = device.get_screenshot()
         pro = ImageProcessor(screenshot)
@@ -180,6 +182,14 @@ class EmulatorMain:
             time.sleep(0.5)
         else:
             logger.info("没有发现广告")
+
+    def login(self, device: ADBDevice):
+        screenshot = device.get_screenshot()
+        pro = ImageProcessor(screenshot)
+        image = cv2.imread(self.get_image_path('login_warning.png'))
+        result = pro.find_target(image)
+        if result:
+            device.click(600, 600)
 
 
 if __name__ == "__main__":

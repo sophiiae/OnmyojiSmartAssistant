@@ -8,6 +8,14 @@
     "description": "邮件"
   },
   {
+    "name": "mail_ent",
+    "type": "image",
+    "roi": "1135, 32, 39, 27",
+    "area": "1121, 18, 67, 55",
+    "file": "./tasks/main_page/res/mail/mail_ent.png",
+    "description": "邮件入口"
+  },
+  {
     "name": "unread_mail",
     "type": "image",
     "roi": "166, 132, 49, 40",

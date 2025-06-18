@@ -19,15 +19,18 @@ from trifle_fairy.ui_sections.royal_battle_section import RoyalBattleSection
 from trifle_fairy.ui_sections.wanted_quests_section import WantedQuestsSection
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
-from PyQt6.QtWidgets import QTabWidget
-
+from trifle_fairy.control.emulator import Emulator
+from trifle_fairy.control.script import Script
 class FairyEditor(ConfigTab):
+    emulator: Emulator
+
     def __init__(self):
         self.config_path = os.path.join(
             os.path.dirname(__file__), "fairy.json")
         super().__init__(self.config_path)
         self.setWindowTitle("阴阳师琐事小管家")
         self.setup_ui()
+        self.emulator = Emulator('fairy')
 
     def setup_ui(self):
         """设置UI界面"""
@@ -72,7 +75,7 @@ class FairyEditor(ConfigTab):
             ("requests", "悬赏任务", None),  # 悬赏任务没有启用状态
             ("collaboration", "协战奖励", "collaboration.enable"),
             ("royal_battle", "斗技", "royal_battle.enable"),
-            ("scrolls", "绘卷", "scrolls.enable"),
+            ("exploration", "探索", "exploration.enable"),
             ("shikigami_activity", "式神活动", "shikigami_activity.enable"),
             ("goryou_realm", "御灵", "goryou_realm.enable"),
             ("area_boss", "地域鬼王", "area_boss.enable"),
@@ -124,8 +127,8 @@ class FairyEditor(ConfigTab):
         scroll_layout.addWidget(self.collaboration_section)
         self.royal_battle_section = RoyalBattleSection(self.config)
         scroll_layout.addWidget(self.royal_battle_section)
-        self.scrolls = ExplorationSection(self.config)
-        scroll_layout.addWidget(self.scrolls)
+        self.exploration_section = ExplorationSection(self.config)
+        scroll_layout.addWidget(self.exploration_section)
         self.shikigami_activity_section = ShikigamiActivitySection(self.config)
         scroll_layout.addWidget(self.shikigami_activity_section)
         self.goryou_realm_section = GoryouRealmSection(self.config)
@@ -153,13 +156,24 @@ class FairyEditor(ConfigTab):
         self.daily_routine_section.update_config()
         self.wanted_quests_section.update_config()
         self.collaboration_section.update_config()
-        self.scrolls.update_config()
+        self.exploration_section.update_config()
         self.royal_battle_section.update_config()
         self.goryou_realm_section.update_config()
         self.shikigami_activity_section.update_config()
         self.area_boss_section.update_config()
         self.summon.update_config()
         self.save_config()
+
+    def check_emulator(self):
+        if self.emulator.check_mumu_process():
+            self.emulator.get_main_device()
+            self.emulator.get_all_sub_devices()
+            return
+
+        if self.emulator.config.model.collaboration.enable:
+            self.emulator.multi_mumu_start_with_retry()
+        else:
+            self.emulator.start_main_onmyoji()
 
     def run_fairy_config(self):
         """运行当前配置"""
@@ -168,26 +182,21 @@ class FairyEditor(ConfigTab):
                 # 保存当前配置
                 self.save_fairy_config()
 
-                # # 获取配置名称（文件名去掉.json后缀）
-                # config_name = os.path.splitext(
-                #     os.path.basename(self.config_path))[0]
+                # 检查模拟器
+                self.check_emulator()
 
-                # # 创建配置实例
-                # config = Config(config_name)
-
-                # # 运行配置
-                # if config.task_call("script"):
-                #     self.is_running = True
-                #     self.update_run_button()
-                #     QMessageBox.information(
-                #         self, "成功", f"配置 {config_name} 已开始运行")
-                # else:
-                #     QMessageBox.warning(self, "警告", f"配置 {config_name} 运行失败")
-
-                # 模拟运行成功
-                self.is_running = True
-                self.update_run_button()
-                QMessageBox.information(self, "成功", "配置已开始运行")
+                config = self.emulator.config
+                script = Script(config, self.emulator.main_device)
+                script.start()
+                # 运行配置
+                if script.is_running:
+                    self.is_running = True
+                    self.update_run_button()
+                    QMessageBox.information(
+                        self, "成功", f"配置 {config.config_name} 已开始运行")
+                else:
+                    QMessageBox.warning(
+                        self, "警告", f"配置 {config.config_name} 运行失败")
             else:
                 # 模拟停止成功
                 self.is_running = False
@@ -250,7 +259,7 @@ class FairyEditor(ConfigTab):
             self.wanted_quests_section,
             self.collaboration_section,
             self.royal_battle_section,
-            self.scrolls,
+            self.exploration_section,
             self.goryou_realm_section,
             self.shikigami_activity_section,
             self.area_boss_section,
@@ -279,7 +288,7 @@ class FairyEditor(ConfigTab):
             "wanted_quests": self.wanted_quests_section,
             "collaboration": self.collaboration_section,
             "royal_battle": self.royal_battle_section,
-            "scrolls": self.scrolls,
+            "exploration": self.exploration_section,
             "shikigami_activity": self.shikigami_activity_section,
             "goryou_realm": self.goryou_realm_section,
             "area_boss": self.area_boss_section,

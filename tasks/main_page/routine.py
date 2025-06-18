@@ -288,8 +288,8 @@ class Routine(Colla, MainPage):
             if self.appear(self.I_MAIL_HEADER):
                 break
 
-            if self.appear(self.I_MAIL):
-                self.click(self.I_MAIL)
+            if self.appear(self.I_MAIL_ENT):
+                self.click(self.I_MAIL_ENT)
                 continue
 
         while 1:
@@ -308,8 +308,8 @@ class Routine(Colla, MainPage):
                 continue
 
             if self.appear_then_click(self.I_GET_ALL_MAIL):
-                if self.wait_until_click(self.I_MAIL_CONFIRM, 2):
-                    if self.wait_until_appear(self.I_GAIN_REWARD, 2):
+                if self.click_static_target(self.I_MAIL_CONFIRM):
+                    if self.wait_until_appear(self.I_GAIN_REWARD):
                         got_mail = True
                         self.random_click_right()
                         continue
@@ -389,7 +389,7 @@ class Routine(Colla, MainPage):
             time.sleep(0.5)
             self.screenshot()
             if self.appear_then_click(self.I_USER_CENTER):
-                if self.wait_until_click(self.I_SWITCH_ACCOUNT, 2):
+                if self.click_static_target(self.I_SWITCH_ACCOUNT):
                     continue
 
             if self.appear_then_click(self.I_LOGIN):
@@ -415,7 +415,7 @@ class Routine(Colla, MainPage):
                 continue
 
             if self.appear(self.I_PICK_REGION):
-                if self.wait_until_click(self.I_OPEN_REGIONS, 2, delay=0.5):
+                if self.click_static_target(self.I_OPEN_REGIONS):
                     continue
 
         # 选区
@@ -477,7 +477,7 @@ class Routine(Colla, MainPage):
             time.sleep(0.3)
             self.screenshot()
             if self.appear_then_click(self.I_QUEST_PLUS_BUTTON):
-                self.wait_until_click(self.I_CROSS_REGION)
+                self.click_static_target(self.I_CROSS_REGION)
                 if self.appear(self.I_CROSS_REGION_ENABLE):
                     time.sleep(1)
                     if self.wait_until_appear(self.I_QUEST_AVATAR, 2, threshold=0.96):
@@ -489,7 +489,7 @@ class Routine(Colla, MainPage):
                                 break
                             if self.appear(self.I_QUEST_AVATAR):
                                 self.device.click(x + 100, y)
-                        self.wait_until_click(self.I_INVITE)
+                        self.click_static_target(self.I_INVITE)
                         break
                     else:
                         self.device.click(1205, 310)

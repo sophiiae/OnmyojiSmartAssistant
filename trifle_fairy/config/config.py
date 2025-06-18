@@ -130,7 +130,7 @@ class Config:
                 f"Task call: {task} (skipped because disabled by user)")
             return False
 
-    def task_delay(self, task: str,
+    def task_delay(self, task: str, start_time: Optional[datetime] = None,
                    success: bool | None = None, target_time: datetime | None = None) -> None:
         """
         设置下次运行时间  当然这个也是可以重写的
@@ -154,7 +154,8 @@ class Config:
             return
 
         # 任务开始时间
-        start_time = datetime.now().replace(microsecond=0)
+        if not start_time:
+            start_time = datetime.now().replace(microsecond=0)
 
         # 依次判断是否有自定义的下次运行时间
         run = []

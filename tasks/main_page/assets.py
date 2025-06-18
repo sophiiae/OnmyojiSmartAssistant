@@ -117,6 +117,12 @@ class MainPageAssets:
 		area=(238, 496, 60, 40),
 		file="./tasks/main_page/res/mail/mail.png"
 	)
+	# 邮件入口 
+	I_MAIL_ENT = RuleImage(
+		roi=(1135, 32, 39, 27),
+		area=(1121, 18, 67, 55),
+		file="./tasks/main_page/res/mail/mail_ent.png"
+	)
 	# 未读邮件 
 	I_UNREAD_MAIL = RuleImage(
 		roi=(166, 132, 49, 40),

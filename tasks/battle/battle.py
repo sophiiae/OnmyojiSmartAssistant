@@ -87,8 +87,8 @@ class Battle(General, Buff, BattleAssets):
             if self.appear(self.I_BATTLE_FIGHT_AGAIN):
                 break
 
-            if self.appear_then_click(self.I_BATTLE_EXIT):
-                self.appear_then_click(self.I_BATTLE_EXIT_CONFIRM)
+            if self.click_static_target(self.I_BATTLE_EXIT):
+                self.click_static_target(self.I_BATTLE_EXIT_CONFIRM)
                 continue
 
         logger.info("Clicked exit battle confirm")
@@ -100,6 +100,7 @@ class Battle(General, Buff, BattleAssets):
                     [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
                 self.click(action_click)
                 continue
+
             if not self.appear(self.I_BATTLE_FIGHT_AGAIN):
                 break
 
@@ -116,7 +117,7 @@ class Battle(General, Buff, BattleAssets):
         while 1:
             time.sleep(0.2)
             self.screenshot()
-            if self.appear_then_click(self.I_BATTLE_EXIT):
+            if self.click_static_target(self.I_BATTLE_EXIT):
                 continue
             if self.appear(self.I_BATTLE_EXIT_CONFIRM):
                 break
@@ -125,9 +126,9 @@ class Battle(General, Buff, BattleAssets):
         while 1:
             time.sleep(0.2)
             self.screenshot()
-            if self.appear_then_click(self.I_BATTLE_EXIT_CONFIRM):
+            if self.click_static_target(self.I_BATTLE_EXIT_CONFIRM):
                 continue
-            if self.appear_then_click(self.I_BATTLE_FAILED):
+            if self.click_static_target(self.I_BATTLE_FAILED):
                 continue
             if not self.appear(self.I_BATTLE_EXIT):
                 break

@@ -1,10 +1,11 @@
 from datetime import datetime
-from typing import Union
+from typing import Optional, Union
 import numpy as np
 import time
 
 from module.base.exception import RequestHumanTakeover
 from module.control.config.config import Config
+from trifle_fairy.config.config import Config as FairyConfig
 from module.image_processing.rule_click import RuleClick
 from module.image_processing.rule_image import RuleImage
 from module.image_processing.rule_swipe import RuleSwipe
@@ -15,20 +16,23 @@ from module.base.logger import logger
 
 
 class TaskBase(MainPageAssets):
-    config: Config
+    config: Config | FairyConfig
     device: ADBDevice
 
     limit_time: datetime  # 限制运行的时间，是软时间，不是硬时间
     limit_count: int  # 限制运行的次数
     current_count: int  # 当前运行的次数
 
-    def __init__(self, config: Config, device: ADBDevice) -> None:
+    def __init__(self, config: Config | FairyConfig, device: ADBDevice) -> None:
         """
 
         :rtype: object
         """
         self.config = config
         self.device = device
+        self.start_time = datetime.now()  # 启动的时间
+        self.current_count = 0  # 战斗次数
+        self.is_fairy = isinstance(config, FairyConfig)
 
     def _burst(self) -> bool:
         """
@@ -216,3 +220,12 @@ class TaskBase(MainPageAssets):
                 return True
             self.appear_then_click(target, threshold=threshold)
         return False
+
+    def set_next_run(self, task: str, finish: bool = False,
+                     success: Optional[bool] = None, target_time: Optional[datetime] = None) -> None:
+        if finish:
+            start_time = datetime.now().replace(microsecond=0)
+        else:
+            start_time = self.start_time
+        self.config.task_delay(task, start_time=start_time,
+                               success=success, target_time=target_time)

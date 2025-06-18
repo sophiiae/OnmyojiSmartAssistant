@@ -6,24 +6,57 @@ from module.control.config.enums import BuffClass
 from tasks.battle.battle import Battle
 from tasks.exploration.assets import ExplorationAssets as EA
 from tasks.general.page import Page, page_exp, page_main
+from trifle_fairy.config.config import Config
 
 from datetime import datetime, timedelta
 import time
 
 class TaskScript(EA, Battle):
     name = "Exploration"
+    scroll_mode_enable = False
+    ticket_threshold = 22
+    scrolls_cd = "0:30:00"
+    buff = []
+
+    def _get_config(self):
+        ticket_threshold = self.config.model.deep_get(
+            self.exp_config, 'ticket_threshold')
+        if ticket_threshold:
+            self.ticket_threshold = ticket_threshold
+        scrolls_cd = self.config.model.deep_get(self.exp_config, 'scrolls_cd')
+        if scrolls_cd:
+            self.scrolls_cd = scrolls_cd
+        scroll_mode_enable = self.config.model.deep_get(
+            self.exp_config, 'scroll_mode_enable')
+        if scroll_mode_enable is not None:
+            self.scroll_mode_enable = scroll_mode_enable
+        if self.config.model.deep_get(
+                self.exp_config, 'buff_gold_50'):
+            self.buff.append('buff_gold_50')
+        if self.config.model.deep_get(
+                self.exp_config, 'buff_gold_100'):
+            self.buff.append('buff_gold_50')
+        if self.config.model.deep_get(
+                self.exp_config, 'buff_exp_50'):
+            self.buff.append('buff_gold_50')
+        if self.config.model.deep_get(
+                self.exp_config, 'buff_exp_100'):
+            self.buff.append('buff_gold_50')
 
     def run(self):
-        self.exp_config = self.config.fairy_model.exploration
+        self.exp_config = self.config.model.exploration
+        self._get_config()
         # 进入探索页面
         if not self.check_page_appear(page_exp):
             self.goto(page_exp)
 
         # 判断是否开启绘卷模式
-        if self.exp_config.scroll_mode_enable:
+        if self.scroll_mode_enable:
             exp_count = 50
         else:
-            exp_count = self.exp_config.count_max
+            max_count = self.config.model.deep_get(
+                self.exp_config, 'max_count')
+            exp_count = max_count if max_count else 0
 
         self.open_config_buff()
         count = 0
@@ -136,14 +169,14 @@ class TaskScript(EA, Battle):
         return found
 
     def check_ticket(self):
-        if not self.exp_config.scroll_mode_enable:
+        if not self.scroll_mode_enable:
             return
 
         image = self.screenshot()
         count, total = self.O_EXP_VIEW_TICKET_COUNT.digit_counter(image)
 
         # 判断突破票数量
-        if count is None or count < self.exp_config.ticket_threshold:
+        if count is None or count < self.ticket_threshold:
             return
 
         self.activate_realm_raid()
@@ -151,7 +184,7 @@ class TaskScript(EA, Battle):
     def activate_realm_raid(self):
         # 设置下次执行行时间
         logger.info("|| RealmRaid and Exploration set_next_run ||")
-        hr, min, sec = self.exp_config.scrolls_cd.split(":")
+        hr, min, sec = self.scrolls_cd.split(":")
         next_run = datetime.now() + timedelta(hours=int(hr),
                                               minutes=int(min),
                                               seconds=int(sec))
@@ -165,28 +198,26 @@ class TaskScript(EA, Battle):
 
     def open_config_buff(self):
         buff = []
-        config = self.exp_config.exploration_config
-        if config.buff_gold_50:
+        if 'buff_gold_50' in self.buff:
             buff.append(BuffClass.GOLD_50)
-        if config.buff_gold_100:
+        if 'buff_gold_100' in self.buff:
             buff.append(BuffClass.GOLD_100)
-        if config.buff_exp_50:
+        if 'buff_exp_50' in self.buff:
             buff.append(BuffClass.EXP_50)
-        if config.buff_exp_100:
+        if 'buff_exp_100' in self.buff:
             buff.append(BuffClass.EXP_100)
 
         return self.check_buff(buff, page_exp)
 
     def close_config_buff(self):
         buff = []
-        config = self.exp_config.exploration_config
-        if config.buff_gold_50:
+        if 'buff_gold_50' in self.buff:
             buff.append(BuffClass.GOLD_50_CLOSE)
-        if config.buff_gold_100:
+        if 'buff_gold_100' in self.buff:
             buff.append(BuffClass.GOLD_100_CLOSE)
-        if config.buff_exp_50:
+        if 'buff_exp_50' in self.buff:
             buff.append(BuffClass.EXP_50_CLOSE)
-        if config.buff_exp_100:
+        if 'buff_exp_100' in self.buff:
             buff.append(BuffClass.EXP_100_CLOSE)
 
         return self.check_buff(buff, page_exp)

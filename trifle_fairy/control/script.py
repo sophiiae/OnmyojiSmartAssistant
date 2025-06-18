@@ -11,8 +11,8 @@ import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.control.server.adb_device import ADBDevice
-from module.control.server.emulator import Emulator
-from module.control.config.config import Config
+from trifle_fairy.control.emulator import Emulator
+from trifle_fairy.config.config import Config
 
 class Script:
     def __init__(self, config: Config, device: ADBDevice) -> None:
@@ -21,6 +21,7 @@ class Script:
         self.state_queue: Queue = Queue()  # Initialize Queue properly
         # Key: str, task name, value: int, failure count
         self.failure_record: dict[str, int] = {}  # Add type annotation
+        self.is_running = False
 
     def run(self, name: str) -> bool:
         """
@@ -54,7 +55,7 @@ class Script:
 
     def start(self):
         logger.info(f'Start scheduler loop: {self.config.config_name}')
-
+        self.is_running = True
         while 1:
             # Get task
             task = self.get_next_task()

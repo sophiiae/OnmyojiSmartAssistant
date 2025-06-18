@@ -30,7 +30,7 @@
   },
   "daily_routine": {
     "priority": 2,
-    "enable": true,
+    "enable": false,
     "enable_jade": true,
     "enable_sign": true,
     "enable_sign_999": false,
@@ -57,7 +57,7 @@
     "grade_threshold": 2400
   },
   "exploration": {
-    "priority": 4,
+    "priority": 5,
     "enable": true,
     "scroll_mode_enable": true,
     "scrolls_cd": "0:30:00",
@@ -70,7 +70,7 @@
     "chapter": "第二十八章",
     "auto_backup": false,
     "backup_rarity": "素材",
-    "lock_team_enable": true
+    "lock_team_enable": false
   },
   "shikigami_activity": {
     "priority": 5,
