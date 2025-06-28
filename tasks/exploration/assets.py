@@ -138,8 +138,8 @@ class ExplorationAssets:
 	# Ocr Rule Assets
 	# 探索界面突破票数量 
 	O_EXP_VIEW_TICKET_COUNT = RuleOcr(
-		roi=(741, 15, 71, 27),
-		area=(741, 15, 71, 27),
+		roi=(741, 15, 30, 27),
+		area=(741, 15, 30, 27),
 		keyword="",
 		name="exp_view_ticket_count"
 	)

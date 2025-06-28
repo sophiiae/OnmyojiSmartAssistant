@@ -1,4 +1,3 @@
-
 import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
@@ -35,13 +34,15 @@ class TaskScript(EA, Battle):
             self.buff.append('buff_gold_50')
         if self.config.model.deep_get(
                 self.exp_config, 'buff_gold_100'):
-            self.buff.append('buff_gold_50')
+            self.buff.append('buff_gold_100')
         if self.config.model.deep_get(
                 self.exp_config, 'buff_exp_50'):
-            self.buff.append('buff_gold_50')
+            self.buff.append('buff_exp_50')
         if self.config.model.deep_get(
                 self.exp_config, 'buff_exp_100'):
-            self.buff.append('buff_gold_50')
+            self.buff.append('buff_exp_100')
+
+        logger.background(str(self.buff))
 
     def run(self):
         self.exp_config = self.config.model.exploration
@@ -58,7 +59,7 @@ class TaskScript(EA, Battle):
                 self.exp_config, 'max_count')
             exp_count = max_count if max_count else 0
 
-        self.open_config_buff()
+        self.activate_buff(self.buff)
         count = 0
         while exp_count > 0 and count < exp_count:
             # 检查票数
@@ -79,8 +80,7 @@ class TaskScript(EA, Battle):
                 self.click_static_target(self.I_EXP_CHAPTER_DISMISS_ICON)
 
             count += 1
-
-        self.close_config_buff()
+        self.deactivate_buff(self.buff)
         self.goto(page_main, page_exp)
 
         raise TaskEnd(self.name)
@@ -173,7 +173,7 @@ class TaskScript(EA, Battle):
             return
 
         image = self.screenshot()
-        count, total = self.O_EXP_VIEW_TICKET_COUNT.digit_counter(image)
+        count = self.O_EXP_VIEW_TICKET_COUNT.digit(image)
 
         # 判断突破票数量
         if count is None or count < self.ticket_threshold:
@@ -189,35 +189,10 @@ class TaskScript(EA, Battle):
                                               minutes=int(min),
                                               seconds=int(sec))
         logger.warning(f"next run time: {next_run}")
-        self.set_next_run(task='Exploration', success=False,
-                          finish=False, target_time=next_run)
         self.set_next_run(task='RealmRaid', success=False,
                           finish=False, target_time=datetime.now())
+        self.set_next_run(task='Exploration', success=False,
+                          finish=False, target_time=next_run)
 
         raise TaskEnd(self.name)
 
-    def open_config_buff(self):
-        buff = []
-        if 'buff_gold_50' in self.buff:
-            buff.append(BuffClass.GOLD_50)
-        if 'buff_gold_100' in self.buff:
-            buff.append(BuffClass.GOLD_100)
-        if 'buff_exp_50' in self.buff:
-            buff.append(BuffClass.EXP_50)
-        if 'buff_exp_100' in self.buff:
-            buff.append(BuffClass.EXP_100)
-
-        return self.check_buff(buff, page_exp)
-
-    def close_config_buff(self):
-        buff = []
-        if 'buff_gold_50' in self.buff:
-            buff.append(BuffClass.GOLD_50_CLOSE)
-        if 'buff_gold_100' in self.buff:
-            buff.append(BuffClass.GOLD_100_CLOSE)
-        if 'buff_exp_50' in self.buff:
-            buff.append(BuffClass.EXP_50_CLOSE)
-        if 'buff_exp_100' in self.buff:
-            buff.append(BuffClass.EXP_100_CLOSE)
-
-        return self.check_buff(buff, page_exp)

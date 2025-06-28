@@ -101,7 +101,7 @@ class TaskScript(RealmRaidAssets, Battle):
             self.goto(page_realm_raid)
 
         image = self.screenshot()
-        ticket, total = self.O_RAID_TICKET.digit_counter(image)
+        ticket = self.O_RAID_TICKET.digit(image)
 
         refresh_time = datetime.now()
         if self.wait_until_appear(self.I_RAID_WIN3, 1):

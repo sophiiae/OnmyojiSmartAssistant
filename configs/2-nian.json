@@ -1,8 +1,8 @@
 {
-  "config_name": "osa",
+  "config_name": "nian",
   "script": {
     "device": {
-      "serial": "127.0.0.1:16384",
+      "serial": "127.0.0.1:16416",
       "handle": "",
       "screenshot_method": "ADB_nc",
       "control_method": "minitouch"
@@ -63,10 +63,12 @@
       "chapter": "第1章",
       "auto_backup": false,
       "backup_rarity": "素材",
-      "lock_team_enable": true,
+      "lock_team_enable": true
+    },
+    "scroll_mode": {
       "scroll_mode_enable": true,
       "scrolls_cd": "0:30:00",
-      "ticket_threshold": 20
+      "ticket_threshold": 23
     },
     "general_battle_config": {
       "lock_team_enable": true,

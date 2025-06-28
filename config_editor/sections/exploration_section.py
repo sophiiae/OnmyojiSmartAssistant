@@ -91,7 +91,7 @@ class ExplorationSection(QGroupBox):
         # 卷轴设置
         scrolls_group = QGroupBox("卷轴设置")
         scrolls_layout = QVBoxLayout(scrolls_group)
-        self.scrolls_config = self.config["exploration"]["scrolls"]
+        self.scrolls_config = self.config["exploration"]["scroll_mode"]
 
         # 启用卷轴模式（CheckBox独占一行）
         self.scroll_mode_enable = QCheckBox("启用卷轴模式")

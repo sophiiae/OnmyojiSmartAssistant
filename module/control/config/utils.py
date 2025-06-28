@@ -16,12 +16,16 @@ def nearest_future(future, interval=120):
     Return the last one if two things will finish within `interval`.
 
     Args:
-        future (list[datetime.datetime]):
+        future (datetime.datetime or list[datetime.datetime]):
         interval (int): Seconds
 
     Returns:
         datetime.datetime:
     """
+    # Convert single datetime to list
+    if not isinstance(future, list):
+        future = [future]
+    
     future = [datetime.fromisoformat(f) if isinstance(
         f, str) else f for f in future]
     future = sorted(future)

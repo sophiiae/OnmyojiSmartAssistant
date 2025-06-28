@@ -396,6 +396,27 @@ class ExplorationConfig(BaseModel):
     )
 
 
+class ScrollMode(BaseModel):
+    """
+    绘卷模式配置
+    """
+
+    scroll_mode_enable: bool = Field(
+        default=True,
+        description="绘卷模式"
+    )
+
+    scrolls_cd: str = Field(
+        default="0:30:00",
+        description="绘卷冷却时间"
+    )
+
+    ticket_threshold: int = Field(
+        default=23,
+        ge=1,
+        description="绘卷门票阈值"
+    )
+
 # 探索
 class Exploration(BaseModel):
     """
@@ -411,6 +432,11 @@ class Exploration(BaseModel):
         default_factory=ExplorationConfig,
         title="探索设置",
         description="探索设置"
+    )
+
+    scroll_mode: ScrollMode = Field(
+        default_factory=ScrollMode,
+        description="绘卷模式配置"
     )
 
 class ClimbConfig(BaseModel):

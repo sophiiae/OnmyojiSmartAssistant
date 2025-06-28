@@ -17,7 +17,7 @@ class Emulator(EmulatorMain):
             logger.success("MUMU12模拟器已启动！")
             self.main_device = ADBDevice(
                 self.config.model.script.device.serial)
-            self.start_onmyoji(self.main_device, True)
+            self.start_onmyoji(self.main_device)
         else:
             logger.error("启动失败，请检查错误信息！")
 

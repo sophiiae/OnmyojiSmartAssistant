@@ -17,8 +17,8 @@ class RealmRaidAssets:
 	)
 	# 突破界面突破票标记位置 
 	O_RAID_TICKET = RuleOcr(
-		roi=(1146, 18, 73, 27),
-		area=(1146, 18, 73, 27),
+		roi=(1146, 18, 30, 27),
+		area=(1146, 18, 30, 27),
 		keyword="",
 		name="raid_ticket"
 	)
