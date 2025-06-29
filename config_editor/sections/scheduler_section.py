@@ -1,18 +1,9 @@
-from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGroupBox, QVBoxLayout,
-                             QHBoxLayout, QLabel, QLineEdit, QTimeEdit, QDateTimeEdit, QSizePolicy, QRadioButton)
-from PyQt6.QtCore import QTime, QDateTime
-from config_editor.widgets.value_button import ValueButton
+from PyQt6.QtWidgets import (QCheckBox, QGroupBox, QVBoxLayout,
+                             QHBoxLayout, QLabel, QTimeEdit, QSizePolicy, QRadioButton)
+from PyQt6.QtCore import QTime
 from config_editor.widgets.select_button import SelectButton
+from config_editor.utils import add_left_row
 import re
-
-def add_left_row(layout, widgets):
-    row = QHBoxLayout()
-    for w in widgets:
-        if w == 'STRETCH':
-            row.addStretch()
-        else:
-            row.addWidget(w)
-    layout.addLayout(row)
 
 def parse_datetime(dt_str):
     # 解析 yyyy-MM-dd HH:mm:ss
@@ -149,9 +140,6 @@ class SchedulerSection(QGroupBox):
             "next_run": "2023-01-01 00:00:00",
             "success_interval": "00:00:30:00",
             "failure_interval": "00:00:10:00",
-            "mode": "time",
-            "time": "12:00:00",
-            "interval": "00:00:30:00"
         })
         self.create_widgets()
 
@@ -163,11 +151,14 @@ class SchedulerSection(QGroupBox):
         self.enable_check.setChecked(self.scheduler.get("enable", False))
         add_left_row(layout, [self.enable_check])
 
-        # 优先级（无CheckBox，左对齐）
-        self.priority_spin = ValueButton()
-        self.priority_spin.setRange(0, 9999)
-        self.priority_spin.setValue(self.scheduler.get("priority", 0))
-        add_left_row(layout, [QLabel("优先级"), self.priority_spin])
+        # 优先级设置
+        priority_layout = QHBoxLayout()
+        priority_layout.addWidget(QLabel("优先级:"))
+        self.priority = SelectButton()
+        self.priority.addItems(["0", "1", "2", "3", "4", "5"])
+        self.priority.setCurrentText(str(self.scheduler.get("priority", 0)))
+        priority_layout.addWidget(self.priority)
+        layout.addLayout(priority_layout)
 
         # 模式选择
         mode_layout = QHBoxLayout()
@@ -223,11 +214,7 @@ class SchedulerSection(QGroupBox):
 
     def update_config(self):
         self.scheduler["enable"] = self.enable_check.isChecked()
-        self.scheduler["priority"] = self.priority_spin.value()
-        self.scheduler["mode"] = "time" if self.time_radio.isChecked(
-        ) else "interval"
-        self.scheduler["time"] = self.time_edit.time().toString("HH:mm:ss")
-        self.scheduler["interval"] = self.interval_row.get()
+        self.scheduler["priority"] = int(self.priority.currentText())
         self.scheduler["next_run"] = self.next_run_row.get()
         self.scheduler["success_interval"] = self.success_interval_row.get()
         self.scheduler["failure_interval"] = self.failure_interval_row.get()
@@ -241,25 +228,7 @@ class SchedulerSection(QGroupBox):
         self.enable_check.setChecked(scheduler_config.get("enable", False))
 
         # 更新优先级
-        self.priority_spin.setValue(scheduler_config.get("priority", 0))
-
-        # 更新模式选择
-        mode = scheduler_config.get("mode", "time")
-        if mode == "time":
-            self.time_radio.setChecked(True)
-            self.interval_radio.setChecked(False)
-        else:
-            self.time_radio.setChecked(False)
-            self.interval_radio.setChecked(True)
-
-        # 更新时间设置
-        time_str = scheduler_config.get("time", "12:00:00")
-        h, m, s = map(int, time_str.split(":"))
-        self.time_edit.setTime(QTime(h, m, s))
-
-        # 更新间隔时间设置
-        self.interval_row.update_gui(
-            scheduler_config.get("interval", "00:00:30:00"))
+        self.priority.setCurrentText(scheduler_config.get("priority", "0"))
 
         # 更新其他时间设置
         self.next_run_row.update_gui(

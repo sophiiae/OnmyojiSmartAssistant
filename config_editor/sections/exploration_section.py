@@ -1,23 +1,10 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-                             QCheckBox, QSpinBox, QComboBox, QGroupBox, QLineEdit)
+from PyQt6.QtWidgets import (
+    QVBoxLayout, QLabel, QCheckBox, QGroupBox, QLineEdit)
 from config_editor.sections.scheduler_section import SchedulerSection
 from config_editor.sections.general_battle_section import GeneralBattleSection
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
-
-def add_checkbox_right_row(layout, checkbox, right_widgets):
-    row = QHBoxLayout()
-    row.addWidget(checkbox)
-    row.addStretch()
-    for w in right_widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
-
-def add_left_row(layout, widgets):
-    row = QHBoxLayout()
-    for w in widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
+from config_editor.utils import add_left_row
 
 class ExplorationSection(QGroupBox):
     def __init__(self, config):
@@ -63,12 +50,12 @@ class ExplorationSection(QGroupBox):
         # 章节（无CheckBox，左对齐）
         self.chapter = SelectButton()
         self.chapter.addItems(
-            ["第1章", "第2章", "第3章", "第4章", "第5章", "第6章", "第7章", "第8章", "第9章", "第10章", "第11章", "第12章", "第13章", "第14章", "第15章", "第16章", "第17章", "第18章", "第19章", "第20章", "第21章", "第22章", "第23章", "第24章", "第25章", "第26章", "第27章", "第28章"])
+            ["第一章", "第二章", "第三章", "第四章", "第五章", "第六章", "第七章", "第八章", "第九章", "第十章", "第十一章", "第十二章", "第十三章", "第十四章", "第十五章", "第十六章", "第十七章", "第十八章", "第十九章", "第二十章", "第二十一章", "第二十二章", "第二十三章", "第二十四章", "第二十五章", "第二十六章", "第二十七章", "第二十八章"])
         self.chapter.setCurrentText(self.exploration_config["chapter"])
         add_left_row(exploration_layout, [QLabel("章节:"), self.chapter])
 
-        # 自动备份（CheckBox独占一行）
-        self.auto_backup = QCheckBox("自动备份")
+        # 自动补充狗粮（CheckBox独占一行）
+        self.auto_backup = QCheckBox("自动补充狗粮")
         self.auto_backup.setChecked(self.exploration_config["auto_backup"])
         add_left_row(exploration_layout, [self.auto_backup])
 
@@ -81,7 +68,7 @@ class ExplorationSection(QGroupBox):
                      QLabel("狗粮稀有度:"), self.backup_rarity])
 
         # 锁定队伍（CheckBox独占一行）
-        self.lock_team_enable = QCheckBox("锁定队伍")
+        self.lock_team_enable = QCheckBox("锁定队伍(勾选则狗粮配置失效)")
         self.lock_team_enable.setChecked(
             self.exploration_config["lock_team_enable"])
         add_left_row(exploration_layout, [self.lock_team_enable])

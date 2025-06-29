@@ -2,27 +2,17 @@
   "config_name": "nian",
   "script": {
     "device": {
-      "serial": "127.0.0.1:16416",
-      "handle": "",
-      "screenshot_method": "ADB_nc",
-      "control_method": "minitouch"
+      "serial": "127.0.0.1:16416"
     },
-    "optimization": {
-      "screenshot_interval": 0.3,
-      "combat_screenshot_interval": 1.0,
-      "schedule_rule": "FIFO"
-    },
-    "error_handler": {
-      "when_network_abnormal": "等待10秒",
-      "when_network_error": "重启",
-      "cache_clear_request": true
-    }
+    "regions": [
+      "海外加速区"
+    ]
   },
   "daily_routine": {
     "scheduler": {
       "enable": false,
       "next_run": "2024-08-16 15:03:54",
-      "priority": 0,
+      "priority": 1,
       "success_interval": "01:00:00:00",
       "failure_interval": "01:00:00:00"
     },
@@ -43,7 +33,19 @@
   },
   "wanted_quests": {
     "accept_quest_config": {
-      "accept_type": "勾玉"
+      "accept_jade": true,
+      "accept_gold": false,
+      "accept_ap": false,
+      "accept_virtual": true,
+      "accept_food": true
+    },
+    "invite_quest_config": {
+      "invite_jade": true,
+      "invite_gold": false,
+      "invite_ap": false,
+      "invite_virtual": true,
+      "invite_food": true,
+      "invite_friend_name": "无"
     }
   },
   "exploration": {
@@ -59,11 +61,11 @@
       "buff_gold_100": false,
       "buff_exp_50": true,
       "buff_exp_100": false,
-      "count_max": 10,
-      "chapter": "第1章",
+      "count_max": 30,
+      "chapter": "第二十八章",
       "auto_backup": false,
       "backup_rarity": "素材",
-      "lock_team_enable": true
+      "lock_team_enable": false
     },
     "scroll_mode": {
       "scroll_mode_enable": true,
@@ -128,7 +130,7 @@
       "failure_interval": "00:00:10:00"
     },
     "goryou_config": {
-      "goryou_class": "自动",
+      "goryou_class": "随机",
       "count_max": 50,
       "level": "三层",
       "lock_team_enable": true
@@ -171,8 +173,8 @@
       "enable": false,
       "next_run": "2023-01-01 00:00:00",
       "priority": 5,
-      "success_interval": "01 00:00:00",
-      "failure_interval": "01 00:00:00"
+      "success_interval": "01:00:00:00",
+      "failure_interval": "01:00:00:00"
     },
     "boss": {
       "boss_number": 3,

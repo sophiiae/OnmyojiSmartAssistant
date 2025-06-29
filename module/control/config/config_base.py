@@ -228,36 +228,67 @@ class DailyRoutine(BaseModel):
         description="Configuration for optional daily tasks"
     )
 
-class WantedQuestInvitationConfig(BaseModel):
+class QuestInviteConfig(BaseModel):
     """
     悬赏封印邀请配置
     """
-
-    start_time: str = Field(
-        default="00:00:00",
-        description="开启时间(HH:MM:SS)"
-    )
-
     invite_friend_name: str = Field(
-        default="",
+        default="无",
         description="邀请指定好友名字"
     )
 
-    quest_type: WantedQuestType = Field(
-        default=WantedQuestType.Jade,
-        title="协作邀请类型",
-        description="协作邀请类型"
+    invite_jade: bool = Field(
+        default=False,
+        description="接受勾玉悬赏"
+    )
+
+    invite_gold: bool = Field(
+        default=False,
+        description="接受金币悬赏"
+    )
+
+    invite_ap: bool = Field(
+        default=False,
+        description="接受体力悬赏"
+    )
+
+    invite_virtual: bool = Field(
+        default=False,
+        description="接受虚拟悬赏"
+    )
+
+    invite_pet_food: bool = Field(
+        default=False,
+        description="接受宠物粮悬赏"
     )
 
 class AcceptQuestConfig(BaseModel):
     """
     悬赏封印接受配置
     """
+    accept_jade: bool = Field(
+        default=False,
+        description="接受勾玉悬赏"
+    )
 
-    accept_type: WantedQuestType = Field(
-        default=WantedQuestType.Jade,
-        title="接受协作类型",
-        description="接受协作类型"
+    accept_gold: bool = Field(
+        default=False,
+        description="接受金币悬赏"
+    )
+
+    accept_ap: bool = Field(
+        default=False,
+        description="接受体力悬赏"
+    )
+
+    accept_virtual: bool = Field(
+        default=False,
+        description="接受虚拟悬赏"
+    )
+
+    accept_pet_food: bool = Field(
+        default=False,
+        description="接受宠物粮悬赏"
     )
 
 # 协作任务
@@ -269,6 +300,11 @@ class WantedQuests(BaseModel):
     accept_quest_config: AcceptQuestConfig = Field(
         default_factory=AcceptQuestConfig,
         description="协作任务接受配置"
+    )
+
+    invite_quest_config: QuestInviteConfig = Field(
+        default_factory=QuestInviteConfig,
+        description="协作任务邀请配置"
     )
 
 class RaidConfig(BaseModel):

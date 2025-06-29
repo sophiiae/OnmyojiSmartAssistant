@@ -11,7 +11,10 @@ def add_checkbox_right_row(layout, checkbox, right_widgets):
 def add_left_row(layout, widgets):
     row = QHBoxLayout()
     for w in widgets:
-        row.addWidget(w)
+        if w == 'STRETCH':
+            row.addStretch()
+        else:
+            row.addWidget(w)
     layout.addLayout(row)
 
 def add_labeled_widget(layout, label_text, widget):

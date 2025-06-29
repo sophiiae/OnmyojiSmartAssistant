@@ -1,23 +1,8 @@
-from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGroupBox, QVBoxLayout,
-                             QHBoxLayout, QLabel)
+from PyQt6.QtWidgets import (QCheckBox, QGroupBox, QVBoxLayout, QLabel)
 from config_editor.widgets.value_button import ValueButton
-from config_editor.widgets.select_button import SelectButton
 from config_editor.sections.scheduler_section import SchedulerSection
 from config_editor.sections.general_battle_section import GeneralBattleSection
-
-def add_checkbox_right_row(layout, checkbox, right_widgets):
-    row = QHBoxLayout()
-    row.addWidget(checkbox)
-    row.addStretch()
-    for w in right_widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
-
-def add_left_row(layout, widgets):
-    row = QHBoxLayout()
-    for w in widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
+from config_editor.utils import add_left_row
 
 class ShikigamiActivitySection(QGroupBox):
     def __init__(self, config):

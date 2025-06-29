@@ -1,22 +1,8 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-                             QCheckBox, QSpinBox, QComboBox, QGroupBox, QLineEdit)
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
+    QVBoxLayout, QLabel, QCheckBox, QGroupBox, QLineEdit)
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
-
-def add_checkbox_right_row(layout, checkbox, right_widgets):
-    row = QHBoxLayout()
-    row.addWidget(checkbox)
-    row.addStretch()
-    for w in right_widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
-
-def add_left_row(layout, widgets):
-    row = QHBoxLayout()
-    for w in widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
+from config_editor.utils import add_checkbox_right_row, add_left_row
 
 class GeneralBattleSection(QGroupBox):
     def __init__(self, config, section_name):

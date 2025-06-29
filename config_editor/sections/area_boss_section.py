@@ -1,52 +1,14 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-                             QCheckBox, QSpinBox, QComboBox, QGroupBox)
+from PyQt6.QtWidgets import (QVBoxLayout, QLabel, QCheckBox, QGroupBox)
 from config_editor.sections.scheduler_section import SchedulerSection
 from config_editor.sections.general_battle_section import GeneralBattleSection
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
-
-def add_checkbox_right_row(layout, checkbox, right_widgets):
-    row = QHBoxLayout()
-    row.addWidget(checkbox)
-    row.addStretch()
-    for w in right_widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
-
-def add_left_row(layout, widgets):
-    row = QHBoxLayout()
-    for w in widgets:
-        row.addWidget(w)
-    layout.addLayout(row)
+from config_editor.utils import add_left_row
 
 class AreaBossSection(QGroupBox):
     def __init__(self, config):
         super().__init__("地域鬼王设置")
         self.config = config
-
-        # 确保所有必需的配置项存在
-        if "area_boss" not in self.config:
-            self.config["area_boss"] = {}
-        area_boss = self.config["area_boss"]
-
-        if "scheduler" not in area_boss:
-            area_boss["scheduler"] = {
-                "enable": False,
-                "next_run": "2023-01-01 00:00:00",
-                "priority": 5,
-                "success_interval": "00:00:30:00",
-                "failure_interval": "00:00:10:00"
-            }
-
-        if "boss" not in area_boss:
-            area_boss["boss"] = {
-                "boss_number": 0,
-                "boss_reward": True,
-                "reward_floor": "一星",
-                "use_collect": False,
-                "Attack_60": False
-            }
-
         self.create_widgets()
 
     def create_widgets(self):

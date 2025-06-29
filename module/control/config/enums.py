@@ -34,15 +34,6 @@ class ChooseRarity(str, Enum):
     N = "N卡"
     S = "素材"
 
-class WantedQuestType(str, Enum):
-    """
-        用于区分悬赏封印协作类型
-    """
-    Gold = "金币"  # 金币协作
-    Jade = "勾玉"  # 勾玉协作
-    Food = "狗粮"  # 狗/猫粮协作
-    Sushi = "体力"  # 体力协作
-
 class GoryouClass(str, Enum):
     RANDOM = "随机",
     Dark_Divine_Dragon = "暗神龙",
