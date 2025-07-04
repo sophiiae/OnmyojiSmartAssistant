@@ -44,7 +44,7 @@ class ConfigModel(BaseModel):
         :param config_name:  no ext
         :return: dict
         """
-        file = Path.cwd() / "config" / f"{config_name}.json"
+        file = Path.cwd() / "configs" / f"{config_name}.json"
 
         if not os.path.exists(file):
             return {}

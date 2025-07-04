@@ -23,14 +23,6 @@ class DeviceSetting(BaseModel):
         default="127.0.0.1:16416",
         description="Device serial in format 'host:port' for ADB connection"
     )
-    screenshot_method: ScreenshotMethod = Field(
-        default=ScreenshotMethod.ADB_nc,
-        description="Screenshot capture method"
-    )
-    control_method: ControlMethod = Field(
-        default=ControlMethod.minitouch,
-        description="Device input control method"
-    )
 
 class Optimization(BaseModel):
     """
@@ -101,14 +93,9 @@ class ScriptSetting(BaseModel):
         description="Device connection and control settings"
     )
 
-    optimization: Optimization = Field(
-        default_factory=Optimization,
-        description="Performance optimization settings"
-    )
-
-    error_handler: ErrorHandler = Field(
-        default_factory=ErrorHandler,
-        description="Error handling configuration"
+    regions: list[str] = Field(
+        default=[],
+        description="Regions to run the script in"
     )
 
 class Scheduler(BaseModel):
@@ -119,7 +106,7 @@ class Scheduler(BaseModel):
     """
 
     enable: bool = Field(
-        default=True,
+        default=False,
         description="Whether this task is enabled for execution"
     )
 
@@ -359,25 +346,6 @@ class ExplorationConfig(BaseModel):
 
     Settings for chapter exploration and experience/gold farming.
     """
-    # 绘卷模式
-    scroll_mode_enable: bool = Field(
-        default=True,
-        description="绘卷模式"
-    )
-
-    scrolls_cd: str = Field(
-        default="0:30:00",
-        title="绘卷冷却",
-        description="绘卷冷却时间"
-    )
-
-    ticket_threshold: int = Field(
-        title="突破门票阈值",
-        default=25,
-        ge=1,
-        description="突破门票阈值"
-    )
-
     # Buff settings
     buff_gold_50: bool = Field(
         default=False,

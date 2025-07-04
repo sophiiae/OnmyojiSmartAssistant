@@ -1,7 +1,7 @@
 import logging
 import logging.config
 import sys
-import os
+# import os
 from typing import Deque
 from collections import deque
 from datetime import datetime
@@ -99,16 +99,16 @@ LOG_CONFIG = {
 class GameConsoleLogger:
     def __init__(self, debug_mode: bool = False):
         """初始化日志系统"""
-        os.makedirs('logs', exist_ok=True)
+        # os.makedirs('logs', exist_ok=True)
 
-        # 删除现有的日志文件
-        log_files = ['logs/game_debug.log', 'logs/game_errors.log']
-        for log_file in log_files:
-            if os.path.exists(log_file):
-                try:
-                    os.remove(log_file)
-                except Exception as e:
-                    print(f"无法删除日志文件 {log_file}: {e}")
+        # # 删除现有的日志文件
+        # log_files = ['logs/game_debug.log', 'logs/game_errors.log']
+        # for log_file in log_files:
+        #     if os.path.exists(log_file):
+        #         try:
+        #             os.remove(log_file)
+        #         except Exception as e:
+        #             print(f"无法删除日志文件 {log_file}: {e}")
 
         # 动态调整控制台日志级别
         LOG_CONFIG['handlers']['console']['level'] = 'DEBUG' if debug_mode else 'INFO'

@@ -1,17 +1,18 @@
+import random
+from typing import Optional, List
 import copy
-from functools import cached_property
-from datetime import datetime, timedelta
 import operator
-from threading import Lock
 import inflection
-from typing import Optional
+from datetime import datetime, timedelta
+from functools import cached_property
+from threading import Lock
 
+from module.control.config.utils import nearest_future, dict_to_kv
 from module.base.logger import logger
-from module.base.exception import RequestHumanTakeover, ScriptError
-from module.control.config.config_model import ConfigModel
+from module.base.exception import RequestHumanTakeover
 from module.control.config.function import Function
 from module.control.config.scheduler import TaskScheduler
-from module.control.config.utils import dict_to_kv, nearest_future
+from module.control.config.config_model import ConfigModel
 
 class Config:
     def __init__(self, config_name: str, task=None) -> None:
@@ -19,22 +20,12 @@ class Config:
         self.waiting_tasks: list["Function"] = []
         self.waiting_tasks = TaskScheduler.priority(self.waiting_tasks)
 
-        self.task: Optional["Function"] = None  # 任务名大驼峰
+        self.task: Optional[Function] = None  # 任务名大驼峰
         self.model = ConfigModel(config_name)
 
     @cached_property
     def lock_config(self) -> Lock:
         return Lock()
-
-    def reload(self):
-        """
-        保存配置文件
-        :return:
-        """
-        self.model = ConfigModel(config_name=self.config_name)
-
-    def save(self):
-        self.model.write_json(self.config_name)
 
     def update_scheduler(self) -> None:
         """
@@ -58,8 +49,7 @@ class Config:
                 waiting_task.append(func)
 
         if pending_task:
-            pending_task = TaskScheduler.schedule(rule=self.model.script.optimization.schedule_rule,
-                                                  pending=pending_task)
+            pending_task = TaskScheduler.priority(pending_task)
         if waiting_task:
             waiting_task = sorted(
                 waiting_task, key=operator.attrgetter("next_run"))
@@ -81,14 +71,14 @@ class Config:
             logger.info(f"Pending tasks: {
                 [f.name for f in self.pending_task]}")
             task = self.pending_task[0]
-            self.current_task = task
+            self.task = task
             return task
 
         # 哪怕是没有任务，也要返回一个任务，这样才能保证调度器正常运行
         if self.waiting_task:
             logger.info("No task pending")
             task = copy.deepcopy(self.waiting_task[0])
-            logger.info(f"Waiting Task {task}")
+            logger.info(f"Waiting Task: {task}")
             return task
         else:
             logger.critical("No task waiting or pending")
@@ -101,9 +91,9 @@ class Config:
         :return:
         """
         running = {}
-        if self.current_task is not None and self.current_task.next_run < datetime.now():
-            running = {"name": self.current_task.name,
-                       "next_run": str(self.current_task.next_run)}
+        if self.task is not None and self.task.next_run < datetime.now():
+            running = {"name": self.task.name,
+                       "next_run": str(self.task.next_run)}
 
         pending = []
         for p in self.pending_task[1:]:
@@ -118,29 +108,22 @@ class Config:
         data = {"running": running, "pending": pending, "waiting": waiting}
         return data
 
-    def task_call(self, task: str, force_call: bool = True):
+    def task_call(self, task: str, force_call=True):
         """
         回调任务，这会是在任务结束后调用
         :param task: 调用的任务的大写名称
-        :param force_call: 是否强制调用任务
+        :param force_call:
         :return:
         """
         task = inflection.underscore(task)
-        if self.model.deep_get(self.model, keys=f'{task}.scheduler.next_run') is None:
-            raise ScriptError(
-                f"Task to call: {task} does not exist in user config")
 
         task_enable = self.model.deep_get(
-            self.model, keys=f'{task}.scheduler.enable')
+            self.model, keys=f'{task}.enable')
         if force_call or task_enable:
             logger.info(f"Task call: {task}")
             next_run = datetime.now().replace(
                 microsecond=0
             )
-            self.model.deep_set(self.model,
-                                keys=f'{task}.scheduler.next_run',
-                                value=next_run)
-            self.save()
             return True
         else:
             logger.info(
@@ -148,22 +131,20 @@ class Config:
             return False
 
     def task_delay(self, task: str, start_time: Optional[datetime] = None,
-                   success: Optional[bool] = None, server: bool = True, target_time: Optional[datetime] = None) -> None:
+                   success: bool | None = None, target_time: datetime | None = None) -> None:
         """
         设置下次运行时间  当然这个也是可以重写的
-        :param target: 可以自定义的下次运行时间
-        :param server: True
+        :param target_time: 可以自定义的下次运行时间
         :param success: 判断是成功的还是失败的时间间隔
         :param task: 任务名称，大驼峰的
-        :param finish: 是完成任务后的时间为基准还是开始任务的时间为基准
         :return:
         """
-
         # 任务预处理
         if not task:
-            if self.current_task is None:
-                raise ScriptError("No task to delay")
-            task = self.current_task.name
+            if not self.task:
+                raise ValueError(
+                    "No task provided and no current task available")
+            task = self.task.name
 
         task = inflection.underscore(task)
 
@@ -180,18 +161,26 @@ class Config:
         if not start_time:
             start_time = datetime.now().replace(microsecond=0)
 
+        # # 依次判断是否有自定义的下次运行时间
+        # run = []
+        # if success is not None:
+        #     interval = (
+        #         scheduler.success_interval
+        #         if success
+        #         else scheduler.failure_interval
+        #     )
+        #     if isinstance(interval, str):
+        #         d, h, m, s = interval.split(":")
+        #         interval = timedelta(days=int(d), hours=int(
+        #             h), minutes=int(m), seconds=int(s))
+        #     run.append(start_time + interval)
+
         # 依次判断是否有自定义的下次运行时间
         run = []
         if success is not None:
-            interval = (
-                scheduler.success_interval
-                if success
-                else scheduler.failure_interval
-            )
-            if isinstance(interval, str):
-                d, h, m, s = interval.split(":")
-                interval = timedelta(days=int(d), hours=int(
-                    h), minutes=int(m), seconds=int(s))
+            m = random.randint(1, 30)
+            s = random.randint(1, 60)
+            interval = timedelta(minutes=m, seconds=s)
             run.append(start_time + interval)
 
         if target_time is not None:
@@ -213,17 +202,17 @@ class Config:
 
         # 保证线程安全的
         self.lock_config.acquire()
-        try:
-            self.save()
-        finally:
-            self.lock_config.release()
+        self.lock_config.release()
         # 设置
-        logger.info(f"{task}.scheduler.next_run: {next_run}")
+        logger.info(f"{task}.next_run: {next_run}")
 
 
 if __name__ == '__main__':
     config = Config(config_name='osa')
     config.update_scheduler()
-    print(config.waiting_task)
+    print(f"before: {config.get_schedule_data()}")
+    print(config.get_next())
 
+    config.task_delay('Exploration', success=True)
+    print(f"after: {config.get_schedule_data()}")
     print(config.get_next())

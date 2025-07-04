@@ -1,39 +1,7 @@
-# This Python file uses the following encoding: utf-8
-# @author runhey
-# github https://github.com/runhey
-import datetime
-from enum import Enum
 import operator
-
-from module.control.config.enums import ScheduleRule
 from module.control.config.function import Function
 
 class TaskScheduler:
-
-    @staticmethod
-    def schedule(pending: list["Function"], rule: ScheduleRule = ScheduleRule.FIFO) -> list["Function"]:
-        """
-        执行 任务的调度
-        :param rule:
-        :param pending:
-        :return:
-        """
-        if rule != ScheduleRule.FIFO and rule != ScheduleRule.PRIORITY:
-            print(f"Invalid rule: {rule}")
-            return pending
-        if isinstance(pending, list) is False:
-            print(f"Invalid pending: {pending}")
-            return pending
-
-        # 第一种
-        if rule == ScheduleRule.FIFO:
-            pending_task = TaskScheduler.fifo(pending)
-            return pending_task
-
-        # 第二种
-        if rule == ScheduleRule.PRIORITY:
-            pending_task = TaskScheduler.priority(pending)
-            return pending_task
 
     @staticmethod
     def fifo(pending: list["Function"]) -> list["Function"]:
