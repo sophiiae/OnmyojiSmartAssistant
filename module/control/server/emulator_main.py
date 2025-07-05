@@ -1,7 +1,6 @@
 from functools import cached_property
 import os
 import subprocess
-import sys
 import time
 import psutil
 import pyautogui
@@ -11,7 +10,7 @@ from module.base.exception import DeviceNotRunningError, RequestHumanTakeover
 from module.control.config.config import Config
 from module.image_processing.image_processor import ImageProcessor
 from module.base.logger import GameConsoleLogger
-from module.control.server.adb_device import ADBDevice
+from module.control.server.device import Device
 
 mumu_path = r"C:\Program Files\Netease\MuMu Player 12\shell\MuMuPlayer.exe"
 mumu_multi_player_path = r"C:\Program Files\Netease\MuMu Player 12\shell\MuMuMultiPlayer.exe"
@@ -151,7 +150,7 @@ class EmulatorMain:
                 proc.kill()
                 logger.info(f"已终止进程: {proc.info['name']} (PID: {proc.pid})")
 
-    def start_onmyoji(self, device: ADBDevice):
+    def start_onmyoji(self, device: Device):
         logger.info(f" 🎮 启动阴阳师 {device.port}...")
 
         self.check_ad(device)
@@ -159,7 +158,7 @@ class EmulatorMain:
         time.sleep(0.5)
         self.login(device)
 
-    def click_onmyoji(self, device: ADBDevice):
+    def click_onmyoji(self, device: Device):
         # device.capture_screenshot(f"{device.port}.png")
         screenshot = device.get_screenshot()
         pro = ImageProcessor(screenshot)
@@ -172,7 +171,7 @@ class EmulatorMain:
             logger.error("未找到阴阳师Logo, 请检查图片路径和截图质量！")
             raise DeviceNotRunningError("未找到阴阳师Logo, 请检查图片路径和截图质量！")
 
-    def check_ad(self, device: ADBDevice):
+    def check_ad(self, device: Device):
         screenshot = device.get_screenshot()
         pro = ImageProcessor(screenshot)
         center = pro.get_match_center(self.get_image_path('ad_close_icon.png'))
@@ -183,7 +182,7 @@ class EmulatorMain:
         else:
             logger.info("没有发现广告")
 
-    def login(self, device: ADBDevice):
+    def login(self, device: Device):
         screenshot = device.get_screenshot()
         pro = ImageProcessor(screenshot)
         image = cv2.imread(self.get_image_path('login_warning.png'))

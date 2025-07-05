@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 from module.base.logger import logger
 from module.image_processing.image_processor import ImageProcessor
-from module.control.server.adb_device import ADBDevice
+from module.control.server.device import Device
 
 def match_in_file(screenshot_path, target):
     screenshot = cv2.imread(screenshot_path)
@@ -14,7 +14,7 @@ def match_in_file(screenshot_path, target):
     pro.write_output(f"output")
 
 def match_in_simulator(target):
-    device = ADBDevice("127.0.0.1:16384")
+    device = Device("127.0.0.1:16384")
     screenshot = device.get_screenshot()
     pro = ImageProcessor(screenshot)
     result = pro.parse_image_file(target)

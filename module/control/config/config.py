@@ -178,7 +178,7 @@ class Config:
         # 依次判断是否有自定义的下次运行时间
         run = []
         if success is not None:
-            m = random.randint(1, 30)
+            m = random.randint(1, 40)
             s = random.randint(1, 60)
             interval = timedelta(minutes=m, seconds=s)
             run.append(start_time + interval)

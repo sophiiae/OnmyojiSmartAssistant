@@ -5,25 +5,24 @@ import time
 
 from module.base.exception import RequestHumanTakeover
 from module.control.config.config import Config
-from trifle_fairy.config.config import Config as FairyConfig
 from module.image_processing.rule_click import RuleClick
 from module.image_processing.rule_image import RuleImage
 from module.image_processing.rule_swipe import RuleSwipe
 from tasks.main_page.assets import MainPageAssets
-from module.control.server.adb_device import ADBDevice
+from module.control.server.device import Device
 from module.base.timer import Timer
 from module.base.logger import logger
 
 
 class TaskBase(MainPageAssets):
-    config: Config | FairyConfig
-    device: ADBDevice
+    config: Config
+    device: Device
 
     limit_time: datetime  # 限制运行的时间，是软时间，不是硬时间
     limit_count: int  # 限制运行的次数
     current_count: int  # 当前运行的次数
 
-    def __init__(self, config: Config | FairyConfig, device: ADBDevice) -> None:
+    def __init__(self, config: Config, device: Device) -> None:
         """
 
         :rtype: object
@@ -32,7 +31,6 @@ class TaskBase(MainPageAssets):
         self.device = device
         self.start_time = datetime.now()  # 启动的时间
         self.current_count = 0  # 战斗次数
-        self.is_fairy = isinstance(config, FairyConfig)
 
     def _burst(self) -> bool:
         """

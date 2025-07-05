@@ -1,12 +1,12 @@
 from module.control.config.config import Config
 from module.base.logger import GameConsoleLogger
-from module.control.server.adb_device import ADBDevice
+from module.control.server.device import Device
 from module.control.server.emulator_main import EmulatorMain
 
 logger = GameConsoleLogger(debug_mode=False)
 
 class Emulator(EmulatorMain):
-    main_device: ADBDevice
+    main_device: Device
 
     def __init__(self, config_name: str):
         super().__init__(config_name)
@@ -15,7 +15,7 @@ class Emulator(EmulatorMain):
     def start_main_onmyoji(self):
         if self.start_mumu12():
             logger.success("MUMU12模拟器已启动！")
-            self.main_device = ADBDevice(
+            self.main_device = Device(
                 self.config.model.script.device.serial)
             self.start_onmyoji(self.main_device)
         else:

@@ -12,7 +12,7 @@ import inflection
 
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
-from module.control.server.adb_device import ADBDevice
+from module.control.server.device import Device
 from module.control.config.config import Config
 
 
@@ -38,10 +38,10 @@ class Script:
             exit(1)
 
     @cached_property
-    def device(self) -> "ADBDevice":
+    def device(self) -> "Device":
         try:
-            from module.control.server.adb_device import ADBDevice
-            device = ADBDevice(serial=self.config.model.script.device.serial)
+            from module.control.server.device import Device
+            device = Device(config_name=self.config_name)
             return device
         except RequestHumanTakeover:
             logger.critical('Request human takeover')

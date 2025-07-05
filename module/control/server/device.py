@@ -5,22 +5,25 @@ import cv2
 import os
 
 from module.base.logger import GameConsoleLogger
+from module.control.config.config import Config
 
 logger = GameConsoleLogger(debug_mode=True)
 
-class ADBDevice:
-    """ADBDevice class for Android device communication."""
+class Device:
+    """Device class for Android device communication."""
 
     host = "127.0.0.1"
     port = 16384
     adb: AdbClient
     device = None
     screenshot = None
+    config: Config
 
-    def __init__(self, serial: str):
-        """Initialize the ADBDevice."""
+    def __init__(self, config_name: str):
+        """Initialize the Device."""
         self.port: Optional[int] = None
-        self._split_serial(serial)
+        self.config = Config(config_name=config_name)
+        self._split_serial(self.config.model.script.device.serial)
         self.device = self.connect_device()
 
     def _split_serial(self, serial: str):
@@ -113,3 +116,8 @@ class ADBDevice:
             end_y,
             duration
         ))
+
+
+if __name__ == "__main__":
+    device = Device(config_name='osa')
+    device.capture_screenshot("screenshot.png")
