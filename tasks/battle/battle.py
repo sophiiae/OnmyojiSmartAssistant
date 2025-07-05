@@ -14,7 +14,34 @@ from tasks.general.page import page_main
 
 class Battle(General, Buff, BattleAssets):
 
+    def run_easy_battle(self, exit_battle_check: RuleImage) -> bool:
+        logger.info("Start battle process")
+
+        while 1:
+            time.sleep(0.4)
+            self.screenshot()
+
+            if self.appear(exit_battle_check, 0.95):
+                return True
+
+            if self.appear(self.I_REWARD):
+                self.get_reward()
+                continue
+
+            if self.appear(self.I_BATTLE_WIN):
+                action_click = random.choice(
+                    [self.C_REWARD_1, self.C_REWARD_2])
+                self.click(action_click)
+
+        return True
+
     def run_battle(self) -> bool:
+        # 有的时候是长战斗，需要在设置stuck检测为长战斗
+        # 但是无需取消设置，因为如果有点击或者滑动的话 handle_control_check会自行取消掉
+        self.device.stuck_record_add('BATTLE_STATUS_S')
+        self.device.click_record_clear()
+
+        # 战斗过程 随机点击和滑动 防封
         logger.info("Start battle process")
         win = False
 
@@ -22,11 +49,7 @@ class Battle(General, Buff, BattleAssets):
             time.sleep(0.4)
             self.screenshot()
 
-            if self.appear(self.I_BATTLE_WIN):
-                win = True
-                break
-
-            if self.appear(self.I_REWARD):
+            if self.appear(self.I_BATTLE_WIN) or self.appear(self.I_REWARD):
                 win = True
                 break
 
@@ -51,7 +74,8 @@ class Battle(General, Buff, BattleAssets):
             if got_reward and not self.appear(self.I_REWARD):
                 break
 
-            if self.get_reward():
+            if self.appear(self.I_REWARD):
+                self.get_reward()
                 got_reward = True
                 continue
 
@@ -66,13 +90,15 @@ class Battle(General, Buff, BattleAssets):
     def get_reward(self):
         """领奖励
         """
-        self.screenshot()
-        if self.appear(self.I_REWARD):
-            action_click = random.choice(
-                [self.C_REWARD_1, self.C_REWARD_2])
-            self.click(action_click)
-            return True
-        return False
+        action_click = random.choice(
+            [self.C_REWARD_1, self.C_REWARD_2])
+        while 1:
+            self.screenshot()
+            if not self.appear(self.I_REWARD):
+                break
+
+            if self.appear(self.I_REWARD):
+                self.click(action_click)
 
     def run_battle_quit(self):
         """
@@ -87,8 +113,8 @@ class Battle(General, Buff, BattleAssets):
             if self.appear(self.I_BATTLE_FIGHT_AGAIN):
                 break
 
-            if self.click_static_target(self.I_BATTLE_EXIT):
-                self.click_static_target(self.I_BATTLE_EXIT_CONFIRM)
+            if self.appear_then_click(self.I_BATTLE_EXIT):
+                self.appear_then_click(self.I_BATTLE_EXIT_CONFIRM)
                 continue
 
         logger.info("Clicked exit battle confirm")
@@ -100,7 +126,6 @@ class Battle(General, Buff, BattleAssets):
                     [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
                 self.click(action_click)
                 continue
-
             if not self.appear(self.I_BATTLE_FIGHT_AGAIN):
                 break
 
@@ -117,7 +142,7 @@ class Battle(General, Buff, BattleAssets):
         while 1:
             time.sleep(0.2)
             self.screenshot()
-            if self.click_static_target(self.I_BATTLE_EXIT):
+            if self.appear_then_click(self.I_BATTLE_EXIT):
                 continue
             if self.appear(self.I_BATTLE_EXIT_CONFIRM):
                 break
@@ -126,16 +151,16 @@ class Battle(General, Buff, BattleAssets):
         while 1:
             time.sleep(0.2)
             self.screenshot()
-            if self.click_static_target(self.I_BATTLE_EXIT_CONFIRM):
+            if self.appear_then_click(self.I_BATTLE_EXIT_CONFIRM):
                 continue
-            if self.click_static_target(self.I_BATTLE_FAILED):
+            if self.appear_then_click(self.I_BATTLE_FAILED):
                 continue
             if not self.appear(self.I_BATTLE_EXIT):
                 break
 
         return True
 
-    def check_buff(self, buff: list[BuffClass], page: Page = page_main):
+    def check_buff(self, buff: list[BuffClass] = [], page: Page = page_main):
         if not buff:
             return
 
@@ -156,29 +181,33 @@ class Battle(General, Buff, BattleAssets):
 
         self.open_buff(page)
         for b in buff:
-            func, is_open = match_buff[b]
-            func(is_open)
+            func, activate = match_buff[b]
+            func(activate)
             time.sleep(0.1)
 
         logger.info(f'Open buff success')
         self.close_buff()
 
-    def toggle_team_lock(self, team_lock: RuleImage, team_unlock: RuleImage, is_lock: bool = True):
-        # 锁定队伍
-        if not is_lock:
-            if self.wait_until_appear(team_lock, 1):
-                self.click_static_target(team_lock)
-                logger.info("Unlock the team")
-                return True
-
+    def toggle_team_lock(self, team_lock: RuleImage, team_unlock: RuleImage, lock: bool = True):
         # 不锁定队伍
-        if is_lock:
-            if self.wait_until_appear(team_unlock, 1):
-                self.click_static_target(team_unlock)
-                logger.info("Lock the team")
-                return True
+        if not lock:
+            if self.appear(team_unlock):
+                return
 
-        return False
+            if self.wait_until_appear(team_lock, 1):
+                self.wait_until_click(team_lock)
+                logger.info("Unlock the team")
+                return
+
+        # 锁定队伍
+        if lock:
+            if self.appear(team_lock):
+                return
+
+            if self.wait_until_appear(team_unlock, 1):
+                self.wait_until_click(team_unlock)
+                logger.info("Lock the team")
+                return
 
     def toggle_battle_auto(self):
         while 1:
@@ -187,7 +216,8 @@ class Battle(General, Buff, BattleAssets):
             if self.appear(self.I_BATTLE_AUTO):
                 break
 
-            if self.click_static_target(self.I_BATTLE_MANUAL):
+            if self.appear(self.I_BATTLE_MANUAL):
+                self.click(self.I_BATTLE_MANUAL)
                 continue
 
             if self.appear(self.I_BATTLE_WIN, 0.95):

@@ -6,7 +6,7 @@ class PageMap():
     @cached_property
     def MAP(self):
         return {
-            page_main: [page_exp, page_summon, page_store, page_guild],
+            page_main: [page_exp, page_summon, page_store, page_shikigami, page_guild],
             page_exp: [page_realm_raid, page_main, page_minamoto, page_boss],
             page_realm_raid: [page_exp, page_guild_raid],
             page_guild_raid: [page_realm_raid],
@@ -16,11 +16,11 @@ class PageMap():
             page_sleep: [page_main],
             page_summon: [page_main],
             page_minamoto: [page_exp],
-            # page_shikigami: [page_main],
+            page_shikigami: [page_main],
             page_boss: [page_exp],
         }
 
-    def find_path(self, from_page: Page, to_page: Page, path=[]) -> list[Page] | None:
+    def find_path(self, from_page: Page, to_page: Page, path=[]):
         path = path + [from_page]
         if from_page == to_page:
             return path
@@ -40,7 +40,4 @@ if __name__ == "__main__":
     from tasks.general.page import *
     m = PageMap()
     path = m.find_path(page_exp, page_summon)
-    if path is None:
-        print("No path found")
-    else:
-        print([p.name for p in path])
+    print([p.name for p in path])

@@ -145,7 +145,7 @@ class MainPageAssets:
 	I_MAIL_CONFIRM = RuleImage(
 		roi=(685, 545, 172, 57),
 		area=(657, 517, 228, 113),
-		file="./tasks/general/res/buttons/b_confirm.png"
+		file="./tasks/battle/res/battle_fight_again_confirm.png"
 	)
 	# 退出邮件窗口 
 	I_MAIL_EXIT = RuleImage(

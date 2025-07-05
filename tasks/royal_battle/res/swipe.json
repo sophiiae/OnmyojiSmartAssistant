@@ -1,0 +1,16 @@
+[
+  {
+    "name": "rb_to_right",
+    "type": "swipe",
+    "roi_start": "700, 200, 200, 300",
+    "roi_end": "150, 200, 350, 300",
+    "description": "往左滑动,往右走"
+  },
+  {
+    "name": "rb_to_left",
+    "type": "swipe",
+    "roi_start": "200, 200, 400, 300",
+    "roi_end": "800, 200, 100, 300",
+    "description": "往右滑动,往左走"
+  }
+]

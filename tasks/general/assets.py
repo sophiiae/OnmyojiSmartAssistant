@@ -8,38 +8,6 @@ from module.image_processing.rule_click import RuleClick
 class GeneralAssets: 
 
 	# Image Rule Assets
-	# 休眠模式退出按钮 
-	I_B_EXIT_SLEEP = RuleImage(
-		roi=(27, 28, 38, 36),
-		area=(8, 10, 76, 72),
-		file="./tasks/general/res/goto/v_sleep_to_main.png"
-	)
-	# 红色X(关闭) 
-	I_B_RED_X = RuleImage(
-		roi=(1184, 112, 46, 46),
-		area=(1100, 89, 180, 200),
-		file="./tasks/general/res/buttons/b_red_x.png"
-	)
-	# 红色X(礼包等关闭) 
-	I_B_RED_X2 = RuleImage(
-		roi=(953, 168, 40, 40),
-		area=(800, 100, 400, 200),
-		file="./tasks/general/res/buttons/b_red_x2.png"
-	)
-	# 蓝色<页面退出 
-	I_B_BLUE_LEFT_ANGLE = RuleImage(
-		roi=(24, 36, 53, 44),
-		area=(0, 10, 200, 200),
-		file="./tasks/general/res/buttons/b_blue_left_angle.png"
-	)
-	# 黄色<页面退出 
-	I_B_YELLOW_LEFT_ANGLE = RuleImage(
-		roi=(34, 9, 42, 41),
-		area=(0, 0, 200, 200),
-		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
-	)
-
-	# Image Rule Assets
 	# 普通召唤 
 	I_REG_SUMMON = RuleImage(
 		roi=(448, 605, 42, 58),
@@ -81,12 +49,6 @@ class GeneralAssets:
 		roi=(565, 444, 137, 165),
 		area=(497, 376, 273, 301),
 		file="./tasks/general/res/reward.png"
-	)
-	# 确认按钮 
-	I_B_CONFIRM = RuleImage(
-		roi=(727, 417, 63, 29),
-		area=(500, 300, 500, 300),
-		file="./tasks/general/res/buttons/b_confirm.png"
 	)
 
 	# Ocr Rule Assets

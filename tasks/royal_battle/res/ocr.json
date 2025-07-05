@@ -1,0 +1,10 @@
+[
+  {
+    "name": "rb_score",
+    "type": "text",
+    "roi": "704, 512, 50, 23",
+    "area": "692, 500, 74, 47",
+    "keyword": "",
+    "description": "斗技分数"
+  }
+]

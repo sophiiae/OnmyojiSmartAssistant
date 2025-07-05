@@ -1,0 +1,42 @@
+[
+  {
+    "name": "guild_money",
+    "type": "image",
+    "roi": "399, 313, 25, 32",
+    "area": "230, 270, 360, 190",
+    "file": "./tasks/kekkai/res/guild/guild_money.png",
+    "description": "每日寮金币"
+  },
+  {
+    "name": "get_guild_money",
+    "type": "image",
+    "roi": "605, 443, 68, 31",
+    "area": "589, 427, 100, 63",
+    "file": "./tasks/kekkai/res/guild/get_guild_money.png",
+    "description": "领取寮金币"
+  },
+  {
+    "name": "guild_ep",
+    "type": "image",
+    "roi": "398, 315, 23, 26",
+    "area": "230, 270, 360, 190",
+    "file": "./tasks/kekkai/res/guild/guild_ep.png",
+    "description": "寮体力"
+  },
+  {
+    "name": "kekkai_ent",
+    "type": "image",
+    "roi": "1068, 631, 57, 45",
+    "area": "1046, 609, 101, 89",
+    "file": "./tasks/kekkai/res/guild/kekkai_ent.png",
+    "description": "结界入口"
+  },
+  {
+    "name": "guild_skin_change",
+    "type": "image",
+    "roi": "174, 481, 57, 35",
+    "area": "40, 380, 490, 270",
+    "file": "./tasks/kekkai/res/guild/guild_skin_change.png",
+    "description": "结界换装图标"
+  }
+]

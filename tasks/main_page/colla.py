@@ -15,68 +15,83 @@ class Colla(EXP):
         max = 10
         count = 0
         while count < max:
-            self.click(self.I_EXP_CHAPTER_28)
-            count = self.colla_enter_chapter(max, count)
+            if self.click_static_target(self.I_EXP_CHAPTER_28):
+                self.click_static_target(self.I_EXP_BUTTON)
 
-            # # 如果回到了探索界面 -> 检查宝箱
-            # if self.wait_until_appear(self.I_C_EXP, 5):
-            #     self.check_treasure_box()
+            logger.info(f"======== Exp Chapter Entered =========")
+            count = self.colla_chapter_battle(max, count)
+            self.after_chapter_process()
 
-        self.exit_task()
+        self.return_to_exp()
+        self.goto(page_main, page_exp)
 
-    def exit_task(self):
+    def return_to_exp(self):
         time.sleep(1)
         while 1:
-            self.wait_and_shot(0.3)
+            self.wait_and_shot()
             if self.appear(GA.I_C_EXP):
                 break
 
-            if self.click_static_target(self.I_EXP_CHAPTER_DISMISS_ICON):
+            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
+                self.click(self.I_EXP_CHAPTER_DISMISS_ICON)
                 continue
 
-            # 确认退出章节
-            if self.click_static_target(self.I_EXP_CHAPTER_EXIT_CONFIRM):
-                continue
+            if self.appear(self.I_EXP_C_CHAPTER):
+                while 1:
+                    self.wait_and_shot()
+                    if not self.appear(self.I_EXP_C_CHAPTER):
+                        break
+
+                    if self.appear(self.I_EXP_CHAPTER_EXIT_CONFIRM):
+                        self.click(self.I_EXP_CHAPTER_EXIT_CONFIRM)
+                        continue
+
+                    if self.appear(self.I_EXP_CHAPTER_EXIT):
+                        self.click(self.I_EXP_CHAPTER_EXIT)
+                        break
+
+    def exit_chapter(self):
+        while 1:
 
             # 退出章节
-            if self.click_static_target(self.I_EXP_CHAPTER_EXIT):
+            if self.click_static_target(self.I_EXP_CHAPTER_EXIT, 2):
                 continue
 
-        self.goto(page_main, page_exp)
-
-    def colla_enter_chapter(self, max, count) -> int:
-        # 点击 “探索” 按钮进入章节
-        if not self.wait_until_appear(self.I_EXP_BUTTON):
-            logger.error("Cannot find chapter exploration button")
+    def colla_chapter_battle(self, max, count) -> int:
+        if not self.wait_until_appear(self.I_EXP_C_CHAPTER, 2):
+            logger.warning(
+                "***** Not inside chapter or battle finished.")
             raise RequestHumanTakeover
 
-        self.click_static_target(self.I_EXP_BUTTON)
-        time.sleep(0.5)
-        logger.info("Start battle...")
+        self.toggle_team_lock(self.I_EXP_TEAM_LOCK, self.I_EXP_TEAM_UNLOCK)
+
         c = count
         while 1:
-            if c >= max:
+            if c > max:
                 break
 
-            if not self.wait_until_appear(self.I_EXP_C_CHAPTER, 1.5):
-                logger.warning(
-                    "***** Not inside chapter or battle finished.")
-                raise RequestHumanTakeover
+            if c == max and not self.appear(self.I_EXP_BOSS):
+                break
+
+            self.screenshot()
 
             # BOSS 挑战
             if self.appear(self.I_EXP_BOSS):
-                self.click_moving_target(self.I_EXP_BOSS, self.I_BATTLE_CHECK)
+                self.click_moving_target(self.I_EXP_BOSS, self.I_EXP_C_CHAPTER)
 
-                if self.run_battle():
+                if self.run_easy_battle(self.I_EXP_C_CHAPTER):
                     c += 1
                     self.get_chapter_reward()
                     break
+
             # 普通怪挑战
-            if self.click_moving_target(self.I_EXP_BATTLE, self.I_BATTLE_CHECK):
-                if self.wait_until_appear(self.I_EXP_C_CHAPTER, 1):
-                    continue
+            if self.appear(self.I_EXP_BATTLE):
+                self.click_moving_target(
+                    self.I_EXP_BATTLE, self.I_EXP_C_CHAPTER)
+                self.run_easy_battle(self.I_EXP_C_CHAPTER)
                 c += 1
-                self.run_battle()
+                continue
+
             else:
                 self.swipe(self.S_EXP_TO_RIGHT)
 

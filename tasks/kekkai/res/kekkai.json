@@ -1,0 +1,34 @@
+[
+  {
+    "name": "ep_box",
+    "type": "image",
+    "roi": "817, 453, 50, 29",
+    "area": "740, 370, 470, 180",
+    "file": "./tasks/kekkai/res/kekkai/ep_box.png",
+    "description": "体力食盒"
+  },
+  {
+    "name": "exp_bottle",
+    "type": "image",
+    "roi": "892, 451, 49, 30",
+    "area": "740, 370, 470, 180",
+    "file": "./tasks/kekkai/res/kekkai/exp_bottle.png",
+    "description": "经验酒壶"
+  },
+  {
+    "name": "kekkai_reward",
+    "type": "image",
+    "roi": "887, 152, 63, 48",
+    "area": "863, 128, 111, 96",
+    "file": "./tasks/kekkai/res/kekkai/kekkai_reward.png",
+    "description": "结界卡宝箱"
+  },
+  {
+    "name": "kekkai_supply_close",
+    "type": "image",
+    "roi": "952, 143, 46, 46",
+    "area": "929, 120, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "关闭体力食盒/经验酒壶"
+  }
+]

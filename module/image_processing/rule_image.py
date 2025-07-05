@@ -30,7 +30,7 @@ class RuleImage:
         """
         return Path(self.file).stem.upper()
 
-    def crop(self, screenshot: np.ndarray) -> np.ndarray:
+    def crop(self, screenshot) -> np.ndarray:
         """
         截取图片
         """
@@ -86,7 +86,7 @@ class RuleImage:
         tl_x, tl_y, br_x, br_y = self.roi
         return {'w': br_x - tl_x, 'h': br_y - tl_y}
 
-    def match_target(self, screenshot: np.ndarray, threshold=0.9, debug=False, cropped=False) -> bool:
+    def match_target(self, screenshot, threshold=0.9, debug=False, cropped=False) -> bool:
         if not cropped:
             screenshot = self.crop(screenshot)
         target = self.image

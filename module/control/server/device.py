@@ -6,6 +6,9 @@ import os
 
 from module.base.logger import GameConsoleLogger
 from module.control.config.config import Config
+from module.base.timer import Timer
+from collections import deque
+from module.base.exception import GameStuckError, GameTooManyClickError
 
 logger = GameConsoleLogger(debug_mode=True)
 
@@ -18,6 +21,11 @@ class Device:
     device = None
     screenshot = None
     config: Config
+    detect_record = set()
+    click_record = deque(maxlen=15)
+    stuck_timer = Timer(60, retry_max=60).start()
+    stuck_timer_long = Timer(300, retry_max=300).start()
+    stuck_long_wait_list = ['BATTLE_STATUS_S', 'PAUSE', 'LOGIN_CHECK']
 
     def __init__(self, config_name: str):
         """Initialize the Device."""
@@ -52,6 +60,77 @@ class Device:
             logger.error(f"Failed to connect to the device: {e}")
             return None
         return self.device
+
+    def stuck_record_add(self, button):
+        """
+        当你要设置这个时候检测为长时间的时候，你需要在这里添加
+        如果取消后，需要在`stuck_record_clear`中清除
+        :param button:
+        :return:
+        """
+        self.detect_record.add(str(button))
+        logger.info(f'Add stuck record: {button}')
+
+    def stuck_record_clear(self):
+        self.detect_record = set()
+        self.stuck_timer.reset()
+        self.stuck_timer_long.reset()
+
+    def stuck_record_check(self):
+        """
+        Raises:
+            GameStuckError:
+        """
+        reached = self.stuck_timer.reached()
+        reached_long = self.stuck_timer_long.reached()
+
+        if not reached:
+            return False
+        if not reached_long:
+            for button in self.stuck_long_wait_list:
+                if button in self.detect_record:
+                    return False
+
+        logger.warning(f'Waiting for {self.detect_record}')
+        self.stuck_record_clear()
+
+        raise GameStuckError(f'Wait too long.')
+
+    def handle_control_check(self, button):
+        self.stuck_record_clear()
+        self.click_record_add(button)
+        self.click_record_check()
+
+    def click_record_add(self, button):
+        self.click_record.append(str(button))
+
+    def click_record_clear(self):
+        self.click_record.clear()
+
+    def click_record_check(self):
+        """
+        Raises:
+            GameTooManyClickError:
+        """
+        count = {}
+        for key in self.click_record:
+            count[key] = count.get(key, 0) + 1
+        count = sorted(count.items(), key=lambda item: item[1])
+        if count[0][1] >= 12:
+            logger.warning(f'Too many click for a button: {count[0][0]}')
+            logger.warning(f'History click: {
+                           [str(prev) for prev in self.click_record]}')
+            self.click_record_clear()
+            raise GameTooManyClickError(
+                f'Too many click for a button: {count[0][0]}')
+        if len(count) >= 2 and count[0][1] >= 6 and count[1][1] >= 6:
+            logger.warning(f'Too many click between 2 buttons: {
+                           count[0][0]}, {count[1][0]}')
+            logger.warning(f'History click: {
+                           [str(prev) for prev in self.click_record]}')
+            self.click_record_clear()
+            raise GameTooManyClickError(f'Too many click between 2 buttons: {
+                                        count[0][0]}, {count[1][0]}')
 
     def decode_image(self, image):
         """Decode the image."""

@@ -1,0 +1,18 @@
+[
+  {
+    "name": "ticket_count",
+    "type": "text",
+    "roi": "711, 26, 99, 28",
+    "area": "711, 26, 99, 28",
+    "keyword": "",
+    "description": "爬塔门票数量"
+  },
+  {
+    "name": "fivefold_count",
+    "type": "text",
+    "roi": "944, 24, 65, 32",
+    "area": "944, 24, 65, 32",
+    "keyword": "",
+    "description": "五倍卷数量"
+  }
+]

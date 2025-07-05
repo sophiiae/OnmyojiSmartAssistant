@@ -1,0 +1,130 @@
+[
+  {
+    "name": "rb_ent",
+    "type": "image",
+    "roi": "125, 303, 48, 44",
+    "area": "20, 281, 800, 88",
+    "file": "./tasks/royal_battle/res/rb_ent.png",
+    "description": "斗技入口"
+  },
+  {
+    "name": "rb_contest_check",
+    "type": "image",
+    "roi": "95, 5, 144, 45",
+    "area": "73, 0, 188, 89",
+    "file": "./tasks/royal_battle/res/rb_contest_check.png",
+    "description": "斗技比赛"
+  },
+  {
+    "name": "rb_contest_fight",
+    "type": "image",
+    "roi": "1161, 589, 88, 93",
+    "area": "1117, 545, 176, 181",
+    "file": "./tasks/royal_battle/res/rb_contest_fight.png",
+    "description": "斗技比赛对战"
+  },
+  {
+    "name": "rb_fight",
+    "type": "image",
+    "roi": "1146, 575, 101, 87",
+    "area": "1102, 531, 189, 175",
+    "file": "./tasks/royal_battle/res/rb_fight.png",
+    "description": "战斗黄色"
+  },
+  {
+    "name": "rb_fight_blue",
+    "type": "image",
+    "roi": "1156, 571, 75, 72",
+    "area": "1120, 535, 147, 144",
+    "file": "./tasks/royal_battle/res/rb_fight_blue.png",
+    "description": "战斗蓝色"
+  },
+  {
+    "name": "rb_check",
+    "type": "image",
+    "roi": "97, 5, 142, 45",
+    "area": "75, 0, 186, 89",
+    "file": "./tasks/royal_battle/res/rb_check.png",
+    "description": ""
+  },
+  {
+    "name": "rb_daily",
+    "type": "image",
+    "roi": "531, 56, 214, 56",
+    "area": "503, 28, 270, 112",
+    "file": "./tasks/royal_battle/res/rb_daily.png",
+    "description": "日常界面"
+  },
+  {
+    "name": "rb_logo",
+    "type": "image",
+    "roi": "700, 163, 59, 56",
+    "area": "210, 120, 870, 500",
+    "file": "./tasks/royal_battle/res/rb_logo.png",
+    "description": "日常界面斗技图标"
+  },
+  {
+    "name": "rb_header",
+    "type": "image",
+    "roi": "470, 167, 107, 102",
+    "area": "419, 116, 209, 204",
+    "file": "./tasks/royal_battle/res/rb_header.png",
+    "description": "斗技标题图标"
+  },
+  {
+    "name": "rb_goto",
+    "type": "image",
+    "roi": "571, 484, 131, 65",
+    "area": "539, 452, 195, 129",
+    "file": "./tasks/royal_battle/res/rb_goto.png",
+    "description": "前往"
+  },
+  {
+    "name": "rb_ready",
+    "type": "image",
+    "roi": "1135, 565, 87, 46",
+    "area": "1112, 542, 133, 92",
+    "file": "./tasks/battle/res/battle_ready.png",
+    "description": "斗技准备"
+  },
+  {
+    "name": "rb_win",
+    "type": "image",
+    "roi": "411, 54, 172, 129",
+    "area": "347, 0, 300, 257",
+    "file": "./tasks/battle/res/battle_win.png",
+    "description": "斗技胜利"
+  },
+  {
+    "name": "rb_upgrade",
+    "type": "image",
+    "roi": "323, 291, 136, 65",
+    "area": "291, 259, 200, 129",
+    "file": "./tasks/royal_battle/res/rb_upgrade.png",
+    "description": "段位上升"
+  },
+  {
+    "name": "rb_auto_team",
+    "type": "image",
+    "roi": "39, 132, 45, 54",
+    "area": "17, 110, 89, 98",
+    "file": "./tasks/royal_battle/res/rb_auto_team.png",
+    "description": "自动上阵"
+  },
+  {
+    "name": "rb_battle_failed",
+    "type": "image",
+    "roi": "409, 68, 125, 100",
+    "area": "359, 18, 225, 200",
+    "file": "./tasks/battle/res/battle_failed.png",
+    "description": "战斗失败"
+  },
+  {
+    "name": "rb_team_prep_check",
+    "type": "image",
+    "roi": "611, 40, 58, 55",
+    "area": "583, 12, 114, 111",
+    "file": "./tasks/royal_battle/res/rb_team_prep_check.png",
+    "description": "上阵战图标"
+  }
+]

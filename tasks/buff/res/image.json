@@ -32,99 +32,67 @@
     "description": "加成窗口下面的云，用来检测和关闭"
   },
   {
-    "name": "buff_awake_activate",
+    "name": "buff_awake",
     "type": "image",
-    "roi": "770, 140, 47, 46",
-    "area": "770, 140, 80, 30",
+    "roi": "377, 132, 47, 46",
+    "area": "354, 107, 93, 447",
+    "file": "./tasks/buff/res/buff_awake.png",
+    "description": "觉醒加成"
+  },
+  {
+    "name": "buff_soul",
+    "type": "image",
+    "roi": "378, 198, 45, 46",
+    "area": "356, 120, 89, 388",
+    "file": "./tasks/buff/res/buff_soul.png",
+    "description": "御魂加成"
+  },
+  {
+    "name": "buff_gold_50",
+    "type": "image",
+    "roi": "374, 269, 52, 36",
+    "area": "356, 120, 88, 391",
+    "file": "./tasks/buff/res/buff_gold_50.png",
+    "description": "金币50%加成"
+  },
+  {
+    "name": "buff_gold_100",
+    "type": "image",
+    "roi": "379, 338, 43, 39",
+    "area": "359, 121, 83, 407",
+    "file": "./tasks/buff/res/buff_gold_100.png",
+    "description": "金币100%加成"
+  },
+  {
+    "name": "buff_exp_50",
+    "type": "image",
+    "roi": "380, 406, 44, 43",
+    "area": "358, 121, 88, 393",
+    "file": "./tasks/buff/res/buff_exp_50.png",
+    "description": "经验50%加成"
+  },
+  {
+    "name": "buff_exp_100",
+    "type": "image",
+    "roi": "384, 303, 30, 40",
+    "area": "368, 126, 60, 386",
+    "file": "./tasks/buff/res/buff_exp_100.png",
+    "description": "经验100%加成"
+  },
+  {
+    "name": "buff_open_yellow",
+    "type": "image",
+    "roi": "772,347,21,21",
+    "area": "766,133,35,366",
     "file": "./tasks/buff/res/buff_open_yellow.png",
-    "description": "觉醒加成(开)"
+    "description": "description"
   },
   {
-    "name": "buff_awake_deactivate",
+    "name": "buff_close_red",
     "type": "image",
-    "roi": "770, 140, 47, 46",
-    "area": "770, 140, 80, 30",
+    "roi": "772,347,21,21",
+    "area": "766,133,35,366",
     "file": "./tasks/buff/res/buff_close_red.png",
-    "description": "觉醒加成(关)"
-  },
-  {
-    "name": "buff_soul_activate",
-    "type": "image",
-    "roi": "770, 200, 45, 46",
-    "area": "770, 200, 80, 30",
-    "file": "./tasks/buff/res/buff_open_yellow.png",
-    "description": "御魂加成(开)"
-  },
-  {
-    "name": "buff_soul_deactivate",
-    "type": "image",
-    "roi": "770, 200, 45, 46",
-    "area": "770, 200, 80, 30",
-    "file": "./tasks/buff/res/buff_close_red.png",
-    "description": "御魂加成(关)"
-  },
-  {
-    "name": "buff_gold_50_activate",
-    "type": "image",
-    "roi": "770, 275, 52, 36",
-    "area": "770, 275, 80, 30",
-    "file": "./tasks/buff/res/buff_open_yellow.png",
-    "description": "金币50%加成(开)"
-  },
-  {
-    "name": "buff_gold_50_deactivate",
-    "type": "image",
-    "roi": "770, 275, 52, 36",
-    "area": "770, 275, 80, 30",
-    "file": "./tasks/buff/res/buff_close_red.png",
-    "description": "金币50%加成(关)"
-  },
-  {
-    "name": "buff_gold_100_activate",
-    "type": "image",
-    "roi": "770, 340, 43, 39",
-    "area": "770, 340, 80, 30",
-    "file": "./tasks/buff/res/buff_open_yellow.png",
-    "description": "金币100%加成(开)"
-  },
-  {
-    "name": "buff_gold_100_deactivate",
-    "type": "image",
-    "roi": "770, 340, 43, 39",
-    "area": "770, 340, 80, 30",
-    "file": "./tasks/buff/res/buff_close_red.png",
-    "description": "金币100%加成(关)"
-  },
-  {
-    "name": "buff_exp_50_activate",
-    "type": "image",
-    "roi": "770, 410, 44, 43",
-    "area": "770, 410, 80, 30",
-    "file": "./tasks/buff/res/buff_open_yellow.png",
-    "description": "经验50%加成(开)"
-  },
-  {
-    "name": "buff_exp_50_deactivate",
-    "type": "image",
-    "roi": "770, 410, 44, 43",
-    "area": "770, 410, 80, 30",
-    "file": "./tasks/buff/res/buff_close_red.png",
-    "description": "经验50%加成(关)"
-  },
-  {
-    "name": "buff_exp_100_activate",
-    "type": "image",
-    "roi": "770, 470, 30, 40",
-    "area": "770, 470, 80, 30",
-    "file": "./tasks/buff/res/buff_open_yellow.png",
-    "description": "经验100%加成(开)"
-  },
-  {
-    "name": "buff_exp_100_deactivate",
-    "type": "image",
-    "roi": "770, 470, 30, 40",
-    "area": "770, 470, 80, 30",
-    "file": "./tasks/buff/res/buff_close_red.png",
-    "description": "经验100%加成(关)"
+    "description": "description"
   }
 ]

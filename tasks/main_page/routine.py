@@ -1,5 +1,4 @@
 import time
-from typing import NoReturn
 from module.image_processing.rule_image import RuleImage
 from tasks.main_page.colla import Colla
 from tasks.main_page.task_script import MainPage
@@ -9,7 +8,7 @@ from module.base.logger import logger
 
 class Routine(Colla, MainPage):
 
-    def run(self) -> NoReturn:
+    def run(self):
         regions = [
             self.I_REGION_YOULONG,
             self.I_REGION_HUAHUO,
@@ -24,8 +23,6 @@ class Routine(Colla, MainPage):
             self.switch_account()
 
             logger.info(f"*** Complete routine for {region.name} ***")
-
-        raise TaskEnd
 
     def run_single_account(self, colla: bool = True):
         self.screenshot()
@@ -308,8 +305,8 @@ class Routine(Colla, MainPage):
                 continue
 
             if self.appear_then_click(self.I_GET_ALL_MAIL):
-                if self.click_static_target(self.I_MAIL_CONFIRM):
-                    if self.wait_until_appear(self.I_GAIN_REWARD):
+                if self.wait_until_click(self.I_MAIL_CONFIRM, 2):
+                    if self.wait_until_appear(self.I_GAIN_REWARD, 2):
                         got_mail = True
                         self.random_click_right()
                         continue
@@ -389,7 +386,7 @@ class Routine(Colla, MainPage):
             time.sleep(0.5)
             self.screenshot()
             if self.appear_then_click(self.I_USER_CENTER):
-                if self.click_static_target(self.I_SWITCH_ACCOUNT):
+                if self.wait_until_click(self.I_SWITCH_ACCOUNT, 2):
                     continue
 
             if self.appear_then_click(self.I_LOGIN):
@@ -398,7 +395,7 @@ class Routine(Colla, MainPage):
             if self.appear_then_click(self.I_APPLE_LOGO):
                 break
 
-    def switch_region(self, region: RuleImage):
+    def switch_region(self, region: RuleImage = None):
         self.screenshot()
         if not self.appear(self.I_LOGIN_WARNING):
             raise RequestHumanTakeover
@@ -415,7 +412,7 @@ class Routine(Colla, MainPage):
                 continue
 
             if self.appear(self.I_PICK_REGION):
-                if self.click_static_target(self.I_OPEN_REGIONS):
+                if self.wait_until_click(self.I_OPEN_REGIONS, 2, delay=0.5):
                     continue
 
         # 选区
@@ -477,7 +474,7 @@ class Routine(Colla, MainPage):
             time.sleep(0.3)
             self.screenshot()
             if self.appear_then_click(self.I_QUEST_PLUS_BUTTON):
-                self.click_static_target(self.I_CROSS_REGION)
+                self.wait_until_click(self.I_CROSS_REGION)
                 if self.appear(self.I_CROSS_REGION_ENABLE):
                     time.sleep(1)
                     if self.wait_until_appear(self.I_QUEST_AVATAR, 2, threshold=0.96):
@@ -489,7 +486,7 @@ class Routine(Colla, MainPage):
                                 break
                             if self.appear(self.I_QUEST_AVATAR):
                                 self.device.click(x + 100, y)
-                        self.click_static_target(self.I_INVITE)
+                        self.wait_until_click(self.I_INVITE)
                         break
                     else:
                         self.device.click(1205, 310)

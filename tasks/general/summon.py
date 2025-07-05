@@ -4,29 +4,29 @@ from tasks.general.general import General
 from module.base.logger import logger
 
 class Summon(General):
-    pass
-    # def run(self):
-    #     if not self.check_page_appear(page_summon):
-    #         self.goto(page_summon)
 
-    #     image = self.screenshot()
-    #     ticket = self.O_REG_SUMMON_TICKET.digit(image)
-    #     if ticket < 10:
-    #         print("No enough ticket to summon")
+    def run(self):
+        if not self.check_page_appear(page_summon):
+            self.goto(page_summon)
 
-    #     if self.wait_until_appear(self.I_REG_SUMMON, 2, 1):
-    #         self.click(self.I_REG_SUMMON)
+        image = self.screenshot()
+        ticket = self.O_REG_SUMMON_TICKET.digit(image)
+        if ticket < 10:
+            print("No enough ticket to summon")
 
-    #     time.sleep(3)
+        if self.wait_until_appear(self.I_REG_SUMMON, 2, 1):
+            self.click(self.I_REG_SUMMON)
 
-    #     r = (ticket - 10) // 10
-    #     for i in range(r):
+        time.sleep(3)
 
-    #         time.sleep(0.4)
-    #         self.screenshot()
-    #         logger.info(f"Summon round {i + 1}")
-    #         if not self.wait_until_click(self.I_SUMMON_AGAIN):
-    #             break
+        r = (ticket - 10) // 10
+        for i in range(r):
+            
+            time.sleep(0.4)
+            self.screenshot()
+            logger.info(f"Summon round {i + 1}")
+            if not self.wait_until_click(self.I_SUMMON_AGAIN):
+                break
 
-    #     self.goto(page_main, page_summon)
-    #     exit()
+        self.goto(page_main, page_summon)
+        exit()

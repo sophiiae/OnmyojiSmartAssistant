@@ -1,0 +1,26 @@
+[
+  {
+    "name": "yl_check",
+    "type": "image",
+    "roi": "113, 24, 66, 38",
+    "area": "94, 5, 104, 76",
+    "file": "./tasks/yuling/res/yl_check.png",
+    "description": "御灵标记"
+  },
+  {
+    "name": "yl_fight",
+    "type": "image",
+    "roi": "1109, 602, 74, 72",
+    "area": "1073, 566, 146, 144",
+    "file": "./tasks/yuling/res/yl_fight.png",
+    "description": "御灵挑战"
+  },
+  {
+    "name": "yl_lv_3",
+    "type": "image",
+    "roi": "288, 512, 65, 28",
+    "area": "274, 498, 93, 56",
+    "file": "./tasks/yuling/res/yl_lv_3.png",
+    "description": "御灵三层"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "name": "kill_rank_check",
+    "type": "image",
+    "roi": "942, 126, 148, 38",
+    "area": "923, 107, 186, 76",
+    "file": "./tasks/regional_boss/res/kill_rank_check.png",
+    "description": "击杀数最多"
+  },
+  {
+    "name": "boss_filter",
+    "type": "image",
+    "roi": "1107, 37, 49, 48",
+    "area": "1083, 13, 97, 96",
+    "file": "./tasks/regional_boss/res/boss_filter.png",
+    "description": "筛选"
+  },
+  {
+    "name": "kill_challenge_1",
+    "type": "image",
+    "roi": "1077, 224, 82, 76",
+    "area": "1039, 186, 158, 152",
+    "file": "./tasks/regional_boss/res/challenge.png",
+    "description": "击杀数排名第一的鬼王"
+  },
+  {
+    "name": "kill_challenge_2",
+    "type": "image",
+    "roi": "1077, 378, 82, 76",
+    "area": "1039, 340, 158, 152",
+    "file": "./tasks/regional_boss/res/challenge.png",
+    "description": "击杀数排名第二的鬼王"
+  },
+  {
+    "name": "kill_challenge_3",
+    "type": "image",
+    "roi": "1077, 532, 82, 76",
+    "area": "1039, 494, 158, 152",
+    "file": "./tasks/regional_boss/res/challenge.png",
+    "description": "击杀数排名第三的鬼王"
+  },
+  {
+    "name": "boss_fight",
+    "type": "image",
+    "roi": "1110, 508, 88, 41",
+    "area": "1090, 488, 128, 81",
+    "file": "./tasks/regional_boss/res/fight.png",
+    "description": "挑战"
+  },
+  {
+    "name": "boss_exit",
+    "type": "image",
+    "roi": "1188, 23, 46, 46",
+    "area": "1165, 0, 92, 92",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "退出boss挑战页面"
+  },
+  {
+    "name": "boss_ready",
+    "type": "image",
+    "roi": "1135, 565, 87, 46",
+    "area": "1112, 542, 133, 92",
+    "file": "./tasks/battle/res/battle_ready.png",
+    "description": "准备"
+  },
+  {
+    "name": "regular_hardness",
+    "type": "image",
+    "roi": "273, 118, 38, 36",
+    "area": "255, 100, 74, 72",
+    "file": "./tasks/regional_boss/res/regular_hardness.png",
+    "description": "普通难度"
+  }
+]

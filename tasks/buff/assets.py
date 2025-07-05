@@ -32,76 +32,52 @@ class BuffAssets:
 		area=(374, 503, 146, 48),
 		file="./tasks/buff/res/buff_cloud.png"
 	)
-	# 觉醒加成(开) 
-	I_BUFF_AWAKE_ACTIVATE = RuleImage(
-		roi=(770, 140, 47, 46),
-		area=(770, 140, 80, 30),
+	# 觉醒加成 
+	I_BUFF_AWAKE = RuleImage(
+		roi=(377, 132, 47, 46),
+		area=(354, 107, 93, 447),
+		file="./tasks/buff/res/buff_awake.png"
+	)
+	# 御魂加成 
+	I_BUFF_SOUL = RuleImage(
+		roi=(378, 198, 45, 46),
+		area=(356, 120, 89, 388),
+		file="./tasks/buff/res/buff_soul.png"
+	)
+	# 金币50%加成 
+	I_BUFF_GOLD_50 = RuleImage(
+		roi=(374, 269, 52, 36),
+		area=(356, 120, 88, 391),
+		file="./tasks/buff/res/buff_gold_50.png"
+	)
+	# 金币100%加成 
+	I_BUFF_GOLD_100 = RuleImage(
+		roi=(379, 338, 43, 39),
+		area=(359, 121, 83, 407),
+		file="./tasks/buff/res/buff_gold_100.png"
+	)
+	# 经验50%加成 
+	I_BUFF_EXP_50 = RuleImage(
+		roi=(380, 406, 44, 43),
+		area=(358, 121, 88, 393),
+		file="./tasks/buff/res/buff_exp_50.png"
+	)
+	# 经验100%加成 
+	I_BUFF_EXP_100 = RuleImage(
+		roi=(384, 303, 30, 40),
+		area=(368, 126, 60, 386),
+		file="./tasks/buff/res/buff_exp_100.png"
+	)
+	# description 
+	I_BUFF_OPEN_YELLOW = RuleImage(
+		roi=(772,347,21,21),
+		area=(766,133,35,366),
 		file="./tasks/buff/res/buff_open_yellow.png"
 	)
-	# 觉醒加成(关) 
-	I_BUFF_AWAKE_DEACTIVATE = RuleImage(
-		roi=(770, 140, 47, 46),
-		area=(770, 140, 80, 30),
-		file="./tasks/buff/res/buff_close_red.png"
-	)
-	# 御魂加成(开) 
-	I_BUFF_SOUL_ACTIVATE = RuleImage(
-		roi=(770, 200, 45, 46),
-		area=(770, 200, 80, 30),
-		file="./tasks/buff/res/buff_open_yellow.png"
-	)
-	# 御魂加成(关) 
-	I_BUFF_SOUL_DEACTIVATE = RuleImage(
-		roi=(770, 200, 45, 46),
-		area=(770, 200, 80, 30),
-		file="./tasks/buff/res/buff_close_red.png"
-	)
-	# 金币50%加成(开) 
-	I_BUFF_GOLD_50_ACTIVATE = RuleImage(
-		roi=(770, 275, 52, 36),
-		area=(770, 275, 80, 30),
-		file="./tasks/buff/res/buff_open_yellow.png"
-	)
-	# 金币50%加成(关) 
-	I_BUFF_GOLD_50_DEACTIVATE = RuleImage(
-		roi=(770, 275, 52, 36),
-		area=(770, 275, 80, 30),
-		file="./tasks/buff/res/buff_close_red.png"
-	)
-	# 金币100%加成(开) 
-	I_BUFF_GOLD_100_ACTIVATE = RuleImage(
-		roi=(770, 340, 43, 39),
-		area=(770, 340, 80, 30),
-		file="./tasks/buff/res/buff_open_yellow.png"
-	)
-	# 金币100%加成(关) 
-	I_BUFF_GOLD_100_DEACTIVATE = RuleImage(
-		roi=(770, 340, 43, 39),
-		area=(770, 340, 80, 30),
-		file="./tasks/buff/res/buff_close_red.png"
-	)
-	# 经验50%加成(开) 
-	I_BUFF_EXP_50_ACTIVATE = RuleImage(
-		roi=(770, 410, 44, 43),
-		area=(770, 410, 80, 30),
-		file="./tasks/buff/res/buff_open_yellow.png"
-	)
-	# 经验50%加成(关) 
-	I_BUFF_EXP_50_DEACTIVATE = RuleImage(
-		roi=(770, 410, 44, 43),
-		area=(770, 410, 80, 30),
-		file="./tasks/buff/res/buff_close_red.png"
-	)
-	# 经验100%加成(开) 
-	I_BUFF_EXP_100_ACTIVATE = RuleImage(
-		roi=(770, 470, 30, 40),
-		area=(770, 470, 80, 30),
-		file="./tasks/buff/res/buff_open_yellow.png"
-	)
-	# 经验100%加成(关) 
-	I_BUFF_EXP_100_DEACTIVATE = RuleImage(
-		roi=(770, 470, 30, 40),
-		area=(770, 470, 80, 30),
+	# description 
+	I_BUFF_CLOSE_RED = RuleImage(
+		roi=(772,347,21,21),
+		area=(766,133,35,366),
 		file="./tasks/buff/res/buff_close_red.png"
 	)
 

@@ -1,5 +1,4 @@
 import time
-from typing import Optional
 from module.base.logger import logger
 from module.base.exception import GamePageUnknownError
 from module.base.timer import Timer
@@ -12,13 +11,18 @@ from tasks.task_base import TaskBase
 
 class General(TaskBase, GeneralAssets, PageMap):
     ui_current: Page
+    ui_close = [
+        GeneralAssets.I_V_EXP_TO_MAIN, GeneralAssets.I_V_REALM_RAID_TO_EXP,
+        MainPageAssets.I_STORE_EXIT, GeneralAssets.I_V_SLEEP_TO_MAIN,
+        GeneralAssets.I_B_BLUE_LEFT_ANGLE, GeneralAssets.I_B_RED_X, GeneralAssets.I_B_YELLOW_LEFT_ANGLE
+    ]
 
     def check_page_appear(self, page, check_delay: float = 0.01):
         """
         判断当前页面是否为page
         """
         time.sleep(check_delay)
-        if not self.appear(page.check_button, 0.95):
+        if not self.wait_until_appear(page.check_button, 1, threshold=0.95):
             logger.warning(f"Not in {page.name} page")
             return False
         return True
@@ -48,33 +52,29 @@ class General(TaskBase, GeneralAssets, PageMap):
                     self.ui_current = page
                     return page
 
-            self.close_unknown_page()
+            # Try to close unknown page
+            for close in self.ui_close:
+                if self.wait_until_click(close):
+                    logger.warning('Trying to switch to supported page')
+                    timeout = Timer(5, 10).start()
+                time.sleep(0.2)
         logger.critical("Starting from current page is not supported")
         raise GamePageUnknownError
 
-    def close_unknown_page(self):
-        ui_close = [
-            GeneralAssets.I_B_BLUE_LEFT_ANGLE, GeneralAssets.I_B_RED_X,
-            MainPageAssets.I_STORE_EXIT, GeneralAssets.I_B_RED_X2,
-            GeneralAssets.I_B_EXIT_SLEEP, GeneralAssets.I_B_YELLOW_LEFT_ANGLE
-        ]
-        for close in ui_close:
-            self.appear_then_click(GeneralAssets.I_B_CONFIRM)
-            logger.info(f"Checking {close.name}")
-            if self.appear_then_click(close):
-                logger.warning('Trying to switch to supported page')
-            time.sleep(0.3)
+    def goto(self, destination: Page, current: Page | None = None):
+        if not current:
+            self.get_current_page()
+            current = self.ui_current
 
-    def goto(self, destination: Page, current: Optional[Page] = None):
-        if current is None:
-            current = self.get_current_page()
         path = self.find_path(current, destination)
         if path is None:
-            logger.warning(
+            logger.error(
                 f"No path found from {current.name} to {destination.name}")
             return
+
         logger.info(f"[PATH] Start following the path: {
                     [p.name for p in path]}")
+
         for idx, page in enumerate(path):
             # 已经到达页面，退出
             if page == destination:
@@ -83,11 +83,12 @@ class General(TaskBase, GeneralAssets, PageMap):
 
             while 1:
                 self.screenshot()
+
                 if self.check_page_appear(path[idx + 1]):
                     break
 
                 button = page.links[path[idx + 1]]
-                if self.click_static_target(button):
+                if self.wait_until_click(button, interval=0.2):
                     logger.info(f"[PATH] Heading from {
                                 page.name} to {path[idx + 1].name}.")
                     time.sleep(0.2)

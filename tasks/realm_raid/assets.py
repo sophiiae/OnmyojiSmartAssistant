@@ -17,8 +17,8 @@ class RealmRaidAssets:
 	)
 	# 突破界面突破票标记位置 
 	O_RAID_TICKET = RuleOcr(
-		roi=(1146, 18, 30, 27),
-		area=(1146, 18, 30, 27),
+		roi=(1146, 18, 73, 27),
+		area=(1146, 18, 73, 27),
 		keyword="",
 		name="raid_ticket"
 	)
@@ -31,6 +31,12 @@ class RealmRaidAssets:
 	)
 
 	# Image Rule Assets
+	# 个人突破界面 
+	I_REALM_RAID_HEADER = RuleImage(
+		roi=(574, 76, 174, 37),
+		area=(556, 58, 210, 73),
+		file="./tasks/realm_raid/res/realm_raid_header.png"
+	)
 	# 三次胜利奖励 
 	I_RAID_WIN3 = RuleImage(
 		roi=(419, 573, 62, 57),

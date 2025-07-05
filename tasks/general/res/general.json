@@ -52,13 +52,5 @@
     "area": "497, 376, 273, 301",
     "file": "./tasks/general/res/reward.png",
     "description": "战斗/突破/宝箱奖励领取图标"
-  },
-  {
-    "name": "b_confirm",
-    "type": "image",
-    "roi": "727, 417, 63, 29",
-    "area": "500, 300, 500, 300",
-    "file": "./tasks/general/res/buttons/b_confirm.png",
-    "description": "确认按钮"
   }
 ]

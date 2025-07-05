@@ -1,5 +1,13 @@
 [
   {
+    "name": "realm_raid_header",
+    "type": "image",
+    "roi": "574, 76, 174, 37",
+    "area": "556, 58, 210, 73",
+    "file": "./tasks/realm_raid/res/realm_raid_header.png",
+    "description": "个人突破界面"
+  },
+  {
     "name": "raid_win3",
     "type": "image",
     "roi": "419, 573, 62, 57",

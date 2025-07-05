@@ -50,14 +50,14 @@ class RuleOcr:
         y += np.random.randint(0, h)
         return x, y
 
-    def crop(self, screenshot: np.ndarray) -> np.ndarray:
+    def crop(self, screenshot) -> np.ndarray:
         """
         截取图片
         """
         x, y, w, h = self.roi
         return screenshot[y: y + h, x: x + w]
 
-    def ocr_full(self, screenshot: np.ndarray, keyword: Optional[str] = None) -> Tuple[int, int, int, int]:
+    def ocr_full(self, screenshot, keyword: Optional[str] = None) -> Tuple[int, int, int, int]:
         """
         检测整个图片的文本,并对结果进行过滤。返回的是匹配到的keyword的左边。如果没有匹配到返回(0, 0, 0, 0)
         :param screenshot: 要检测的图片

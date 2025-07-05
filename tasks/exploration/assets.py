@@ -134,12 +134,18 @@ class ExplorationAssets:
 		area=(1099, 56, 92, 89),
 		file="./tasks/exploration/res/exp_yaoqi_close.png"
 	)
+	# 探索界面宝箱 
+	I_EXP_TREASURE_BOX = RuleImage(
+		roi=(695, 219, 71, 60),
+		area=(665, 189, 131, 120),
+		file="./tasks/exploration/res/exp_treasure_box.png"
+	)
 
 	# Ocr Rule Assets
 	# 探索界面突破票数量 
 	O_EXP_VIEW_TICKET_COUNT = RuleOcr(
-		roi=(741, 15, 30, 27),
-		area=(741, 15, 30, 27),
+		roi=(741, 15, 71, 27),
+		area=(741, 15, 71, 27),
 		keyword="",
 		name="exp_view_ticket_count"
 	)

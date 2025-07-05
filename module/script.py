@@ -70,7 +70,6 @@ class Script:
                         module_path}, module_name: {module_name}')
             task_module = self.load_module(module_name, module_path)
             task_module.TaskScript(
-                config=self.config,
                 device=self.device
             ).run()
         except TaskEnd:

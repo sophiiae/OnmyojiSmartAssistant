@@ -165,5 +165,13 @@
     "area": "1099, 56, 92, 89",
     "file": "./tasks/exploration/res/exp_yaoqi_close.png",
     "description": "妖气封印退出"
+  },
+  {
+    "name": "exp_treasure_box",
+    "type": "image",
+    "roi": "695, 219, 71, 60",
+    "area": "665, 189, 131, 120",
+    "file": "./tasks/exploration/res/exp_treasure_box.png",
+    "description": "探索界面宝箱"
   }
 ]
