@@ -1,8 +1,8 @@
 {
-  "config_name": "nian",
+  "config_name": "xiao",
   "script": {
     "device": {
-      "serial": "127.0.0.1:16416"
+      "serial": "127.0.0.1:16448"
     },
     "regions": [
       "海外加速区"
@@ -50,7 +50,7 @@
   },
   "exploration": {
     "scheduler": {
-      "enable": false,
+      "enable": true,
       "next_run": "2024-08-28 00:02:42",
       "priority": 5,
       "success_interval": "00:00:30:00",
@@ -99,7 +99,7 @@
     },
     "raid_config": {
       "tickets_required": 20,
-      "exit_two": false,
+      "exit_two": true,
       "order_attack": "5 > 4 > 3 > 2 > 1 > 0",
       "three_refresh": false,
       "when_attack_fail": "Continue"
