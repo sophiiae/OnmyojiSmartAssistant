@@ -56,6 +56,7 @@ class TaskScript(EA, Battle):
         raise TaskEnd(self.name)
 
     def after_chapter_process(self):
+        time.sleep(1)
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):

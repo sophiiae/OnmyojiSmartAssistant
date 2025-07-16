@@ -5,67 +5,35 @@ from module.base.exception import TaskEnd
 from tasks.battle.battle import Battle
 from tasks.general.page import Page, page_exp, page_main
 from tasks.royal_battle.assets import RoyalBattleAssets as RB
+from module.base.exception import RequestHumanTakeover
 
 class TaskScript(Battle, RB):
     name = "Royal battle"
     current_level = 10
     levels = [2700, 2400, 2200, 2000, 1800]
 
-    def run(self):
+    # 普通斗技模式 / 斗技赛季模式
+    def run(self, contestMode=False):
         self.screenshot()
-        if not self.appear(self.I_RB_CHECK) and not self.appear(self.I_RB_CONTEST_CHECK):
+        check_img = self.I_RB_CONTEST_CHECK if contestMode else self.I_RB_CHECK
+        if not self.appear(check_img):
             self.to_battle_entrance()
 
-        reward_count = 0
-        backward = 0
-        # 如果掉过一次段位，下次上段位之后就不打了。 或者上了名士之后就不打了
+        retry = 0
         while 1 and self.current_level > 0:
             logger.info(f"======== Battle start =========")
 
             self.wait_and_shot(1)
-            # if self.appear(self.I_RB_UPGRADE) or
-            if self.appear(self.I_REWARD):
-                self.random_click_right()
+            if self.appear(check_img):
+                if self.appear(self.I_RB_NOTABLE_BADGE, 0.95) or retry > 5:
+                    raise RequestHumanTakeover(self.name)
 
-            if self.appear(self.I_RB_CHECK) or self.appear(self.I_RB_CONTEST_CHECK):
-                # if self.appear(self.I_RB_FIGHT_BLUE):
-                # level = self.get_level()
-                # logger.info(
-                #     f"### Battle: level={level}, backward: {backward}")
+                if not self.appear(self.I_RB_FLOWER_BADGE):
+                    self.random_click_right()
+                    retry += 1
+                    continue
 
-                # if level > self.current_level:  # 段位降低
-                #     self.current_level = level
-                #     backward += 1
-                # elif level < self.current_level:  # 段位提升
-                #     self.current_level = level
-                #     if backward > 0:
-                #         # 如果曾经掉过一次段位，就退出
-                #         raise TaskEnd(self.name)
-                if self.check_score(3000):
-                    raise TaskEnd(self.name)
-
-                self.battle_process()
-
-        raise TaskEnd(self.name)
-
-    # 斗技赛季模式
-    def run_contest(self):
-        self.screenshot()
-        if not self.appear(self.I_RB_CONTEST_CHECK):
-            self.to_battle_entrance()
-
-        while 1 and self.current_level > 0:
-            logger.info(f"======== Battle start =========")
-
-            self.wait_and_shot(1)
-            if self.appear(self.I_REWARD):
-                self.random_click_right()
-
-            if self.appear(self.I_RB_CONTEST_CHECK):
-                if self.check_score(3000):
-                    raise TaskEnd(self.name)
-
-                self.battle_process(contest=True)
+                self.battle_process(contest=contestMode)
 
         raise TaskEnd(self.name)
 

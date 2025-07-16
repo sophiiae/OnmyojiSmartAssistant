@@ -104,6 +104,18 @@ class RoyalBattleAssets:
 		area=(583, 12, 114, 111),
 		file="./tasks/royal_battle/res/rb_team_prep_check.png"
 	)
+	# 名士徽章 
+	I_RB_NOTABLE_BADGE = RuleImage(
+		roi=(668, 535, 23, 20),
+		area=(658, 525, 43, 40),
+		file="./tasks/royal_battle/res/rb_notable_badge.png"
+	)
+	# 普通花朵徽章 
+	I_RB_FLOWER_BADGE = RuleImage(
+		roi=(665, 507, 38, 36),
+		area=(647, 489, 74, 72),
+		file="./tasks/royal_battle/res/rb_flower_badge.png"
+	)
 
 	# Ocr Rule Assets
 	# 斗技分数 

@@ -14,5 +14,5 @@ if __name__ == "__main__":
         file = sys.argv[2]
 
         d = Device(config_name=name)
-        filepath = Path.cwd() / f"{file}.png"
+        filepath = Path.cwd() / f"{file}.cap.png"
         d.capture_screenshot(filepath)
