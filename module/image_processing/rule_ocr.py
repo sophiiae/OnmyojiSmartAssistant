@@ -135,6 +135,7 @@ class RuleOcr:
         :return:
         """
         result = self.ocr_single(image)
+        result = ''.join(re.findall(r'\d+', result))
 
         if result == "":
             return 0

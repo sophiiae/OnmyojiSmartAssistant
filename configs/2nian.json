@@ -51,7 +51,7 @@
   "exploration": {
     "scheduler": {
       "enable": true,
-      "next_run": "2025-07-16 20:14:50",
+      "next_run": "2025-07-17 09:52:25",
       "priority": 5,
       "success_interval": "00:00:10:00",
       "failure_interval": "00:00:30:00"
@@ -76,7 +76,7 @@
   "realm_raid": {
     "scheduler": {
       "enable": true,
-      "next_run": "2025-07-16 20:27:58",
+      "next_run": "2025-07-17 10:08:36",
       "priority": 5,
       "success_interval": "00:00:20:00",
       "failure_interval": "00:00:30:00"

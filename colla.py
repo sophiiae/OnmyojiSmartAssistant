@@ -13,7 +13,7 @@ from tasks.main_page.colla import Colla
 config_names = [
     # '1qian',
     # '2nian',
-    '3xiao',
+    # '3xiao',
     '4',
     '5',
     '6',
