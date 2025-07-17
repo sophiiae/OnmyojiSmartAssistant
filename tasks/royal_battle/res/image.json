@@ -142,5 +142,13 @@
     "area": "647, 489, 74, 72",
     "file": "./tasks/royal_battle/res/rb_flower_badge.png",
     "description": "普通花朵徽章"
+  },
+  {
+    "name": "rb_notable_notification",
+    "type": "image",
+    "roi": "504, 399, 286, 70",
+    "area": "469, 364, 356, 140",
+    "file": "./tasks/royal_battle/res/rb_notable_notification.png",
+    "description": "晋升名士"
   }
 ]

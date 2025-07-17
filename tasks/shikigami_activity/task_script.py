@@ -24,15 +24,15 @@ class TaskScript(Battle, SA):
             self.goto(page_shikigami)
             time.sleep(1)
 
+        self.wait_and_shot()
         if not self.appear(self.I_SA_FIGHT_CHECK):
             # 进入爬塔页面
             while 1:
-                time.sleep(0.3)
-                self.screenshot()
-                if not self.appear(self.I_SA_FIGHT_ENT):
+                self.wait_and_shot()
+                if self.appear(self.I_SA_FIGHT_CHECK):
                     break
 
-                if self.appear(self.I_SA_FIGHT_ENT):
+                if self.appear(self.I_SA_FIGHT_ENT, 0.95):
                     self.click(self.I_SA_FIGHT_ENT)
                     continue
 
@@ -75,9 +75,11 @@ class TaskScript(Battle, SA):
         # 简单刷活动
         for i in range(self.fight_count):
             logger.info(f"======== Round {i + 1} by ticket =========")
-            self.start_battle()
+            if not self.start_battle():
+                break
 
         # self.guiwang()
+        self.exit_activity()
 
     def guiwang(self):
         #  鬼王
@@ -123,6 +125,10 @@ class TaskScript(Battle, SA):
             self.wait_and_shot()
             if not self.appear(self.I_SA_FIGHT_CHECK):
                 break
+
+            if self.appear(self.I_SA_SHOP):
+                self.click(self.I_SA_FIGHT)
+                return False
 
             if self.appear(self.I_SA_FIGHT):
                 self.click(self.I_SA_FIGHT)
@@ -176,3 +182,17 @@ class TaskScript(Battle, SA):
 
                 if self.appear(self.I_SA_EP):
                     self.wait_until_click(self.I_SA_SWITCH)
+
+    def exit_activity(self):
+        retry = 0
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_C_MAIN, 0.95):
+                break
+
+            if retry > 10:
+                raise RequestHumanTakeover()
+
+            if self.appear(self.I_SA_EXIT):
+                self.click(self.I_SA_EXIT)
+                retry += 1

@@ -59,7 +59,7 @@ class ConfigModel(BaseModel):
         :param data: dict
         :return:
         """
-        filepath = Path.cwd() / "config" / f"{config_name}.json"
+        filepath = Path.cwd() / "configs" / f"{config_name}.json"
         data = self.model_dump()
         with open(filepath, 'w') as fp:
             json.dump(data, fp, indent=2, ensure_ascii=False)

@@ -9,7 +9,7 @@ from threading import Lock
 
 from module.control.config.utils import nearest_future, dict_to_kv
 from module.base.logger import logger
-from module.base.exception import RequestHumanTakeover
+from module.base.exception import RequestHumanTakeover, ScriptError
 from module.control.config.function import Function
 from module.control.config.scheduler import TaskScheduler
 from module.control.config.config_model import ConfigModel
@@ -26,6 +26,16 @@ class Config:
     @cached_property
     def lock_config(self) -> Lock:
         return Lock()
+
+    def reload(self):
+        """
+        保存配置文件
+        :return:
+        """
+        self.model = ConfigModel(config_name=self.config_name)
+
+    def save(self):
+        self.model.write_json(self.config_name)
 
     def update_scheduler(self) -> None:
         """
@@ -49,7 +59,7 @@ class Config:
                 waiting_task.append(func)
 
         if pending_task:
-            pending_task = TaskScheduler.priority(pending_task)
+            pending_task = TaskScheduler.fifo(pending_task)
         if waiting_task:
             waiting_task = sorted(
                 waiting_task, key=operator.attrgetter("next_run"))
@@ -108,22 +118,29 @@ class Config:
         data = {"running": running, "pending": pending, "waiting": waiting}
         return data
 
-    def task_call(self, task: str, force_call=True):
+    def task_call(self, task: str, force_call: bool = True):
         """
         回调任务，这会是在任务结束后调用
         :param task: 调用的任务的大写名称
-        :param force_call:
+        :param force_call: 是否强制调用任务
         :return:
         """
         task = inflection.underscore(task)
+        if self.model.deep_get(self.model, keys=f'{task}.scheduler.next_run') is None:
+            raise ScriptError(
+                f"Task to call: {task} does not exist in user config")
 
         task_enable = self.model.deep_get(
-            self.model, keys=f'{task}.enable')
+            self.model, keys=f'{task}.scheduler.enable')
         if force_call or task_enable:
             logger.info(f"Task call: {task}")
             next_run = datetime.now().replace(
                 microsecond=0
             )
+            self.model.deep_set(self.model,
+                                keys=f'{task}.scheduler.next_run',
+                                value=next_run)
+            self.save()
             return True
         else:
             logger.info(
@@ -178,7 +195,7 @@ class Config:
         # 依次判断是否有自定义的下次运行时间
         run = []
         if success is not None:
-            m = random.randint(1, 40)
+            m = random.randint(1, 20)
             s = random.randint(1, 60)
             interval = timedelta(minutes=m, seconds=s)
             run.append(start_time + interval)

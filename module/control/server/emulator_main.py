@@ -33,7 +33,7 @@ class EmulatorMain:
             result = subprocess.run(['tasklist', '/FI', 'IMAGENAME eq MuMuPlayer.exe'],
                                     capture_output=True, text=True)
             if 'MuMuPlayer.exe' in result.stdout:
-                logger.info("MuMu12模拟器已经在运行中。")
+                logger.background("MuMu12模拟器已经在运行中。")
                 return True
         except Exception as e:
             logger.error(f"检查MuMu12进程时出错: {e}")
@@ -45,7 +45,7 @@ class EmulatorMain:
 
         # 启动MuMu12模拟器
         try:
-            logger.info("正在启动MuMu12模拟器...")
+            logger.background("正在启动MuMu12模拟器...")
             subprocess.Popen([self.mumu_path])
             time.sleep(10)  # 等待模拟器启动完成
             return True
@@ -67,7 +67,7 @@ class EmulatorMain:
             result = subprocess.run(['tasklist', '/FI', 'IMAGENAME eq MuMuPlayer.exe'],
                                     capture_output=True, text=True)
             if 'MuMuPlayer.exe' in result.stdout:
-                logger.info("MuMu12模拟器已经在运行中。")
+                logger.background("MuMu12模拟器已经在运行中。")
                 return True
         except Exception as e:
             logger.error(f"检查MuMu12进程时出错: {e}")
@@ -80,7 +80,7 @@ class EmulatorMain:
 
         # 启动MuMu12多开器
         try:
-            logger.info("正在启动MuMu12多开器...")
+            logger.background("正在启动MuMu12多开器...")
             subprocess.Popen([self.mumu_multi_player_path])
             while 1:
                 time.sleep(2)  # 等待多开器启动
@@ -89,7 +89,7 @@ class EmulatorMain:
                     logger.success("MuMu12多开器已启动成功！")
                     break
                 else:
-                    logger.info("等待MuMu12多开器启动...")
+                    logger.background("等待MuMu12多开器启动...")
             return True
         except Exception as e:
             logger.error(f"启动MuMu12多开器时出错: {e}")
@@ -99,7 +99,7 @@ class EmulatorMain:
         if not self.start_mumu_multi():  # 启动MuMu多开器
             return False
 
-        logger.info("正在激活所有MuMu模拟器...")
+        logger.background("正在激活所有MuMu模拟器...")
         while 1:
             time.sleep(2)  # 等待多开器启动
             # 检查MuMu12多开器是否启动成功
@@ -107,7 +107,7 @@ class EmulatorMain:
                 logger.success("MuMu12多开器已启动成功！")
                 break
             else:
-                logger.info("等待MuMu12多开器启动...")
+                logger.background("等待MuMu12多开器启动...")
 
         try:
             select_all = pyautogui.locateOnScreen(
@@ -131,7 +131,7 @@ class EmulatorMain:
             return False
 
         time.sleep(30)  # 等待模拟器启动完成
-        logger.info("所有MuMu模拟器已激活！")
+        logger.background("所有MuMu模拟器已激活！")
         return True
 
     def get_image_path(self, file_name: str) -> str:
@@ -148,10 +148,11 @@ class EmulatorMain:
         for proc in psutil.process_iter(['name']):
             if proc.info['name'] in processes:
                 proc.kill()
-                logger.info(f"已终止进程: {proc.info['name']} (PID: {proc.pid})")
+                logger.background(
+                    f"已终止进程: {proc.info['name']} (PID: {proc.pid})")
 
     def start_onmyoji(self, device: Device):
-        logger.info(f" 🎮 启动阴阳师 {device.port}...")
+        logger.background(f" 🎮 启动阴阳师 {device.port}...")
 
         self.check_ad(device)
         self.click_onmyoji(device)
@@ -180,7 +181,7 @@ class EmulatorMain:
             device.click(center[0], center[1])
             time.sleep(0.5)
         else:
-            logger.info("没有发现广告")
+            logger.background("没有发现广告")
 
     def login(self, device: Device):
         screenshot = device.get_screenshot()

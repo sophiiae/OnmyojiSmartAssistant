@@ -75,8 +75,7 @@ class TaskScript(EA, Battle):
 
     def check_treasure_box(self):
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if not self.appear(self.I_EXP_TREASURE_BOX, 0.95):
                 break
 
@@ -151,8 +150,7 @@ class TaskScript(EA, Battle):
         found = False
         time.sleep(1)
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_C_EXP) or self.appear(self.I_C_EXP_MODAL) or self.appear(self.I_EXP_YAOQI):
                 break
 

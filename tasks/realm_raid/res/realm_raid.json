@@ -211,5 +211,13 @@
     "area": "210, 130, 940, 400",
     "file": "./tasks/realm_raid/res/medals/medal_5.png",
     "description": "5个勋章"
+  },
+  {
+    "name": "realm_raid_failed",
+    "type": "image",
+    "roi": "409, 136, 125, 100",
+    "area": "359, 86, 225, 200",
+    "file": "./tasks/battle/res/battle_failed.png",
+    "description": "战斗失败"
   }
 ]

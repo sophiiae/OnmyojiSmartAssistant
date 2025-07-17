@@ -86,9 +86,9 @@ class BattleAssets:
 	# bottom right 
 	C_WIN_4 = RuleClick(roi=(1070, 550, 200, 150), area=(1070, 550, 200, 150), name="win_4")
 	# left 
-	C_REWARD_1 = RuleClick(roi=(30, 40, 210, 560), area=(30, 40, 210, 560), name="reward_1")
+	C_REWARD_1 = RuleClick(roi=(110, 130, 130, 500), area=(110, 130, 130, 500), name="reward_1")
 	# right 
-	C_REWARD_2 = RuleClick(roi=(1070, 60, 200, 570), area=(1070, 60, 200, 570), name="reward_2")
+	C_REWARD_2 = RuleClick(roi=(1100, 130, 130, 500), area=(1100, 130, 130, 500), name="reward_2")
 	# left 
 	C_GAIN_REWARD_1 = RuleClick(roi=(30, 100, 270, 550), area=(30, 100, 270, 550), name="gain_reward_1")
 	# right 

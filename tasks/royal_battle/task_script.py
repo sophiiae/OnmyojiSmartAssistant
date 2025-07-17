@@ -25,7 +25,7 @@ class TaskScript(Battle, RB):
 
             self.wait_and_shot(1)
             if self.appear(check_img):
-                if self.appear(self.I_RB_NOTABLE_BADGE, 0.95) or retry > 5:
+                if self.appear(self.I_RB_NOTABLE_NOTIFICATION, 0.95) or self.appear(self.I_RB_NOTABLE_BADGE, 0.95) or retry > 5:
                     raise RequestHumanTakeover(self.name)
 
                 if not self.appear(self.I_RB_FLOWER_BADGE):

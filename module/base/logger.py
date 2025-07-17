@@ -248,7 +248,7 @@ class GameConsoleLogger:
         self._log_with_context('critical', f"💥 {msg}")
 
 
-logger = GameConsoleLogger(debug_mode=True)
+logger = GameConsoleLogger(debug_mode=False)
 
 # 使用示例
 if __name__ == "__main__":

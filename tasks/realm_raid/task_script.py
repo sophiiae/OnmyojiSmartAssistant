@@ -43,6 +43,8 @@ class TaskScript(RealmRaidAssets, Battle):
             success = self.start_battle(attack_list)
             if success:
                 self.reverse = not self.reverse
+            else:
+                self.click_refresh()
             del self.partitions_prop
             enough_ticket = self.check_ticket()
             time.sleep(1)
@@ -63,6 +65,9 @@ class TaskScript(RealmRaidAssets, Battle):
         success = True
         attack_index = 1
         print(f"----- attack order: {attack_list}")
+        image = self.screenshot()
+        level = self.O_RAID_PARTITION_1_LV.digit(image)
+        skip_quit = level < 57
 
         while len(attack_list) > 0:
             # 下一个挑战目标
@@ -81,13 +86,13 @@ class TaskScript(RealmRaidAssets, Battle):
             time.sleep(1)
             # 最后一个退4次再打， 卡57
             logger.info(f"----- Attacking index {attack_index}.")
-            if attack_index == 9 and not self.reverse:
+            if attack_index == 9 and not self.reverse and not skip_quit:
                 self.quit_and_fight(attack_index)
 
             attack_count = 0
             while attack_count < 5:
                 self.enter_battle(attack_index)
-                if not self.run_easy_battle(self.I_REALM_RAID_HEADER):
+                if not self.run_easy_battle(self.I_REALM_RAID_HEADER, self.I_REALM_RAID_FAILED):
                     logger.warning(f"Failed to attack index {attack_index}")
                     success = False
                     attack_count += 1
@@ -136,7 +141,7 @@ class TaskScript(RealmRaidAssets, Battle):
         while ticket:
             index = attack_list.pop()
             self.enter_battle(index)
-            if not self.run_easy_battle(self.I_REALM_RAID_HEADER):
+            if not self.run_easy_battle(self.I_REALM_RAID_HEADER, self.I_REALM_RAID_FAILED):
                 continue
             else:
                 count -= 1
@@ -248,17 +253,30 @@ class TaskScript(RealmRaidAssets, Battle):
     def is_lose(self, index):
         return self.partitions_prop[index]['lose']
 
+    def is_downgrad_required(self):
+        image = self.screenshot()
+        level = self.O_RAID_PARTITION_1_LV.digit(image)
+        downgrad_required = False
+
+        if level > 57:
+            level_3 = self.O_RAID_PARTITION_3_LV.digit(image)
+            if level_3 > 57:
+                level_9 = self.O_RAID_PARTITION_9_LV.digit(image)
+                if level_9 > 57:
+                    print(
+                        f"----- level: {level}, level_3: {level_3}, level_9: {level_9}")
+                    downgrad_required = True
+
+        return downgrad_required
+
     def downgrade(self) -> bool:
         image = self.screenshot()
         if not self.wait_until_appear(self.I_REALM_RAID_HEADER, 2):
             return False
 
-        level = self.O_RAID_PARTITION_1_LV.digit(image)
+        downgrad_required = self.is_downgrad_required()
         retry = 5
-        while level > 57:
-            logger.info(
-                f"-------->>> Current lowest level: {level}  <<<----------"
-            )
+        while downgrad_required:
             # 不锁定退得快点
             self.toggle_realm_team_lock(False)
 
@@ -282,15 +300,14 @@ class TaskScript(RealmRaidAssets, Battle):
             time.sleep(0.3)
 
             # 更新现在的最低等级
-            image = self.screenshot()
-            level = self.O_RAID_PARTITION_1_LV.digit(image)
+            downgrad_required = self.is_downgrad_required()
             retry -= 1
 
         if retry < 0:
             logger.critical(f"Run out of retry for downgrade")
             return False
 
-        logger.info(f"Current level [{level}] meets requirement.")
+        logger.info(f"Current level meets requirement.")
         return True
 
     def click_refresh(self) -> bool:

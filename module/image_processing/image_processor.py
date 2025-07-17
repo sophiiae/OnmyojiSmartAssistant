@@ -21,7 +21,7 @@ class ImageProcessor:
         for file in os.listdir(dir):
             if (file.endswith('.png')):
                 name = file.split('.')[0]
-                logger.info(f"*** start processing file: {file}")
+                logger.background(f"*** start processing file: {file}")
 
                 image = cv2.imread(f"{dir}/{file}")
                 roi = self.find_target(image)
@@ -53,16 +53,16 @@ class ImageProcessor:
 
     def parse_image_file(self, path):
         image = cv2.imread(path)
-        logger.info(f"path: {path}")
+        logger.background(f"path: {path}")
         return self.start_process(path, image=image)
 
     def start_process(self, path, image):
-        logger.info(f"**** start processing image ****")
+        logger.background(f"**** start processing image ****")
         roi = self.find_target(image)
         if roi is not None:
             area = self.get_area(roi)
 
-            logger.info("Drawing target and area rectangles...")
+            logger.background("Drawing target and area rectangles...")
             self.draw_rectange(
                 (roi[0], roi[1]), (roi[0] + roi[2], roi[1] + roi[3]), self.target_rectangle_color)
             self.draw_rectange(
@@ -115,7 +115,7 @@ class ImageProcessor:
         )
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
         if max_val > 0.95:
-            logger.info(f"match rate: {max_val}")
+            logger.background(f"match rate: {max_val}")
             x, y = max_loc
             h, w, c = target.shape
             return (x, y, w, h)
@@ -213,7 +213,7 @@ class ImageProcessor:
 #             sys.exit(1)
 #         pro = ImageProcessor(screenshot)
 #         result = pro.parse_image_file(target)
-#         logger.info(json.dumps(result))
+#         logger.background(json.dumps(result))
 #         pro.write_output(f"output")
 #     else:
 #         emulator = Emulator(config_name="osa")

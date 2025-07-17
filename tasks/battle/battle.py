@@ -14,26 +14,36 @@ from tasks.general.page import page_main
 
 class Battle(General, Buff, BattleAssets):
 
-    def run_easy_battle(self, exit_battle_check: RuleImage) -> bool:
-        logger.info("Start battle process")
+    def run_easy_battle(self, exit_battle_check: RuleImage, failed_check: RuleImage | None = None) -> bool:
+        logger.info("Start easy battle process")
+
+        win = True
+        action_click = random.choice(
+            [self.C_REWARD_1, self.C_REWARD_2])
 
         while 1:
-            time.sleep(0.4)
-            self.screenshot()
-
+            self.wait_and_shot(0.4)
             if self.appear(exit_battle_check, 0.95):
-                return True
+                break
 
             if self.appear(self.I_REWARD):
                 self.get_reward()
+                win = True
                 continue
 
-            if self.appear(self.I_BATTLE_WIN):
-                action_click = random.choice(
-                    [self.C_REWARD_1, self.C_REWARD_2])
+            if self.appear(self.I_BATTLE_WIN, 0.95):
                 self.click(action_click)
+                win = True
+                continue
 
-        return True
+            if failed_check and self.appear(failed_check, 0.95):
+                self.click(action_click)
+                win = False
+            elif self.appear(self.I_BATTLE_FAILED, 0.95):
+                self.click(action_click)
+                win = False
+        logger.info(f"** Got battle result: {win}")
+        return win
 
     def run_battle(self) -> bool:
         # 有的时候是长战斗，需要在设置stuck检测为长战斗

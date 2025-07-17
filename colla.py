@@ -11,8 +11,8 @@ from tasks.main_page.colla import Colla
 # port = 16544  # 6
 
 config_names = [
-    '1qian',
-    '2nian',
+    # '1qian',
+    # '2nian',
     '3xiao',
     '4',
     '5',

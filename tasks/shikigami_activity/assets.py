@@ -19,33 +19,39 @@ class ShikigamiActivityAssets:
 	# Image Rule Assets
 	# 庭院活动入口 
 	I_SA_ENT = RuleImage(
-		roi=(375, 324, 56, 63),
-		area=(347, 296, 112, 119),
+		roi=(452, 209, 34, 29),
+		area=(438, 195, 62, 57),
 		file="./tasks/shikigami_activity/res/sa_ent.png"
-	)
-	# 爬塔入口 
-	I_SA_FIGHT_ENT = RuleImage(
-		roi=(456, 247, 37, 127),
-		area=(438, 229, 73, 163),
-		file="./tasks/shikigami_activity/res/sa_fight_ent.png"
 	)
 	# 活动页面确认 
 	I_SA_CHECK = RuleImage(
-		roi=(90, 19, 127, 34),
-		area=(73, 2, 161, 68),
+		roi=(93, 19, 123, 34),
+		area=(76, 2, 157, 68),
 		file="./tasks/shikigami_activity/res/sa_check.png"
+	)
+	# 爬塔入口 
+	I_SA_FIGHT_ENT = RuleImage(
+		roi=(749, 328, 28, 125),
+		area=(735, 314, 56, 153),
+		file="./tasks/shikigami_activity/res/sa_fight_ent.png"
 	)
 	# 战斗 
 	I_SA_FIGHT = RuleImage(
-		roi=(1113, 615, 116, 44),
-		area=(1091, 593, 160, 88),
+		roi=(1133, 599, 95, 50),
+		area=(1108, 574, 145, 100),
 		file="./tasks/shikigami_activity/res/sa_fight.png"
 	)
 	# 爬塔页面确认 
 	I_SA_FIGHT_CHECK = RuleImage(
-		roi=(91, 19, 126, 35),
-		area=(73, 1, 162, 71),
+		roi=(90, 21, 127, 33),
+		area=(74, 5, 159, 65),
 		file="./tasks/shikigami_activity/res/sa_fight_check.png"
+	)
+	# 爬塔商店弹窗 
+	I_SA_SHOP = RuleImage(
+		roi=(336, 58, 133, 85),
+		area=(294, 16, 217, 169),
+		file="./tasks/shikigami_activity/res/sa_shop.png"
 	)
 	# 使用体力 
 	I_SA_EP = RuleImage(

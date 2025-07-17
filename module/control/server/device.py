@@ -47,7 +47,7 @@ class Device:
             if self.port is not None:
                 for i in range(3):
                     if self.adb.remote_connect(self.host, self.port + i):
-                        logger.info(
+                        logger.background(
                             f"connected to {self.host}:{self.port + i}")
                         self.port = self.port + i
                         self.device = self.adb.device(
@@ -69,7 +69,7 @@ class Device:
         :return:
         """
         self.detect_record.add(str(button))
-        logger.info(f'Add stuck record: {button}')
+        logger.background(f'Add stuck record: {button}')
 
     def stuck_record_clear(self):
         self.detect_record = set()
@@ -159,14 +159,14 @@ class Device:
             logger.error("no image captured.")
             return
         cv2.imwrite(filepath, image)
-        logger.info(f"got a screenshot in {filepath}")
+        logger.background(f"got a screenshot in {filepath}")
 
     def click(self, x, y):
         """Click the screen."""
         if self.device is None:
             logger.error("Cannot click - no device connected")
             return
-        logger.info(f"[Device] Click {x} {y}.")
+        logger.background(f"[Device] Click {x} {y}.")
         self.device.shell("input tap {} {}".format(x, y))
 
     def random_click(self, x, y, w, h):
@@ -186,7 +186,7 @@ class Device:
         if self.device is None:
             logger.error("Cannot swipe - no device connected")
             return
-        logger.info(
+        logger.background(
             f"[Device] Swipe from ({start_x},{start_y}) to ({end_x},{end_y}) in {duration}.")
         self.device.shell("input swipe {} {} {} {} {}".format(
             start_x,

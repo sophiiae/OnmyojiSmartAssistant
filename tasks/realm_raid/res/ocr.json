@@ -8,6 +8,22 @@
     "description": "突破第一格等级位置"
   },
   {
+    "name": "raid_partition_3_lv",
+    "type": "text",
+    "roi": "494, 310, 28, 25",
+    "area": "494, 310, 28, 25",
+    "keyword": "",
+    "description": "突破第三格等级位置"
+  },
+  {
+    "name": "raid_partition_9_lv",
+    "type": "text",
+    "roi": "825, 445, 27, 25",
+    "area": "825, 445, 27, 25",
+    "keyword": "",
+    "description": "突破第九格等级位置"
+  },
+  {
     "name": "raid_ticket",
     "type": "text",
     "roi": "1146, 18, 73, 27",

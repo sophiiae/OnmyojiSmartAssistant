@@ -116,6 +116,12 @@ class RoyalBattleAssets:
 		area=(647, 489, 74, 72),
 		file="./tasks/royal_battle/res/rb_flower_badge.png"
 	)
+	# 晋升名士 
+	I_RB_NOTABLE_NOTIFICATION = RuleImage(
+		roi=(504, 399, 286, 70),
+		area=(469, 364, 356, 140),
+		file="./tasks/royal_battle/res/rb_notable_notification.png"
+	)
 
 	# Ocr Rule Assets
 	# 斗技分数 

@@ -96,12 +96,12 @@ class RuleImage:
 
         result = cv2.matchTemplate(screenshot, target, cv2.TM_CCORR_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-        logger.info(f"[Image] {self.name} match rate: {max_val}")
+        logger.background(f"[Image] {self.name} match rate: {max_val}")
 
         if max_val >= threshold:
             self.roi[0] = max_loc[0] + self.area[0]
             self.roi[1] = max_loc[1] + self.area[1]
-            logger.info(f"[Image] {self.name} updated roi: {self.roi}")
+            logger.background(f"[Image] {self.name} updated roi: {self.roi}")
             if debug:
                 self.draw_and_save(screenshot)
             return True
@@ -123,5 +123,5 @@ class RuleImage:
                       area_rectangle_color, 2)
 
         path = f"{Path.cwd()}/{self.name}_output.png"
-        logger.info(f"[Image] Save output with rectangle in {path}")
+        logger.background(f"[Image] Save output with rectangle in {path}")
         cv2.imwrite(path, screenshot)
