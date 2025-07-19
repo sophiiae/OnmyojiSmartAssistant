@@ -52,10 +52,10 @@ class AreaBossSection(QGroupBox):
 
         layout.addWidget(boss_group)
 
-        # 添加通用战斗配置
-        self.general_battle_section = GeneralBattleSection(
-            self.config, "area_boss")
-        layout.addWidget(self.general_battle_section)
+        # # 添加通用战斗配置
+        # self.general_battle_section = GeneralBattleSection(
+        #     self.config, "area_boss")
+        # layout.addWidget(self.general_battle_section)
 
     def update_config(self):
         self.scheduler_section.update_config()
@@ -68,4 +68,4 @@ class AreaBossSection(QGroupBox):
         self.boss_config["Attack_60"] = self.Attack_60.isChecked()
 
         # 更新通用战斗配置
-        self.general_battle_section.update_config()
+        # self.general_battle_section.update_config()

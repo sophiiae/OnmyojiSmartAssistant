@@ -59,6 +59,12 @@ class ExplorationSection(QGroupBox):
         self.auto_backup.setChecked(self.exploration_config["auto_backup"])
         add_left_row(exploration_layout, [self.auto_backup])
 
+        # 自动清御魂（CheckBox独占一行）
+        self.auto_soul_clear = QCheckBox("自动清御魂")
+        self.auto_soul_clear.setChecked(
+            self.exploration_config["auto_soul_clear"])
+        add_left_row(exploration_layout, [self.auto_soul_clear])
+
         # 狗粮稀有度（无CheckBox，左对齐）
         self.backup_rarity = SelectButton()
         self.backup_rarity.addItems(["素材", "N", "R", "SR", "SSR", "SP"])
@@ -99,10 +105,10 @@ class ExplorationSection(QGroupBox):
 
         layout.addWidget(scrolls_group)
 
-        # 添加通用战斗配置
-        self.general_battle_section = GeneralBattleSection(
-            self.config, "exploration")
-        layout.addWidget(self.general_battle_section)
+        # # 添加通用战斗配置
+        # self.general_battle_section = GeneralBattleSection(
+        #     self.config, "exploration")
+        # layout.addWidget(self.general_battle_section)
 
     def update_config(self):
         self.scheduler_section.update_config()
@@ -128,4 +134,4 @@ class ExplorationSection(QGroupBox):
         self.scrolls_config["ticket_threshold"] = self.ticket_threshold.value()
 
         # 更新通用战斗配置
-        self.general_battle_section.update_config()
+        # self.general_battle_section.update_config()

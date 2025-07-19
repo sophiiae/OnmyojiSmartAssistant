@@ -269,5 +269,69 @@
     "area": "27, 620, 79, 57",
     "file": "./tasks/exploration/res/backup/shiki_material.png",
     "description": "素材（选择后）"
+  },
+  {
+    "name": "shiki_book",
+    "type": "image",
+    "roi": "788, 645, 47, 41",
+    "area": "768, 625, 87, 81",
+    "file": "./tasks/exploration/res/soul/shiki_book.png",
+    "description": "式神录"
+  },
+  {
+    "name": "shiki_book_check",
+    "type": "image",
+    "roi": "273, 11, 31, 26",
+    "area": "260, 0, 57, 52",
+    "file": "./tasks/exploration/res/soul/shiki_book_check.png",
+    "description": "式神录幕间皮肤按钮"
+  },
+  {
+    "name": "soul_greed",
+    "type": "image",
+    "roi": "1160, 617, 56, 48",
+    "area": "1136, 593, 104, 96",
+    "file": "./tasks/exploration/res/soul/soul_greed.png",
+    "description": "贪吃鬼"
+  },
+  {
+    "name": "soul_greed_check",
+    "type": "image",
+    "roi": "326, 263, 92, 65",
+    "area": "294, 231, 156, 129",
+    "file": "./tasks/exploration/res/soul/soul_greed_check.png",
+    "description": "贪吃鬼小屋"
+  },
+  {
+    "name": "soul_greed_eat",
+    "type": "image",
+    "roi": "933, 601, 72, 58",
+    "area": "904, 572, 130, 116",
+    "file": "./tasks/exploration/res/soul/soul_greed_eat.png",
+    "description": "立刻进食"
+  },
+  {
+    "name": "soul_greed_eat_confirm",
+    "type": "image",
+    "roi": "672, 403, 172, 57",
+    "area": "644, 375, 228, 113",
+    "file": "./tasks/battle/res/battle_fight_again_confirm.png",
+    "description": "确定进食"
+  },
+  {
+    "name": "soul_greed_close",
+    "type": "image",
+    "roi": "936, 216, 29, 30",
+    "area": "922, 202, 57, 58",
+    "file": "./tasks/exploration/res/soul/soul_greed_close.png",
+    "description": "关闭贪吃鬼小屋"
+  },
+  {
+    "name": "shiki_soul_exit",
+    "type": "image",
+    "roi": "27, 9, 30, 39",
+    "area": "12, 0, 60, 69",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle_2.png",
+    "description": "退出"
   }
 ]

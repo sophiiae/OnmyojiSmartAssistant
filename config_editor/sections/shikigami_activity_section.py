@@ -98,10 +98,10 @@ class ShikigamiActivitySection(QGroupBox):
 
         layout.addWidget(climb_group)
 
-        # 添加通用战斗配置
-        self.general_battle_section = GeneralBattleSection(
-            self.config, "shikigami_activity")
-        layout.addWidget(self.general_battle_section)
+        # # 添加通用战斗配置
+        # self.general_battle_section = GeneralBattleSection(
+        #     self.config, "shikigami_activity")
+        # layout.addWidget(self.general_battle_section)
 
     def update_config(self):
         self.scheduler_section.update_config()
@@ -115,4 +115,4 @@ class ShikigamiActivitySection(QGroupBox):
         climb_config["lock_team_enable"] = self.lock_team_enable.isChecked()
 
         # 更新通用战斗配置
-        self.general_battle_section.update_config()
+        # self.general_battle_section.update_config()

@@ -54,10 +54,10 @@ class RealmRaidSection(QGroupBox):
 
         layout.addWidget(raid_group)
 
-        # 添加通用战斗配置
-        self.general_battle_section = GeneralBattleSection(
-            self.config, "realm_raid")
-        layout.addWidget(self.general_battle_section)
+        # # 添加通用战斗配置
+        # self.general_battle_section = GeneralBattleSection(
+        #     self.config, "realm_raid")
+        # layout.addWidget(self.general_battle_section)
 
     def update_config(self):
         self.scheduler_section.update_config()
@@ -70,4 +70,4 @@ class RealmRaidSection(QGroupBox):
         self.raid_config["when_attack_fail"] = self.when_attack_fail.currentText()
 
         # 更新通用战斗配置
-        self.general_battle_section.update_config()
+        # self.general_battle_section.update_config()

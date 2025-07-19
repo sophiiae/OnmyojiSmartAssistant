@@ -8,9 +8,13 @@ from module.base.logger import logger
 def RunTaskTest(name):
     d = Device(config_name=name)
     exp = EXP(device=d)
-    exp.add_backup_shiki()
+    # exp.add_backup_shiki()
+    # exp.soul_clear(exp.I_EXP_C_CHAPTER)
     # r = RB(device=d)
     # r.run()
+    auto_backup, auto_soul_clear = exp.config.model.exploration.exploration_config
+    print(auto_soul_clear)
+    print(auto_backup)
 
 
 if __name__ == "__main__":

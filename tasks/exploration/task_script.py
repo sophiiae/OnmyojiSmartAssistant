@@ -1,19 +1,13 @@
 import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
-from module.control.config.enums import BuffClass
-from tasks.battle.battle import Battle
-from tasks.exploration.assets import ExplorationAssets as EA
-from tasks.general.assets import GeneralAssets as GA
-from tasks.general.page import Page, page_exp, page_main, page_realm_raid
+from tasks.exploration.exp_base import ExpBase
+from tasks.general.page import page_exp, page_main, page_realm_raid
 
 from datetime import datetime, timedelta
 import time
 
-class TaskScript(EA, Battle):
-    name = "Exploration"
-    is_buff_on = False
-
+class TaskScript(ExpBase):
     def run(self):
         self.exp_config = self.config.model.exploration
 
@@ -101,7 +95,16 @@ class TaskScript(EA, Battle):
         swipe_count = 0
         while 1:
             if not self.turn_on_auto_rotate():
-                self.auto_backup()
+                auto_backup = self.exp_config.exploration_config.auto_backup
+                auto_soul_clear = self.exp_config.exploration_config.auto_soul_clear
+
+                if not auto_backup and not auto_soul_clear:
+                    self.exit_chapter()
+
+                if auto_backup:
+                    self.auto_backup()
+                if auto_soul_clear:
+                    self.soul_clear(self.I_EXP_C_CHAPTER)
                 continue
 
             self.wait_and_shot()
@@ -141,7 +144,7 @@ class TaskScript(EA, Battle):
             if self.appear(self.I_AUTO_ROTATE_ON):
                 break
 
-            if retry > 5:
+            if retry > 3:
                 logger.warning("Running out of backup!")
                 return False
 
@@ -152,133 +155,12 @@ class TaskScript(EA, Battle):
 
         return True
 
-    def auto_backup(self):
-        success = False
-        # TODO: add logic for adding backup
-        # 进入自动轮换阵容设置
-        # success = self.add_backup_shiki()
-
-        if not success:
-            logger.error("Failed to add backup")
-            self.exit_chapter()
-
-    def add_backup_shiki(self) -> bool:
-        success = False
-        # 进入候补设置
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_BACKUP_PAGE_CHECK):
-                break
-
-            if self.appear(self.I_BACKUP_CONFIG):
-                self.click(self.I_BACKUP_CONFIG)
-
-        # 清空狗粮
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_BACKUP_PUT):
-                break
-
-            self.click(self.I_BACKUP_CLEAR)
-
-        # 点击候补出战框
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_BACKUP_FOCUS, 0.95):
-                break
-            self.click(self.C_BACKUP_FRAME_TOP)
-
-        # 选择狗粮类型
-        # TODO: 根据设置选择式神类型
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_SHIKI_MATERIAL_SELECTED):
-                break
-
-            if self.appear(self.I_SHIKI_MATERIAL):
-                self.click(self.I_SHIKI_MATERIAL)
-                continue
-
-            if self.appear(self.I_SHIKI_ALL):
-                self.click(self.I_SHIKI_ALL)
-
-        # 加狗粮
-        retry = 0
-        while 1:
-            image = self.wait_and_shot()
-            backup_count, total = self.O_BACKUP_COUNT.digit_counter(image)
-            if backup_count is None or retry > 5:
-                return False
-
-            if backup_count > 40:
-                break
-
-            self.add_material_shiki()
-            retry += 1
-
-        # 确认
-        while 1:
-            self.wait_and_shot()
-            if not self.appear(self.I_BACKUP_CONFIRM):
-                break
-            self.click(self.I_BACKUP_CONFIRM)
-
-        return success
-
-    def add_material_shiki(self):
-        total = 0
-
-        while total < 5:
-            self.wait_and_shot(1)
-
-            if self.appear(self.I_M_RED):
-                self.long_click(self.I_M_RED)
-                total += 1
-
-            if self.appear(self.I_M_WHITE):
-                self.long_click(self.I_M_WHITE)
-                total += 1
-
-            self.swipe(self.S_SHIKI_TO_LEFT)
-
     def left_check(self):
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_EXP_BATTLE) or self.appear(self.I_EXP_BOSS):
                 break
             self.swipe(self.S_EXP_TO_LEFT)
-
-    def exit_chapter(self):
-        self.wait_and_shot()
-        if not self.appear(self.I_EXP_C_CHAPTER):
-            return
-
-        # 退出章节探索
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
-                break
-
-            if self.appear(self.I_EXP_CHAPTER_EXIT_CONFIRM):
-                self.click(self.I_EXP_CHAPTER_EXIT_CONFIRM)
-                continue
-
-            if self.appear(self.I_EXP_CHAPTER_EXIT):
-                self.click(self.I_EXP_CHAPTER_EXIT)
-
-        # 关闭章节探索弹窗
-        while 1:
-            self.wait_and_shot()
-            if self.appear(GA.I_C_EXP):
-                break
-
-            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
-                self.click(self.I_EXP_CHAPTER_DISMISS_ICON)
-                continue
-
-        self.close_config_buff()
-        self.goto(page_main, page_exp)
-        raise RequestHumanTakeover()
 
     def get_chapter_reward(self):
         logger.info("Trying to find chapter reward...")
@@ -335,31 +217,3 @@ class TaskScript(EA, Battle):
                           finish=False, target_time=datetime.now())
 
         raise TaskEnd(self.name)
-
-    def open_config_buff(self):
-        buff = []
-        config = self.exp_config.exploration_config
-        if config.buff_gold_50:
-            buff.append(BuffClass.GOLD_50)
-        if config.buff_gold_100:
-            buff.append(BuffClass.GOLD_100)
-        if config.buff_exp_50:
-            buff.append(BuffClass.EXP_50)
-        if config.buff_exp_100:
-            buff.append(BuffClass.EXP_100)
-
-        return self.check_buff(buff, page_exp)
-
-    def close_config_buff(self):
-        buff = []
-        config = self.exp_config.exploration_config
-        if config.buff_gold_50:
-            buff.append(BuffClass.GOLD_50_CLOSE)
-        if config.buff_gold_100:
-            buff.append(BuffClass.GOLD_100_CLOSE)
-        if config.buff_exp_50:
-            buff.append(BuffClass.EXP_50_CLOSE)
-        if config.buff_exp_100:
-            buff.append(BuffClass.EXP_100_CLOSE)
-
-        return self.check_buff(buff, page_exp)

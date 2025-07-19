@@ -384,7 +384,12 @@ class ExplorationConfig(BaseModel):
     # Backup/fodder settings
     auto_backup: bool = Field(
         default=False,
-        description="战斗开始前自动补全狗粮"
+        description="狗粮没了之后自动补全"
+    )
+
+    auto_soul_clear: bool = Field(
+        default=False,
+        description="自动清废御魂"
     )
 
     backup_rarity: ChooseRarity = Field(

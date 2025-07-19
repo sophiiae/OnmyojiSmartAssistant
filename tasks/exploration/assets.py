@@ -11,8 +11,18 @@ class ExplorationAssets:
 	# Click Rule Assets
 	# 候补式神框上沿 
 	C_BACKUP_FRAME_TOP = RuleClick(roi=(500, 180, 620, 10), area=(500, 180, 620, 10), name="backup_frame_top")
-	# 候补式神框下沿 
+	# 候补式神,框下沿 
 	C_BACKUP_FRAME_BOTTOM = RuleClick(roi=(500, 380, 620, 10), area=(500, 380, 620, 10), name="backup_frame_bottom")
+	# 御魂标记位置（六字式神名字） 
+	C_SOUL_ENT_POS1 = RuleClick(roi=(550, 430, 40, 30), area=(550, 430, 40, 30), name="soul_ent_pos1")
+	# 御魂标记位置（五字式神名字） 
+	C_SOUL_ENT_POS2 = RuleClick(roi=(550, 400, 40, 30), area=(550, 400, 40, 30), name="soul_ent_pos2")
+	# 御魂标记位置（普通式神名字） 
+	C_SOUL_ENT_POS3 = RuleClick(roi=(550, 365, 40, 30), area=(550, 365, 40, 30), name="soul_ent_pos3")
+	# 贪吃鬼进食习惯 
+	C_SOUL_EAT_HABIT = RuleClick(roi=(830, 540, 140, 40), area=(830, 540, 140, 40), name="soul_eat_habit")
+	# 贪吃鬼进食不再提示检查框 
+	C_SOUL_EAT_COMFIRM_CHECKBOX = RuleClick(roi=(550, 350, 20, 20), area=(550, 350, 20, 20), name="soul_eat_comfirm_checkbox")
 
 	# Image Rule Assets
 	# 第二十五章位置 
@@ -218,6 +228,54 @@ class ExplorationAssets:
 		roi=(41, 634, 51, 29),
 		area=(27, 620, 79, 57),
 		file="./tasks/exploration/res/backup/shiki_material.png"
+	)
+	# 式神录 
+	I_SHIKI_BOOK = RuleImage(
+		roi=(788, 645, 47, 41),
+		area=(768, 625, 87, 81),
+		file="./tasks/exploration/res/soul/shiki_book.png"
+	)
+	# 式神录幕间皮肤按钮 
+	I_SHIKI_BOOK_CHECK = RuleImage(
+		roi=(273, 11, 31, 26),
+		area=(260, 0, 57, 52),
+		file="./tasks/exploration/res/soul/shiki_book_check.png"
+	)
+	# 贪吃鬼 
+	I_SOUL_GREED = RuleImage(
+		roi=(1160, 617, 56, 48),
+		area=(1136, 593, 104, 96),
+		file="./tasks/exploration/res/soul/soul_greed.png"
+	)
+	# 贪吃鬼小屋 
+	I_SOUL_GREED_CHECK = RuleImage(
+		roi=(326, 263, 92, 65),
+		area=(294, 231, 156, 129),
+		file="./tasks/exploration/res/soul/soul_greed_check.png"
+	)
+	# 立刻进食 
+	I_SOUL_GREED_EAT = RuleImage(
+		roi=(933, 601, 72, 58),
+		area=(904, 572, 130, 116),
+		file="./tasks/exploration/res/soul/soul_greed_eat.png"
+	)
+	# 确定进食 
+	I_SOUL_GREED_EAT_CONFIRM = RuleImage(
+		roi=(672, 403, 172, 57),
+		area=(644, 375, 228, 113),
+		file="./tasks/battle/res/battle_fight_again_confirm.png"
+	)
+	# 关闭贪吃鬼小屋 
+	I_SOUL_GREED_CLOSE = RuleImage(
+		roi=(936, 216, 29, 30),
+		area=(922, 202, 57, 58),
+		file="./tasks/exploration/res/soul/soul_greed_close.png"
+	)
+	# 退出 
+	I_SHIKI_SOUL_EXIT = RuleImage(
+		roi=(27, 9, 30, 39),
+		area=(12, 0, 60, 69),
+		file="./tasks/general/res/buttons/b_yellow_left_angle_2.png"
 	)
 
 	# Ocr Rule Assets
