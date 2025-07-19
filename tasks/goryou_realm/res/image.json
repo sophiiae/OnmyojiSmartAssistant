@@ -1,0 +1,42 @@
+[
+  {
+    "name": "gr_check",
+    "type": "image",
+    "roi": "81, 21, 128, 34",
+    "area": "64, 4, 162, 68",
+    "file": "./tasks/goryou_realm/res/gr_check.png",
+    "description": "御灵主页标记"
+  },
+  {
+    "name": "gr_fight",
+    "type": "image",
+    "roi": "1109, 602, 74, 72",
+    "area": "1073, 566, 146, 144",
+    "file": "./tasks/goryou_realm/res/gr_fight.png",
+    "description": "御灵挑战"
+  },
+  {
+    "name": "gr_lv_3",
+    "type": "image",
+    "roi": "288, 512, 65, 28",
+    "area": "274, 498, 93, 56",
+    "file": "./tasks/goryou_realm/res/gr_lv_3.png",
+    "description": "御灵三层"
+  },
+  {
+    "name": "gr_team_lock",
+    "type": "image",
+    "roi": "559, 563, 23, 30",
+    "area": "547, 551, 47, 54",
+    "file": "./tasks/battle/res/battle_team_lock.png",
+    "description": ""
+  },
+  {
+    "name": "gr_team_unlock",
+    "type": "image",
+    "roi": "562, 566, 17, 25",
+    "area": "554, 558, 33, 41",
+    "file": "./tasks/battle/res/battle_team_unlock.png",
+    "description": ""
+  }
+]

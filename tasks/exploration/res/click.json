@@ -1,0 +1,16 @@
+[
+  {
+    "name": "backup_frame_top",
+    "type": "click",
+    "roi": "500, 180, 620, 10",
+    "area": "500, 180, 620, 10",
+    "description": "候补式神框上沿"
+  },
+  {
+    "name": "backup_frame_bottom",
+    "type": "click",
+    "roi": "500, 380, 620, 10",
+    "area": "500, 380, 620, 10",
+    "description": "候补式神框下沿"
+  }
+]

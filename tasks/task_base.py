@@ -80,7 +80,7 @@ class TaskBase(MainPageAssets):
 
     def wait_and_shot(self, wait_time=0.3):
         time.sleep(wait_time)
-        self.screenshot()
+        return self.screenshot()
 
     def wait_click_if_appear(self, target: RuleImage, wait_time=0.3):
         self.wait_and_shot(wait_time)
@@ -200,7 +200,7 @@ class TaskBase(MainPageAssets):
         Args:
             swipe (RuleSwipe): 
             interval (float, optional): Defaults to None.
-            duration (int, optional): [200,800] Defaults to 300.
+            duration (int, optional): [200,800] Defaults to 400. 数值越大越慢，越小越快
         """
         if not isinstance(swipe, RuleSwipe):
             return
@@ -227,7 +227,7 @@ class TaskBase(MainPageAssets):
             # logger.info(f'Swipe {swipe.name}')
             self.interval_timer[swipe.name].reset()
 
-    def click(self, target: Union[RuleImage, RuleClick], click_delay: float = 0.2) -> bool:
+    def click(self, target: Union[RuleImage, RuleClick], click_delay: float = 0.2):
         """click
 
         Args:
@@ -241,7 +241,18 @@ class TaskBase(MainPageAssets):
         x, y = target.coord()
         self.device.click(x=x, y=y)
         time.sleep(0.5)
-        return False
+
+    def long_click(self, target: Union[RuleImage, RuleClick]) -> None:
+        """
+        :param control_name:
+        :param x:
+        :param y:
+        :param duration: 单位是s
+        :return:
+        """
+        x, y = target.coord()
+        self.device.long_click(x, y)
+        time.sleep(0.5)
 
     def random_click_right(self, click_delay=0.2):
         """Perform random click within screen
@@ -273,7 +284,7 @@ class TaskBase(MainPageAssets):
             return False
 
         for _ in range(retry):
-            self.wait_and_shot(0.2)
+            self.wait_and_shot()
             if not self.appear(target, threshold=threshold):
                 return True
             self.appear_then_click(target, threshold=threshold)

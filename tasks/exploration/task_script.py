@@ -4,6 +4,7 @@ from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.control.config.enums import BuffClass
 from tasks.battle.battle import Battle
 from tasks.exploration.assets import ExplorationAssets as EA
+from tasks.general.assets import GeneralAssets as GA
 from tasks.general.page import Page, page_exp, page_main, page_realm_raid
 
 from datetime import datetime, timedelta
@@ -47,6 +48,7 @@ class TaskScript(EA, Battle):
         # 关闭章节探索提示
         self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
+        # 绘卷模式去探索页面，减少页面跳转
         if scroll_mode.scroll_mode_enable:
             self.goto(page_realm_raid, page_exp)
         else:
@@ -94,23 +96,16 @@ class TaskScript(EA, Battle):
                 "***** Not inside chapter or battle finished.")
             raise RequestHumanTakeover
 
-        # 自动轮换功能打开
-        while 1:
-            self.screenshot()
-            # 自动轮换开着 则跳过
-            if self.appear(self.I_AUTO_ROTATE_ON):
-                break
-
-            # 自动轮换关着 则打开
-            if self.appear_then_click(self.I_AUTO_ROTATE_OFF):
-                if self.appear(self.I_AUTO_ROTATE_ON):
-                    break
-
         # 进入战斗环节
         logger.info("Start battle...")
         swipe_count = 0
         while 1:
-            self.screenshot()
+            if not self.turn_on_auto_rotate():
+                self.auto_backup()
+                continue
+
+            self.wait_and_shot()
+
             # BOSS 挑战
             if self.appear(self.I_EXP_BOSS):
                 self.click_moving_target(self.I_EXP_BOSS, self.I_EXP_C_CHAPTER)
@@ -129,20 +124,161 @@ class TaskScript(EA, Battle):
 
             self.swipe(self.S_EXP_TO_RIGHT)
             swipe_count += 1
-            if swipe_count > 5:
+            if swipe_count > 7:
                 self.left_check()
                 swipe_count = 0
             time.sleep(0.3)
 
         time.sleep(1)
 
+    def turn_on_auto_rotate(self) -> bool:
+        # 自动轮换功能打开
+        retry = 0
+        while 1:
+            self.wait_and_shot()
+
+            # 自动轮换开着 则跳过
+            if self.appear(self.I_AUTO_ROTATE_ON):
+                break
+
+            if retry > 5:
+                logger.warning("Running out of backup!")
+                return False
+
+            # 自动轮换关着 则打开
+            if self.appear_then_click(self.I_AUTO_ROTATE_OFF):
+                retry += 1
+                continue
+
+        return True
+
+    def auto_backup(self):
+        success = False
+        # TODO: add logic for adding backup
+        # 进入自动轮换阵容设置
+        # success = self.add_backup_shiki()
+
+        if not success:
+            logger.error("Failed to add backup")
+            self.exit_chapter()
+
+    def add_backup_shiki(self) -> bool:
+        success = False
+        # 进入候补设置
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_BACKUP_PAGE_CHECK):
+                break
+
+            if self.appear(self.I_BACKUP_CONFIG):
+                self.click(self.I_BACKUP_CONFIG)
+
+        # 清空狗粮
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_BACKUP_PUT):
+                break
+
+            self.click(self.I_BACKUP_CLEAR)
+
+        # 点击候补出战框
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_BACKUP_FOCUS, 0.95):
+                break
+            self.click(self.C_BACKUP_FRAME_TOP)
+
+        # 选择狗粮类型
+        # TODO: 根据设置选择式神类型
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_SHIKI_MATERIAL_SELECTED):
+                break
+
+            if self.appear(self.I_SHIKI_MATERIAL):
+                self.click(self.I_SHIKI_MATERIAL)
+                continue
+
+            if self.appear(self.I_SHIKI_ALL):
+                self.click(self.I_SHIKI_ALL)
+
+        # 加狗粮
+        retry = 0
+        while 1:
+            image = self.wait_and_shot()
+            backup_count, total = self.O_BACKUP_COUNT.digit_counter(image)
+            if backup_count is None or retry > 5:
+                return False
+
+            if backup_count > 40:
+                break
+
+            self.add_material_shiki()
+            retry += 1
+
+        # 确认
+        while 1:
+            self.wait_and_shot()
+            if not self.appear(self.I_BACKUP_CONFIRM):
+                break
+            self.click(self.I_BACKUP_CONFIRM)
+
+        return success
+
+    def add_material_shiki(self):
+        total = 0
+
+        while total < 5:
+            self.wait_and_shot(1)
+
+            if self.appear(self.I_M_RED):
+                self.long_click(self.I_M_RED)
+                total += 1
+
+            if self.appear(self.I_M_WHITE):
+                self.long_click(self.I_M_WHITE)
+                total += 1
+
+            self.swipe(self.S_SHIKI_TO_LEFT)
+
     def left_check(self):
         while 1:
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_EXP_BATTLE) or self.appear(self.I_EXP_BOSS):
                 break
             self.swipe(self.S_EXP_TO_LEFT)
-            time.sleep(0.3)
+
+    def exit_chapter(self):
+        self.wait_and_shot()
+        if not self.appear(self.I_EXP_C_CHAPTER):
+            return
+
+        # 退出章节探索
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
+                break
+
+            if self.appear(self.I_EXP_CHAPTER_EXIT_CONFIRM):
+                self.click(self.I_EXP_CHAPTER_EXIT_CONFIRM)
+                continue
+
+            if self.appear(self.I_EXP_CHAPTER_EXIT):
+                self.click(self.I_EXP_CHAPTER_EXIT)
+
+        # 关闭章节探索弹窗
+        while 1:
+            self.wait_and_shot()
+            if self.appear(GA.I_C_EXP):
+                break
+
+            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
+                self.click(self.I_EXP_CHAPTER_DISMISS_ICON)
+                continue
+
+        self.close_config_buff()
+        self.goto(page_main, page_exp)
+        raise RequestHumanTakeover()
 
     def get_chapter_reward(self):
         logger.info("Trying to find chapter reward...")

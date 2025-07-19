@@ -169,6 +169,17 @@ class Device:
         logger.background(f"[Device] Click {x} {y}.")
         self.device.shell("input tap {} {}".format(x, y))
 
+    def long_click(self, x: float, y: float, duration: float = 1500):
+        if self.device is None:
+            logger.error("Cannot click - no device connected")
+            return
+
+        logger.background(
+            f"[Device] Long Click {x} {y} in {duration}.")
+
+        self.device.shell(
+            "input swipe {} {} {} {} {}".format(x, y, x, y, duration))
+
     def random_click(self, x, y, w, h):
         """Random click within a rectangle."""
         if self.device is None:

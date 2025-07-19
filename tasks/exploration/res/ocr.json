@@ -14,5 +14,13 @@
     "area": "940, 16, 73, 27",
     "keyword": "",
     "description": "探索界面章节入口开启后突破票数量"
+  },
+  {
+    "name": "backup_count",
+    "type": "text",
+    "roi": "1091, 126, 67, 23",
+    "area": "1091, 126, 67, 23",
+    "keyword": "",
+    "description": "候补狗粮数量"
   }
 ]

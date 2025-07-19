@@ -178,31 +178,31 @@ class Config:
         if not start_time:
             start_time = datetime.now().replace(microsecond=0)
 
-        # # 依次判断是否有自定义的下次运行时间
-        # run = []
-        # if success is not None:
-        #     interval = (
-        #         scheduler.success_interval
-        #         if success
-        #         else scheduler.failure_interval
-        #     )
-        #     if isinstance(interval, str):
-        #         d, h, m, s = interval.split(":")
-        #         interval = timedelta(days=int(d), hours=int(
-        #             h), minutes=int(m), seconds=int(s))
-        #     run.append(start_time + interval)
-
         # 依次判断是否有自定义的下次运行时间
         run = []
         if success is not None:
-            m = random.randint(1, 20)
-            s = random.randint(1, 60)
-            interval = timedelta(minutes=m, seconds=s)
+            interval = (
+                scheduler.success_interval
+                if success
+                else scheduler.failure_interval
+            )
+            if isinstance(interval, str):
+                d, h, m, s = interval.split(":")
+                interval = timedelta(days=int(d), hours=int(
+                    h), minutes=int(m), seconds=int(s))
             run.append(start_time + interval)
 
-        if target_time is not None:
-            target_time = nearest_future(target_time)
-            run.append(target_time)
+        # # 自定义随机下次运行时间
+        # run = []
+        # if success is not None:
+        #     m = random.randint(1, 20)
+        #     s = random.randint(1, 60)
+        #     interval = timedelta(minutes=m, seconds=s)
+        #     run.append(start_time + interval)
+
+        # if target_time is not None:
+        #     target_time = nearest_future(target_time)
+        #     run.append(target_time)
 
         run = min(run).replace(microsecond=0)
         next_run = run

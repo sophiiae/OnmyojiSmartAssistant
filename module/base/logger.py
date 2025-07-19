@@ -27,7 +27,7 @@ class ColorFormatter(logging.Formatter):
 
         # 如果是后台消息，使用特殊格式
         if getattr(record, 'is_background', False):
-            return f"[{record.asctime}] [BG      ] {record.getMessage()}"
+            return f"[{record.asctime}] [BG] {record.getMessage()}"
 
         # 获取消息类型
         msg_type = getattr(record, 'msg_type', '')
@@ -57,11 +57,11 @@ LOG_CONFIG = {
 
     'formatters': {
         'console': {
-            'format': '[%(asctime)s] [%(levelname)-8s] %(message)s',
+            'format': '[%(asctime)s] [%(levelname)s] %(message)s',
             'datefmt': '%H:%M:%S'
         },
         'file': {
-            'format': '[%(asctime)s] [%(levelname)-8s] [%(filename)s:%(lineno)d]\n'
+            'format': '[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d]\n'
             '=== CONTEXT ===\n%(context)s\n'
             '=== MESSAGE ===\n%(message)s\n'
             '================',
@@ -129,7 +129,7 @@ class GameConsoleLogger:
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.DEBUG if debug_mode else logging.INFO)
         formatter = ColorFormatter(
-            '[%(asctime)s] [%(levelname)-8s] %(message)s',
+            '[%(asctime)s] [%(levelname)s] %(message)s',
             datefmt='%H:%M:%S'
         )
         console_handler.setFormatter(formatter)
@@ -145,7 +145,7 @@ class GameConsoleLogger:
         )
         debug_file_handler.setLevel(logging.DEBUG)
         debug_formatter = logging.Formatter(
-            '[%(asctime)s] [%(levelname)-8s] [%(filename)s:%(lineno)d] %(message)s',
+            '[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
         debug_file_handler.setFormatter(debug_formatter)
@@ -161,7 +161,7 @@ class GameConsoleLogger:
         )
         error_file_handler.setLevel(logging.ERROR)
         error_formatter = logging.Formatter(
-            '[%(asctime)s] [%(levelname)-8s] [%(filename)s:%(lineno)d]\n'
+            '[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d]\n'
             '=== CONTEXT ===\n%(context)s\n'
             '=== MESSAGE ===\n%(message)s\n'
             '================',

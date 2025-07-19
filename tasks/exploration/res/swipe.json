@@ -26,5 +26,19 @@
     "roi_start": "200, 200, 400, 300",
     "roi_end": "800, 200, 100, 300",
     "description": "往右滑动,往左走"
+  },
+  {
+    "name": "shiki_to_left",
+    "type": "swipe",
+    "roi_start": "930, 550, 80, 70",
+    "roi_end": "250, 550, 80, 70",
+    "description": "往左滑动,看右边的式神（跨度较大）"
+  },
+  {
+    "name": "shiki_to_right",
+    "type": "swipe",
+    "roi_start": "530, 550, 80, 70",
+    "roi_end": "800, 550, 80, 70",
+    "description": "往右滑动,看坐边的式神（隔一个式神的距离）"
   }
 ]

@@ -60,7 +60,7 @@
     "type": "image",
     "roi": "898, 654, 17, 25",
     "area": "890, 642, 34, 50",
-    "file": "./tasks/exploration/res/exp_team_unlock.png",
+    "file": "./tasks/battle/res/battle_team_unlock.png",
     "description": "探索队伍未锁定"
   },
   {
@@ -68,7 +68,7 @@
     "type": "image",
     "roi": "895, 651, 23, 30",
     "area": "884, 636, 46, 60",
-    "file": "./tasks/exploration/res/exp_team_lock.png",
+    "file": "./tasks/battle/res/battle_team_lock.png",
     "description": "探索队伍锁定"
   },
   {
@@ -173,5 +173,101 @@
     "area": "665, 189, 131, 120",
     "file": "./tasks/exploration/res/exp_treasure_box.png",
     "description": "探索界面宝箱"
+  },
+  {
+    "name": "backup_config",
+    "type": "image",
+    "roi": "40, 680, 47, 36",
+    "area": "22, 662, 83, 72",
+    "file": "./tasks/exploration/res/backup/backup_config.png",
+    "description": "探索设置"
+  },
+  {
+    "name": "backup_page_check",
+    "type": "image",
+    "roi": "534, 51, 214, 36",
+    "area": "516, 33, 250, 72",
+    "file": "./tasks/exploration/res/backup/backup_page_check.png",
+    "description": "自动轮换阵容标题"
+  },
+  {
+    "name": "backup_clear",
+    "type": "image",
+    "roi": "984, 417, 79, 19",
+    "area": "974, 407, 99, 39",
+    "file": "./tasks/exploration/res/backup/backup_clear.png",
+    "description": "一键清空"
+  },
+  {
+    "name": "backup_put",
+    "type": "image",
+    "roi": "735, 267, 159, 25",
+    "area": "723, 255, 183, 49",
+    "file": "./tasks/exploration/res/backup/backup_put.png",
+    "description": "置入候补式神"
+  },
+  {
+    "name": "backup_focus",
+    "type": "image",
+    "roi": "478, 160, 21, 20",
+    "area": "468, 150, 41, 40",
+    "file": "./tasks/exploration/res/backup/backup_focus.png",
+    "description": "候补式神框聚焦"
+  },
+  {
+    "name": "backup_confirm",
+    "type": "image",
+    "roi": "1123, 409, 64, 55",
+    "area": "1095, 381, 120, 111",
+    "file": "./tasks/exploration/res/backup/backup_confirm.png",
+    "description": "候补式神确定"
+  },
+  {
+    "name": "m_white",
+    "type": "image",
+    "roi": "241, 546, 78, 55",
+    "area": "170, 500, 900, 150",
+    "file": "./tasks/exploration/res/backup/m_white.png",
+    "description": "白蛋"
+  },
+  {
+    "name": "m_red",
+    "type": "image",
+    "roi": "647, 542, 76, 52",
+    "area": "170, 500, 900, 150",
+    "file": "./tasks/exploration/res/backup/m_red.png",
+    "description": "红蛋"
+  },
+  {
+    "name": "m_blue",
+    "type": "image",
+    "roi": "195, 529, 56, 43",
+    "area": "170, 500, 900, 150",
+    "file": "./tasks/exploration/res/backup/m_blue.png",
+    "description": "蓝蛋"
+  },
+  {
+    "name": "shiki_all",
+    "type": "image",
+    "roi": "34, 637, 58, 32",
+    "area": "18, 621, 90, 64",
+    "file": "./tasks/exploration/res/backup/shiki_all.png",
+    "description": "全部式神"
+  },
+  {
+    "name": "shiki_material",
+    "type": "image",
+    "roi": "42, 297, 51, 29",
+    "area": "28, 283, 79, 57",
+    "file": "./tasks/exploration/res/backup/shiki_material.png",
+    "description": "素材（式神菜单打开）"
+  },
+  {
+    "name": "shiki_material_selected",
+    "type": "image",
+    "roi": "41, 634, 51, 29",
+    "area": "27, 620, 79, 57",
+    "file": "./tasks/exploration/res/backup/shiki_material.png",
+    "description": "素材（选择后）"
   }
 ]

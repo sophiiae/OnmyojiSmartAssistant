@@ -6,7 +6,7 @@ from module.base.logger import logger
 from module.base.exception import TaskEnd
 from module.image_processing.rule_image import RuleImage
 from tasks.realm_raid.assets import RealmRaidAssets
-from tasks.general.page import page_realm_raid, page_main
+from tasks.general.page import page_realm_raid, page_main, page_exp
 from module.base.exception import RequestHumanTakeover
 from tasks.battle.battle import Battle
 
@@ -19,7 +19,10 @@ class TaskScript(RealmRaidAssets, Battle):
         self.rr_config = self.config.model.realm_raid.raid_config
 
         if not self.check_page_appear(page_realm_raid):
-            self.goto(page_realm_raid)
+            if self.check_page_appear(page_exp):
+                self.goto(page_realm_raid, page_exp)
+            else:
+                self.goto(page_realm_raid)
 
         enough_ticket = self.check_ticket()
 
@@ -49,7 +52,13 @@ class TaskScript(RealmRaidAssets, Battle):
             enough_ticket = self.check_ticket()
             time.sleep(1)
 
-        self.goto(page_main, page_realm_raid)
+        scroll_mode_enabled = self.config.model.exploration.scroll_mode.scroll_mode_enable
+        # 绘卷模式去探索页面，减少页面跳转
+        if scroll_mode_enabled:
+            self.goto(page_exp, page_realm_raid)
+        else:
+            self.goto(page_main, page_realm_raid)
+
         self.set_next_run(task='RealmRaid', success=success, finish=True)
         raise TaskEnd(self.name)
 

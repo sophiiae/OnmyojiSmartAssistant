@@ -7,6 +7,13 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class ExplorationAssets: 
 
+
+	# Click Rule Assets
+	# 候补式神框上沿 
+	C_BACKUP_FRAME_TOP = RuleClick(roi=(500, 180, 620, 10), area=(500, 180, 620, 10), name="backup_frame_top")
+	# 候补式神框下沿 
+	C_BACKUP_FRAME_BOTTOM = RuleClick(roi=(500, 380, 620, 10), area=(500, 380, 620, 10), name="backup_frame_bottom")
+
 	# Image Rule Assets
 	# 第二十五章位置 
 	I_EXP_CHAPTER_25 = RuleImage(
@@ -54,13 +61,13 @@ class ExplorationAssets:
 	I_EXP_TEAM_UNLOCK = RuleImage(
 		roi=(898, 654, 17, 25),
 		area=(890, 642, 34, 50),
-		file="./tasks/exploration/res/exp_team_unlock.png"
+		file="./tasks/battle/res/battle_team_unlock.png"
 	)
 	# 探索队伍锁定 
 	I_EXP_TEAM_LOCK = RuleImage(
 		roi=(895, 651, 23, 30),
 		area=(884, 636, 46, 60),
-		file="./tasks/exploration/res/exp_team_lock.png"
+		file="./tasks/battle/res/battle_team_lock.png"
 	)
 	# 探索章节退出 
 	I_EXP_CHAPTER_EXIT = RuleImage(
@@ -140,6 +147,78 @@ class ExplorationAssets:
 		area=(665, 189, 131, 120),
 		file="./tasks/exploration/res/exp_treasure_box.png"
 	)
+	# 探索设置 
+	I_BACKUP_CONFIG = RuleImage(
+		roi=(40, 680, 47, 36),
+		area=(22, 662, 83, 72),
+		file="./tasks/exploration/res/backup/backup_config.png"
+	)
+	# 自动轮换阵容标题 
+	I_BACKUP_PAGE_CHECK = RuleImage(
+		roi=(534, 51, 214, 36),
+		area=(516, 33, 250, 72),
+		file="./tasks/exploration/res/backup/backup_page_check.png"
+	)
+	# 一键清空 
+	I_BACKUP_CLEAR = RuleImage(
+		roi=(984, 417, 79, 19),
+		area=(974, 407, 99, 39),
+		file="./tasks/exploration/res/backup/backup_clear.png"
+	)
+	# 置入候补式神 
+	I_BACKUP_PUT = RuleImage(
+		roi=(735, 267, 159, 25),
+		area=(723, 255, 183, 49),
+		file="./tasks/exploration/res/backup/backup_put.png"
+	)
+	# 候补式神框聚焦 
+	I_BACKUP_FOCUS = RuleImage(
+		roi=(478, 160, 21, 20),
+		area=(468, 150, 41, 40),
+		file="./tasks/exploration/res/backup/backup_focus.png"
+	)
+	# 候补式神确定 
+	I_BACKUP_CONFIRM = RuleImage(
+		roi=(1123, 409, 64, 55),
+		area=(1095, 381, 120, 111),
+		file="./tasks/exploration/res/backup/backup_confirm.png"
+	)
+	# 白蛋 
+	I_M_WHITE = RuleImage(
+		roi=(241, 546, 78, 55),
+		area=(170, 500, 900, 150),
+		file="./tasks/exploration/res/backup/m_white.png"
+	)
+	# 红蛋 
+	I_M_RED = RuleImage(
+		roi=(647, 542, 76, 52),
+		area=(170, 500, 900, 150),
+		file="./tasks/exploration/res/backup/m_red.png"
+	)
+	# 蓝蛋 
+	I_M_BLUE = RuleImage(
+		roi=(195, 529, 56, 43),
+		area=(170, 500, 900, 150),
+		file="./tasks/exploration/res/backup/m_blue.png"
+	)
+	# 全部式神 
+	I_SHIKI_ALL = RuleImage(
+		roi=(34, 637, 58, 32),
+		area=(18, 621, 90, 64),
+		file="./tasks/exploration/res/backup/shiki_all.png"
+	)
+	# 素材（式神菜单打开） 
+	I_SHIKI_MATERIAL = RuleImage(
+		roi=(42, 297, 51, 29),
+		area=(28, 283, 79, 57),
+		file="./tasks/exploration/res/backup/shiki_material.png"
+	)
+	# 素材（选择后） 
+	I_SHIKI_MATERIAL_SELECTED = RuleImage(
+		roi=(41, 634, 51, 29),
+		area=(27, 620, 79, 57),
+		file="./tasks/exploration/res/backup/shiki_material.png"
+	)
 
 	# Ocr Rule Assets
 	# 探索界面突破票数量 
@@ -155,6 +234,13 @@ class ExplorationAssets:
 		area=(940, 16, 73, 27),
 		keyword="",
 		name="exp_chapter_ticket_count"
+	)
+	# 候补狗粮数量 
+	O_BACKUP_COUNT = RuleOcr(
+		roi=(1091, 126, 67, 23),
+		area=(1091, 126, 67, 23),
+		keyword="",
+		name="backup_count"
 	)
 
 
@@ -182,6 +268,18 @@ class ExplorationAssets:
 		roi_start=(200, 200, 400, 300),
 		roi_end=(800, 200, 100, 300),
 		name="exp_to_left"
+	)
+	# 往左滑动,看右边的式神（跨度较大） 
+	S_SHIKI_TO_LEFT = RuleSwipe(
+		roi_start=(930, 550, 80, 70),
+		roi_end=(250, 550, 80, 70),
+		name="shiki_to_left"
+	)
+	# 往右滑动,看坐边的式神（隔一个式神的距离） 
+	S_SHIKI_TO_RIGHT = RuleSwipe(
+		roi_start=(530, 550, 80, 70),
+		roi_end=(800, 550, 80, 70),
+		name="shiki_to_right"
 	)
 
 

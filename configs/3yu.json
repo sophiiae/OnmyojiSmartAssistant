@@ -1,5 +1,5 @@
 {
-  "config_name": "3xiao",
+  "config_name": "3yu",
   "script": {
     "device": {
       "serial": "127.0.0.1:16448"
@@ -51,7 +51,7 @@
   "exploration": {
     "scheduler": {
       "enable": true,
-      "next_run": "2025-07-17 09:50:00",
+      "next_run": "2025-07-19 12:57:02",
       "priority": 5,
       "success_interval": "00:00:10:00",
       "failure_interval": "00:00:30:00"
@@ -76,7 +76,7 @@
   "realm_raid": {
     "scheduler": {
       "enable": true,
-      "next_run": "2025-07-17 10:02:05",
+      "next_run": "2025-07-19 13:06:33",
       "priority": 5,
       "success_interval": "00:00:10:00",
       "failure_interval": "00:00:30:00"

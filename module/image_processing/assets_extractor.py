@@ -229,11 +229,7 @@ class AssetsExtractor:
             elif data_type == 'click':
                 result += ClickExtractor(data).result
 
-        if result == '':
-            logger.error(f'No resource files under the {self.task_name} task')
-            self._result += '\tpass'
-        else:
-            self._result += result
+        self._result += result
         self._result += '\n\n'
         self.write_file()
 

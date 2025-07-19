@@ -22,40 +22,8 @@ class Colla(EXP):
             count = self.colla_chapter_battle(max, count)
             self.after_chapter_process()
 
-        self.return_to_exp()
-        self.goto(page_main, page_exp)
-
-    def return_to_exp(self):
-        time.sleep(1)
-        while 1:
-            self.wait_and_shot()
-            if self.appear(GA.I_C_EXP):
-                break
-
-            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
-                self.click(self.I_EXP_CHAPTER_DISMISS_ICON)
-                continue
-
-            if self.appear(self.I_EXP_C_CHAPTER):
-                while 1:
-                    self.wait_and_shot()
-                    if not self.appear(self.I_EXP_C_CHAPTER):
-                        break
-
-                    if self.appear(self.I_EXP_CHAPTER_EXIT_CONFIRM):
-                        self.click(self.I_EXP_CHAPTER_EXIT_CONFIRM)
-                        continue
-
-                    if self.appear(self.I_EXP_CHAPTER_EXIT):
-                        self.click(self.I_EXP_CHAPTER_EXIT)
-                        break
-
-    def exit_chapter(self):
-        while 1:
-
-            # 退出章节
-            if self.click_static_target(self.I_EXP_CHAPTER_EXIT, 2):
-                continue
+        self.exit_chapter()
+        self.goto(page_main)
 
     def colla_chapter_battle(self, max, count) -> int:
         if not self.wait_until_appear(self.I_EXP_C_CHAPTER, 2):
