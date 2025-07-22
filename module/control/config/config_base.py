@@ -544,3 +544,32 @@ class GoryouRealm(BaseModel):
         default_factory=GoryouConfig,
         description="御灵配置"
     )
+
+class AreaBossConfig(BaseModel):
+    """
+    鬼王设置
+    """
+    boss_number: int = Field(
+        default=3,
+        title="地域鬼王数量",
+        description="默认3只，只打前3只鬼王"
+    )
+
+    boss_reward: bool = Field(
+        default=False,
+        description="是否打当日的悬赏鬼王"
+    )
+
+class AreaBoss(BaseModel):
+    """
+    地域鬼王
+    """
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="御灵任务调度"
+    )
+
+    boss_config: AreaBossConfig = Field(
+        default_factory=AreaBossConfig,
+        description="地域鬼王设置"
+    )

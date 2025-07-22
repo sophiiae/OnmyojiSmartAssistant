@@ -131,6 +131,12 @@ class ShikigamiActivityAssets:
 		area=(647, 675, 49, 57),
 		file="./tasks/shikigami_activity/res/sa_battle_check.png"
 	)
+	# 活动币 
+	I_SA_COIN = RuleImage(
+		roi=(430, 211, 39, 37),
+		area=(240, 140, 840, 160),
+		file="./tasks/shikigami_activity/res/sa_coin.png"
+	)
 
 	# Ocr Rule Assets
 	# 爬塔门票数量 

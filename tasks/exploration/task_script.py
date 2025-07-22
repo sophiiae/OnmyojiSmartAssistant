@@ -93,19 +93,11 @@ class TaskScript(ExpBase):
         # 进入战斗环节
         logger.info("Start battle...")
         swipe_count = 0
+        stuck_count = 0
         while 1:
-            if not self.turn_on_auto_rotate():
-                auto_backup = self.exp_config.exploration_config.auto_backup
-                auto_soul_clear = self.exp_config.exploration_config.auto_soul_clear
-
-                if not auto_backup and not auto_soul_clear:
-                    self.exit_chapter()
-
-                if auto_backup:
-                    self.auto_backup()
-                if auto_soul_clear:
-                    self.soul_clear(self.I_EXP_C_CHAPTER)
-                continue
+            # 如果一直卡住，检查候补狗粮
+            if stuck_count > 5:
+                self.check_auto_rotate()
 
             self.wait_and_shot()
 
@@ -116,13 +108,18 @@ class TaskScript(ExpBase):
                 if self.run_easy_battle(self.I_EXP_C_CHAPTER):
                     self.get_chapter_reward()
                     break
+                else:
+                    stuck_count += 1
 
             # 普通怪挑战
             if self.appear(self.I_EXP_BATTLE):
                 self.click_moving_target(
                     self.I_EXP_BATTLE, self.I_EXP_C_CHAPTER)
-                self.run_easy_battle(self.I_EXP_C_CHAPTER)
-                swipe_count = 0
+                if self.run_easy_battle(self.I_EXP_C_CHAPTER):
+                    swipe_count = 0
+                    stuck_count = 0
+                else:
+                    stuck_count += 1
                 continue
 
             self.swipe(self.S_EXP_TO_RIGHT)
@@ -133,6 +130,19 @@ class TaskScript(ExpBase):
             time.sleep(0.3)
 
         time.sleep(1)
+
+    def check_auto_rotate(self):
+        if not self.turn_on_auto_rotate():
+            auto_backup = self.exp_config.exploration_config.auto_backup
+            auto_soul_clear = self.exp_config.exploration_config.auto_soul_clear
+
+            if not auto_backup and not auto_soul_clear:
+                self.exit_chapter()
+
+            if auto_backup:
+                self.auto_backup()
+            if auto_soul_clear:
+                self.soul_clear(self.I_EXP_C_CHAPTER)
 
     def turn_on_auto_rotate(self) -> bool:
         # 自动轮换功能打开

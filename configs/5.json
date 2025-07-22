@@ -134,10 +134,7 @@
     },
     "boss": {
       "boss_number": 3,
-      "boss_reward": false,
-      "reward_floor": "一星",
-      "use_collect": false,
-      "Attack_60": false
+      "boss_reward": false
     }
   }
 }

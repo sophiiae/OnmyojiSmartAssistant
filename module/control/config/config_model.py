@@ -6,7 +6,6 @@ import re
 from pydantic import BaseModel, Field
 from module.control.config.enums import *
 from module.control.config.config_base import *
-from module.base.logger import logger
 
 class ConfigModel(BaseModel):
     config_name: str = Field(default="osa")
@@ -22,6 +21,9 @@ class ConfigModel(BaseModel):
         default_factory=GoryouRealm)
     shikigami_activity: ShikigamiActivity = Field(
         default_factory=ShikigamiActivity)
+    area_boss: AreaBoss = Field(
+        default_factory=AreaBoss
+    )
 
     def __init__(self, config_name: str):
         data = self.read_json(config_name)

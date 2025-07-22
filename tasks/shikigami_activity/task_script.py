@@ -134,14 +134,16 @@ class TaskScript(Battle, SA):
                 self.click(self.I_SA_FIGHT)
 
         while 1:
-            self.wait_and_shot()
+            self.wait_and_shot(0.5)
             if self.appear(self.I_SA_FIGHT_CHECK):
                 break
 
             # 只出现奖励宝箱
-            if self.appear(self.I_REWARD):
+            if self.appear(self.I_SA_COIN, 0.95) or self.appear(self.I_REWARD):
+                action_click = random.choice(
+                    [self.C_REWARD_1, self.C_REWARD_2])
                 # 如果出现领奖励
-                self.random_click_right()
+                self.click(action_click)
                 continue
 
             # 出现 “获得奖励”

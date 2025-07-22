@@ -150,5 +150,13 @@
     "area": "647, 675, 49, 57",
     "file": "./tasks/shikigami_activity/res/sa_battle_check.png",
     "description": "战斗确认"
+  },
+  {
+    "name": "sa_coin",
+    "type": "image",
+    "roi": "430, 211, 39, 37",
+    "area": "240, 140, 840, 160",
+    "file": "./tasks/shikigami_activity/res/sa_coin.png",
+    "description": "活动币"
   }
 ]

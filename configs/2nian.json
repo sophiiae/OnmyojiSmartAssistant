@@ -51,7 +51,7 @@
   "exploration": {
     "scheduler": {
       "enable": true,
-      "next_run": "2025-07-19 14:57:18",
+      "next_run": "2025-07-22 08:28:42",
       "priority": 5,
       "success_interval": "00:00:10:00",
       "failure_interval": "00:00:30:00"
@@ -77,7 +77,7 @@
   "realm_raid": {
     "scheduler": {
       "enable": true,
-      "next_run": "2025-07-19 15:08:37",
+      "next_run": "2025-07-22 10:32:59",
       "priority": 5,
       "success_interval": "00:00:10:00",
       "failure_interval": "00:00:30:00"
@@ -134,10 +134,7 @@
     },
     "boss": {
       "boss_number": 3,
-      "boss_reward": false,
-      "reward_floor": "一星",
-      "use_collect": false,
-      "Attack_60": false
+      "boss_reward": false
     }
   }
 }

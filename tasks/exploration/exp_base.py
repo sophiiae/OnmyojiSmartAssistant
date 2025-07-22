@@ -90,6 +90,7 @@ class ExpBase(EA, Battle):
 
     def add_material_shiki(self):
         total = 0
+        white_count = 2
 
         while total < 5:
             self.wait_and_shot(1)
@@ -98,9 +99,10 @@ class ExpBase(EA, Battle):
                 self.long_click(self.I_M_RED)
                 total += 1
 
-            if self.appear(self.I_M_WHITE):
+            if white_count > 0 and self.appear(self.I_M_WHITE):
                 self.long_click(self.I_M_WHITE)
                 total += 1
+                white_count -= 1
 
             self.swipe(self.S_SHIKI_TO_LEFT)
 
