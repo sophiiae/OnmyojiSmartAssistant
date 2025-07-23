@@ -1,8 +1,8 @@
 ---
 name: "\U0001F4A1 Feature request 新功能建议"
 about: Suggest an idea for this project 新功能建议
-title: ''
-labels: ''
+title: "[Feature]"
+labels: "\U0001F31F enhancement"
 assignees: ''
 
 ---
