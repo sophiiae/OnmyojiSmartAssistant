@@ -132,7 +132,7 @@ class DataCollector(Device):
 
 if __name__ == "__main__":
     import sys
-    # example:  py .\record.py qian 15
+    # example:  py -m module.control.server.data_collector 1qian 90
     name, duration = sys.argv[1:]
     d = DataCollector(config_name=name)
     if len(sys.argv) < 3:

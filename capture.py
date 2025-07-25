@@ -14,5 +14,5 @@ if __name__ == "__main__":
         name, file = sys.argv[1:]
         d = DataCollector(config_name=name)
 
-        filepath = f"screenshots/{file}.png"
+        filepath = f"data/screenshots/{file}.cap.png"
         d.capture_screenshot(filepath)
