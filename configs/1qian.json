@@ -84,9 +84,6 @@
     },
     "raid_config": {
       "tickets_required": 9,
-      "exit_two": true,
-      "order_attack": "5 > 4 > 3 > 2 > 1 > 0",
-      "three_refresh": false,
       "when_attack_fail": "Continue"
     }
   },
@@ -119,6 +116,22 @@
       "ticket_max": 50,
       "ap_max": 300,
       "lock_team_enable": true
+    },
+    "general_battle_config": {
+      "lock_team_enable": true,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "不选择",
+      "random_click_swipt_enable": false
+    },
+    "switch_soul_config": {
+      "enable": false,
+      "switch_group_team": "-1,-1",
+      "enable_switch_by_name": false,
+      "group_name": "",
+      "team_name": ""
     }
   },
   "area_boss": {

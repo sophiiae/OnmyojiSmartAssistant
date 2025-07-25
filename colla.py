@@ -2,6 +2,7 @@ import concurrent.futures
 
 from module.control.server.device import Device
 from tasks.main_page.colla import Colla
+from tasks.main_page.routine import Routine
 
 # port = 16384  # 浅 default
 # port = 16416  # 念
@@ -24,6 +25,8 @@ def run_colla(name):
     colla = Colla(device=d)
     colla.start_colla()
     # colla.return_to_exp()
+    # routine = Routine(device=d)
+    # routine.get_huahe()
 
 
 if __name__ == '__main__':

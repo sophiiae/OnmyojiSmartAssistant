@@ -259,5 +259,17 @@ class GeneralAssets:
 		area=(617, 614, 108, 95),
 		file="./tasks/general/res/goto/v_exp_to_boss.png"
 	)
+	# 御灵入口 
+	I_V_EXP_TO_GORYOU = RuleImage(
+		roi=(353, 639, 51, 45),
+		area=(331, 617, 95, 89),
+		file="./tasks/general/res/goto/v_exp_to_goryou.png"
+	)
+	# 御灵退出 
+	I_V_GORYOU_TO_EXP = RuleImage(
+		roi=(7, 15, 53, 44),
+		area=(0, 0, 97, 88),
+		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+	)
 
 

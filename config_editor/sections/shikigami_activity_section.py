@@ -8,50 +8,6 @@ class ShikigamiActivitySection(QGroupBox):
     def __init__(self, config):
         super().__init__("式神活动设置")
         self.config = config
-
-        # 确保所有必需的配置项存在
-        if "shikigami_activity" not in self.config:
-            self.config["shikigami_activity"] = {}
-        shikigami_activity = self.config["shikigami_activity"]
-
-        if "scheduler" not in shikigami_activity:
-            shikigami_activity["scheduler"] = {
-                "enable": False,
-                "next_run": "2023-01-01 00:00:00",
-                "priority": 5,
-                "success_interval": "00:00:10:00",
-                "failure_interval": "01:00:00:00"
-            }
-
-        if "climb_config" not in shikigami_activity:
-            shikigami_activity["climb_config"] = {
-                "enable_ap_mode": False,
-                "auto_switch": False,
-                "ticket_max": 50,
-                "ap_max": 300,
-                "lock_team_enable": True
-            }
-
-        if "general_battle_config" not in shikigami_activity:
-            shikigami_activity["general_battle_config"] = {
-                "lock_team_enable": True,
-                "preset_enable": False,
-                "preset_group": 1,
-                "preset_team": 1,
-                "green_enable": False,
-                "green_mark": "不选择",
-                "random_click_swipt_enable": False
-            }
-
-        if "switch_soul_config" not in shikigami_activity:
-            shikigami_activity["switch_soul_config"] = {
-                "enable": False,
-                "switch_group_team": "-1,-1",
-                "enable_switch_by_name": False,
-                "group_name": "",
-                "team_name": ""
-            }
-
         self.create_widgets()
 
     def create_widgets(self):

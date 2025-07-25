@@ -7,7 +7,7 @@ class PageMap():
     def MAP(self):
         return {
             page_main: [page_exp, page_summon, page_store, page_shikigami, page_guild],
-            page_exp: [page_realm_raid, page_main, page_minamoto, page_boss],
+            page_exp: [page_realm_raid, page_main, page_minamoto, page_boss, page_goryou],
             page_realm_raid: [page_exp, page_guild_raid],
             page_guild_raid: [page_realm_raid],
             page_guild: [page_main],
@@ -18,6 +18,7 @@ class PageMap():
             page_minamoto: [page_exp],
             page_shikigami: [page_main],
             page_boss: [page_exp],
+            page_goryou: [page_exp],
         }
 
     def find_path(self, from_page: Page, to_page: Page, path=[]):
@@ -40,4 +41,4 @@ if __name__ == "__main__":
     from tasks.general.page import *
     m = PageMap()
     path = m.find_path(page_exp, page_summon)
-    print([p.name for p in path])
+    print([p.name for p in path] if path else 'No path found')

@@ -1,6 +1,7 @@
 import traceback
 from tasks.general.assets import GeneralAssets as G
 from tasks.shikigami_activity.assets import ShikigamiActivityAssets as SA
+from tasks.goryou_realm.assets import GoryouRealmAssets as GR
 
 class Page():
     def __init__(self, check_button):
@@ -74,7 +75,6 @@ page_minamoto = Page(G.I_C_MINAMOTO)
 page_minamoto.link(button=G.I_V_MINAMOTO_TO_EXP, destination=page_exp)
 page_exp.link(button=G.I_V_EXP_TO_MINAMOTO, destination=page_minamoto)
 
-
 # 式神活动 / 周年庆
 page_shikigami = Page(SA.I_SA_CHECK)
 page_shikigami.link(button=SA.I_SA_EXIT, destination=page_main)
@@ -89,3 +89,8 @@ page_main.link(button=G.I_V_MAIN_TO_GUILD, destination=page_guild)
 page_boss = Page(G.I_C_BOSS)
 page_boss.link(button=G.I_V_BOSS_TO_EXP, destination=page_exp)
 page_exp.link(button=G.I_V_EXP_TO_BOSS, destination=page_boss)
+
+# 御灵
+page_goryou = Page(GR.I_GR_CHECK)
+page_goryou.link(button=G.I_V_GORYOU_TO_EXP, destination=page_exp)
+page_exp.link(button=G.I_V_EXP_TO_GORYOU, destination=page_goryou)

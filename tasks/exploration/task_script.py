@@ -179,7 +179,7 @@ class TaskScript(ExpBase):
         time.sleep(1)
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_C_EXP) or self.appear(self.I_C_EXP_MODAL) or self.appear(self.I_EXP_YAOQI):
+            if not self.appear(self.I_EXP_C_CHAPTER, 0.95):
                 break
 
             if self.wait_until_click(self.I_EXP_CHAP_REWARD):

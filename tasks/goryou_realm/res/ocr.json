@@ -1,0 +1,10 @@
+[
+  {
+    "name": "gr_ticket_count",
+    "type": "text",
+    "roi": "930, 25, 82, 26",
+    "area": "930, 25, 82, 26",
+    "keyword": "",
+    "description": "御灵门票数量"
+  }
+]

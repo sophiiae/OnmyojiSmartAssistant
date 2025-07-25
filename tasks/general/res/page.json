@@ -262,5 +262,21 @@
     "area": "617, 614, 108, 95",
     "file": "./tasks/general/res/goto/v_exp_to_boss.png",
     "description": "地域鬼王入口"
+  },
+  {
+    "name": "v_exp_to_goryou",
+    "type": "image",
+    "roi": "353, 639, 51, 45",
+    "area": "331, 617, 95, 89",
+    "file": "./tasks/general/res/goto/v_exp_to_goryou.png",
+    "description": "御灵入口"
+  },
+  {
+    "name": "v_goryou_to_exp",
+    "type": "image",
+    "roi": "7, 15, 53, 44",
+    "area": "0, 0, 97, 88",
+    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "description": "御灵退出"
   }
 ]

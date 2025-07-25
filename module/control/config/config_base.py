@@ -304,21 +304,6 @@ class RaidConfig(BaseModel):
         description="突破所需门票数量"
     )
 
-    exit_two: bool = Field(
-        default=True,
-        description="最后一个连退四次，卡57"
-    )
-
-    order_attack: str = Field(
-        default="5 > 4 > 3 > 2 > 1 > 0",
-        description="攻击顺序"
-    )
-
-    three_refresh: bool = Field(
-        default=False,
-        description="刷新三次后放弃"
-    )
-
     when_attack_fail: str = Field(
         default="Continue",
         description="战斗失败设置"

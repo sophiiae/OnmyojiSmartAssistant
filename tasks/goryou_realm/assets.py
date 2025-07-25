@@ -7,6 +7,23 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class GoryouRealmAssets: 
 
+
+	# Click Rule Assets
+	# 暗神龙 
+	C_DARK_DIVINE_DRAGON = RuleClick(roi=(120, 150, 180, 470), area=(120, 150, 180, 470), name="Dark_Divine_Dragon")
+	# 暗白蔵主 
+	C_DARK_HAKUZOUSU = RuleClick(roi=(420, 150, 180, 470), area=(420, 150, 180, 470), name="Dark_Hakuzousu")
+	# 暗黑豹 
+	C_DARK_BLACK_PANTHER = RuleClick(roi=(700, 150, 180, 470), area=(700, 150, 180, 470), name="Dark_Black_Panther")
+	# 暗孔雀 
+	C_DARK_PEACOCK = RuleClick(roi=(120, 150, 180, 470), area=(120, 150, 180, 470), name="Dark_Peacock")
+	# 一层 
+	C_LV_1 = RuleClick(roi=(175, 170, 280, 70), area=(175, 170, 280, 70), name="lv_1")
+	# 二层 
+	C_LV_2 = RuleClick(roi=(175, 325, 280, 70), area=(175, 325, 280, 70), name="lv_2")
+	# 三层 
+	C_LV_3 = RuleClick(roi=(175, 485, 280, 70), area=(175, 485, 280, 70), name="lv_3")
+
 	# Image Rule Assets
 	# 御灵主页标记 
 	I_GR_CHECK = RuleImage(
@@ -37,6 +54,33 @@ class GoryouRealmAssets:
 		roi=(562, 566, 17, 25),
 		area=(554, 558, 33, 41),
 		file="./tasks/battle/res/battle_team_unlock.png"
+	)
+	# 一层点亮 
+	I_GR_LV_1_HIGHLIGHT = RuleImage(
+		roi=(355, 188, 62, 36),
+		area=(337, 170, 98, 72),
+		file="./tasks/goryou_realm/res/gr_lv_highlight.png"
+	)
+	# 二层点亮 
+	I_GR_LV_2_HIGHLIGHT = RuleImage(
+		roi=(364, 347, 62, 36),
+		area=(346, 329, 98, 72),
+		file="./tasks/goryou_realm/res/gr_lv_highlight.png"
+	)
+	# 三层点亮 
+	I_GR_LV_3_HIGHLIGHT = RuleImage(
+		roi=(366, 505, 62, 36),
+		area=(348, 487, 98, 72),
+		file="./tasks/goryou_realm/res/gr_lv_highlight.png"
+	)
+
+	# Ocr Rule Assets
+	# 御灵门票数量 
+	O_GR_TICKET_COUNT = RuleOcr(
+		roi=(930, 25, 82, 26),
+		area=(930, 25, 82, 26),
+		keyword="",
+		name="gr_ticket_count"
 	)
 
 

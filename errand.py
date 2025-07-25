@@ -9,7 +9,7 @@ from tasks.realm_raid.task_script import TaskScript as RR
 from tasks.minamoto.task_script import TaskScript as MINAMOTO
 from tasks.task_base import TaskBase
 from tasks.main_page.routine import Routine
-from tasks.yuling.task_script import TaskScript as YL
+from tasks.goryou_realm.task_script import TaskScript as YL
 from tasks.regional_boss.task_script import TaskScript as Boss
 
 def RunBoss(config_name: str):

@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Dark_Divine_Dragon",
+    "type": "click",
+    "roi": "120, 150, 180, 470",
+    "area": "120, 150, 180, 470",
+    "description": "暗神龙"
+  },
+  {
+    "name": "Dark_Hakuzousu",
+    "type": "click",
+    "roi": "420, 150, 180, 470",
+    "area": "420, 150, 180, 470",
+    "description": "暗白蔵主"
+  },
+  {
+    "name": "Dark_Black_Panther",
+    "type": "click",
+    "roi": "700, 150, 180, 470",
+    "area": "700, 150, 180, 470",
+    "description": "暗黑豹"
+  },
+  {
+    "name": "Dark_Peacock",
+    "type": "click",
+    "roi": "120, 150, 180, 470",
+    "area": "120, 150, 180, 470",
+    "description": "暗孔雀"
+  },
+  {
+    "name": "lv_1",
+    "type": "click",
+    "roi": "175, 170, 280, 70",
+    "area": "175, 170, 280, 70",
+    "description": "一层"
+  },
+  {
+    "name": "lv_2",
+    "type": "click",
+    "roi": "175, 325, 280, 70",
+    "area": "175, 325, 280, 70",
+    "description": "二层"
+  },
+  {
+    "name": "lv_3",
+    "type": "click",
+    "roi": "175, 485, 280, 70",
+    "area": "175, 485, 280, 70",
+    "description": "三层"
+  }
+]

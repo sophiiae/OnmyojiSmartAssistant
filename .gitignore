@@ -45,3 +45,5 @@ output.png
 *.test.png
 *.cap.png
 compact_log.txt
+
+data/

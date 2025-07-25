@@ -30,21 +30,6 @@ class RealmRaidSection(QGroupBox):
         self.tickets_required.setValue(self.raid_config["tickets_required"])
         add_left_row(raid_layout, [QLabel("所需票数:"), self.tickets_required])
 
-        # 退出二次（CheckBox独占一行）
-        self.exit_two = QCheckBox("退出二次")
-        self.exit_two.setChecked(self.raid_config["exit_two"])
-        add_left_row(raid_layout, [self.exit_two])
-
-        # 攻击顺序（无CheckBox，左对齐）
-        self.order_attack = QLineEdit()
-        self.order_attack.setText(self.raid_config["order_attack"])
-        add_left_row(raid_layout, [QLabel("攻击顺序:"), self.order_attack])
-
-        # 三次刷新（CheckBox独占一行）
-        self.three_refresh = QCheckBox("三次刷新")
-        self.three_refresh.setChecked(self.raid_config["three_refresh"])
-        add_left_row(raid_layout, [self.three_refresh])
-
         # 攻击失败时（无CheckBox，左对齐）
         self.when_attack_fail = SelectButton()
         self.when_attack_fail.addItems(["Continue", "Exit"])
@@ -64,9 +49,6 @@ class RealmRaidSection(QGroupBox):
 
         # 更新突破配置
         self.raid_config["tickets_required"] = self.tickets_required.value()
-        self.raid_config["exit_two"] = self.exit_two.isChecked()
-        self.raid_config["order_attack"] = self.order_attack.text()
-        self.raid_config["three_refresh"] = self.three_refresh.isChecked()
         self.raid_config["when_attack_fail"] = self.when_attack_fail.currentText()
 
         # 更新通用战斗配置

@@ -23,7 +23,7 @@ class TaskBase(MainPageAssets):
     limit_count: int  # 限制运行的次数
     current_count: int  # 当前运行的次数
 
-    def __init__(self, device: Device) -> None:
+    def __init__(self, device: Device, ignore_quest=False) -> None:
         """
 
         :rtype: object
@@ -35,6 +35,7 @@ class TaskBase(MainPageAssets):
         self.animates = {}  # 保存缓存
         self.start_time = datetime.now()  # 启动的时间
         self.current_count = 0  # 战斗次数
+        self.ignore_quest = ignore_quest
 
     def _burst(self) -> bool:
         """
@@ -42,18 +43,21 @@ class TaskBase(MainPageAssets):
         :return: 没有出现返回False, 其他True
         """
 
-        appear_invitation = self.appear(self.I_QUEST_ACCEPT)
-        if not appear_invitation:
-            return False
-        logger.info('Invitation appearing')
+        self.check_request_invitation()
+        return True
 
-        # 只接受勾协
-        if self.appear(self.I_QUEST_JADE, 0.96) or self.appear(self.I_QUEST_CAT, 0.96) or self.appear(self.I_QUEST_DOG, 0.96):
-            click_button = self.I_QUEST_ACCEPT
-        elif self.appear(self.I_QUEST_VIRTUAL, 0.96):
-            click_button = self.I_QUEST_ACCEPT
-        else:
-            click_button = self.I_QUEST_IGNORE
+    def check_request_invitation(self):
+        if not self.appear(self.I_QUEST_ACCEPT):
+            return False
+
+        click_button = self.I_QUEST_IGNORE
+
+        if not self.ignore_quest:
+            # 只接受勾协
+            if self.appear(self.I_QUEST_JADE, 0.96) or self.appear(self.I_QUEST_CAT, 0.96) or self.appear(self.I_QUEST_DOG, 0.96):
+                click_button = self.I_QUEST_ACCEPT
+            elif self.appear(self.I_QUEST_VIRTUAL, 0.96):
+                click_button = self.I_QUEST_ACCEPT
 
         while 1:
             self.device.get_screenshot()
@@ -65,9 +69,9 @@ class TaskBase(MainPageAssets):
                 continue
         return True
 
-    def wait_request(self) -> bool:
+    def wait_request(self):
         self.device.get_screenshot()
-        return self._burst()
+        self.check_request_invitation()
 
     def appear(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.1) -> bool:
         if not isinstance(target, RuleImage):

@@ -84,9 +84,6 @@
     },
     "raid_config": {
       "tickets_required": 9,
-      "exit_two": true,
-      "order_attack": "5 > 4 > 3 > 2 > 1 > 0",
-      "three_refresh": false,
       "when_attack_fail": "Continue"
     }
   },

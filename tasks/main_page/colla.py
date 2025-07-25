@@ -20,7 +20,9 @@ class Colla(EXP):
 
             logger.info(f"======== Exp Chapter Entered =========")
             count = self.colla_chapter_battle(max, count)
-            self.after_chapter_process()
+
+            if not self.appear(self.I_EXP_C_CHAPTER):
+                self.after_chapter_process()
 
         self.exit_chapter()
         self.goto(page_main)

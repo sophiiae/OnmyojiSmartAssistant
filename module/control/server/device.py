@@ -152,14 +152,15 @@ class Device:
         self.screenshot = image
         return image
 
-    def capture_screenshot(self, filepath):
+    def capture_screenshot(self, filepath) -> bool:
         """Capture the screenshot."""
         image = self.get_screenshot()
         if image is None:
-            logger.error("no image captured.")
-            return
+            logger.error("模拟器截图失败.")
+            return False
         cv2.imwrite(filepath, image)
-        logger.background(f"got a screenshot in {filepath}")
+        logger.background(f"图像已保存: {filepath}")
+        return True
 
     def click(self, x, y):
         """Click the screen."""
