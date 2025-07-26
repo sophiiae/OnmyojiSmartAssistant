@@ -59,7 +59,7 @@
     "exploration_config": {
       "buff_gold_50": false,
       "buff_gold_100": false,
-      "buff_exp_50": true,
+      "buff_exp_50": false,
       "buff_exp_100": false,
       "count_max": 30,
       "chapter": "第二十八章",

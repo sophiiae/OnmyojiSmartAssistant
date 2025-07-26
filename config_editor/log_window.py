@@ -156,9 +156,6 @@ class LogWindow(QWidget):
             'BACKGROUND': QColor('#757575')  # 灰色
         }
 
-        # 默认颜色
-        default_color = QColor('#FFFFFF')  # 白色
-
         # 根据文本内容判断日志类型
         if 'ℹ️' in text or '[INFO]' in text:
             format.setForeground(colors['INFO'])
@@ -178,10 +175,6 @@ class LogWindow(QWidget):
             format.setForeground(colors['NETWORK'])
         elif '🤖' in text or '[AI]' in text:
             format.setForeground(colors['AI'])
-        elif '[BG]' in text or '[BACKGROUND]' in text:
-            format.setForeground(colors['BACKGROUND'])
-        else:
-            format.setForeground(default_color)
 
         return format
 
