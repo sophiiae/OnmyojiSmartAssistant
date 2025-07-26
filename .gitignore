@@ -48,3 +48,6 @@ compact_log.txt
 
 data/
 *.exe
+# Configs - ignore all except osa.json
+configs/*
+!configs/osa.json
