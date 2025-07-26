@@ -118,6 +118,9 @@ class GameConsoleLogger:
         self.logger = logging.getLogger('GameConsole')
         self._context_buffer = deque(maxlen=20)
 
+        # UI回调函数
+        self.ui_callback = None
+
         # 替换原error方法
         self._original_error = self.logger.error
         self.logger.error = self._enhanced_error
@@ -170,12 +173,28 @@ class GameConsoleLogger:
         error_file_handler.setFormatter(error_formatter)
         self.logger.addHandler(error_file_handler)
 
+    def set_ui_callback(self, callback):
+        """设置UI回调函数"""
+        self.ui_callback = callback
+
+    def _notify_ui(self, message):
+        """通知UI更新"""
+        if self.ui_callback:
+            try:
+                self.ui_callback(message)
+            except Exception as e:
+                # 避免UI回调出错影响日志系统
+                pass
+
     def _enhanced_error(self, msg, *args, **kwargs):
         """增强的错误记录"""
         kwargs.setdefault('extra', {})['context'] = '\n'.join(
             self._context_buffer)
         self._original_error(msg, *args, **kwargs)
         self._flush_handlers()
+
+        # 通知UI
+        self._notify_ui(f"❌ {msg}")
 
     def _flush_handlers(self):
         for handler in self.logger.handlers:
@@ -196,6 +215,9 @@ class GameConsoleLogger:
         if 'is_background' in kwargs:
             extra['is_background'] = kwargs.pop('is_background')
         getattr(self.logger, level.lower())(msg, **kwargs)
+
+        # 通知UI
+        self._notify_ui(msg)
 
     def background(self, msg: str):
         """后台信息（默认颜色）"""

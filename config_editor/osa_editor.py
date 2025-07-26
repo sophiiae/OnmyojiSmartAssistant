@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
                              QWidget, QScrollArea, QCheckBox, QComboBox, QSpinBox, QLineEdit,
-                             QPushButton, QHBoxLayout, QMessageBox, QLabel)
+                             QPushButton, QHBoxLayout, QMessageBox, QLabel, QGridLayout)
 import os
 import sys
 from PyQt6.QtCore import Qt
@@ -17,6 +17,7 @@ from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
 from PyQt6.QtWidgets import QTabWidget
 from config_editor.script_worker import ScriptWorker
+from config_editor.log_window import LogWindow
 
 CONFIG_DIR = "configs"
 
@@ -25,44 +26,50 @@ class OSAEditor(ConfigTab):
         super().__init__(config_path)
         self.setWindowTitle("OSA 配置编辑器")
         self.script_worker = None
+        self.log_window = None
         self.setup_ui()
 
     def setup_ui(self):
         """设置UI界面"""
-        # 主布局
-        main_layout = QVBoxLayout(self)
+        # 主布局 - 使用水平布局来放置配置区域和日志区域
+        main_layout = QHBoxLayout(self)
+        main_layout.setSpacing(10)
 
-        # 顶部按钮布局
-        top_layout = QHBoxLayout()
+        # 左侧配置区域
+        left_widget = QWidget()
+        left_layout = QVBoxLayout(left_widget)
+
+        # 创建运行按钮（将移到日志窗口内部）
         self.run_button = QPushButton("运行")
-        self.run_button.setMinimumWidth(120)  # 设置最小宽度
+        self.run_button.setMinimumWidth(80)  # 设置最小宽度，类似状态标签
+        self.run_button.setMaximumWidth(100)  # 设置最大宽度
         self.run_button.setStyleSheet("""
             QPushButton {
-                padding: 8px 15px;
-                font-size: 14px;
-                font-weight: bold;
-                border: 2px solid #2196F3;
-                border-radius: 4px;
+                padding: 3px 8px;
+                border-radius: 3px;
                 background-color: #2196F3;
                 color: white;
+                font-size: 12px;
+                border: 1px solid #1976D2;
             }
             QPushButton:hover {
                 background-color: #1976D2;
-                border-color: #1976D2;
-            }
-            QPushButton:pressed {
-                background-color: #1565C0;
-                border-color: #1565C0;
             }
         """)
         self.run_button.clicked.connect(self.run_osa_config)
-        top_layout.addStretch()  # 添加弹性空间，使按钮靠右
-        top_layout.addWidget(self.run_button)
-        main_layout.addLayout(top_layout)
 
         # 快速导航栏
-        nav_layout = QHBoxLayout()
-        nav_layout.addWidget(QLabel("快速导航:"))
+        nav_widget = QWidget()
+        nav_layout = QVBoxLayout(nav_widget)
+
+        # 导航标题
+        nav_title = QLabel("快速导航:")
+        nav_layout.addWidget(nav_title)
+
+        # 创建按钮容器，使用网格布局实现自动换行
+        button_container = QWidget()
+        button_layout = QGridLayout(button_container)
+        button_layout.setSpacing(5)  # 设置按钮间距
 
         # 创建导航按钮
         sections = [
@@ -79,22 +86,31 @@ class OSAEditor(ConfigTab):
         # 设置统一的按钮样式
         button_style = """
             QPushButton {
-                min-width: 80px;
-                padding: 5px 10px;
-                font-size: 12px;
+                min-width: 45px;
+                max-width: 55px;
+                font-size: 9px;
+                margin: 1px;
             }
         """
 
-        for section_id, section_name, enable_path in sections:
+        # 计算每行最多放置的按钮数量（根据容器宽度动态调整）
+        max_buttons_per_row = 7  # 增加到7个按钮一行，更紧凑
+
+        for i, (section_id, section_name, enable_path) in enumerate(sections):
             btn = QPushButton(section_name)
             btn.setStyleSheet(button_style)  # 应用基础样式
             btn.clicked.connect(
                 lambda checked, s=section_id: self.scroll_to_section(s))
-            nav_layout.addWidget(btn)
+
+            # 计算按钮在网格中的位置
+            row = i // max_buttons_per_row
+            col = i % max_buttons_per_row
+
+            button_layout.addWidget(btn, row, col)
             self.nav_buttons[section_id] = (btn, enable_path)
 
-        nav_layout.addStretch()  # 添加弹性空间，使按钮靠左
-        main_layout.addLayout(nav_layout)
+        nav_layout.addWidget(button_container)
+        left_layout.addWidget(nav_widget)
 
         # 滚动区域
         scroll = QScrollArea()
@@ -133,7 +149,7 @@ class OSAEditor(ConfigTab):
 
         # 设置滚动区域的内容
         scroll.setWidget(scroll_widget)
-        main_layout.addWidget(scroll)
+        left_layout.addWidget(scroll)
 
         # 自动保存
         self.install_auto_save()
@@ -141,11 +157,39 @@ class OSAEditor(ConfigTab):
         # 更新导航按钮状态
         self.update_nav_buttons()
 
+        # 设置左侧配置区域的固定宽度
+        left_widget.setMinimumWidth(800)  # 缩小左侧宽度
+        left_widget.setMaximumWidth(450)  # 设置最大宽度
+
+        # 添加左侧配置区域到主布局
+        main_layout.addWidget(left_widget)
+
+        # 右侧日志区域
+        right_widget = QWidget()
+        right_layout = QVBoxLayout(right_widget)
+
+        # 创建内嵌的日志窗口，并将运行按钮传递给它
+        self.log_window = LogWindow()
+        self.log_window.setParent(right_widget)
+        self.log_window.set_run_button(self.run_button)  # 传递运行按钮给日志窗口
+        right_layout.addWidget(self.log_window)
+
+        # 设置右侧日志区域的固定宽度
+        right_widget.setMinimumWidth(500)  # 扩大右侧宽度
+
+        # 添加右侧日志区域到主布局
+        main_layout.addWidget(right_widget)
+
     def closeEvent(self, a0):
         """窗口关闭时的处理"""
         if self.script_worker and self.script_worker.isRunning():
             self.script_worker.terminate()
             self.script_worker.wait()
+
+        # 停止日志捕获
+        if self.log_window:
+            self.log_window.stop_log_capture()
+
         if a0:
             a0.accept()
         super().closeEvent(a0)
@@ -173,7 +217,7 @@ class OSAEditor(ConfigTab):
                     os.path.basename(self.config_path))[0]
 
                 # 创建工作线程
-                self.script_worker = ScriptWorker(config_name)
+                self.script_worker = ScriptWorker(config_name, self.log_window)
                 self.script_worker.finished.connect(self.on_script_finished)
                 self.script_worker.error.connect(self.on_script_error)
 
@@ -198,18 +242,30 @@ class OSAEditor(ConfigTab):
             self.script_worker.terminate()
             self.script_worker.wait()
 
+        # 停止日志捕获
+        if self.log_window:
+            self.log_window.stop_log_capture()
+
         self.is_running = False
         self.update_run_button()
         # QMessageBox.information(self, "成功", "配置已停止运行")
 
     def on_script_finished(self):
         """脚本完成时的回调"""
+        # 停止日志捕获
+        if self.log_window:
+            self.log_window.stop_log_capture()
+
         self.is_running = False
         self.update_run_button()
         self.script_worker = None
 
     def on_script_error(self, error_msg):
         """脚本出错时的回调"""
+        # 停止日志捕获
+        if self.log_window:
+            self.log_window.stop_log_capture()
+
         self.is_running = False
         self.update_run_button()
         self.script_worker = None
@@ -221,42 +277,30 @@ class OSAEditor(ConfigTab):
             self.run_button.setText("停止")
             self.run_button.setStyleSheet("""
                 QPushButton {
-                    padding: 8px 15px;
-                    font-size: 14px;
-                    font-weight: bold;
-                    border: 2px solid #f44336;
-                    border-radius: 4px;
+                    padding: 3px 8px;
+                    border-radius: 3px;
                     background-color: #f44336;
                     color: white;
+                    font-size: 12px;
+                    border: 1px solid #d32f2f;
                 }
                 QPushButton:hover {
                     background-color: #d32f2f;
-                    border-color: #d32f2f;
-                }
-                QPushButton:pressed {
-                    background-color: #b71c1c;
-                    border-color: #b71c1c;
                 }
             """)
         else:
             self.run_button.setText("运行")
             self.run_button.setStyleSheet("""
                 QPushButton {
-                    padding: 8px 15px;
-                    font-size: 14px;
-                    font-weight: bold;
-                    border: 2px solid #2196F3;
-                    border-radius: 4px;
+                    padding: 3px 8px;
+                    border-radius: 3px;
                     background-color: #2196F3;
                     color: white;
+                    font-size: 12px;
+                    border: 1px solid #1976D2;
                 }
                 QPushButton:hover {
                     background-color: #1976D2;
-                    border-color: #1976D2;
-                }
-                QPushButton:pressed {
-                    background-color: #1565C0;
-                    border-color: #1565C0;
                 }
             """)
 
@@ -305,7 +349,7 @@ class ConfigEditor(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("OSA 配置编辑器")
-        self.setMinimumSize(900, 700)
+        self.setMinimumSize(900, 700)  # 设置初始尺寸
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
         self.config_files = [f for f in os.listdir(

@@ -64,10 +64,10 @@ class WantedQuestsSection(QGroupBox):
             self.invite_quest_config["invite_virtual"])
         grid.addWidget(self.invite_virtual, 1, 0)
 
-        self.invite_food = QCheckBox("宠物粮悬赏")
-        self.invite_food.setChecked(
+        self.invite_pet_food = QCheckBox("宠物粮悬赏")
+        self.invite_pet_food.setChecked(
             self.invite_quest_config["invite_pet_food"])
-        grid.addWidget(self.invite_food, 1, 1)
+        grid.addWidget(self.invite_pet_food, 1, 1)
 
         group = QGroupBox("邀请悬赏任务类型")
         group.setLayout(grid)
@@ -87,5 +87,5 @@ class WantedQuestsSection(QGroupBox):
         invite_quest_config["invite_gold"] = self.invite_gold.isChecked()
         invite_quest_config["invite_ap"] = self.invite_ap.isChecked()
         invite_quest_config["invite_virtual"] = self.invite_virtual.isChecked()
-        invite_quest_config["invite_food"] = self.invite_food.isChecked()
+        invite_quest_config["invite_pet_food"] = self.invite_pet_food.isChecked()
         invite_quest_config["invite_friend_name"] = self.invite_friend_name.text()

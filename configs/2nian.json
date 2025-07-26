@@ -45,7 +45,8 @@
       "invite_gold": false,
       "invite_ap": false,
       "invite_virtual": true,
-      "invite_pet_food": false
+      "invite_pet_food": false,
+      "invite_food": false
     }
   },
   "exploration": {
