@@ -51,3 +51,6 @@ data/
 # Configs - ignore all except osa.json
 configs/*
 !configs/osa.json
+
+
+colla.py
