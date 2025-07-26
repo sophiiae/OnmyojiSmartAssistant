@@ -19,7 +19,26 @@ from PyQt6.QtWidgets import QTabWidget
 from config_editor.script_worker import ScriptWorker
 from config_editor.log_window import LogWindow
 
-CONFIG_DIR = "configs"
+import sys
+import os
+
+# 获取正确的配置目录路径
+def get_config_dir():
+    """获取配置目录的路径"""
+    if getattr(sys, 'frozen', False):
+        # 如果是exe环境，使用exe所在目录
+        base_path = os.path.dirname(sys.executable)
+    else:
+        # 如果是开发环境，使用当前目录
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        # 回到项目根目录
+        base_path = os.path.dirname(base_path)
+
+    config_dir = os.path.join(base_path, "configs")
+    return config_dir
+
+
+CONFIG_DIR = get_config_dir()
 
 class OSAEditor(ConfigTab):
     def __init__(self, config_path):
@@ -356,16 +375,55 @@ class ConfigEditor(QMainWindow):
         self.setMinimumSize(900, 700)  # 设置初始尺寸
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
-        self.config_files = [f for f in os.listdir(
-            CONFIG_DIR) if f.endswith('.json') and f != 'osa.json']
-        self.tab_widgets = {}
-        for file in self.config_files:
+
+        # 确保配置目录存在
+        if not os.path.exists(CONFIG_DIR):
+            os.makedirs(CONFIG_DIR, exist_ok=True)
+
+        # 获取配置文件列表
+        try:
+            self.config_files = [f for f in os.listdir(
+                CONFIG_DIR) if f.endswith('.json')]
+        except FileNotFoundError:
+            self.config_files = []
+            print(f"警告：配置目录 {CONFIG_DIR} 不存在或无法访问")
+
+            self.tab_widgets = {}
+
+        # 优先添加osa.json作为默认配置
+        config_files_ordered = []
+        if 'osa.json' in self.config_files:
+            config_files_ordered.append('osa.json')
+            self.config_files.remove('osa.json')
+
+        # 添加其他配置文件
+        config_files_ordered.extend(self.config_files)
+
+        for file in config_files_ordered:
             path = os.path.join(CONFIG_DIR, file)
-            tab = OSAEditor(path)
-            self.tabs.addTab(tab, file)
-            self.tab_widgets[file] = tab
+            try:
+                tab = OSAEditor(path)
+                self.tabs.addTab(tab, file)
+                self.tab_widgets[file] = tab
+            except Exception as e:
+                print(f"警告：无法加载配置文件 {file}: {e}")
+
         self.tabs.currentChanged.connect(self.on_tab_changed)
         self.last_index = 0
+
+        # 如果没有找到任何配置文件，显示提示
+        if not self.config_files:
+            from PyQt6.QtWidgets import QLabel
+            no_config_label = QLabel("未找到配置文件。\n请确保configs目录中有.json配置文件。")
+            no_config_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            no_config_label.setStyleSheet("""
+                QLabel {
+                    font-size: 14px;
+                    color: #666;
+                    padding: 20px;
+                }
+            """)
+            self.tabs.addTab(no_config_label, "无配置")
 
     def on_tab_changed(self, idx):
         # 切换tab时自动保存上一个tab

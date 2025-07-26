@@ -1,10 +1,28 @@
-import sys
-from module.control.server.device import Device
-from module.script import Script
-from tasks.exploration.task_script import TaskScript as EXP
-from tasks.royal_battle.task_script import TaskScript as RB
-
 from module.base.logger import logger
+from tasks.royal_battle.task_script import TaskScript as RB
+from tasks.exploration.task_script import TaskScript as EXP
+from module.script import Script
+from module.control.server.device import Device
+import sys
+import os
+
+# 设置工作目录
+def setup_working_directory():
+    """设置正确的工作目录"""
+    if getattr(sys, 'frozen', False):
+        # 如果是exe环境，使用exe所在目录
+        base_path = os.path.dirname(sys.executable)
+    else:
+        # 如果是开发环境，使用当前目录
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    os.chdir(base_path)
+    return base_path
+
+
+# 设置工作目录
+setup_working_directory()
+
 
 # port = 16384  # 浅 default
 # port = 16416  # 念
