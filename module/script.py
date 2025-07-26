@@ -17,6 +17,7 @@ from module.control.config.config import Config
 
 
 class Script:
+    is_running = False
 
     def __init__(self, config_name: str = 'oas') -> None:
         self.config_name = config_name
@@ -103,6 +104,7 @@ class Script:
                 exit(1)
 
             if success:
+                self.is_running = True
                 del self.config
                 continue
             else:

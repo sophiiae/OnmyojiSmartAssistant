@@ -16,7 +16,7 @@ from config_editor.main import ConfigTab
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
 from PyQt6.QtWidgets import QTabWidget
-
+from config_editor.script_worker import ScriptWorker
 
 CONFIG_DIR = "configs"
 
@@ -24,6 +24,7 @@ class OSAEditor(ConfigTab):
     def __init__(self, config_path):
         super().__init__(config_path)
         self.setWindowTitle("OSA 配置编辑器")
+        self.script_worker = None
         self.setup_ui()
 
     def setup_ui(self):
@@ -31,33 +32,33 @@ class OSAEditor(ConfigTab):
         # 主布局
         main_layout = QVBoxLayout(self)
 
-        # # 顶部按钮布局
-        # top_layout = QHBoxLayout()
-        # self.run_button = QPushButton("运行")
-        # self.run_button.setMinimumWidth(120)  # 设置最小宽度
-        # self.run_button.setStyleSheet("""
-        #     QPushButton {
-        #         padding: 8px 15px;
-        #         font-size: 14px;
-        #         font-weight: bold;
-        #         border: 2px solid #2196F3;
-        #         border-radius: 4px;
-        #         background-color: #2196F3;
-        #         color: white;
-        #     }
-        #     QPushButton:hover {
-        #         background-color: #1976D2;
-        #         border-color: #1976D2;
-        #     }
-        #     QPushButton:pressed {
-        #         background-color: #1565C0;
-        #         border-color: #1565C0;
-        #     }
-        # """)
-        # self.run_button.clicked.connect(self.run_osa_config)
-        # top_layout.addStretch()  # 添加弹性空间，使按钮靠右
-        # top_layout.addWidget(self.run_button)
-        # main_layout.addLayout(top_layout)
+        # 顶部按钮布局
+        top_layout = QHBoxLayout()
+        self.run_button = QPushButton("运行")
+        self.run_button.setMinimumWidth(120)  # 设置最小宽度
+        self.run_button.setStyleSheet("""
+            QPushButton {
+                padding: 8px 15px;
+                font-size: 14px;
+                font-weight: bold;
+                border: 2px solid #2196F3;
+                border-radius: 4px;
+                background-color: #2196F3;
+                color: white;
+            }
+            QPushButton:hover {
+                background-color: #1976D2;
+                border-color: #1976D2;
+            }
+            QPushButton:pressed {
+                background-color: #1565C0;
+                border-color: #1565C0;
+            }
+        """)
+        self.run_button.clicked.connect(self.run_osa_config)
+        top_layout.addStretch()  # 添加弹性空间，使按钮靠右
+        top_layout.addWidget(self.run_button)
+        main_layout.addLayout(top_layout)
 
         # 快速导航栏
         nav_layout = QHBoxLayout()
@@ -140,6 +141,15 @@ class OSAEditor(ConfigTab):
         # 更新导航按钮状态
         self.update_nav_buttons()
 
+    def closeEvent(self, a0):
+        """窗口关闭时的处理"""
+        if self.script_worker and self.script_worker.isRunning():
+            self.script_worker.terminate()
+            self.script_worker.wait()
+        if a0:
+            a0.accept()
+        super().closeEvent(a0)
+
     def save_osa_config(self):
         self.script_section.update_config()
         self.daily_routine_section.update_config()
@@ -151,86 +161,104 @@ class OSAEditor(ConfigTab):
         self.area_boss_section.update_config()
         self.save_config()
 
-    # def run_osa_config(self):
-    #     """运行当前配置"""
-    #     try:
-    #         if not self.is_running:
-    #             # 保存当前配置
-    #             self.save_osa_config()
+    def run_osa_config(self):
+        """运行当前配置"""
+        try:
+            if not self.is_running:
+                # 保存当前配置
+                self.save_osa_config()
 
-    #             # # 获取配置名称（文件名去掉.json后缀）
-    #             # config_name = os.path.splitext(
-    #             #     os.path.basename(self.config_path))[0]
+                # 获取配置名称（文件名去掉.json后缀）
+                config_name = os.path.splitext(
+                    os.path.basename(self.config_path))[0]
 
-    #             # # 创建配置实例
-    #             # config = Config(config_name)
+                # 创建工作线程
+                self.script_worker = ScriptWorker(config_name)
+                self.script_worker.finished.connect(self.on_script_finished)
+                self.script_worker.error.connect(self.on_script_error)
 
-    #             # # 运行配置
-    #             # if config.task_call("script"):
-    #             #     self.is_running = True
-    #             #     self.update_run_button()
-    #             #     QMessageBox.information(
-    #             #         self, "成功", f"配置 {config_name} 已开始运行")
-    #             # else:
-    #             #     QMessageBox.warning(self, "警告", f"配置 {config_name} 运行失败")
+                # 启动线程
+                self.script_worker.start()
 
-    #             # 模拟运行成功
-    #             self.is_running = True
-    #             # self.update_run_button()
-    #             QMessageBox.information(self, "成功", "配置已开始运行")
-    #         else:
-    #             # 模拟停止成功
-    #             self.is_running = False
-    #             self.update_run_button()
-    #             QMessageBox.information(self, "成功", "配置已停止运行")
+                # 更新UI状态
+                self.is_running = True
+                self.update_run_button()
+                # QMessageBox.information(
+                #     self, "成功", f"配置 {config_name} 已开始运行")
+            else:
+                # 停止脚本
+                self.stop_script()
 
-    #     except Exception as e:
-    #         QMessageBox.critical(self, "错误", f"运行配置时出错: {str(e)}")
+        except Exception as e:
+            QMessageBox.critical(self, "错误", f"运行配置时出错: {str(e)}")
 
-    # def update_run_button(self):
-    #     """更新运行按钮的样式和文本"""
-    #     if self.is_running:
-    #         self.run_button.setText("停止")
-    #         self.run_button.setStyleSheet("""
-    #             QPushButton {
-    #                 padding: 8px 15px;
-    #                 font-size: 14px;
-    #                 font-weight: bold;
-    #                 border: 2px solid #f44336;
-    #                 border-radius: 4px;
-    #                 background-color: #f44336;
-    #                 color: white;
-    #             }
-    #             QPushButton:hover {
-    #                 background-color: #d32f2f;
-    #                 border-color: #d32f2f;
-    #             }
-    #             QPushButton:pressed {
-    #                 background-color: #b71c1c;
-    #                 border-color: #b71c1c;
-    #             }
-    #         """)
-    #     else:
-    #         self.run_button.setText("运行")
-    #         self.run_button.setStyleSheet("""
-    #             QPushButton {
-    #                 padding: 8px 15px;
-    #                 font-size: 14px;
-    #                 font-weight: bold;
-    #                 border: 2px solid #2196F3;
-    #                 border-radius: 4px;
-    #                 background-color: #2196F3;
-    #                 color: white;
-    #             }
-    #             QPushButton:hover {
-    #                 background-color: #1976D2;
-    #                 border-color: #1976D2;
-    #             }
-    #             QPushButton:pressed {
-    #                 background-color: #1565C0;
-    #                 border-color: #1565C0;
-    #             }
-    #         """)
+    def stop_script(self):
+        """停止脚本运行"""
+        if self.script_worker and self.script_worker.isRunning():
+            self.script_worker.terminate()
+            self.script_worker.wait()
+
+        self.is_running = False
+        self.update_run_button()
+        # QMessageBox.information(self, "成功", "配置已停止运行")
+
+    def on_script_finished(self):
+        """脚本完成时的回调"""
+        self.is_running = False
+        self.update_run_button()
+        self.script_worker = None
+
+    def on_script_error(self, error_msg):
+        """脚本出错时的回调"""
+        self.is_running = False
+        self.update_run_button()
+        self.script_worker = None
+        QMessageBox.critical(self, "错误", f"脚本运行出错: {error_msg}")
+
+    def update_run_button(self):
+        """更新运行按钮的样式和文本"""
+        if self.is_running:
+            self.run_button.setText("停止")
+            self.run_button.setStyleSheet("""
+                QPushButton {
+                    padding: 8px 15px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    border: 2px solid #f44336;
+                    border-radius: 4px;
+                    background-color: #f44336;
+                    color: white;
+                }
+                QPushButton:hover {
+                    background-color: #d32f2f;
+                    border-color: #d32f2f;
+                }
+                QPushButton:pressed {
+                    background-color: #b71c1c;
+                    border-color: #b71c1c;
+                }
+            """)
+        else:
+            self.run_button.setText("运行")
+            self.run_button.setStyleSheet("""
+                QPushButton {
+                    padding: 8px 15px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    border: 2px solid #2196F3;
+                    border-radius: 4px;
+                    background-color: #2196F3;
+                    color: white;
+                }
+                QPushButton:hover {
+                    background-color: #1976D2;
+                    border-color: #1976D2;
+                }
+                QPushButton:pressed {
+                    background-color: #1565C0;
+                    border-color: #1565C0;
+                }
+            """)
 
     def install_auto_save(self):
         # 给所有控件加信号，内容变动时自动保存

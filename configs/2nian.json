@@ -59,7 +59,7 @@
     "exploration_config": {
       "buff_gold_50": false,
       "buff_gold_100": false,
-      "buff_exp_50": true,
+      "buff_exp_50": false,
       "buff_exp_100": false,
       "count_max": 30,
       "chapter": "第二十八章",
@@ -139,8 +139,8 @@
       "enable": false,
       "next_run": "2023-01-01 00:00:00",
       "priority": 5,
-      "success_interval": "01 00:00:00",
-      "failure_interval": "01 00:00:00",
+      "success_interval": "00:00:00:00",
+      "failure_interval": "00:00:00:00",
       "server_update": "09:00:00",
       "delay_date": 1,
       "float_time": "00:00:00"
