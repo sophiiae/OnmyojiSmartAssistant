@@ -61,15 +61,18 @@ class OSAEditor(ConfigTab):
         # 快速导航栏
         nav_widget = QWidget()
         nav_layout = QVBoxLayout(nav_widget)
+        nav_layout.setContentsMargins(2, 2, 2, 2)  # 减少导航栏边距
+        nav_layout.setSpacing(2)  # 减少导航栏间距
 
-        # 导航标题
-        nav_title = QLabel("快速导航:")
-        nav_layout.addWidget(nav_title)
+        # # 导航标题
+        # nav_title = QLabel("快速导航:")
+        # nav_layout.addWidget(nav_title)
 
         # 创建按钮容器，使用网格布局实现自动换行
         button_container = QWidget()
         button_layout = QGridLayout(button_container)
-        button_layout.setSpacing(5)  # 设置按钮间距
+        button_layout.setSpacing(3)  # 减少按钮间距
+        button_layout.setContentsMargins(2, 2, 2, 2)  # 减少按钮容器边距
 
         # 创建导航按钮
         sections = [
@@ -86,10 +89,11 @@ class OSAEditor(ConfigTab):
         # 设置统一的按钮样式
         button_style = """
             QPushButton {
-                min-width: 45px;
-                max-width: 55px;
+                min-width: 40px;
+                max-width: 50px;
                 font-size: 9px;
-                margin: 1px;
+                margin: 0px;
+                padding: 2px 4px;
             }
         """
 

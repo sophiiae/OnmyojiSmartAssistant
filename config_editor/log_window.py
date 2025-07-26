@@ -67,9 +67,7 @@ class LogWindow(QWidget):
         self.log_text.setFont(QFont("Consolas", 9))
         self.log_text.setStyleSheet("""
             QTextEdit {
-                background-color: #1e1e1e;
-                color: #ffffff;
-                border: 1px solid #3c3c3c;
+                border: 1px solid #b5bdc4;
                 border-radius: 3px;
             }
         """)
