@@ -1,6 +1,6 @@
 import json
 from PyQt6.QtWidgets import QWidget
-
+import os
 class ConfigTab(QWidget):
     def __init__(self, config_path):
         super().__init__()
@@ -8,6 +8,12 @@ class ConfigTab(QWidget):
         self.config = self.load_config()
         self.is_running = False
         self.nav_buttons = {}
+
+    def get_config_name(self):
+        # 获取配置名称（文件名去掉.json后缀）
+        config_name = os.path.splitext(
+            os.path.basename(self.config_path))[0]
+        return config_name
 
     def load_config(self):
         with open(self.config_path, 'r', encoding='utf-8') as f:

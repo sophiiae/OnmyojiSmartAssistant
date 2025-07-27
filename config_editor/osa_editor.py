@@ -12,10 +12,10 @@ from config_editor.sections.exploration_section import ExplorationSection
 from config_editor.sections.wanted_quests_section import WantedQuestsSection
 from config_editor.sections.daily_routine_section import DailyRoutineSection
 from config_editor.sections.script_section import ScriptSection
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
                              QWidget, QScrollArea, QCheckBox, QComboBox, QSpinBox, QLineEdit,
-                             QPushButton, QHBoxLayout, QMessageBox, QLabel, QGridLayout)
+                             QPushButton, QHBoxLayout, QMessageBox, QLabel, QGridLayout, QGroupBox)
 import sys
 import os
 
@@ -43,6 +43,10 @@ class OSAEditor(ConfigTab):
         self.setWindowTitle("OSA 配置编辑器")
         self.script_worker = None
         self.log_window = None
+        self.current_highlighted_section = None  # 当前高亮的section
+        self.highlight_timer = QTimer()  # 高亮清除定时器
+        self.highlight_timer.setSingleShot(True)
+        self.highlight_timer.timeout.connect(self.clear_all_highlights)
         self.setup_ui()
 
     def setup_ui(self):
@@ -164,6 +168,9 @@ class OSAEditor(ConfigTab):
         self.area_boss_section = AreaBossSection(self.config)
         scroll_layout.addWidget(self.area_boss_section)
 
+        # 为所有section添加点击事件
+        self.setup_section_click_events()
+
         # 添加弹性空间，使内容靠上
         scroll_layout.addStretch()
 
@@ -189,7 +196,7 @@ class OSAEditor(ConfigTab):
         right_layout = QVBoxLayout(right_widget)
 
         # 创建内嵌的日志窗口，并将运行按钮传递给它
-        self.log_window = LogWindow()
+        self.log_window = LogWindow(self.get_config_name())
         self.log_window.setParent(right_widget)
         self.log_window.set_run_button(self.run_button)  # 传递运行按钮给日志窗口
         right_layout.addWidget(self.log_window)
@@ -199,6 +206,107 @@ class OSAEditor(ConfigTab):
 
         # 添加右侧日志区域到主布局
         main_layout.addWidget(right_widget)
+
+    def setup_section_click_events(self):
+        """为所有配置区域设置点击事件"""
+        sections = [
+            self.script_section,
+            self.daily_routine_section,
+            self.wanted_quests_section,
+            self.exploration_section,
+            self.realm_raid_section,
+            self.goryou_realm_section,
+            self.shikigami_activity_section,
+            self.area_boss_section
+        ]
+
+        for section in sections:
+            # 为每个section添加鼠标点击事件
+            section.mousePressEvent = lambda event, s=section: self.on_section_clicked(
+                s, event)
+
+    def on_section_clicked(self, section, event):
+        """处理配置区域的点击事件"""
+        # 检查是否是右键点击
+        if event.button() == Qt.MouseButton.RightButton:
+            self.show_highlight_menu(section, event.globalPos())
+        else:
+            # 左键点击：高亮被点击的section（不会清除已高亮的区域）
+            self.highlight_section(section)
+
+        # 调用原始的mousePressEvent
+        QGroupBox.mousePressEvent(section, event)
+
+    def highlight_section(self, section):
+        """高亮指定的配置区域（永久保持）"""
+        # 清除之前的高亮
+        if self.current_highlighted_section:
+            self.clear_section_highlight(self.current_highlighted_section)
+
+        # 设置新的高亮
+        if section:
+            self.set_section_highlight(section)
+            self.current_highlighted_section = section
+            # 不启动定时器，保持永久高亮
+
+    def highlight_section_permanent(self, section):
+        """永久高亮指定的配置区域（不自动清除）"""
+        # 清除之前的高亮
+        if self.current_highlighted_section:
+            self.clear_section_highlight(self.current_highlighted_section)
+
+        # 设置新的高亮
+        if section:
+            self.set_section_highlight(section)
+            self.current_highlighted_section = section
+            # 不启动定时器，保持永久高亮
+
+    def highlight_section_temporary(self, section, duration=3000):
+        """临时高亮指定的配置区域（可自定义时间）"""
+        # 清除之前的高亮
+        if self.current_highlighted_section:
+            self.clear_section_highlight(self.current_highlighted_section)
+
+        # 设置新的高亮
+        if section:
+            self.set_section_highlight(section)
+            self.current_highlighted_section = section
+            # 启动定时器，指定时间后自动清除高亮
+            self.highlight_timer.start(duration)
+
+    def clear_section_highlight(self, section):
+        """清除配置区域的高亮"""
+        if section:
+            section.setStyleSheet("")
+
+    def set_section_highlight(self, section):
+        """设置配置区域的高亮边框"""
+        if section:
+            # 使用简洁的彩色边框高亮，去掉字体加粗
+            highlight_style = """
+                QGroupBox {
+                    border: 2px solid #2196F3;
+                    border-radius: 6px;
+                    background-color: #F5F9FF;
+                    margin: 1px;
+                    padding: 3px;
+                }
+                QGroupBox::title {
+                    color: #1976D2;
+                    subcontrol-origin: margin;
+                    left: 10px;
+                    padding: 0 5px 0 5px;
+                }
+            """
+            section.setStyleSheet(highlight_style)
+
+    def clear_all_highlights(self):
+        """清除所有高亮"""
+        if self.current_highlighted_section:
+            self.clear_section_highlight(self.current_highlighted_section)
+            self.current_highlighted_section = None
+        # 停止定时器
+        self.highlight_timer.stop()
 
     def closeEvent(self, a0):
         """窗口关闭时的处理"""
@@ -363,6 +471,35 @@ class OSAEditor(ConfigTab):
             scroll_area = self.findChild(QScrollArea)
             if scroll_area:
                 scroll_area.ensureWidgetVisible(section)
+                # 高亮选中的配置区域
+                self.highlight_section(section)
+
+    def show_highlight_menu(self, section, pos):
+        """显示高亮选项菜单"""
+        from PyQt6.QtWidgets import QMenu
+        from PyQt6.QtGui import QAction
+
+        menu = QMenu(self)
+
+        # 永久高亮选项（默认）
+        permanent_action = QAction("永久高亮", self)
+        permanent_action.triggered.connect(
+            lambda: self.highlight_section_permanent(section))
+        menu.addAction(permanent_action)
+
+        # 临时高亮选项
+        temp_action = QAction("临时高亮 (10秒)", self)
+        temp_action.triggered.connect(
+            lambda: self.highlight_section_temporary(section, 10000))
+        menu.addAction(temp_action)
+
+        # 清除高亮选项
+        clear_action = QAction("清除高亮", self)
+        clear_action.triggered.connect(self.clear_all_highlights)
+        menu.addAction(clear_action)
+
+        # 显示菜单
+        menu.exec(pos)
 
 
 class ConfigEditor(QMainWindow):
