@@ -5,6 +5,7 @@ from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QTextEdit, QPushButton,
                              QHBoxLayout, QLabel, QCheckBox)
 from module.control.server.device import Device
+from module.control.server.data_collector import DataCollector
 import sys
 import os
 # 添加项目根目录到Python路径
@@ -25,6 +26,8 @@ class LogWindow(QWidget):
         self.config_name = config_name
         self.device = None  # 延迟初始化设备
         self.device_connected = False  # 设备连接状态
+        self.data_collector = None  # 数据收集器
+        self.is_recording = False  # 录制状态
         # 不再自动初始化设备，等待用户手动选择
         self.setup_ui()
 
@@ -32,22 +35,26 @@ class LogWindow(QWidget):
         """异步初始化设备连接"""
         try:
             self.device = Device(self.config_name)
+            self.data_collector = DataCollector(self.config_name)
             # 检查设备是否成功连接
             if self.device.device is not None:
                 self.device_connected = True
                 self.screenshot_button.setEnabled(True)
-                self.update_screenshot_button_style()
+                self.record_button.setEnabled(True)
+                self.update_button_styles()
                 self.append_log("✅ 设备连接成功")
             else:
                 self.device_connected = False
                 self.screenshot_button.setEnabled(False)
-                self.update_screenshot_button_style()
-                self.append_log("❌ 设备连接失败，截图功能已禁用")
+                self.record_button.setEnabled(False)
+                self.update_button_styles()
+                self.append_log("❌ 设备连接失败，截图和录屏功能已禁用")
         except Exception as e:
             self.device_connected = False
             self.screenshot_button.setEnabled(False)
-            self.update_screenshot_button_style()
-            self.append_log(f"❌ 设备初始化失败: {str(e)}，截图功能已禁用")
+            self.record_button.setEnabled(False)
+            self.update_button_styles()
+            self.append_log(f"❌ 设备初始化失败: {str(e)}，截图和录屏功能已禁用")
 
     def on_device_checkbox_changed(self, state):
         """处理设备连接复选框状态改变"""
@@ -59,7 +66,67 @@ class LogWindow(QWidget):
             self.screenshot_button.setEnabled(False)
             self.device = None
             self.append_log("📱 已断开设备连接")
-            self.update_screenshot_button_style()
+            self.update_button_styles()
+
+    def update_button_styles(self):
+        """根据设备连接状态更新按钮样式"""
+        if self.device_connected:
+            # 连接成功时的样式 - 蓝色
+            self.screenshot_button.setStyleSheet("""
+                QPushButton {
+                    padding: 3px 8px;
+                    font-size: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    color: #219ebc;
+                    background-color: #f8f8f8;
+                }
+                QPushButton:hover {
+                    background-color: #e0e0e0;
+                }
+            """)
+            # 录屏按钮 - 粉色
+            self.record_button.setStyleSheet("""
+                QPushButton {
+                    padding: 3px 8px;
+                    font-size: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    color: #e91e63;
+                    background-color: #f8f8f8;
+                }
+                QPushButton:hover {
+                    background-color: #e0e0e0;
+                }
+            """)
+        else:
+            # 未连接时的样式 - 灰色
+            self.screenshot_button.setStyleSheet("""
+                QPushButton {
+                    padding: 3px 8px;
+                    font-size: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    color: #999999;
+                    background-color: #f5f5f5;
+                }
+                QPushButton:hover {
+                    background-color: #f0f0f0;
+                }
+            """)
+            self.record_button.setStyleSheet("""
+                QPushButton {
+                    padding: 3px 8px;
+                    font-size: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    color: #999999;
+                    background-color: #f5f5f5;
+                }
+                QPushButton:hover {
+                    background-color: #f0f0f0;
+                }
+            """)
 
     def update_screenshot_button_style(self):
         """根据设备连接状态更新截图按钮样式"""
@@ -192,7 +259,28 @@ class LogWindow(QWidget):
         self.screenshot_button.clicked.connect(self.capture_screenshot)
         self.screenshot_button.setEnabled(False)  # 初始时禁用截图按钮
         info_layout.addWidget(self.screenshot_button)
-        self.update_screenshot_button_style()  # 设置初始样式
+
+        # 录屏按钮
+        self.record_button = QPushButton("录屏")
+        self.record_button.setMaximumWidth(60)
+        self.record_button.setStyleSheet("""
+            QPushButton {
+                padding: 3px 8px;
+                font-size: 12px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                color: #e91e63;
+                background-color: #f8f8f8;
+            }
+            QPushButton:hover {
+                background-color: #e0e0e0;
+            }
+        """)
+        self.record_button.clicked.connect(self.toggle_recording)
+        self.record_button.setEnabled(False)  # 初始时禁用录屏按钮
+        info_layout.addWidget(self.record_button)
+
+        self.update_button_styles()  # 设置初始样式
 
         layout.addLayout(info_layout)
 
@@ -319,3 +407,78 @@ class LogWindow(QWidget):
                 self.append_log("❌ 截图失败")
         except Exception as e:
             self.append_log(f"❌ 截图失败: {str(e)}")
+
+    def toggle_recording(self):
+        """切换录制状态"""
+        if not self.device_connected or self.data_collector is None:
+            self.append_log("❌ 设备未连接，无法录制视频")
+            return
+
+        if not self.is_recording:
+            # 开始录制
+            self.start_recording()
+        else:
+            # 停止录制
+            self.stop_recording()
+
+    def start_recording(self):
+        """开始录制视频"""
+        try:
+            if self.data_collector is None:
+                self.append_log("❌ 数据收集器未初始化")
+                return
+
+            # 确保目录存在
+            VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
+
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            self.recording_path = VIDEOS_DIR / f"recording_{timestamp}.mp4"
+
+            # 调用data_collector开始录制
+            if self.data_collector.start_recording(self.recording_path):
+                self.is_recording = True
+                self.record_button.setText("停止")
+                self.record_button.setStyleSheet("""
+                    QPushButton {
+                        padding: 3px 8px;
+                        font-size: 12px;
+                        border: 1px solid #ccc;
+                        border-radius: 3px;
+                        color: white;
+                        background-color: #f44336;
+                    }
+                    QPushButton:hover {
+                        background-color: #d32f2f;
+                    }
+                """)
+                self.append_log("🎬 开始录制视频...")
+                self.append_log("💡 提示：录制将持续到您点击停止按钮")
+            else:
+                self.append_log("❌ 开始录制失败")
+
+        except Exception as e:
+            self.append_log(f"❌ 开始录制失败: {str(e)}")
+            self.is_recording = False
+
+    def stop_recording(self):
+        """停止录制视频"""
+        try:
+            if self.data_collector is None:
+                self.append_log("❌ 数据收集器未初始化")
+                return
+
+            self.is_recording = False
+            self.record_button.setText("录屏")
+            self.update_button_styles()
+            self.append_log("⏹️ 正在停止录制...")
+
+            # 调用data_collector停止录制
+            if self.data_collector.stop_recording():
+                self.append_log("✅ 录制已停止")
+                self.append_log(f"📁 视频文件已保存到: {self.recording_path}")
+            else:
+                self.append_log("❌ 停止录制失败")
+                self.append_log("💡 提示：录制时间可能太短，请尝试录制更长时间")
+
+        except Exception as e:
+            self.append_log(f"❌ 停止录制失败: {str(e)}")
