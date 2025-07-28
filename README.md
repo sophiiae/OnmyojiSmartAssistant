@@ -1,4 +1,4 @@
-# OSA 阴阳师自动化脚本
+# Onmyoji Smart Assistant 阴阳师智能小助手
 
 ## 📖 项目简介
 
