@@ -4,6 +4,9 @@
 
 OSA是一个阴阳师游戏自动化脚本项目，提供图形界面配置编辑和脚本运行功能。支持多种游戏任务的自动化，包括日常任务、探索、御魂、结界突破等。
 
+### Credits
+主要参考 [OnmyojiAutoScript](https://github.com/runhey/OnmyojiAutoScript).
+
 ## 🚀 快速开始
 
 ### 方式一：使用可执行文件（推荐）
