@@ -160,32 +160,6 @@ class SchedulerSection(QGroupBox):
         priority_layout.addWidget(self.priority)
         layout.addLayout(priority_layout)
 
-        # 模式选择
-        mode_layout = QHBoxLayout()
-        self.time_radio = QRadioButton("定时执行")
-        self.interval_radio = QRadioButton("间隔执行")
-        mode = self.scheduler.get("mode", "time")
-        self.time_radio.setChecked(mode == "time")
-        self.interval_radio.setChecked(mode == "interval")
-        self.time_radio.toggled.connect(self.on_mode_changed)
-        self.interval_radio.toggled.connect(self.on_mode_changed)
-        mode_layout.addWidget(self.time_radio)
-        mode_layout.addWidget(self.interval_radio)
-        mode_layout.addStretch()
-        layout.addLayout(mode_layout)
-
-        # 时间设置
-        self.time_edit = QTimeEdit()
-        time_str = self.scheduler.get("time", "12:00:00")
-        h, m, s = map(int, time_str.split(":"))
-        self.time_edit.setTime(QTime(h, m, s))
-        add_left_row(layout, [QLabel("执行时间"), self.time_edit])
-
-        # 间隔时间设置
-        self.interval_row = IntervalSelectRow(
-            "执行间隔", self.scheduler.get("interval", "00:00:30:00"))
-        add_left_row(layout, self.interval_row.widgets())
-
         # next_run 分段选择
         self.next_run_row = DateTimeSelectRow(
             "下次执行时间", self.scheduler.get("next_run", "2023-01-01 00:00:00"))
@@ -202,15 +176,6 @@ class SchedulerSection(QGroupBox):
         add_left_row(layout, self.failure_interval_row.widgets())
 
         self.setLayout(layout)
-        self.on_mode_changed()
-
-    def on_mode_changed(self):
-        """根据模式切换显示不同的控件"""
-        is_time_mode = self.time_radio.isChecked()
-        self.time_edit.setEnabled(is_time_mode)
-        self.interval_row.widgets()[0].setEnabled(not is_time_mode)
-        for widget in self.interval_row.widgets()[2:]:
-            widget.setEnabled(not is_time_mode)
 
     def update_config(self):
         self.scheduler["enable"] = self.enable_check.isChecked()
@@ -237,6 +202,3 @@ class SchedulerSection(QGroupBox):
             scheduler_config.get("success_interval", "00:00:30:00"))
         self.failure_interval_row.update_gui(
             scheduler_config.get("failure_interval", "00:00:10:00"))
-
-        # 更新控件状态
-        self.on_mode_changed()

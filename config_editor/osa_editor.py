@@ -18,6 +18,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
                              QPushButton, QHBoxLayout, QMessageBox, QLabel, QGridLayout, QGroupBox)
 import sys
 import os
+from module.base.logger import logger
 
 # 获取正确的配置目录路径
 def get_config_dir():
@@ -521,9 +522,9 @@ class ConfigEditor(QMainWindow):
                     # 直接尝试连接 tabMoved 信号
                     tab_bar.tabMoved.connect(self.on_tab_moved)
             except Exception as e:
-                print(f"拖拽信号连接失败: {e}")
+                logger.warning(f"拖拽信号连接失败: {e}")
 
-        # 使用 QTimer 延迟连接信号
+                # 使用 QTimer 延迟连接信号
         from PyQt6.QtCore import QTimer
         QTimer.singleShot(100, connect_drag_signal)
 
@@ -537,7 +538,7 @@ class ConfigEditor(QMainWindow):
                 CONFIG_DIR) if f.endswith('.json') and f != 'custom_order.json']
         except FileNotFoundError:
             self.config_files = []
-            print(f"警告：配置目录 {CONFIG_DIR} 不存在或无法访问")
+            logger.warning(f"配置目录 {CONFIG_DIR} 不存在或无法访问")
 
         # 保存当前的自定义顺序
         self.custom_order = []
@@ -560,7 +561,7 @@ class ConfigEditor(QMainWindow):
                 self.tabs.addTab(tab, file)
                 self.tab_widgets[file] = tab
             except Exception as e:
-                print(f"警告：无法加载配置文件 {file}: {e}")
+                logger.warning(f"无法加载配置文件 {file}: {e}")
 
         self.tabs.currentChanged.connect(self.on_tab_changed)
         self.last_index = 0
@@ -657,7 +658,7 @@ class ConfigEditor(QMainWindow):
                 self.tabs.addTab(tab, file)
                 self.tab_widgets[file] = tab
             except Exception as e:
-                print(f"警告：无法加载配置文件 {file}: {e}")
+                logger.warning(f"无法加载配置文件 {file}: {e}")
 
         # 恢复选中的tab
         if 0 <= current_index < self.tabs.count():
@@ -701,11 +702,11 @@ class ConfigEditor(QMainWindow):
             if os.path.exists(order_file):
                 with open(order_file, 'r', encoding='utf-8') as f:
                     self.custom_order = json.load(f)
-                    print(f"已加载自定义顺序: {self.custom_order}")
+                    pass  # 已加载自定义顺序，但不输出到控制台
             else:
                 self.custom_order = []
         except Exception as e:
-            print(f"加载自定义顺序失败: {e}")
+            logger.warning(f"加载自定义顺序失败: {e}")
             self.custom_order = []
 
     def save_custom_order(self):
@@ -717,7 +718,7 @@ class ConfigEditor(QMainWindow):
             with open(order_file, 'w', encoding='utf-8') as f:
                 json.dump(self.custom_order, f, ensure_ascii=False, indent=2)
         except Exception as e:
-            print(f"保存自定义顺序失败: {e}")
+            logger.warning(f"保存自定义顺序失败: {e}")
 
     def update_custom_order(self):
         """更新自定义顺序"""

@@ -29,7 +29,7 @@ class TaskScript(RealmRaidAssets, Battle):
         # 检查票数
         if not enough_ticket:
             self.goto(page_main)
-            self.set_next_run(task='RealmRaid', success=True, finish=False)
+            self.set_next_run(task='RealmRaid', success=False, finish=False)
             raise TaskEnd(self.name)
 
         success = True
@@ -38,12 +38,19 @@ class TaskScript(RealmRaidAssets, Battle):
             image = self.screenshot()
             self.update_partition_prop(image)
 
-            attack_list = self.order.copy()
-            if self.reverse:
-                attack_list.reverse()
+            success = True
+            # 如果最低挑战等级高于57，就降级处理
+            if not self.downgrade():
+                success = False
+            else:
+                attack_list = self.order.copy()
+                if self.reverse:
+                    attack_list.reverse()
 
-            # 开始一轮战斗
-            success = self.start_battle(attack_list)
+                # 开始一轮战斗
+                success = self.start_battle(attack_list)
+
+            # 根据战斗结果判断是否刷新
             if success:
                 self.reverse = not self.reverse
             else:
@@ -63,10 +70,6 @@ class TaskScript(RealmRaidAssets, Battle):
         raise TaskEnd(self.name)
 
     def start_battle(self, attack_list: list[int]) -> bool:
-        # 如果最低挑战等级高于57，就降级处理
-        if not self.downgrade():
-            return False
-
         # 锁定队伍
         self.toggle_realm_team_lock()
 
@@ -85,12 +88,6 @@ class TaskScript(RealmRaidAssets, Battle):
             # 已经挑战过的就略过
             if self.is_defeated(attack_index - 1):
                 continue
-
-            # if self.is_lose(attack_index - 1):
-            #     logger.warning(
-            #         f"Failed to attack index {attack_index} because of lose")
-            #     success = False
-            #     continue
 
             time.sleep(1)
             # 最后一个退4次再打， 卡57
