@@ -21,7 +21,7 @@ class AreaBossSection(QGroupBox):
         # 鬼王配置
         boss_group = QGroupBox("鬼王配置")
         boss_layout = QVBoxLayout(boss_group)
-        self.boss_config = self.config["area_boss"]["boss"]
+        self.boss_config = self.config["area_boss"]["boss_config"]
 
         # 鬼王数量（无CheckBox，左对齐）
         self.boss_number_spin = ValueButton()

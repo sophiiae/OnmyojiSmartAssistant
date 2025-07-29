@@ -126,7 +126,7 @@
       "success_interval": "01 00:00:00",
       "failure_interval": "01 00:00:00"
     },
-    "boss": {
+    "boss_config": {
       "boss_number": 3,
       "boss_reward": false
     }
