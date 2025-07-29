@@ -1,4 +1,5 @@
 from PyQt6.QtCore import QThread, pyqtSignal
+from module.base.logger import logger
 
 class ScriptWorker(QThread):
     """脚本运行工作线程"""
@@ -11,6 +12,14 @@ class ScriptWorker(QThread):
         self.config_name = config_name
         self.script = None
         self.log_window = log_window
+        self._stop_flag = False
+
+    def force_stop(self):
+        """强制立即停止脚本"""
+        self._stop_flag = True
+        if self.script:
+            # 立即停止脚本
+            self.script.stop_immediately()
 
     def run(self):
         try:
@@ -21,9 +30,14 @@ class ScriptWorker(QThread):
             if self.log_window:
                 self.log_window.start_log_capture()
 
+            logger.info(f"Starting script for config: {self.config_name}")
+
+            # 直接启动脚本
             self.script.start()
+
         except Exception as e:
-            self.error.emit(str(e))
+            if not self._stop_flag:
+                self.error.emit(str(e))
         finally:
             # 停止日志捕获
             if self.log_window:

@@ -56,9 +56,7 @@ class Battle(General, Buff, BattleAssets):
         win = False
 
         while 1:
-            time.sleep(0.4)
-            self.screenshot()
-
+            self.wait_and_shot()
             if self.appear(self.I_BATTLE_WIN) or self.appear(self.I_REWARD):
                 win = True
                 break

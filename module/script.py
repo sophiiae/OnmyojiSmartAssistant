@@ -18,6 +18,7 @@ from module.control.config.config import Config
 
 class Script:
     is_running = False
+    _current_instance = None  # 添加全局变量跟踪当前实例
 
     def __init__(self, config_name: str = 'oas') -> None:
         self.config_name = config_name
@@ -61,6 +62,11 @@ class Script:
             logger.error(f'Invalid task: `{name}`')
             return False
 
+        # 检查停止标志
+        if not self.is_running:
+            logger.info("Script stopped before running task")
+            return False
+
         try:
             self.device.get_screenshot()
             module_name = 'task_script'
@@ -80,7 +86,17 @@ class Script:
     def start(self):
         logger.info(f'Start scheduler loop: {self.config.model.config_name}')
 
+        # 设置脚本为运行状态
+        self.is_running = True
+        # 设置当前实例为全局实例
+        Script._current_instance = self
+
         while 1:
+            # 检查停止标志
+            if not self.is_running:
+                logger.info("Script stopped by user")
+                break
+
             # Get task
             task = self.get_next_task()
 
@@ -170,6 +186,13 @@ class Script:
             key = self.config.model.type(key)
             result[key] = item
         return json.dumps(result)
+
+    def stop_immediately(self):
+        """立即停止脚本"""
+        self.is_running = False
+
+        # 清理全局实例
+        Script._current_instance = None
 
 
 if __name__ == "__main__":

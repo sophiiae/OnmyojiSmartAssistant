@@ -41,7 +41,7 @@ CONFIG_DIR = get_config_dir()
 class OSAEditor(ConfigTab):
     def __init__(self, config_path):
         super().__init__(config_path)
-        self.setWindowTitle("OSA 配置编辑器")
+        self.setWindowTitle("Onmyoji Smart Assistant")
         self.script_worker = None
         self.log_window = None
         self.current_highlighted_section = None  # 当前高亮的section
@@ -350,16 +350,14 @@ class OSAEditor(ConfigTab):
                 self.script_worker.finished.connect(self.on_script_finished)
                 self.script_worker.error.connect(self.on_script_error)
 
-                # 启动线程
+                # 直接启动线程和脚本
                 self.script_worker.start()
 
                 # 更新UI状态
                 self.is_running = True
                 self.update_run_button()
-                # QMessageBox.information(
-                #     self, "成功", f"配置 {config_name} 已开始运行")
             else:
-                # 停止脚本
+                # 直接强制终止脚本
                 self.stop_script()
 
         except Exception as e:
@@ -368,16 +366,19 @@ class OSAEditor(ConfigTab):
     def stop_script(self):
         """停止脚本运行"""
         if self.script_worker and self.script_worker.isRunning():
+            # 直接强制终止
+            logger.critical("强制终止脚本")
+            self.script_worker.force_stop()
             self.script_worker.terminate()
-            self.script_worker.wait()
+            self.script_worker.wait(100)  # 只等待100ms
 
         # 停止日志捕获
         if self.log_window:
             self.log_window.stop_log_capture()
 
+        # 立即更新UI状态
         self.is_running = False
         self.update_run_button()
-        # QMessageBox.information(self, "成功", "配置已停止运行")
 
     def on_script_finished(self):
         """脚本完成时的回调"""

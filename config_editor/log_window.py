@@ -1,7 +1,7 @@
 from pathlib import Path
 from datetime import datetime
 from PyQt6.QtGui import QFont, QTextCursor, QColor, QTextCharFormat
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QTimer, pyqtSignal, QObject
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QTextEdit, QPushButton,
                              QHBoxLayout, QLabel, QCheckBox)
 from module.control.server.device import Device
@@ -17,6 +17,11 @@ PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 VIDEOS_DIR = DATA_DIR / "videos"
 SCREENSHOTS_DIR = DATA_DIR / "screenshots"
+
+class LogSignals(QObject):
+    """日志信号类"""
+    log_message = pyqtSignal(str)
+
 class LogWindow(QWidget):
     """日志显示窗口 - 内嵌版本"""
 
@@ -26,10 +31,32 @@ class LogWindow(QWidget):
         self.config_name = config_name
         self.device = None  # 延迟初始化设备
         self.device_connected = False  # 设备连接状态
-        self.data_collector = None  # 数据收集器
         self.is_recording = False  # 录制状态
+
+        # 创建信号对象
+        self.signals = LogSignals()
+        self.signals.log_message.connect(self.append_log_safe)
+
         # 不再自动初始化设备，等待用户手动选择
         self.setup_ui()
+
+    def append_log_safe(self, text):
+        """线程安全的日志添加方法"""
+        try:
+            # 创建带颜色的文本格式
+            cursor = self.log_text.textCursor()
+            cursor.movePosition(QTextCursor.MoveOperation.End)
+
+            # 根据日志内容设置颜色
+            color_format = self.get_log_color_format(text)
+            cursor.insertText(text + "\n", color_format)
+
+            # 自动滚动到底部
+            cursor.movePosition(QTextCursor.MoveOperation.End)
+            self.log_text.setTextCursor(cursor)
+        except Exception as e:
+            # 如果UI更新失败，至少打印到控制台
+            print(f"Log UI update failed: {e}")
 
     def init_device(self):
         """异步初始化设备连接"""
@@ -174,6 +201,7 @@ class LogWindow(QWidget):
 
     def setup_ui(self):
         """设置UI界面"""
+        # 主布局
         layout = QVBoxLayout(self)
         layout.setContentsMargins(5, 5, 5, 5)
         layout.setSpacing(5)
@@ -322,18 +350,9 @@ class LogWindow(QWidget):
         self.log_text.setTextCursor(cursor)
 
     def append_log(self, text):
-        """添加日志文本"""
-        # 创建带颜色的文本格式
-        cursor = self.log_text.textCursor()
-        cursor.movePosition(QTextCursor.MoveOperation.End)
-
-        # 根据日志内容设置颜色
-        color_format = self.get_log_color_format(text)
-        cursor.insertText(text + "\n", color_format)
-
-        # 自动滚动到底部
-        cursor.movePosition(QTextCursor.MoveOperation.End)
-        self.log_text.setTextCursor(cursor)
+        """添加日志文本 - 使用信号槽机制"""
+        # 使用信号槽机制，避免阻塞UI线程
+        self.signals.log_message.emit(text)
 
     def get_log_color_format(self, text):
         """根据日志内容获取颜色格式"""
@@ -409,16 +428,14 @@ class LogWindow(QWidget):
             self.append_log(f"❌ 截图失败: {str(e)}")
 
     def toggle_recording(self):
-        """切换录制状态"""
+        """切换录屏状态"""
         if not self.device_connected or self.data_collector is None:
             self.append_log("❌ 设备未连接，无法录制视频")
             return
 
         if not self.is_recording:
-            # 开始录制
             self.start_recording()
         else:
-            # 停止录制
             self.stop_recording()
 
     def start_recording(self):
