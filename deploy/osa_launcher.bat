@@ -4,7 +4,7 @@ set "PROJECT_ROOT=%SCRIPT_DIR%.."
 
 cd /d "%PROJECT_ROOT%"
 if exist "venv\Scripts\python.exe" (
-    "venv\Scripts\python.exe" -m config_editor.osa_editor
+    "venv\Scripts\python.exe" -m config_editor.main
 ) else (
-    python -m config_editor.osa_editor
+    python -m config_editor.main
 ) 

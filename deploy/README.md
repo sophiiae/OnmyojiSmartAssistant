@@ -51,7 +51,7 @@ iexpress /n deploy/osa_final.SED
 
 ### 如果exe文件无法启动
 1. 检查 `venv/Scripts/python.exe` 是否存在
-2. 确认 `config_editor/osa_editor.py` 文件存在
+2. 确认 `config_editor/main.py` 文件存在
 3. 验证项目根目录路径是否正确
 
 ### 如果出现弹窗

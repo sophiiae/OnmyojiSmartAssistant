@@ -1,6 +1,8 @@
 import json
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QWidget, QApplication
 import os
+import sys
+
 class ConfigTab(QWidget):
     def __init__(self, config_path):
         super().__init__()
@@ -31,7 +33,7 @@ class ConfigTab(QWidget):
                 min-width: 80px;
                 padding: 5px 10px;
                 font-size: 12px;
-                background-color: #4CAF50;
+                background-color: #3d5a80;
                 color: white;
             }
         """
@@ -64,3 +66,13 @@ class ConfigTab(QWidget):
             except (KeyError, TypeError):
                 # 如果路径无效，使用基础样式
                 btn.setStyleSheet(base_style)
+
+
+if __name__ == '__main__':
+    # 延迟导入，避免循环导入问题
+    from config_editor.config_editor import ConfigEditor
+
+    app = QApplication(sys.argv)
+    window = ConfigEditor()
+    window.show()
+    sys.exit(app.exec())
