@@ -9,7 +9,7 @@
 - **`osa_launcher.bat`** - 批处理启动脚本
   - 设置工作目录为项目根目录
   - 检查虚拟环境并启动Python程序
-  - 直接调用Python程序启动OSA配置编辑器
+  - 直接调用Python程序启动OSA
 
 - **`osa_final.SED`** - IExpress配置文件
   - 配置exe文件的生成参数
@@ -32,7 +32,7 @@ iexpress /n deploy/osa_final.SED
 
 ### 3. 验证结果
 - 生成的 `osa.exe` 文件将位于项目根目录
-- 双击 `osa.exe` 应该直接启动OSA配置编辑器
+- 双击 `osa.exe` 应该直接启动OSA
 - 会显示cmd窗口但程序能正常工作
 
 ## 技术细节

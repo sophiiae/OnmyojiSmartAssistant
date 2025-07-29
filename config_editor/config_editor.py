@@ -11,7 +11,7 @@ from config_editor.osa_editor import OSAEditor, CONFIG_DIR
 class ConfigEditor(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("OSA 配置编辑器")
+        self.setWindowTitle("Onmyoji Smart Assistant")
         self.setMinimumSize(900, 700)  # 设置初始尺寸
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
