@@ -2,7 +2,8 @@ from typing import Optional
 from ppadb.client import Client as AdbClient
 import numpy as np
 import cv2
-import os
+import subprocess
+import time
 
 from module.base.logger import GameConsoleLogger
 from module.control.config.config import Config
@@ -40,11 +41,44 @@ class Device:
         self.host = serial_split[0].strip()
         self.port = int(serial_split[1].strip())
 
+    def _ensure_adb_server_running(self):
+        """Ensure ADB server is running and accessible."""
+        try:
+            # First try to kill any existing ADB server
+            subprocess.run(['adb', 'kill-server'],
+                           capture_output=True, timeout=5)
+            time.sleep(1)
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            logger.warning("ADB command not found or timeout")
+            return False
+
+        try:
+            # Start ADB server
+            subprocess.run(['adb', 'start-server'],
+                           capture_output=True, timeout=10)
+            time.sleep(1)
+            return True
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            logger.error("Failed to start ADB server")
+            return False
+
     def connect_device(self):
         """Connect to the device."""
         try:
+            # Try to connect to ADB server
             self.adb = AdbClient(host=self.host, port=5037)
-            self.adb.devices()
+
+            # Test connection
+            try:
+                self.adb.devices()
+                logger.background("ADB server connection successful")
+            except Exception as e:
+                logger.error(f"Failed to connect to ADB server: {e}")
+                # Ensure ADB server is running
+                if not self._ensure_adb_server_running():
+                    logger.error("Failed to start ADB server")
+                return None
+
             if self.port is not None:
                 for i in range(3):
                     if self.adb.remote_connect(self.host, self.port + i):

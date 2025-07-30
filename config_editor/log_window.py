@@ -4,7 +4,6 @@ from PyQt6.QtGui import QFont, QTextCursor, QColor, QTextCharFormat
 from PyQt6.QtCore import QTimer, pyqtSignal, QObject
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QTextEdit, QPushButton,
                              QHBoxLayout, QLabel, QCheckBox)
-from module.control.server.device import Device
 from module.control.server.data_collector import DataCollector
 import sys
 import os
@@ -61,8 +60,7 @@ class LogWindow(QWidget):
     def init_device(self):
         """异步初始化设备连接"""
         try:
-            self.device = Device(self.config_name)
-            self.data_collector = DataCollector(self.config_name)
+            self.device = DataCollector(self.config_name)
             # 检查设备是否成功连接
             if self.device.device is not None:
                 self.device_connected = True
@@ -429,7 +427,7 @@ class LogWindow(QWidget):
 
     def toggle_recording(self):
         """切换录屏状态"""
-        if not self.device_connected or self.data_collector is None:
+        if not self.device_connected:
             self.append_log("❌ 设备未连接，无法录制视频")
             return
 
@@ -441,7 +439,7 @@ class LogWindow(QWidget):
     def start_recording(self):
         """开始录制视频"""
         try:
-            if self.data_collector is None:
+            if self.device is None:
                 self.append_log("❌ 数据收集器未初始化")
                 return
 
@@ -452,7 +450,7 @@ class LogWindow(QWidget):
             self.recording_path = VIDEOS_DIR / f"recording_{timestamp}.mp4"
 
             # 调用data_collector开始录制
-            if self.data_collector.start_recording(self.recording_path):
+            if self.device.start_recording(self.recording_path):
                 self.is_recording = True
                 self.record_button.setText("停止")
                 self.record_button.setStyleSheet("""
@@ -480,7 +478,7 @@ class LogWindow(QWidget):
     def stop_recording(self):
         """停止录制视频"""
         try:
-            if self.data_collector is None:
+            if self.device is None:
                 self.append_log("❌ 数据收集器未初始化")
                 return
 
@@ -489,8 +487,8 @@ class LogWindow(QWidget):
             self.update_button_styles()
             self.append_log("⏹️ 正在停止录制...")
 
-            # 调用data_collector停止录制
-            if self.data_collector.stop_recording():
+            # 调用device停止录制
+            if self.device.stop_recording():
                 self.append_log("✅ 录制已停止")
                 self.append_log(f"📁 视频文件已保存到: {self.recording_path}")
             else:
