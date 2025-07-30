@@ -58,6 +58,11 @@ class OSAEditor(ConfigTab):
 
         # 左侧配置区域
         left_widget = QWidget()
+        left_widget.setStyleSheet("""
+            QWidget {
+                background-color: #fbfaff;
+            }
+        """)
         left_layout = QVBoxLayout(left_widget)
 
         # 创建运行按钮（将移到日志窗口内部）
@@ -69,12 +74,22 @@ class OSAEditor(ConfigTab):
 
         # 快速导航栏
         nav_widget = QWidget()
+        nav_widget.setStyleSheet("""
+            QWidget {
+                background-color: #fbfaff;
+            }
+        """)
         nav_layout = QVBoxLayout(nav_widget)
         nav_layout.setContentsMargins(2, 2, 2, 2)  # 减少导航栏边距
         nav_layout.setSpacing(2)  # 减少导航栏间距
 
         # 创建按钮容器，使用网格布局实现自动换行
         button_container = QWidget()
+        button_container.setStyleSheet("""
+            QWidget {
+                background-color: #fbfaff;
+            }
+        """)
         button_layout = QGridLayout(button_container)
         button_layout.setSpacing(3)  # 减少按钮间距
         button_layout.setContentsMargins(2, 2, 2, 2)  # 减少按钮容器边距
@@ -129,8 +144,21 @@ class OSAEditor(ConfigTab):
         scroll.setVerticalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAsNeeded)  # 只在需要时显示垂直滚动条
 
+        # 设置滚动区域背景色
+        scroll.setStyleSheet("""
+            QScrollArea {
+                background-color: #F2ECF9;
+                border: none;
+            }
+        """)
+
         # 创建滚动区域的内容部件
         scroll_widget = QWidget()
+        scroll_widget.setStyleSheet("""
+            QWidget {
+                background-color: #F2ECF9;
+            }
+        """)
         scroll_layout = QVBoxLayout(scroll_widget)
         scroll_layout.setSpacing(10)  # 设置部件之间的间距
         scroll_layout.setContentsMargins(10, 10, 10, 10)  # 设置边距
@@ -138,18 +166,25 @@ class OSAEditor(ConfigTab):
         # 添加所有配置部分
         self.script_section = ScriptSection(self.config)
         scroll_layout.addWidget(self.script_section)
+
         self.daily_routine_section = DailyRoutineSection(self.config)
         scroll_layout.addWidget(self.daily_routine_section)
+
         self.wanted_quests_section = WantedQuestsSection(self.config)
         scroll_layout.addWidget(self.wanted_quests_section)
+
         self.exploration_section = ExplorationSection(self.config)
         scroll_layout.addWidget(self.exploration_section)
+
         self.realm_raid_section = RealmRaidSection(self.config)
         scroll_layout.addWidget(self.realm_raid_section)
+
         self.goryou_realm_section = GoryouRealmSection(self.config)
         scroll_layout.addWidget(self.goryou_realm_section)
+
         self.shikigami_activity_section = ShikigamiActivitySection(self.config)
         scroll_layout.addWidget(self.shikigami_activity_section)
+
         self.area_boss_section = AreaBossSection(self.config)
         scroll_layout.addWidget(self.area_boss_section)
 
@@ -262,25 +297,84 @@ class OSAEditor(ConfigTab):
     def clear_section_highlight(self, section):
         """清除配置区域的高亮"""
         if section:
-            section.setStyleSheet("")
+            # 恢复到默认背景色，确保所有组件都使用统一的背景色
+            section.setStyleSheet("""
+                QGroupBox {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox QWidget {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox QLineEdit {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox QComboBox {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox QSpinBox {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox QCheckBox {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox QPushButton {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox QLabel {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox ValueButton {
+                    background-color: #F2ECF9;
+                }
+                QGroupBox SelectButton {
+                    background-color: #F2ECF9;
+                }
+            """)
 
     def set_section_highlight(self, section):
         """设置配置区域的高亮边框"""
         if section:
-            # 使用简洁的彩色边框高亮，去掉字体加粗
+            # 使用简洁的彩色边框高亮，高亮区域内所有组件使用白色背景
             highlight_style = """
                 QGroupBox {
-                    border: 2px solid #3d5a80;
+                    border: 2px solid #9b72cf;
                     border-radius: 6px;
-                    background-color: #edf2f4;
+                    background-color: #fbfaff;
                     margin: 1px;
                     padding: 3px;
                 }
                 QGroupBox::title {
-                    color: #3d5a80;
+                    color: #9b72cf;
                     subcontrol-origin: margin;
                     left: 10px;
                     padding: 0 5px 0 5px;
+                }
+                QGroupBox QWidget {
+                    background-color: #ffffff;
+                }
+                QGroupBox QLineEdit {
+                    background-color: #ffffff;
+                }
+                QGroupBox QComboBox {
+                    background-color: #ffffff;
+                }
+                QGroupBox QSpinBox {
+                    background-color: #ffffff;
+                }
+                QGroupBox QCheckBox {
+                    background-color: #ffffff;
+                }
+                QGroupBox QPushButton {
+                    background-color: #ffffff;
+                }
+                QGroupBox QLabel {
+                    background-color: #ffffff;
+                }
+                QGroupBox ValueButton {
+                    background-color: #ffffff;
+                }
+                QGroupBox SelectButton {
+                    background-color: #ffffff;
                 }
             """
             section.setStyleSheet(highlight_style)
@@ -325,6 +419,10 @@ class OSAEditor(ConfigTab):
                 # 保存当前配置
                 self.save_osa_config()
 
+                # 清空旧的日志
+                if self.log_window:
+                    self.log_window.clear_log()
+
                 # 获取配置名称（文件名去掉.json后缀）
                 config_name = os.path.splitext(
                     os.path.basename(self.config_path))[0]
@@ -340,7 +438,6 @@ class OSAEditor(ConfigTab):
                 # 更新UI状态
                 self.is_running = True
                 self.update_run_button()
-
             else:
                 # 直接强制终止脚本
                 self.stop_script()
@@ -395,6 +492,7 @@ class OSAEditor(ConfigTab):
                     background-color: #e63946;
                     color: white;
                     font-size: 12px;
+                    min-width: 40px;
                 }   
             """)
         else:
@@ -402,9 +500,10 @@ class OSAEditor(ConfigTab):
                 QPushButton {
                     padding: 3px 8px;
                     border-radius: 3px;
-                    background-color: #00a8e8;
+                    background-color: #6a994e;
                     color: white;
                     font-size: 12px;
+                    min-width: 40px;
                 }
             """)
 

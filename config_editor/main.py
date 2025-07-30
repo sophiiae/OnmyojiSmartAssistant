@@ -33,7 +33,7 @@ class ConfigTab(QWidget):
                 min-width: 80px;
                 padding: 5px 10px;
                 font-size: 12px;
-                background-color: #3d5a80;
+                background-color: #ea698b;
                 color: white;
             }
         """

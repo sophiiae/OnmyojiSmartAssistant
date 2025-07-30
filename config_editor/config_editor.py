@@ -13,6 +13,14 @@ class ConfigEditor(QMainWindow):
         super().__init__()
         self.setWindowTitle("Onmyoji Smart Assistant")
         self.setMinimumSize(900, 700)  # 设置初始尺寸
+
+        # 设置主窗口背景色
+        self.setStyleSheet("""
+            QMainWindow {
+                background-color: #F2ECF9;  /* 淡紫色背景 */
+            }
+        """)
+
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
 
@@ -65,7 +73,9 @@ class ConfigEditor(QMainWindow):
             path = os.path.join(CONFIG_DIR, file)
             try:
                 tab = OSAEditor(path)
-                self.tabs.addTab(tab, file)
+                # 显示时去掉.json后缀
+                display_name = file.replace('.json', '')
+                self.tabs.addTab(tab, display_name)
                 self.tab_widgets[file] = tab
             except Exception as e:
                 logger.warning(f"无法加载配置文件 {file}: {e}")
@@ -93,33 +103,38 @@ class ConfigEditor(QMainWindow):
         """设置标签页样式，使当前选中的标签页更突出"""
         tab_style = """
             QTabWidget::pane {
-                border: 1px solid #293241;
-                background: white;
+                border: 2px solid #532b88;
+                background: #fbfaff;  /* 更改为浅紫色背景 */
             }
             
             QTabBar::tab {
-                background: #f0f0f0;
+                background: #f2ebfb;  /* 更改为浅紫色背景 */
                 color: #333333;
                 padding: 8px 16px;
                 margin-right: 2px;
-                border: 1px solid #c0c0c0;
+                border: 1px solid #f2ebfb;
                 border-bottom: none;
                 border-top-left-radius: 4px;
                 border-top-right-radius: 4px;
                 font-weight: normal;
                 min-width: 40px;
             }
+
+            QTabBar::tab:unselected {
+                background: #ebd9fc;  /* 更改为稍深的灰色 */
+                color: #000000;
+            }
             
             QTabBar::tab:hover {
-                background: #e0e0e0;
+                background: #C3A3F5;  /* 更改为稍深的灰色 */
                 color: #000000;
             }
             
             QTabBar::tab:selected {
-                background: #293241;
+                background: #532b88;
                 color: white;
                 font-weight: bold;
-                border: 1px solid #293241;
+                border: 1px solid #532b88;
             }
             
         """
@@ -197,7 +212,9 @@ class ConfigEditor(QMainWindow):
             path = os.path.join(CONFIG_DIR, file)
             try:
                 tab = OSAEditor(path)
-                self.tabs.addTab(tab, file)
+                # 显示时去掉.json后缀
+                display_name = file.replace('.json', '')
+                self.tabs.addTab(tab, display_name)
                 self.tab_widgets[file] = tab
             except Exception as e:
                 logger.warning(f"无法加载配置文件 {file}: {e}")
@@ -258,7 +275,8 @@ class ConfigEditor(QMainWindow):
         for i in range(self.tabs.count()):
             tab_text = self.tabs.tabText(i)
             if tab_text != "无配置":  # 排除提示标签
-                self.custom_order.append(tab_text)
+                # 添加.json后缀以匹配实际文件名
+                self.custom_order.append(tab_text + '.json')
 
         # 保存自定义顺序
         self.save_custom_order()
