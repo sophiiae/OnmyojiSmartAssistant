@@ -200,9 +200,9 @@ class Config:
         #     interval = timedelta(minutes=m, seconds=s)
         #     run.append(start_time + interval)
 
-        # if target_time is not None:
-        #     target_time = nearest_future(target_time)
-        #     run.append(target_time)
+        if target_time is not None:
+            target_time = nearest_future(target_time)
+            run.append(target_time)
 
         run = min(run).replace(microsecond=0)
         next_run = run
@@ -222,6 +222,11 @@ class Config:
         self.lock_config.release()
         # 设置
         logger.info(f"{task}.next_run: {next_run}")
+
+        # 实际设置到配置中
+        self.model.deep_set(
+            self.model, keys=f'{task}.scheduler.next_run', value=next_run)
+        self.save()
 
 
 if __name__ == '__main__':

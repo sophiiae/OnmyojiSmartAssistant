@@ -44,6 +44,7 @@ class Device:
         """Connect to the device."""
         try:
             self.adb = AdbClient(host=self.host, port=5037)
+            self.adb.devices()
             if self.port is not None:
                 for i in range(3):
                     if self.adb.remote_connect(self.host, self.port + i):

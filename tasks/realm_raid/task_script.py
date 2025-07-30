@@ -59,9 +59,11 @@ class TaskScript(RealmRaidAssets, Battle):
             enough_ticket = self.check_ticket()
             time.sleep(1)
 
+        exp_enabled = self.config.model.exploration.scheduler.enable
         scroll_mode_enabled = self.config.model.exploration.scroll_mode.scroll_mode_enable
+
         # 绘卷模式去探索页面，减少页面跳转
-        if scroll_mode_enabled:
+        if exp_enabled and scroll_mode_enabled:
             self.goto(page_exp, page_realm_raid)
         else:
             self.goto(page_main, page_realm_raid)
