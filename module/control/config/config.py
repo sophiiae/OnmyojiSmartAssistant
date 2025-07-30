@@ -135,7 +135,7 @@ class Config:
             self.model, keys=f'{task}.scheduler.enable')
         if force_call or task_enable:
             logger.info(f"Task call: {task}")
-            # 不要立即设置为当前时间，让set_next_run方法来正确设置下次执行时间
+            # # 不要立即设置为当前时间，让set_next_run方法来正确设置下次执行时间
             # next_run = datetime.now().replace(microsecond=0)
             # self.model.deep_set(self.model,
             #                     keys=f'{task}.scheduler.next_run',

@@ -37,6 +37,12 @@ class GoryouRealmAssets:
 		area=(1073, 566, 146, 144),
 		file="./tasks/goryou_realm/res/gr_fight.png"
 	)
+	# 御灵挑战页面标记 
+	I_GR_FIGHT_CHECK = RuleImage(
+		roi=(114, 23, 123, 36),
+		area=(96, 5, 159, 72),
+		file="./tasks/goryou_realm/res/gr_fight_check.png"
+	)
 	# 御灵三层 
 	I_GR_LV_3 = RuleImage(
 		roi=(288, 512, 65, 28),
