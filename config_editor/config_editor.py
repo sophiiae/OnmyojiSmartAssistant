@@ -14,10 +14,37 @@ class ConfigEditor(QMainWindow):
         self.setWindowTitle("Onmyoji Smart Assistant")
         self.setMinimumSize(900, 700)  # 设置初始尺寸
 
-        # 设置主窗口背景色
+        # 设置主窗口背景色和全局样式
         self.setStyleSheet("""
             QMainWindow {
                 background-color: #F2ECF9;  /* 淡紫色背景 */
+            }
+            
+            /* 全局checkbox样式 */
+            QCheckBox::indicator:unchecked {
+                border: 1px solid #cccccc;
+                background-color: white;
+                border-radius: 4px;
+                width: 14px;
+                height: 14px;
+            }
+            
+            QCheckBox::indicator:checked {
+                background-color: #aa66cc;
+                border: 1px solid #aa66cc;
+                border-radius: 4px;
+                width: 14px;
+                height: 14px;
+            }
+            
+            QCheckBox::indicator:unchecked:hover {
+                border: 1px solid #aa66cc;
+                background-color: white;
+            }
+            
+            QCheckBox::indicator:checked:hover {
+                background-color: #9b72cf;
+                border: 1px solid #9b72cf;
             }
         """)
 
@@ -121,12 +148,12 @@ class ConfigEditor(QMainWindow):
             }
 
             QTabBar::tab:unselected {
-                background: #ebd9fc;  /* 更改为稍深的灰色 */
+                background: #ebd9fc;  /* 更改为稍深的紫色 */
                 color: #000000;
             }
             
             QTabBar::tab:hover {
-                background: #C3A3F5;  /* 更改为稍深的灰色 */
+                background: #C3A3F5;  /* 更改为稍深的紫色 */
                 color: #000000;
             }
             

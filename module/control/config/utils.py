@@ -14,6 +14,7 @@ def nearest_future(future, interval=120):
     """
     Get the neatest future time.
     Return the last one if two things will finish within `interval`.
+    If the time is in the past, return current time + interval.
 
     Args:
         future (datetime.datetime or list[datetime.datetime]):
@@ -25,11 +26,17 @@ def nearest_future(future, interval=120):
     # Convert single datetime to list
     if not isinstance(future, list):
         future = [future]
-    
+
     future = [datetime.fromisoformat(f) if isinstance(
         f, str) else f for f in future]
     future = sorted(future)
     next_run = future[0]
+
+    # 检查时间是否已经过去，如果是则返回当前时间+interval
+    now = datetime.now()
+    if next_run <= now:
+        return now + timedelta(seconds=interval)
+
     for finish in future:
         if finish - next_run < timedelta(seconds=interval):
             next_run = finish

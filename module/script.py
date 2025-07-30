@@ -133,6 +133,16 @@ class Script:
         """
         while True:
             task = self.config.get_next()
+
+            # 检查任务是否到了执行时间
+            now = datetime.now()
+            if task.next_run > now:
+                logger.info(f"Task {task.name} not ready yet, waiting...")
+                # 等待一段时间后再次检查
+                import time
+                time.sleep(60)  # 等待60秒
+                continue
+
             self.config.task = task
 
             # 将配置信息放入队列
@@ -143,9 +153,7 @@ class Script:
 
             logger.info(f"Getting {task.name} and time: {
                 datetime.strftime(task.next_run, "%Y-%m-%d %H:%M:%S")}")
-            break
-
-        return task.name
+            return task.name
 
     def load_module(self, moduleName: str, moduleFile: str):
         """

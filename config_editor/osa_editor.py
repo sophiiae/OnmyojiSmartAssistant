@@ -298,6 +298,7 @@ class OSAEditor(ConfigTab):
         """清除配置区域的高亮"""
         if section:
             # 恢复到默认背景色，确保所有组件都使用统一的背景色
+            # 不强制设置checkbox样式，让它使用应用的默认样式
             section.setStyleSheet("""
                 QGroupBox {
                     background-color: #F2ECF9;
@@ -363,6 +364,16 @@ class OSAEditor(ConfigTab):
                 }
                 QGroupBox QCheckBox {
                     background-color: #ffffff;
+                }
+                QCheckBox::indicator:unchecked {
+                    border: 1px solid #aa66cc;
+                    background-color: white;
+                    border-radius: 4px;
+                }
+                QCheckBox::indicator:checked {
+                    background-color: #aa66cc;
+                    border: 1px solid #aa66cc;
+                    border-radius: 4px;
                 }
                 QGroupBox QPushButton {
                     background-color: #ffffff;

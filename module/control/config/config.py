@@ -84,11 +84,12 @@ class Config:
             self.task = task
             return task
 
-        # 哪怕是没有任务，也要返回一个任务，这样才能保证调度器正常运行
+        # 如果没有pending任务，返回waiting任务
         if self.waiting_task:
-            logger.info("No task pending")
+            logger.info("No task pending, returning waiting task")
             task = copy.deepcopy(self.waiting_task[0])
             logger.info(f"Waiting Task: {task}")
+            self.task = task
             return task
         else:
             logger.critical("No task waiting or pending")
@@ -134,13 +135,12 @@ class Config:
             self.model, keys=f'{task}.scheduler.enable')
         if force_call or task_enable:
             logger.info(f"Task call: {task}")
-            next_run = datetime.now().replace(
-                microsecond=0
-            )
-            self.model.deep_set(self.model,
-                                keys=f'{task}.scheduler.next_run',
-                                value=next_run)
-            self.save()
+            # 不要立即设置为当前时间，让set_next_run方法来正确设置下次执行时间
+            # next_run = datetime.now().replace(microsecond=0)
+            # self.model.deep_set(self.model,
+            #                     keys=f'{task}.scheduler.next_run',
+            #                     value=next_run)
+            # self.save()
             return True
         else:
             logger.info(
@@ -192,20 +192,27 @@ class Config:
                     h), minutes=int(m), seconds=int(s))
             run.append(start_time + interval)
 
-        # # 自定义随机下次运行时间
-        # run = []
-        # if success is not None:
-        #     m = random.randint(1, 20)
-        #     s = random.randint(1, 60)
-        #     interval = timedelta(minutes=m, seconds=s)
-        #     run.append(start_time + interval)
-
         if target_time is not None:
             target_time = nearest_future(target_time)
             run.append(target_time)
 
-        run = min(run).replace(microsecond=0)
-        next_run = run
+        if not run:
+            # 如果没有设置任何时间，使用默认随机间隔
+            m = random.randint(1, 20)
+            default_interval = timedelta(minutes=m)  # 默认随机间隔
+            run.append(datetime.now() + default_interval)
+
+        next_run = min(run).replace(microsecond=0)
+
+        # 确保next_run是未来的时间
+        now = datetime.now()
+        if next_run <= now:
+            # 如果计算出的时间是过去的时间，使用当前时间加上默认随机间隔
+            m = random.randint(1, 20)
+            default_interval = timedelta(minutes=m)  # 默认随机间隔
+            next_run = now + default_interval
+            logger.warning(
+                f"Calculated next_run time {next_run} is in the past, using {next_run}")
 
         # 将这些连接起来，方便日志输出
         kv = dict_to_kv(
