@@ -13,7 +13,7 @@ import inflection
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.control.server.device import Device
-from module.control.config.config import Config
+from module.config.config import Config
 
 
 class Script:
@@ -29,7 +29,7 @@ class Script:
     @cached_property
     def config(self) -> "Config":
         try:
-            from module.control.config.config import Config
+            from module.config.config import Config
             config = Config(config_name=self.config_name)
             return config
         except RequestHumanTakeover:

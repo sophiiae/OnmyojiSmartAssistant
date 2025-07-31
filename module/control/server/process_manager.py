@@ -4,7 +4,7 @@ from typing import List, Optional, Dict, Any
 from threading import Thread, Event, Lock
 from queue import Queue, Empty
 from enum import Enum
-from module.control.config.config_model import ConfigModel
+from module.config.config_model import ConfigModel
 from module.base.logger import logger
 
 class ProcessState(Enum):
@@ -423,7 +423,7 @@ if __name__ == "__main__":
     import sys
     from pathlib import Path
     sys.path.append(str(Path(__file__).parent.parent.parent))
-    from module.control.config.config_model import ConfigModel
+    from module.config.config_model import ConfigModel
 
     try:
         # Create a test configuration

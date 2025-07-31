@@ -4,8 +4,8 @@ import os
 from pathlib import Path
 import re
 from pydantic import BaseModel, Field
-from module.control.config.enums import *
-from module.control.config.config_base import *
+from module.config.enums import *
+from module.config.config_base import *
 
 class ConfigModel(BaseModel):
     config_name: str = Field(default="osa")

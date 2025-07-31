@@ -1,4 +1,4 @@
-from module.control.config.config import Config
+from module.config.config import Config
 from module.base.logger import GameConsoleLogger
 from module.control.server.device import Device
 from module.control.server.emulator_main import EmulatorMain

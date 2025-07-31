@@ -4,7 +4,7 @@ from tasks.battle.battle import Battle
 from tasks.general.page import Page, page_goryou
 from tasks.goryou_realm.assets import GoryouRealmAssets as GR
 from module.base.exception import RequestHumanTakeover, TaskEnd
-from module.control.config.enums import GoryouClass, GoryouLevel
+from module.config.enums import GoryouClass, GoryouLevel
 
 class TaskScript(Battle, GR):
     name = 'Goryou Realm'

@@ -1,5 +1,5 @@
 import operator
-from module.control.config.function import Function
+from module.config.function import Function
 
 class TaskScheduler:
 

@@ -1,4 +1,4 @@
-from module.control.config.config import Config
+from module.config.config import Config
 from module.control.server.device import Device
 from module.base.logger import logger
 from tasks.shikigami_activity.task_script import TaskScript

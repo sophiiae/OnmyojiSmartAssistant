@@ -1,4 +1,4 @@
-from module.control.config.config_model import ConfigModel
+from module.config.config_model import ConfigModel
 from datetime import datetime
 
 from module.base.logger import logger

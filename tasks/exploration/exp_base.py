@@ -2,7 +2,7 @@ import random
 import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover
-from module.control.config.enums import BuffClass
+from module.config.enums import BuffClass
 from module.image_processing.rule_image import RuleImage
 from tasks.battle.battle import Battle
 from tasks.exploration.assets import ExplorationAssets as EA

@@ -7,7 +7,7 @@ for various game automation tasks.
 """
 
 from pydantic import BaseModel, Field
-from module.control.config.enums import *
+from module.config.enums import *
 
 class DeviceSetting(BaseModel):
     """

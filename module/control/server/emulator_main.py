@@ -7,7 +7,7 @@ import pyautogui
 import cv2
 
 from module.base.exception import DeviceNotRunningError, RequestHumanTakeover
-from module.control.config.config import Config
+from module.config.config import Config
 from module.image_processing.image_processor import ImageProcessor
 from module.base.logger import GameConsoleLogger
 from module.control.server.device import Device

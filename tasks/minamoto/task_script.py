@@ -1,5 +1,5 @@
 import time
-from module.control.config.enums import BuffClass
+from module.config.enums import BuffClass
 from tasks.minamoto.assets import MinamotoAssets
 from tasks.general.page import page_minamoto, page_main
 from module.base.exception import TaskEnd

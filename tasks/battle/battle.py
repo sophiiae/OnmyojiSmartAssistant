@@ -2,7 +2,7 @@ import random
 import time
 from module.base.logger import logger
 from module.base.timer import Timer
-from module.control.config.enums import BuffClass
+from module.config.enums import BuffClass
 from module.image_processing.rule_image import RuleImage
 from tasks.battle.assets import BattleAssets
 from tasks.buff.buff import Buff

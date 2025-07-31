@@ -6,7 +6,7 @@ from typing import Optional
 
 
 from module.base.exception import RequestHumanTakeover
-from module.control.config.config import Config
+from module.config.config import Config
 from module.image_processing.rule_click import RuleClick
 from module.image_processing.rule_image import RuleImage
 from module.image_processing.rule_swipe import RuleSwipe

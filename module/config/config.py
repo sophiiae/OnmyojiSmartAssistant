@@ -7,12 +7,12 @@ from datetime import datetime, timedelta
 from functools import cached_property
 from threading import Lock
 
-from module.control.config.utils import nearest_future, dict_to_kv
+from module.config.utils import nearest_future, dict_to_kv
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, ScriptError
-from module.control.config.function import Function
-from module.control.config.scheduler import TaskScheduler
-from module.control.config.config_model import ConfigModel
+from module.config.function import Function
+from module.config.scheduler import TaskScheduler
+from module.config.config_model import ConfigModel
 
 class Config:
     def __init__(self, config_name: str, task=None) -> None:

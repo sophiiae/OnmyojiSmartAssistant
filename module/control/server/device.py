@@ -6,7 +6,7 @@ import subprocess
 import time
 
 from module.base.logger import GameConsoleLogger
-from module.control.config.config import Config
+from module.config.config import Config
 from module.base.timer import Timer
 from collections import deque
 from module.base.exception import GameStuckError, GameTooManyClickError
