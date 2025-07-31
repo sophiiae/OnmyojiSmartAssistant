@@ -7,8 +7,6 @@ from module.image_processing.rule_image import RuleImage
 from tasks.battle.assets import BattleAssets
 from tasks.buff.buff import Buff
 from tasks.general.page import Page
-from tasks.task_base import TaskBase
-from module.base.exception import RequestHumanTakeover
 from tasks.general.general import General
 from tasks.general.page import page_main
 

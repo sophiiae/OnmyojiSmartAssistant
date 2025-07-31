@@ -240,10 +240,16 @@ class AllAssetsExtractor:
         """
         logger.info('** All assets extract')
         self.task_path = Path.cwd() / MODULE_FOLDER
-        self.task_list = [
-            x.name for x in self.task_path.iterdir() if x.is_dir()]
-        self.task_paths = [str(x)
-                           for x in self.task_path.iterdir() if x.is_dir()]
+        # 递归获取所有包含 res 目录的子目录
+        self.task_paths = []
+        for res_dir in self.task_path.rglob('res'):
+            # 获取 res 目录的父目录作为任务路径
+            task_dir = res_dir.parent
+            if task_dir != self.task_path:  # 排除根目录
+                self.task_paths.append(str(task_dir))
+
+        # 去重
+        self.task_paths = list(set(self.task_paths))
 
         process_map(self.work, self.task_paths, max_workers=1)
 

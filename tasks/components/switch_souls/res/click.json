@@ -1,0 +1,23 @@
+[
+  {
+    "name": "ss_team_top",
+    "type": "click",
+    "roi": "970, 148, 33, 34",
+    "area": "970, 148, 33, 34",
+    "description": "切换队伍顶部"
+  },
+  {
+    "name": "ss_team_mid",
+    "type": "click",
+    "roi": "970, 299, 33, 34",
+    "area": "970, 299, 33, 34",
+    "description": "切换队伍中间"
+  },
+  {
+    "name": "ss_team_bottom",
+    "type": "click",
+    "roi": "970, 450, 33, 34",
+    "area": "970, 450, 33, 34",
+    "description": "切换队伍底部"
+  }
+]

@@ -1,0 +1,9 @@
+[
+  {
+    "name": "sw_team_up",
+    "type": "swipe",
+    "roi_start": "766, 465, 0, 0",
+    "roi_end": "766, 164, 0, 0",
+    "description": "向上滑动队伍预设"
+  }
+]

@@ -29,11 +29,15 @@ class RuleSwipe:
         :return: 两个坐标的tuple
         """
         x, y, w, h = self.roi_start
-        x = np.random.randint(x, x + w)
-        y = np.random.randint(y, y + h)
+        if w > 0:
+            x = np.random.randint(x, x + w)
+        if h > 0:
+            y = np.random.randint(y, y + h)
 
         x2, y2, w2, h2 = self.roi_end
-        x2 = np.random.randint(x2, x2 + w2)
-        y2 = np.random.randint(y2, y2 + h2)
+        if w2 > 0:
+            x2 = np.random.randint(x2, x2 + w2)
+        if h2 > 0:
+            y2 = np.random.randint(y2, y2 + h2)
 
         return (x, y, x2, y2)

@@ -8,7 +8,7 @@ from module.base.logger import logger
 
 class Routine(Colla, MainPage):
 
-    def run(self):
+    def run_all(self):
         regions = [
             self.I_REGION_YOULONG,
             self.I_REGION_HUAHUO,
@@ -51,8 +51,7 @@ class Routine(Colla, MainPage):
             return
 
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if not (self.appear(self.I_SHOP_PACK) or self.appear(self.I_SHOP_PACK_CLOSE)):
                 break
 
@@ -65,8 +64,7 @@ class Routine(Colla, MainPage):
 
     def daily_prep(self):
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if not (self.appear(self.I_MAIL) or
                     self.appear(self.I_GUILD_PACK) or
                     self.appear(self.I_DAILY_BUFF) or
@@ -97,8 +95,7 @@ class Routine(Colla, MainPage):
             self.goto(page_main)
         got_gift = False
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if not (self.appear(self.I_DAILY_EP) or self.appear(self.I_DAILY_JADE)):
                 break
 
@@ -127,8 +124,7 @@ class Routine(Colla, MainPage):
             return
 
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
 
             if not (self.appear(self.I_DAILY_BUFF) or self.appear(self.I_GAIN_REWARD)):
                 break
@@ -140,21 +136,29 @@ class Routine(Colla, MainPage):
             if self.appear(self.I_DAILY_BUFF, 0.96):
                 self.click(self.I_DAILY_BUFF)
 
-    def get_huahe(self):
+    def toggle_scroll(self, open: bool = True):
         # 打开卷轴
-        while 1:
-            time.sleep(0.3)
-            self.screenshot()
+        while open:
+            self.wait_and_shot()
             if self.appear(self.I_SCROLL_OPEN):
-                break
+                return
 
             if self.appear_then_click(self.I_SCROLL_CLOSE):
                 continue
 
+        while not open:
+            self.wait_and_shot()
+            if self.appear(self.I_SCROLL_CLOSE):
+                return
+
+            if self.appear_then_click(self.I_SCROLL_OPEN):
+                continue
+
+    def get_huahe(self):
+        self.toggle_scroll()
         # 进入花合战
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_GET_ALL_HUAHE):
                 break
 
@@ -163,8 +167,7 @@ class Routine(Colla, MainPage):
 
         # 领取奖励
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
 
             if not (self.appear(self.I_HUAHE_GAIN_REWARD) or self.appear(self.I_GET_ALL_HUAHE, 0.96)):
                 break
@@ -178,8 +181,7 @@ class Routine(Colla, MainPage):
 
         # 退出花合战
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_C_MAIN, 0.96):
                 break
 
@@ -190,8 +192,7 @@ class Routine(Colla, MainPage):
             return
 
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
 
             if self.appear(self.I_GAIN_REWARD):
                 self.random_click_right()
@@ -205,8 +206,7 @@ class Routine(Colla, MainPage):
 
         # 进入礼包屋
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
 
             if self.appear(self.I_STORE_REC, 0.96):
                 self.click(self.I_STORE_REC)
@@ -217,8 +217,7 @@ class Routine(Colla, MainPage):
 
         got_gift = False
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_GAIN_REWARD):
                 self.get_reward()
                 break
@@ -236,8 +235,7 @@ class Routine(Colla, MainPage):
             return
 
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_CLOSE_DAILY_SIGN):
                 break
 
@@ -254,8 +252,7 @@ class Routine(Colla, MainPage):
 
         # 退出每日签到
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if not self.appear(self.I_SIGN_DOLL):
                 break
 
@@ -264,8 +261,7 @@ class Routine(Colla, MainPage):
 
     def open_scroll(self):
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_SCROLL_OPEN):
                 break
 
@@ -280,8 +276,7 @@ class Routine(Colla, MainPage):
 
         # 进入邮件页面
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_MAIL_HEADER):
                 break
 
@@ -290,8 +285,7 @@ class Routine(Colla, MainPage):
                 continue
 
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
 
             if not self.appear(self.I_MAIL_HEADER):
                 break
@@ -323,8 +317,7 @@ class Routine(Colla, MainPage):
 
         # 打开卷轴
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_SCROLL_OPEN):
                 break
 
@@ -333,8 +326,7 @@ class Routine(Colla, MainPage):
 
         # 进入好友页面
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_FRIEND_HEADER):
                 break
 
@@ -343,8 +335,7 @@ class Routine(Colla, MainPage):
 
         # 收取友情点
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_GET_ALL_FRIEND_POINTS):
                 break
 
@@ -376,8 +367,7 @@ class Routine(Colla, MainPage):
         while 1:
             self.click(self.C_AVATAR)
 
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_USER_CENTER):
                 break
 
@@ -395,15 +385,14 @@ class Routine(Colla, MainPage):
             if self.appear_then_click(self.I_APPLE_LOGO):
                 break
 
-    def switch_region(self, region: RuleImage = None):
+    def switch_region(self, region: RuleImage):
         self.screenshot()
         if not self.appear(self.I_LOGIN_WARNING):
             raise RequestHumanTakeover
 
         # 进入区域选择页面
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_OWN_CHARACTERS):
                 break
 
@@ -417,8 +406,7 @@ class Routine(Colla, MainPage):
 
         # 选区
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if not self.appear(self.I_PICK_REGION):
                 break
 
@@ -430,8 +418,7 @@ class Routine(Colla, MainPage):
                 time.sleep(0.5)
 
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear(self.I_C_MAIN, 0.95):
                 logger.info("==>>> Arrive main page")
                 break
@@ -446,8 +433,7 @@ class Routine(Colla, MainPage):
 
         # 进去悬赏页面
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
 
             if self.appear(self.I_QUEST_HEADER):
                 break
@@ -457,8 +443,7 @@ class Routine(Colla, MainPage):
 
         # 查看协作任务
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if not self.appear(self.I_QUEST_PLUS_BUTTON):
                 break
 
@@ -471,8 +456,7 @@ class Routine(Colla, MainPage):
 
     def invite_friend(self):
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear_then_click(self.I_QUEST_PLUS_BUTTON):
                 self.wait_until_click(self.I_CROSS_REGION)
                 if self.appear(self.I_CROSS_REGION_ENABLE):
