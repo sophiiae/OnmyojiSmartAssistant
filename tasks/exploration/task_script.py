@@ -34,8 +34,8 @@ class TaskScript(ExpBase):
             if self.click_static_target(self.I_EXP_CHAPTER_28):
                 self.click_static_target(self.I_EXP_BUTTON)
 
-            self.class_logger(
-                f"======== Round {count + 1} Exp Started =========")
+            self.class_logger(self.name,
+                              f"======== Round {count + 1} Exp Started =========")
             # 进入章节战斗
             self.pre_chapter_battle()
             self.chapter_battle()
@@ -106,7 +106,7 @@ class TaskScript(ExpBase):
 
     def chapter_battle(self):
         # 进入战斗环节
-        self.class_logger("Start battle...")
+        self.class_logger(self.name, "Start battle...")
         swipe_count = 0
         stuck_count = 0
         while 1:
@@ -188,7 +188,7 @@ class TaskScript(ExpBase):
             self.swipe(self.S_EXP_TO_LEFT)
 
     def get_chapter_reward(self):
-        self.class_logger("Trying to find chapter reward...")
+        self.class_logger(self.name, "Trying to find chapter reward...")
         # 章节通关奖励，好像最多只有三个
         found = False
         time.sleep(1)
@@ -203,7 +203,7 @@ class TaskScript(ExpBase):
                     found = True
 
         if found:
-            self.class_logger("Got all chapter reward.")
+            self.class_logger(self.name, "Got all chapter reward.")
         return found
 
     def check_ticket(self):
@@ -230,7 +230,8 @@ class TaskScript(ExpBase):
 
     def activate_realm_raid(self):
         # 设置下次执行行时间
-        self.class_logger("|| RealmRaid and Exploration set_next_run ||")
+        self.class_logger(
+            self.name, "|| RealmRaid and Exploration set_next_run ||")
         hr, min, sec = self.exp_config.scroll_mode.scrolls_cd.split(":")
         next_run = datetime.now() + timedelta(hours=int(hr),
                                               minutes=int(min),

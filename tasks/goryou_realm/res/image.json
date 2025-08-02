@@ -24,12 +24,12 @@
     "description": "御灵挑战页面标记"
   },
   {
-    "name": "gr_lv_3",
+    "name": "gr_shiki_book",
     "type": "image",
-    "roi": "288, 512, 65, 28",
-    "area": "274, 498, 93, 56",
-    "file": "./tasks/goryou_realm/res/gr_lv_3.png",
-    "description": "御灵三层"
+    "roi": "957, 647, 42, 37",
+    "area": "939, 629, 78, 73",
+    "file": "./tasks/goryou_realm/res/gr_shiki_book.png",
+    "description": "御灵式神录入口"
   },
   {
     "name": "gr_team_lock",
@@ -37,7 +37,7 @@
     "roi": "559, 563, 23, 30",
     "area": "547, 551, 47, 54",
     "file": "./tasks/battle/res/battle_team_lock.png",
-    "description": ""
+    "description": "队伍锁定"
   },
   {
     "name": "gr_team_unlock",
@@ -45,30 +45,38 @@
     "roi": "562, 566, 17, 25",
     "area": "554, 558, 33, 41",
     "file": "./tasks/battle/res/battle_team_unlock.png",
-    "description": ""
+    "description": "队伍不锁定"
   },
   {
-    "name": "gr_lv_1_highlight",
+    "name": "gr_dbp_open",
     "type": "image",
-    "roi": "355, 188, 62, 36",
-    "area": "337, 170, 98, 72",
-    "file": "./tasks/goryou_realm/res/gr_lv_highlight.png",
-    "description": "一层点亮"
+    "roi": "785, 488, 18, 26",
+    "area": "776, 479, 36, 44",
+    "file": "./tasks/goryou_realm/res/gr_dbp_open.png",
+    "description": "暗黑豹开放"
   },
   {
-    "name": "gr_lv_2_highlight",
+    "name": "gr_dh_open",
     "type": "image",
-    "roi": "364, 347, 62, 36",
-    "area": "346, 329, 98, 72",
-    "file": "./tasks/goryou_realm/res/gr_lv_highlight.png",
-    "description": "二层点亮"
+    "roi": "504, 295, 20, 18",
+    "area": "495, 286, 38, 36",
+    "file": "./tasks/goryou_realm/res/gr_dh_open.png",
+    "description": "暗白蔵主开放"
   },
   {
-    "name": "gr_lv_3_highlight",
+    "name": "gr_ddd_open",
     "type": "image",
-    "roi": "366, 505, 62, 36",
-    "area": "348, 487, 98, 72",
-    "file": "./tasks/goryou_realm/res/gr_lv_highlight.png",
-    "description": "三层点亮"
+    "roi": "192, 195, 65, 30",
+    "area": "177, 180, 95, 60",
+    "file": "./tasks/goryou_realm/res/gr_ddd_open.png",
+    "description": "暗神龙开放"
+  },
+  {
+    "name": "gr_dp_open",
+    "type": "image",
+    "roi": "1062, 294, 62, 49",
+    "area": "1038, 270, 110, 97",
+    "file": "./tasks/goryou_realm/res/gr_dp_open.png",
+    "description": "暗孔雀开放"
   }
 ]

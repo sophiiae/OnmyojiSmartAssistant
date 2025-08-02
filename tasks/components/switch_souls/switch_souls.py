@@ -7,6 +7,8 @@ from module.base.logger import logger
 from module.image_processing.rule_image import RuleImage
 
 class SwitchSouls(TaskBase, SS):
+    name = 'SwitchSouls'
+
     def enter_shiki_book(self, shiki_book_ent: RuleImage):
         # 进入式神录
         while 1:
@@ -36,7 +38,7 @@ class SwitchSouls(TaskBase, SS):
     def exit_shiki_book(self, page_check):
         # 退出式神录
         while 1:
-            self.class_logger("Back to page")
+            self.class_logger(self.name, "Back to page")
             self.wait_and_shot()
             if self.appear(page_check, 0.95):
                 break
@@ -73,7 +75,7 @@ class SwitchSouls(TaskBase, SS):
 
         # 选择组
         while 1:
-            self.class_logger(f"Choose group {group}")
+            self.class_logger(self.name, f"Choose group {group}")
             self.click(group_target)
 
             self.wait_and_shot()
@@ -83,11 +85,11 @@ class SwitchSouls(TaskBase, SS):
         # 替换队伍御魂
         if team > 3:
             swipe_times = team // 3
-            self.class_logger(
-                f"going to swipe team up for {swipe_times} times")
+            self.class_logger(self.name,
+                              f"going to swipe team up for {swipe_times} times")
             for i in range(swipe_times):
-                self.class_logger(
-                    f"swipe team up for {i + 1} time")
+                self.class_logger(self.name,
+                                  f"swipe team up for {i + 1} time")
                 self.swipe(self.S_SS_TEAM_UP, duration=500)
                 time.sleep(1)
 
@@ -96,7 +98,7 @@ class SwitchSouls(TaskBase, SS):
 
         # 更换队伍御魂
         while 1:
-            self.class_logger(f"Switch souls for team {team_order}")
+            self.class_logger(self.name, f"Switch souls for team {team_order}")
             target_team_switch = match_team[team_order]
             self.wait_and_shot()
 
@@ -134,5 +136,5 @@ class SwitchSouls(TaskBase, SS):
                 result.append((int(parts[0]), int(parts[1])))
         return result
 
-    def class_logger(self, message: str):
-        logger.info(f"*SwithSouls* {message}")
+    def class_logger(self, task: str, message: str):
+        logger.info(f"*{task}* {message}")

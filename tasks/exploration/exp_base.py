@@ -231,6 +231,3 @@ class ExpBase(EA, Battle):
             buff.append(BuffClass.EXP_100_CLOSE)
 
         return self.check_buff(buff, page_exp)
-
-    def class_logger(self, message: str):
-        logger.info(f"*Exp* {message}")
