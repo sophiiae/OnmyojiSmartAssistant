@@ -1,7 +1,7 @@
 import random
 from module.base.logger import logger
 from tasks.battle.battle import Battle
-from tasks.general.page import Page, page_goryou
+from tasks.general.page import page_main, page_goryou
 from tasks.goryou_realm.assets import GoryouRealmAssets as GR
 from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.config.enums import GoryouClass, GoryouLevel
@@ -33,58 +33,74 @@ class TaskScript(Battle, GR):
         # 选择御灵层数
         self.choose_level()
 
+        # 更换御魂
+        ss_config = self.config.model.goryou_realm.switch_soul_config
+        ss_enable = ss_config.enable
+        if ss_enable:
+            self.run_switch_souls(
+                self.I_GR_SHIKI_BOOK, ss_config.switch_group_team, self.I_GR_FIGHT_CHECK)
+
         # 开始战斗
-        self.start_battle()
+        # self.start_battle()
 
         self.set_next_run(task='GoryouRealm', finish=True, success=True)
+        self.goto(page_main, page_goryou)
+
         raise TaskEnd(self.name)
 
-    def choose_random_class(self) -> bool:
-        logger.info("Try auto Goryou class")
-        classes = list(self.class_match_click.keys())
-        random.shuffle(classes)
+    def get_goryou_class(self, pick: GoryouClass):
+        match_class = {
+            GoryouClass.Dark_Divine_Dragon: self.I_GR_DDD_OPEN,
+            GoryouClass.Dark_Hakuzousu: self.I_GR_DH_OPEN,
+            GoryouClass.Dark_Black_Panther: self.I_GR_DBP_OPEN,
+            GoryouClass.Dark_Peacock: self.I_GR_DP_OPEN
+        }
+        self.screenshot()
+        if pick is not GoryouClass.RANDOM:
+            # 如果选择的御灵开放就直接返回
+            if self.appear(match_class[pick]):
+                self.class_logger(self.name, f"Choose assigned Goryou: {pick}")
+                return pick
 
-        # 随机选择一个御灵
-        for name in classes:
-            self.click(self.class_match_click[name])
-            self.wait_and_shot(0.5)
-            if self.appear(self.I_GR_FIGHT):
-                logger.info("Entered Goryou fight page")
-                self.gr_class = name
-                return True
-        return False
+        # 查找开放的御灵
+        open_classes = []
+        for k, v in match_class.items():
+            if self.appear(v):
+                open_classes.append(k)
+
+        # 如果都不开放
+        if not open_classes:
+            logger.warning("No Goryou open.")
+            return None
+
+        # 随机御灵
+        index = random.randint(0, len(open_classes) - 1)
+        chosen_class = open_classes[index]
+        self.class_logger(self.name, f"Choose random Goryou: {chosen_class}")
+        return chosen_class
 
     def choose_class(self) -> bool:
-        if self.gr_class is GoryouClass.RANDOM:
-            return self.choose_random_class()
+        target_class = self.get_goryou_class(self.gr_class)
+        if target_class is None:
+            return False
 
-        retry = 0
-        select_class_failed = False
+        match_click = {
+            GoryouClass.Dark_Divine_Dragon: self.C_DARK_DIVINE_DRAGON,
+            GoryouClass.Dark_Hakuzousu: self.C_DARK_HAKUZOUSU,
+            GoryouClass.Dark_Black_Panther: self.C_DARK_BLACK_PANTHER,
+            GoryouClass.Dark_Peacock: self.C_DARK_PEACOCK
+        }
+        # 进入御灵战斗界面
         while 1:
-            if retry > 3:
-                logger.error(
-                    "Not abled to choose Goryou class. Please check the opening date for selected class.")
-                select_class_failed = True
+            self.wait_and_shot()
+            if self.appear(self.I_GR_FIGHT_CHECK):
                 break
 
-            self.wait_and_shot()
-            if self.appear(self.I_GR_FIGHT):
-                logger.info("Entered Goryou fight page")
-                return True
-
-            if self.appear(self.I_GR_CHECK):
-                self.click(self.class_match_click[self.gr_class])
-                retry += 1
-            else:
-                raise RequestHumanTakeover("Unrecognized page")
-
-        if select_class_failed:
-            # 尝试随机御灵
-            return self.choose_random_class()
-        return False
+            self.click(match_click[target_class])
+        return True
 
     def choose_level(self):
-        if not self.appear(self.I_GR_FIGHT):
+        if not self.appear(self.I_GR_FIGHT_CHECK):
             raise RequestHumanTakeover("Unrecognized page")
 
         lv = self.gr_config.level
@@ -94,31 +110,17 @@ class TaskScript(Battle, GR):
             GoryouLevel.three: self.C_LV_3,
         }
 
-        lv_match_highlight = {
-            GoryouLevel.one: self.I_GR_LV_1_HIGHLIGHT,
-            GoryouLevel.two: self.I_GR_LV_2_HIGHLIGHT,
-            GoryouLevel.three: self.I_GR_LV_3_HIGHLIGHT,
-        }
-
-        retry = 0
-        while 1:
-            self.wait_and_shot()
-            if self.appear(lv_match_highlight[lv], 0.95):
-                break
-
-            if retry > 3:
-                raise RequestHumanTakeover("Failed to choose level")
-            self.click(lv_match_click[lv])
-            retry += 1
+        self.class_logger(self.name, f"Assigned level: {lv}")
+        self.click(lv_match_click[lv])
 
     def start_battle(self):
         count_max = self.get_ticket_count()
 
         for c in range(count_max):
-            logger.info(f"======== Round {c + 1} Exp Started =========")
+            self.class_logger(
+                self.name, f"======== Round {c + 1} Exp Started =========")
 
-            ramdon_sleep = random.randint(1, 100) / 100
-            self.wait_and_shot(ramdon_sleep)
+            self.wait_and_shot()
 
             if self.appear(self.I_GR_FIGHT):
                 self.click(self.I_GR_FIGHT)

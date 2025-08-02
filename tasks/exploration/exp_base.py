@@ -138,20 +138,8 @@ class ExpBase(EA, Battle):
         self.goto(page_main, page_exp)
         raise RequestHumanTakeover()
 
-    def soul_clear(self, page_check: RuleImage):
-        self.wait_and_shot()
-
-        if not self.appear(page_check):
-            return
-
-        # 进入式神录
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_SHIKI_BOOK_CHECK, 0.95):
-                break
-
-            if self.appear(self.I_SHIKI_BOOK):
-                self.click(self.I_SHIKI_BOOK)
+    def soul_clear(self):
+        self.enter_shiki_book(self.I_SHIKI_BOOK_ENT)
 
         # 进入御魂页面
         pos = 1
@@ -212,15 +200,7 @@ class ExpBase(EA, Battle):
             if self.appear(self.I_SOUL_GREED_CLOSE):
                 self.click(self.I_SOUL_GREED_CLOSE)
 
-        # 退回页面
-        while 1:
-            logger.info("Back to page")
-            self.wait_and_shot()
-            if self.appear(page_check, 0.95):
-                break
-
-            if self.appear(self.I_SHIKI_SOUL_EXIT):
-                self.click(self.I_SHIKI_SOUL_EXIT)
+        self.exit_shiki_book(self.I_EXP_C_CHAPTER)
 
     def open_config_buff(self):
         self.exp_config = self.config.model.exploration

@@ -1,9 +1,16 @@
 [
   {
-    "name": "sw_team_up",
+    "name": "ss_team_up",
     "type": "swipe",
-    "roi_start": "766, 465, 0, 0",
-    "roi_end": "766, 164, 0, 0",
+    "roi_start": "855, 465, 0, 0",
+    "roi_end": "855, 164, 0, 0",
     "description": "向上滑动队伍预设"
+  },
+  {
+    "name": "ss_group_down",
+    "type": "swipe",
+    "roi_start": "1100, 120, 120, 20",
+    "roi_end": "1100, 550, 120, 20",
+    "description": "向下滑动预设组"
   }
 ]

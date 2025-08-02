@@ -9,9 +9,9 @@ from tasks.buff.buff import Buff
 from tasks.general.page import Page
 from tasks.general.general import General
 from tasks.general.page import page_main
+from tasks.components.switch_souls.switch_souls import SwitchSouls
 
-class Battle(General, Buff, BattleAssets):
-
+class Battle(General, Buff, SwitchSouls, BattleAssets):
     def run_easy_battle(self, exit_battle_check: RuleImage, failed_check: RuleImage | None = None) -> bool:
         logger.info("Start easy battle process")
 

@@ -221,7 +221,7 @@ class TaskBase(MainPageAssets):
             if not self.interval_timer[swipe.name].reached():
                 return
 
-        logger.info(f"Executing Swipe for {swipe.name}")
+        logger.info(f"[Swipe] Executing Swipe for {swipe.name}")
         sx, sy, ex, ey = swipe.coord()
         self.device.swipe(start_x=sx, start_y=sy, end_x=ex,
                           end_y=ey, duration=duration)

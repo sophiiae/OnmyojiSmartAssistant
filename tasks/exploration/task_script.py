@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 import time
 
 class TaskScript(ExpBase):
+    init_battle = True
+
     def run(self):
         self.exp_config = self.config.model.exploration
 
@@ -32,10 +34,12 @@ class TaskScript(ExpBase):
             if self.click_static_target(self.I_EXP_CHAPTER_28):
                 self.click_static_target(self.I_EXP_BUTTON)
 
-            logger.info(f"======== Round {count + 1} Exp Started =========")
+            self.class_logger(self.name,
+                              f"======== Round {count + 1} Exp Started =========")
             # 进入章节战斗
-            self.battle_process()
-            self.after_chapter_process()
+            self.pre_chapter_battle()
+            self.chapter_battle()
+            self.after_chapter_battle()
 
             count += 1
 
@@ -51,7 +55,24 @@ class TaskScript(ExpBase):
 
         raise TaskEnd(self.name)
 
-    def after_chapter_process(self):
+    def pre_chapter_battle(self):
+        # ************************* 进入设置并操作 *******************
+        if not self.wait_until_appear(self.I_EXP_C_CHAPTER, 2):
+            logger.warning(
+                "*Exp* Not inside chapter or battle finished.")
+            raise RequestHumanTakeover
+
+        if not self.init_battle:
+            return
+
+        ss_config = self.config.model.exploration.switch_soul_config
+        ss_enable = ss_config.enable
+        if ss_enable:
+            self.run_switch_souls(
+                self.I_SHIKI_BOOK_ENT, ss_config.switch_group_team, self.I_EXP_C_CHAPTER)
+            self.init_battle = False
+
+    def after_chapter_battle(self):
         time.sleep(1)
         while 1:
             self.wait_and_shot()
@@ -83,15 +104,9 @@ class TaskScript(ExpBase):
                     time.sleep(0.7)
                     self.random_click_right()
 
-    def battle_process(self):
-        # ************************* 进入设置并操作 *******************
-        if not self.wait_until_appear(self.I_EXP_C_CHAPTER, 2):
-            logger.warning(
-                "***** Not inside chapter or battle finished.")
-            raise RequestHumanTakeover
-
+    def chapter_battle(self):
         # 进入战斗环节
-        logger.info("Start battle...")
+        self.class_logger(self.name, "Start battle...")
         swipe_count = 0
         stuck_count = 0
         while 1:
@@ -142,7 +157,7 @@ class TaskScript(ExpBase):
             if auto_backup:
                 self.auto_backup()
             if auto_soul_clear:
-                self.soul_clear(self.I_EXP_C_CHAPTER)
+                self.soul_clear()
 
     def turn_on_auto_rotate(self) -> bool:
         # 自动轮换功能打开
@@ -173,7 +188,7 @@ class TaskScript(ExpBase):
             self.swipe(self.S_EXP_TO_LEFT)
 
     def get_chapter_reward(self):
-        logger.info("Trying to find chapter reward...")
+        self.class_logger(self.name, "Trying to find chapter reward...")
         # 章节通关奖励，好像最多只有三个
         found = False
         time.sleep(1)
@@ -188,7 +203,7 @@ class TaskScript(ExpBase):
                     found = True
 
         if found:
-            logger.info("Got all chapter reward.")
+            self.class_logger(self.name, "Got all chapter reward.")
         return found
 
     def check_ticket(self):
@@ -215,7 +230,8 @@ class TaskScript(ExpBase):
 
     def activate_realm_raid(self):
         # 设置下次执行行时间
-        logger.info("|| RealmRaid and Exploration set_next_run ||")
+        self.class_logger(
+            self.name, "|| RealmRaid and Exploration set_next_run ||")
         hr, min, sec = self.exp_config.scroll_mode.scrolls_cd.split(":")
         next_run = datetime.now() + timedelta(hours=int(hr),
                                               minutes=int(min),

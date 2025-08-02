@@ -229,17 +229,11 @@ class ExplorationAssets:
 		area=(27, 620, 79, 57),
 		file="./tasks/exploration/res/backup/shiki_material.png"
 	)
-	# 式神录 
-	I_SHIKI_BOOK = RuleImage(
+	# 式神录入口 
+	I_SHIKI_BOOK_ENT = RuleImage(
 		roi=(788, 645, 47, 41),
 		area=(768, 625, 87, 81),
 		file="./tasks/exploration/res/soul/shiki_book.png"
-	)
-	# 式神录幕间皮肤按钮 
-	I_SHIKI_BOOK_CHECK = RuleImage(
-		roi=(273, 11, 31, 26),
-		area=(260, 0, 57, 52),
-		file="./tasks/exploration/res/soul/shiki_book_check.png"
 	)
 	# 贪吃鬼 
 	I_SOUL_GREED = RuleImage(
@@ -270,12 +264,6 @@ class ExplorationAssets:
 		roi=(936, 216, 29, 30),
 		area=(922, 202, 57, 58),
 		file="./tasks/exploration/res/soul/soul_greed_close.png"
-	)
-	# 退出 
-	I_SHIKI_SOUL_EXIT = RuleImage(
-		roi=(27, 9, 30, 39),
-		area=(12, 0, 60, 69),
-		file="./tasks/general/res/buttons/b_yellow_left_angle_2.png"
 	)
 
 	# Ocr Rule Assets

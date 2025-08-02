@@ -219,5 +219,13 @@
     "area": "359, 86, 225, 200",
     "file": "./tasks/battle/res/battle_failed.png",
     "description": "战斗失败"
+  },
+  {
+    "name": "rr_shiki_book_ent",
+    "type": "image",
+    "roi": "1209, 617, 43, 37",
+    "area": "1191, 599, 79, 73",
+    "file": "./tasks/realm_raid/res/rr_shiki_book_ent.png",
+    "description": "式神录入口"
   }
 ]

@@ -132,6 +132,11 @@ class Scheduler(BaseModel):
         description="Interval before retry after failure (DD HH:MM:SS)"
     )
 
+class SwitchSoulConfig(BaseModel):
+    enable: bool = Field(default=False)
+    switch_group_team: str = Field(
+        default='-1,-1', description='switch_group_team_help')
+
 class HarvestConfig(BaseModel):
     """
     Daily harvest/collection task configuration.
@@ -325,6 +330,11 @@ class RealmRaid(BaseModel):
         description="Raid-specific configuration settings"
     )
 
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )
+
 class ExplorationConfig(BaseModel):
     """
     Exploration task configuration.
@@ -433,6 +443,11 @@ class Exploration(BaseModel):
         description="绘卷模式配置"
     )
 
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )
+
 class ClimbConfig(BaseModel):
     """
     Climbing tower configuration for events.
@@ -485,6 +500,11 @@ class ShikigamiActivity(BaseModel):
         description="式神爬塔活动配置"
     )
 
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )
+
 # 御灵
 class GoryouConfig(BaseModel):
     """
@@ -530,6 +550,11 @@ class GoryouRealm(BaseModel):
         description="御灵配置"
     )
 
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )
+
 class AreaBossConfig(BaseModel):
     """
     鬼王设置
@@ -557,4 +582,9 @@ class AreaBoss(BaseModel):
     boss_config: AreaBossConfig = Field(
         default_factory=AreaBossConfig,
         description="地域鬼王设置"
+    )
+
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
     )

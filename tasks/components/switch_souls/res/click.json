@@ -1,5 +1,12 @@
 [
   {
+    "name": "ss_open_preset",
+    "type": "click",
+    "roi": "335, 75, 85, 40",
+    "area": "335, 75, 85, 40",
+    "description": "打开队伍预设"
+  },
+  {
     "name": "ss_team_top",
     "type": "click",
     "roi": "970, 148, 33, 34",

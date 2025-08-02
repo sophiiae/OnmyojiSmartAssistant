@@ -81,6 +81,25 @@ class ExplorationSection(QGroupBox):
 
         layout.addWidget(exploration_group)
 
+        # 御魂切换设置
+        switch_soul_group = QGroupBox("御魂切换设置")
+        switch_soul_layout = QVBoxLayout(switch_soul_group)
+        self.switch_soul_config = self.config["exploration"]["switch_soul_config"]
+
+        # 启用御魂切换（只有CheckBox）
+        self.switch_soul_enable = QCheckBox("启用御魂切换")
+        self.switch_soul_enable.setChecked(self.switch_soul_config["enable"])
+        add_left_row(switch_soul_layout, [self.switch_soul_enable])
+
+        # 切换组和队伍（无CheckBox，左对齐）
+        self.switch_group_team = QLineEdit()
+        self.switch_group_team.setText(
+            self.switch_soul_config["switch_group_team"])
+        add_left_row(switch_soul_layout, [QLabel(
+            "切换组和队伍"), self.switch_group_team])
+
+        layout.addWidget(switch_soul_group)
+
         # 卷轴设置
         scrolls_group = QGroupBox("卷轴设置")
         scrolls_layout = QVBoxLayout(scrolls_group)
@@ -132,6 +151,11 @@ class ExplorationSection(QGroupBox):
         )
         self.scrolls_config["scrolls_cd"] = self.scrolls_cd.text()
         self.scrolls_config["ticket_threshold"] = self.ticket_threshold.value()
+
+        # 更新御魂切换配置
+        self.switch_soul_config["enable"] = self.switch_soul_enable.isChecked()
+        self.switch_soul_config["switch_group_team"] = self.switch_group_team.text(
+        )
 
         # 更新通用战斗配置
         # self.general_battle_section.update_config()

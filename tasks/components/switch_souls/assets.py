@@ -9,6 +9,8 @@ class SwitchSoulsAssets:
 
 
 	# Click Rule Assets
+	# 打开队伍预设 
+	C_SS_OPEN_PRESET = RuleClick(roi=(335, 75, 85, 40), area=(335, 75, 85, 40), name="ss_open_preset")
 	# 切换队伍顶部 
 	C_SS_TEAM_TOP = RuleClick(roi=(970, 148, 33, 34), area=(970, 148, 33, 34), name="ss_team_top")
 	# 切换队伍中间 
@@ -22,6 +24,18 @@ class SwitchSoulsAssets:
 		roi=(273, 11, 31, 26),
 		area=(260, 0, 57, 52),
 		file="./tasks/components/switch_souls/res/shiki_book_check.png"
+	)
+	# 退出式神录 
+	I_SHIKI_SOUL_EXIT = RuleImage(
+		roi=(27, 9, 29, 36),
+		area=(13, 0, 57, 64),
+		file="./tasks/general/res/buttons/b_yellow_left_angle_2.png"
+	)
+	# 阵容预设标签 
+	I_SS_PRESET_CHECK = RuleImage(
+		roi=(737, 91, 110, 29),
+		area=(723, 77, 138, 57),
+		file="./tasks/components/switch_souls/res/ss_preset_check.png"
 	)
 	# 确定更换御魂 
 	I_SS_CONFIRM = RuleImage(
@@ -77,14 +91,38 @@ class SwitchSoulsAssets:
 		area=(1087, 581, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
+	# 换御魂图标 
+	I_SS_SWITCH_SOUL_TOP = RuleImage(
+		roi=(972, 189, 29, 24),
+		area=(960, 140, 53, 110),
+		file="./tasks/components/switch_souls/res/ss_switch_soul.png"
+	)
+	# 换御魂图标 
+	I_SS_SWITCH_SOUL_MID = RuleImage(
+		roi=(972, 189, 29, 24),
+		area=(960, 260, 53, 120),
+		file="./tasks/components/switch_souls/res/ss_switch_soul.png"
+	)
+	# 换御魂图标 
+	I_SS_SWITCH_SOUL_BOTTOM = RuleImage(
+		roi=(972, 189, 29, 24),
+		area=(960, 410, 53, 120),
+		file="./tasks/components/switch_souls/res/ss_switch_soul.png"
+	)
 
 
 	# Swipe Rule Assets
 	# 向上滑动队伍预设 
-	S_SW_TEAM_UP = RuleSwipe(
-		roi_start=(766, 465, 0, 0),
-		roi_end=(766, 164, 0, 0),
-		name="sw_team_up"
+	S_SS_TEAM_UP = RuleSwipe(
+		roi_start=(855, 465, 0, 0),
+		roi_end=(855, 164, 0, 0),
+		name="ss_team_up"
+	)
+	# 向下滑动预设组 
+	S_SS_GROUP_DOWN = RuleSwipe(
+		roi_start=(1100, 120, 120, 20),
+		roi_end=(1100, 550, 120, 20),
+		name="ss_group_down"
 	)
 
 

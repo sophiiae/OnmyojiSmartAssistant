@@ -2,7 +2,6 @@ import sys
 from venv import logger
 
 import subprocess
-from module.control.emulator.close_all import kill_mumu_process
 from tasks.royal_battle.task_script import TaskScript
 from module.control.server.device import Device
 

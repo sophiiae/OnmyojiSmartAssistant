@@ -213,6 +213,12 @@ class RealmRaidAssets:
 		area=(359, 86, 225, 200),
 		file="./tasks/battle/res/battle_failed.png"
 	)
+	# 式神录入口 
+	I_RR_SHIKI_BOOK_ENT = RuleImage(
+		roi=(1209, 617, 43, 37),
+		area=(1191, 599, 79, 73),
+		file="./tasks/realm_raid/res/rr_shiki_book_ent.png"
+	)
 
 
 	# Swipe Rule Assets

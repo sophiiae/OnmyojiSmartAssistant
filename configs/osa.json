@@ -72,6 +72,10 @@
       "scroll_mode_enable": true,
       "scrolls_cd": "0:30:00",
       "ticket_threshold": 23
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
     }
   },
   "realm_raid": {
@@ -85,6 +89,10 @@
     "raid_config": {
       "tickets_required": 9,
       "when_attack_fail": "Continue"
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
     }
   },
   "goryou_realm": {
@@ -100,6 +108,10 @@
       "count_max": 50,
       "level": "三层",
       "lock_team_enable": true
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
     }
   },
   "shikigami_activity": {
@@ -116,6 +128,10 @@
       "ticket_max": 50,
       "ap_max": 300,
       "lock_team_enable": true
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
     }
   },
   "area_boss": {
@@ -129,6 +145,10 @@
     "boss_config": {
       "boss_number": 3,
       "boss_reward": false
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
     }
   }
 }

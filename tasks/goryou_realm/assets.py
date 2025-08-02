@@ -43,41 +43,47 @@ class GoryouRealmAssets:
 		area=(96, 5, 159, 72),
 		file="./tasks/goryou_realm/res/gr_fight_check.png"
 	)
-	# 御灵三层 
-	I_GR_LV_3 = RuleImage(
-		roi=(288, 512, 65, 28),
-		area=(274, 498, 93, 56),
-		file="./tasks/goryou_realm/res/gr_lv_3.png"
+	# 御灵式神录入口 
+	I_GR_SHIKI_BOOK = RuleImage(
+		roi=(957, 647, 42, 37),
+		area=(939, 629, 78, 73),
+		file="./tasks/goryou_realm/res/gr_shiki_book.png"
 	)
-	#  
+	# 队伍锁定 
 	I_GR_TEAM_LOCK = RuleImage(
 		roi=(559, 563, 23, 30),
 		area=(547, 551, 47, 54),
 		file="./tasks/battle/res/battle_team_lock.png"
 	)
-	#  
+	# 队伍不锁定 
 	I_GR_TEAM_UNLOCK = RuleImage(
 		roi=(562, 566, 17, 25),
 		area=(554, 558, 33, 41),
 		file="./tasks/battle/res/battle_team_unlock.png"
 	)
-	# 一层点亮 
-	I_GR_LV_1_HIGHLIGHT = RuleImage(
-		roi=(355, 188, 62, 36),
-		area=(337, 170, 98, 72),
-		file="./tasks/goryou_realm/res/gr_lv_highlight.png"
+	# 暗黑豹开放 
+	I_GR_DBP_OPEN = RuleImage(
+		roi=(785, 488, 18, 26),
+		area=(776, 479, 36, 44),
+		file="./tasks/goryou_realm/res/gr_dbp_open.png"
 	)
-	# 二层点亮 
-	I_GR_LV_2_HIGHLIGHT = RuleImage(
-		roi=(364, 347, 62, 36),
-		area=(346, 329, 98, 72),
-		file="./tasks/goryou_realm/res/gr_lv_highlight.png"
+	# 暗白蔵主开放 
+	I_GR_DH_OPEN = RuleImage(
+		roi=(504, 295, 20, 18),
+		area=(495, 286, 38, 36),
+		file="./tasks/goryou_realm/res/gr_dh_open.png"
 	)
-	# 三层点亮 
-	I_GR_LV_3_HIGHLIGHT = RuleImage(
-		roi=(366, 505, 62, 36),
-		area=(348, 487, 98, 72),
-		file="./tasks/goryou_realm/res/gr_lv_highlight.png"
+	# 暗神龙开放 
+	I_GR_DDD_OPEN = RuleImage(
+		roi=(192, 195, 65, 30),
+		area=(177, 180, 95, 60),
+		file="./tasks/goryou_realm/res/gr_ddd_open.png"
+	)
+	# 暗孔雀开放 
+	I_GR_DP_OPEN = RuleImage(
+		roi=(1062, 294, 62, 49),
+		area=(1038, 270, 110, 97),
+		file="./tasks/goryou_realm/res/gr_dp_open.png"
 	)
 
 	# Ocr Rule Assets
