@@ -5,13 +5,11 @@ import cv2
 import subprocess
 import time
 
-from module.base.logger import GameConsoleLogger
+from module.base.logger import logger
 from module.config.config import Config
 from module.base.timer import Timer
 from collections import deque
-from module.base.exception import GameStuckError, GameTooManyClickError
-
-logger = GameConsoleLogger(debug_mode=True)
+from module.base.exception import DeviceNotRunningError, GameStuckError, GameTooManyClickError
 
 class Device:
     """Device class for Android device communication."""
@@ -45,6 +43,7 @@ class Device:
         """Ensure ADB server is running and accessible."""
         try:
             # First try to kill any existing ADB server
+            logger.info("Try to kill any ADB server")
             subprocess.run(['adb', 'kill-server'],
                            capture_output=True, timeout=5)
             time.sleep(1)
@@ -54,6 +53,7 @@ class Device:
 
         try:
             # Start ADB server
+            logger.info("Try to start ADB server")
             subprocess.run(['adb', 'start-server'],
                            capture_output=True, timeout=10)
             time.sleep(1)
@@ -62,24 +62,31 @@ class Device:
             logger.error("Failed to start ADB server")
             return False
 
+    def _test_connection(self) -> bool:
+        # Test connection
+        try:
+            self.adb.devices()
+            logger.background("ADB server connection successful")
+        except Exception as e:
+            logger.error(f"Failed to connect to ADB server: {e}")
+            # Ensure ADB server is running
+            if not self._ensure_adb_server_running():
+                logger.error("Failed to start ADB server")
+            return False
+        return True
+
     def connect_device(self):
         """Connect to the device."""
         try:
             # Try to connect to ADB server
             self.adb = AdbClient(host=self.host, port=5037)
+            has_connection = False
+            for _ in range(3):
+                has_connection = self._test_connection()
+                if has_connection:
+                    break
 
-            # Test connection
-            try:
-                self.adb.devices()
-                logger.background("ADB server connection successful")
-            except Exception as e:
-                logger.error(f"Failed to connect to ADB server: {e}")
-                # Ensure ADB server is running
-                if not self._ensure_adb_server_running():
-                    logger.error("Failed to start ADB server")
-                return None
-
-            if self.port is not None:
+            if has_connection and self.port is not None:
                 for i in range(3):
                     if self.adb.remote_connect(self.host, self.port + i):
                         logger.background(
@@ -93,7 +100,7 @@ class Device:
 
         except Exception as e:
             logger.error(f"Failed to connect to the device: {e}")
-            return None
+            raise DeviceNotRunningError()
         return self.device
 
     def stuck_record_add(self, button):

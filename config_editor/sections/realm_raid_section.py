@@ -39,6 +39,25 @@ class RealmRaidSection(QGroupBox):
 
         layout.addWidget(raid_group)
 
+        # 御魂切换设置
+        switch_soul_group = QGroupBox("御魂切换设置")
+        switch_soul_layout = QVBoxLayout(switch_soul_group)
+        self.switch_soul_config = self.config["realm_raid"]["switch_soul_config"]
+
+        # 启用御魂切换（只有CheckBox）
+        self.switch_soul_enable = QCheckBox("启用御魂切换")
+        self.switch_soul_enable.setChecked(self.switch_soul_config["enable"])
+        add_left_row(switch_soul_layout, [self.switch_soul_enable])
+
+        # 切换组和队伍（无CheckBox，左对齐）
+        self.switch_group_team = QLineEdit()
+        self.switch_group_team.setText(
+            self.switch_soul_config["switch_group_team"])
+        add_left_row(switch_soul_layout, [QLabel(
+            "切换组和队伍"), self.switch_group_team])
+
+        layout.addWidget(switch_soul_group)
+
         # # 添加通用战斗配置
         # self.general_battle_section = GeneralBattleSection(
         #     self.config, "realm_raid")
@@ -50,6 +69,11 @@ class RealmRaidSection(QGroupBox):
         # 更新突破配置
         self.raid_config["tickets_required"] = self.tickets_required.value()
         self.raid_config["when_attack_fail"] = self.when_attack_fail.currentText()
+
+        # 更新御魂切换配置
+        self.switch_soul_config["enable"] = self.switch_soul_enable.isChecked()
+        self.switch_soul_config["switch_group_team"] = self.switch_group_team.text(
+        )
 
         # 更新通用战斗配置
         # self.general_battle_section.update_config()

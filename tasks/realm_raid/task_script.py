@@ -32,6 +32,15 @@ class TaskScript(RealmRaidAssets, Battle):
             self.set_next_run(task='RealmRaid', success=False, finish=False)
             raise TaskEnd(self.name)
 
+        # 更换御魂
+        ss_config = self.config.model.realm_raid.switch_soul_config
+        ss_enable = ss_config.enable
+
+        if ss_enable:
+            self.run_switch_souls(self.I_RR_SHIKI_BOOK_ENT,
+                                  ss_config.switch_group_team,
+                                  self.I_REALM_RAID_HEADER)
+
         success = True
         while enough_ticket:
             # 更新状态
@@ -78,7 +87,7 @@ class TaskScript(RealmRaidAssets, Battle):
         # 开始战斗
         success = True
         attack_index = 1
-        print(f"----- attack order: {attack_list}")
+        self.class_logger(f"----- attack order: {attack_list}")
         image = self.screenshot()
         level = self.O_RAID_PARTITION_1_LV.digit(image)
         skip_quit = level < 57
@@ -93,7 +102,7 @@ class TaskScript(RealmRaidAssets, Battle):
 
             time.sleep(1)
             # 最后一个退4次再打， 卡57
-            logger.info(f"----- Attacking index {attack_index}.")
+            self.class_logger(f"----- Attacking index {attack_index}.")
             if attack_index == 9 and not self.reverse and not skip_quit:
                 self.quit_and_fight(attack_index)
 
@@ -238,7 +247,7 @@ class TaskScript(RealmRaidAssets, Battle):
         return parts
 
     def quit_and_fight(self, index, quit_count=4):
-        logger.info(f"Starting quit and fight for {quit_count} times.")
+        self.class_logger(f"Starting quit and fight for {quit_count} times.")
 
         self.toggle_realm_team_lock(False)
         count = 1
@@ -247,7 +256,7 @@ class TaskScript(RealmRaidAssets, Battle):
             if not self.wait_until_click(self.I_RAID_ATTACK, 3):
                 logger.error("Not able to enter battle")
                 raise RequestHumanTakeover
-            logger.info(f"========= quit and fight count: {count}")
+            self.class_logger(f"========= quit and fight count: {count}")
             time.sleep(0.5)
 
             self.run_battle_quit()
@@ -293,7 +302,7 @@ class TaskScript(RealmRaidAssets, Battle):
                 if self.is_defeated(idx) or self.is_lose(idx):
                     continue
 
-                logger.info(f"** enter and quit for partition {idx + 1}")
+                self.class_logger(f"** enter and quit for partition {idx + 1}")
                 self.click(part, 0.3)
 
                 if self.wait_until_click(self.I_RAID_ATTACK):
@@ -315,7 +324,7 @@ class TaskScript(RealmRaidAssets, Battle):
             logger.critical(f"Run out of retry for downgrade")
             return False
 
-        logger.info(f"Current level meets requirement.")
+        self.class_logger(f"Current level meets requirement.")
         return True
 
     def click_refresh(self) -> bool:
@@ -419,8 +428,11 @@ class TaskScript(RealmRaidAssets, Battle):
 
             if self.appear(self.I_REWARD):
                 self.random_click_right()
-                logger.info("Got realm raid fight reward")
+                self.class_logger("Got realm raid fight reward")
                 continue
 
     def toggle_realm_team_lock(self, lock: bool = True):
         return self.toggle_team_lock(self.I_RAID_TEAM_LOCK, self.I_RAID_TEAM_UNLOCK, lock)
+
+    def class_logger(self, message: str):
+        logger.info(f"*RealmRaid* {message}")
