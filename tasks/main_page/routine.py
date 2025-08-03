@@ -448,7 +448,7 @@ class Routine(Colla, MainPage):
                 break
 
             if self.appear(self.I_QUEST_PLUS_BUTTON):
-                # x, y = self.I_QUEST_PLUS_BUTTON.front_center()
+                # x, y = self.I_QUEST_PLUS_BUTTON.roi_center()
                 # self.I_QUEST_JADE.set_area(x, y, 240, 216)
                 # if self.appear(self.I_QUEST_JADE):
                 self.invite_friend()
@@ -462,7 +462,7 @@ class Routine(Colla, MainPage):
                 if self.appear(self.I_CROSS_REGION_ENABLE):
                     time.sleep(1)
                     if self.wait_until_appear(self.I_QUEST_AVATAR, 2, threshold=0.96):
-                        x, y = self.I_QUEST_AVATAR.front_center()
+                        x, y = self.I_QUEST_AVATAR.roi_center()
                         while 1:
                             time.sleep(0.3)
                             self.screenshot()

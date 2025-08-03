@@ -45,6 +45,7 @@ class SwitchSouls(TaskBase, SS):
 
             if self.appear(self.I_SHIKI_SOUL_EXIT):
                 self.click(self.I_SHIKI_SOUL_EXIT)
+                time.sleep(1)
 
     def switch_soul_one(self, group: int, team: int, first_time: bool = False):
         match_group = {

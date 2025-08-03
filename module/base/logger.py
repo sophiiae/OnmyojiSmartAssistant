@@ -138,21 +138,22 @@ class GameConsoleLogger:
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
 
-        # 调试日志文件Handler
-        debug_file_handler = RotatingFileHandler(
-            'logs/game_debug.log',
-            maxBytes=5 * 1024 * 1024,  # 5MB
-            backupCount=3,
-            encoding='utf-8',
-            mode='w'  # 使用 'w' 模式，每次创建新文件
-        )
-        debug_file_handler.setLevel(logging.DEBUG)
-        debug_formatter = logging.Formatter(
-            '[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s',
-            datefmt='%Y-%m-%d %H:%M:%S'
-        )
-        debug_file_handler.setFormatter(debug_formatter)
-        self.logger.addHandler(debug_file_handler)
+        # 调试日志文件Handler - 仅在debug_mode为True时创建
+        if debug_mode:
+            debug_file_handler = RotatingFileHandler(
+                'logs/game_debug.log',
+                maxBytes=5 * 1024 * 1024,  # 5MB
+                backupCount=3,
+                encoding='utf-8',
+                mode='w'  # 使用 'w' 模式，每次创建新文件
+            )
+            debug_file_handler.setLevel(logging.DEBUG)
+            debug_formatter = logging.Formatter(
+                '[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s',
+                datefmt='%Y-%m-%d %H:%M:%S'
+            )
+            debug_file_handler.setFormatter(debug_formatter)
+            self.logger.addHandler(debug_file_handler)
 
         # 错误日志文件Handler
         error_file_handler = RotatingFileHandler(

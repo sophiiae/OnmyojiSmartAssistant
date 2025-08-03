@@ -1,0 +1,10 @@
+[
+  {
+    "name": "ab_boss_level",
+    "type": "text",
+    "roi": "320, 190, 50, 40",
+    "area": "320, 190, 50, 40",
+    "keyword": "",
+    "description": "地域鬼王等级"
+  }
+]

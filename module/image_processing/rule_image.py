@@ -71,9 +71,9 @@ class RuleImage:
         image = cv2.imread(self.file)
         self._image = image
 
-    def front_center(self) -> tuple:
+    def roi_center(self) -> tuple:
         """
-        获取roi_front的中心坐标
+        获取roi的中心坐标
         :return:
         """
         x, y, w, h = self.roi

@@ -221,7 +221,7 @@ class Buff(TaskBase, BuffAssets):
         if not self.appear(target):
             logger.warning(f'No {target.name} buff')
             return None
-        x = int(target.front_center()[0] + 364)
+        x = int(target.roi_center()[0] + 364)
         y = int(target.roi[1])
         w = 80
         h = int(target.roi[3])
