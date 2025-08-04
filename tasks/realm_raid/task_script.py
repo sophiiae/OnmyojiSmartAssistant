@@ -229,7 +229,7 @@ class TaskScript(RealmRaidAssets, Battle):
         self.toggle_realm_team_lock(False)
         count = 1
         while count <= quit_count:
-            self.click(self.partitions[index - 1])
+            self.click(self.partitions[index])
             if not self.wait_until_click(self.I_RAID_ATTACK, 3):
                 logger.error("Not able to enter battle")
                 raise RequestHumanTakeover
