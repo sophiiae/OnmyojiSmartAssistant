@@ -38,5 +38,13 @@
     "area": "1042, 581, 83, 37",
     "keyword": "",
     "description": "突破刷新等待时间位置"
+  },
+  {
+    "name": "guild_raid_ticket",
+    "type": "text",
+    "roi": "277, 565, 40, 20",
+    "area": "277, 565, 40, 20",
+    "keyword": "",
+    "description": "寮突破票数"
   }
 ]

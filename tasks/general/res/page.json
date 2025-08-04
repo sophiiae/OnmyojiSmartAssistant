@@ -50,34 +50,18 @@
   {
     "name": "c_realm_raid",
     "type": "image",
-    "roi": "1196, 231, 69, 112",
-    "area": "1162, 197, 137, 180",
+    "roi": "574, 76, 174, 37",
+    "area": "556, 58, 210, 73",
     "file": "./tasks/general/res/check/c_realm_raid.png",
-    "description": "个人突破结界突破点亮标志"
-  },
-  {
-    "name": "c_guild",
-    "type": "image",
-    "roi": "1167, 617, 77, 58",
-    "area": "1138, 588, 135, 116",
-    "file": "./tasks/general/res/check/c_guild.png",
-    "description": "阴阳寮寮信息图标"
-  },
-  {
-    "name": "c_guild_raid",
-    "type": "image",
-    "roi": "1196, 355, 69, 111",
-    "area": "1162, 321, 137, 179",
-    "file": "./tasks/general/res/check/c_guild_raid.png",
-    "description": "阴阳寮突破突破点亮标志"
+    "description": "结界突破界面"
   },
   {
     "name": "c_sleep",
     "type": "image",
-    "roi": "1182, 637, 57, 45",
-    "area": "1154, 614, 114, 90",
+    "roi": "256, 36, 36, 36",
+    "area": "238, 18, 72, 72",
     "file": "./tasks/general/res/check/c_sleep.png",
-    "description": "休眠模式音乐按钮"
+    "description": "闲庭设置"
   },
   {
     "name": "c_minamoto",
@@ -216,28 +200,12 @@
     "description": "探索界面寮突破入口"
   },
   {
-    "name": "v_realm_raid_to_guild_raid",
-    "type": "image",
-    "roi": "1203, 359, 54, 102",
-    "area": "1176, 308, 108, 204",
-    "file": "./tasks/general/res/goto/v_realm_raid_to_guild_raid.png",
-    "description": "寮突破按钮"
-  },
-  {
-    "name": "v_guild_raid_to_realm_raid",
-    "type": "image",
-    "roi": "1203, 236, 54, 101",
-    "area": "1176, 186, 108, 202",
-    "file": "./tasks/general/res/goto/v_guild_raid_to_realm_raid.png",
-    "description": "个人突破按钮"
-  },
-  {
     "name": "v_sleep_to_main",
     "type": "image",
-    "roi": "27, 28, 38, 36",
-    "area": "8, 10, 76, 72",
+    "roi": "43, 36, 32, 34",
+    "area": "27, 20, 64, 66",
     "file": "./tasks/general/res/goto/v_sleep_to_main.png",
-    "description": "休眠模式退出"
+    "description": "退出闲庭"
   },
   {
     "name": "v_main_to_store",

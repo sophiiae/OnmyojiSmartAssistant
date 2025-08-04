@@ -8,6 +8,14 @@
     "description": "探索界面突破票数量"
   },
   {
+    "name": "exp_chapter",
+    "type": "text",
+    "roi": "1080, 195, 135, 32",
+    "area": "1080, 195, 176, 400",
+    "keyword": "",
+    "description": "探索章节识别"
+  },
+  {
     "name": "exp_chapter_ticket_count",
     "type": "text",
     "roi": "940, 16, 73, 27",

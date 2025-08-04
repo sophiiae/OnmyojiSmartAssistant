@@ -1,6 +1,7 @@
 import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
+from module.config.enums import Chapters
 from tasks.exploration.exp_base import ExpBase
 from tasks.general.page import page_exp, page_main, page_realm_raid
 
@@ -31,9 +32,7 @@ class TaskScript(ExpBase):
             # 检查票数
             self.check_ticket()
 
-            if self.click_static_target(self.I_EXP_CHAPTER_28):
-                self.click_static_target(self.I_EXP_BUTTON)
-
+            self.enter_chapter()
             self.class_logger(self.name,
                               f"======== Round {count + 1} Exp Started =========")
             # 进入章节战斗
@@ -103,6 +102,76 @@ class TaskScript(ExpBase):
                 if got_reward:   # 领取宝箱物品
                     time.sleep(0.7)
                     self.random_click_right()
+
+    def enter_chapter(self):
+        pick_chapter = self.exp_config.exploration_config.chapter
+        if pick_chapter is Chapters.CHAPTER_28:
+            self.enter_chap_28()
+            return
+
+        chapter_list = [chapter.value for chapter in Chapters]
+        chapter_set = set(chapter_list)  # For faster lookup
+        swipe_count = 0
+        swipe_action = self.S_EXP_CHAPTER_UP
+
+        while 1:
+            image = self.wait_and_shot()
+            results = self.O_EXP_CHAPTER.detect_and_ocr(image)
+            texts = [result.ocr_text for result in results]
+            logger.warning(f"[EXP] ocr results: {texts}")
+            is_chapter_visible = pick_chapter in texts
+
+            if is_chapter_visible:
+                self.O_EXP_CHAPTER.keyword = pick_chapter
+                break
+
+            if swipe_count > 10:
+                raise RequestHumanTakeover("Unable to find target chapter")
+
+            # 计算应该往上还是往下滑
+            found_chapter = next(
+                (text for text in texts if text in chapter_set), None)
+
+            if found_chapter:
+                cur_pos = chapter_list.index(found_chapter)
+                target_pos = chapter_list.index(pick_chapter)
+
+                if target_pos < cur_pos:
+                    swipe_action = self.S_EXP_CHAPTER_DOWN
+                    logger.debug(
+                        f"current pos: {cur_pos}, target pos: {target_pos}. Going to swipe down.")
+                else:
+                    swipe_action = self.S_EXP_CHAPTER_UP
+                    logger.debug(
+                        f"current pos: {cur_pos}, target pos: {target_pos}. Going to swipe up.")
+
+            self.swipe(swipe_action)
+            swipe_count += 1
+            time.sleep(0.5)
+
+            self.O_EXP_CHAPTER.keyword = pick_chapter
+
+        # 进入预设章节
+        while 1:
+            self.wait_and_shot(0.6)
+            if self.appear(self.I_EXP_BUTTON, 0.98):
+                break
+
+            self.ocr_appear_click(self.O_EXP_CHAPTER)
+
+        self.click(self.C_EXP_HARD)
+        self.click_static_target(self.I_EXP_BUTTON)
+
+    def enter_chap_28(self):
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_EXP_CHAP_28, 0.98):
+                break
+            self.swipe(self.S_EXP_CHAPTER_UP)
+
+        if self.click_static_target(self.I_EXP_CHAP_28):
+            self.click(self.C_EXP_HARD)
+            self.click_static_target(self.I_EXP_BUTTON, 0.97)
 
     def chapter_battle(self):
         # 进入战斗环节

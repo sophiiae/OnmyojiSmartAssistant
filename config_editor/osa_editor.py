@@ -341,7 +341,7 @@ class OSAEditor(ConfigTab):
                     border: 2px solid #9b72cf;
                     border-radius: 6px;
                     background-color: #fbfaff;
-                    margin: 1px;
+                    margin: 3px;
                     padding: 3px;
                 }
                 QGroupBox::title {

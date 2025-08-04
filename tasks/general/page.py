@@ -44,16 +44,8 @@ page_chapter_entrance.link(button=G.I_V_EXP_MODAL_TO_EXP, destination=page_exp)
 page_exp.link(button=G.I_V_EXP_TO_CH28, destination=page_chapter_entrance)
 
 # 结界突破 Realm Raid & Guild Raid
-page_guild_raid = Page(G.I_C_GUILD_RAID)
 page_realm_raid = Page(G.I_C_REALM_RAID)
-
-page_realm_raid.link(button=G.I_V_REALM_RAID_TO_GUILD_RAID,
-                     destination=page_guild_raid)
-page_guild_raid.link(button=G.I_V_GUILD_RAID_TO_REALM_RAID,
-                     destination=page_realm_raid)
 page_realm_raid.link(button=G.I_V_REALM_RAID_TO_EXP, destination=page_exp)
-page_guild_raid.link(button=G.I_V_REALM_RAID_TO_EXP, destination=page_exp)
-
 page_exp.link(button=G.I_V_EXP_TO_REALM_RAID, destination=page_realm_raid)
 
 # 商店 Store Street / Market
@@ -80,10 +72,10 @@ page_shikigami = Page(SA.I_SA_CHECK)
 page_shikigami.link(button=SA.I_SA_EXIT, destination=page_main)
 page_main.link(button=SA.I_SA_ENT, destination=page_shikigami)
 
-# 阴阳寮
-page_guild = Page(G.I_C_GUILD)
-page_guild.link(button=G.I_V_GUILD_TO_MAIN, destination=page_main)
-page_main.link(button=G.I_V_MAIN_TO_GUILD, destination=page_guild)
+# # 阴阳寮
+# page_guild = Page(G.I_C_GUILD)
+# page_guild.link(button=G.I_V_GUILD_TO_MAIN, destination=page_main)
+# page_main.link(button=G.I_V_MAIN_TO_GUILD, destination=page_guild)
 
 # 地域鬼王
 page_boss = Page(G.I_C_BOSS)

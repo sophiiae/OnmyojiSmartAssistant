@@ -303,6 +303,11 @@ class RaidConfig(BaseModel):
     """
     个人突破设置
     """
+    enable_guild_realm_raid: bool = Field(
+        default=False,
+        description="寮突破模式"
+    )
+
     tickets_required: int = Field(
         default=20,
         ge=1,

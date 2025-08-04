@@ -47,5 +47,19 @@
     "roi": "550, 350, 20, 20",
     "area": "550, 350, 20, 20",
     "description": "贪吃鬼进食不再提示检查框"
+  },
+  {
+    "name": "exp_regular",
+    "type": "click",
+    "roi": "308, 210, 60, 35",
+    "area": "308, 210, 60, 35",
+    "description": "普通难度"
+  },
+  {
+    "name": "exp_hard",
+    "type": "click",
+    "roi": "438, 215, 65, 30",
+    "area": "438, 215, 65, 30",
+    "description": "困难难度"
   }
 ]

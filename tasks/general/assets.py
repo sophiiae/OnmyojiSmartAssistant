@@ -97,28 +97,16 @@ class GeneralAssets:
 		area=(567, 576, 124, 119),
 		file="./tasks/general/res/check/c_summon.png"
 	)
-	# 个人突破结界突破点亮标志 
+	# 结界突破界面 
 	I_C_REALM_RAID = RuleImage(
-		roi=(1196, 231, 69, 112),
-		area=(1162, 197, 137, 180),
+		roi=(574, 76, 174, 37),
+		area=(556, 58, 210, 73),
 		file="./tasks/general/res/check/c_realm_raid.png"
 	)
-	# 阴阳寮寮信息图标 
-	I_C_GUILD = RuleImage(
-		roi=(1167, 617, 77, 58),
-		area=(1138, 588, 135, 116),
-		file="./tasks/general/res/check/c_guild.png"
-	)
-	# 阴阳寮突破突破点亮标志 
-	I_C_GUILD_RAID = RuleImage(
-		roi=(1196, 355, 69, 111),
-		area=(1162, 321, 137, 179),
-		file="./tasks/general/res/check/c_guild_raid.png"
-	)
-	# 休眠模式音乐按钮 
+	# 闲庭设置 
 	I_C_SLEEP = RuleImage(
-		roi=(1182, 637, 57, 45),
-		area=(1154, 614, 114, 90),
+		roi=(256, 36, 36, 36),
+		area=(238, 18, 72, 72),
 		file="./tasks/general/res/check/c_sleep.png"
 	)
 	# 英杰试炼源氏补给图标 
@@ -223,22 +211,10 @@ class GeneralAssets:
 		area=(222, 609, 116, 104),
 		file="./tasks/general/res/goto/v_exp_to_realm_raid.png"
 	)
-	# 寮突破按钮 
-	I_V_REALM_RAID_TO_GUILD_RAID = RuleImage(
-		roi=(1203, 359, 54, 102),
-		area=(1176, 308, 108, 204),
-		file="./tasks/general/res/goto/v_realm_raid_to_guild_raid.png"
-	)
-	# 个人突破按钮 
-	I_V_GUILD_RAID_TO_REALM_RAID = RuleImage(
-		roi=(1203, 236, 54, 101),
-		area=(1176, 186, 108, 202),
-		file="./tasks/general/res/goto/v_guild_raid_to_realm_raid.png"
-	)
-	# 休眠模式退出 
+	# 退出闲庭 
 	I_V_SLEEP_TO_MAIN = RuleImage(
-		roi=(27, 28, 38, 36),
-		area=(8, 10, 76, 72),
+		roi=(43, 36, 32, 34),
+		area=(27, 20, 64, 66),
 		file="./tasks/general/res/goto/v_sleep_to_main.png"
 	)
 	# 商店入口 

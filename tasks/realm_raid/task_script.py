@@ -11,7 +11,6 @@ from module.base.exception import RequestHumanTakeover
 from tasks.battle.battle import Battle
 
 class TaskScript(RealmRaidAssets, Battle):
-    order: list[int] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     reverse: bool = False
     name = "RealmRaid"
 
@@ -25,9 +24,10 @@ class TaskScript(RealmRaidAssets, Battle):
                 self.goto(page_realm_raid)
 
         enough_ticket = self.check_ticket()
+        enable_guild = self.rr_config.enable_guild_realm_raid
 
         # 检查票数
-        if not enough_ticket:
+        if not enough_ticket and not enable_guild:
             self.goto(page_main)
             self.set_next_run(task='RealmRaid', success=False, finish=False)
             raise TaskEnd(self.name)
@@ -42,31 +42,13 @@ class TaskScript(RealmRaidAssets, Battle):
                                   self.I_REALM_RAID_HEADER)
 
         success = True
-        while enough_ticket:
-            # 更新状态
-            image = self.screenshot()
-            self.update_partition_prop(image)
+        # 个人突破
+        if enough_ticket:
+            success = self.start_individual_raid(enough_ticket)
 
-            success = True
-            # 如果最低挑战等级高于57，就降级处理
-            if not self.downgrade():
-                success = False
-            else:
-                attack_list = self.order.copy()
-                if self.reverse:
-                    attack_list.reverse()
-
-                # 开始一轮战斗
-                success = self.start_battle(attack_list)
-
-            # 根据战斗结果判断是否刷新
-            if success:
-                self.reverse = not self.reverse
-            else:
-                self.click_refresh()
-            del self.partitions_prop
-            enough_ticket = self.check_ticket()
-            time.sleep(1)
+        # 寮突破
+        if enable_guild:
+            success = self.start_guild_raid()
 
         exp_enabled = self.config.model.exploration.scheduler.enable
         scroll_mode_enabled = self.config.model.exploration.scroll_mode.scroll_mode_enable
@@ -80,6 +62,81 @@ class TaskScript(RealmRaidAssets, Battle):
         self.set_next_run(task='RealmRaid', success=success, finish=True)
         raise TaskEnd(self.name)
 
+    def start_individual_raid(self, enough_ticket) -> bool:
+        # 进入个人突破
+        while 1:
+            self.screenshot()
+            if self.appear(self.I_RR_RANK_ICON):
+                break
+
+            self.click(self.C_INDIVIDUAL_RAID)
+
+        success = True
+        while enough_ticket:
+            success = True
+            # 如果最低挑战等级高于57，就降级处理
+            if not self.downgrade():
+                success = False
+            else:
+                attack_list = self.get_viable_partition_indexes()
+
+                # 开始一轮战斗
+                success = self.start_battle(attack_list)
+
+            # 根据战斗结果判断是否刷新
+            if success:
+                self.reverse = not self.reverse
+            else:
+                self.click_refresh()
+            enough_ticket = self.check_ticket()
+            time.sleep(1)
+        return success
+
+    def start_guild_raid(self):
+        # 进入寮突破
+        while 1:
+            self.screenshot()
+            if self.appear(self.I_RR_GUID_PROGRESS):
+                break
+            self.click(self.C_GUILD_RAID)
+
+        # 寮已全部攻破
+        if self.appear(self.I_RR_GUILD_CONQUER):
+            return True
+
+        image = self.screenshot()
+        count, total = self.O_GUILD_RAID_TICKET.digit_counter(image)
+        self.class_logger(self.name, f"Got {count} tickets for guild raid. ")
+        retry = 0
+        while count:
+            self.wait_and_shot()
+            if self.appear(self.I_RR_TARGET):
+                retry = 0
+
+                self.enter_guild_battle()
+                if self.run_easy_battle(self.I_REALM_RAID_HEADER, self.I_REALM_RAID_FAILED):
+                    count -= 1
+                continue
+
+            if retry > 5:
+                break
+
+            self.swipe(self.S_RAID_DOWN)
+            retry += 1
+        return count == 0
+
+    def enter_guild_battle(self):
+        while 1:
+            self.wait_and_shot()
+            if not self.appear(self.I_RR_GUID_PROGRESS):
+                break
+
+            if self.appear(self.I_RAID_ATTACK, 0.96):
+                self.click(self.I_RAID_ATTACK)
+                continue
+
+            self.click(self.I_RR_TARGET)
+
     def start_battle(self, attack_list: list[int]) -> bool:
         # 锁定队伍
         self.toggle_realm_team_lock()
@@ -89,16 +146,12 @@ class TaskScript(RealmRaidAssets, Battle):
         attack_index = 1
         self.class_logger(self.name, f"----- attack order: {attack_list}")
         image = self.screenshot()
-        level = self.O_RAID_PARTITION_1_LV.digit(image)
+        level = self.O_RAID_PARTITION_9_LV.digit(image)
         skip_quit = level < 57
 
         while len(attack_list) > 0:
             # 下一个挑战目标
             attack_index = attack_list.pop(0)
-
-            # 已经挑战过的就略过
-            if self.is_defeated(attack_index - 1):
-                continue
 
             time.sleep(1)
             # 最后一个退4次再打， 卡57
@@ -109,7 +162,7 @@ class TaskScript(RealmRaidAssets, Battle):
 
             attack_count = 0
             while attack_count < 5:
-                self.enter_battle(attack_index)
+                self.enter_battle(self.partitions[attack_index])
                 if not self.run_easy_battle(self.I_REALM_RAID_HEADER, self.I_REALM_RAID_FAILED):
                     logger.warning(f"Failed to attack index {attack_index}")
                     success = False
@@ -125,12 +178,11 @@ class TaskScript(RealmRaidAssets, Battle):
 
         return success
 
-    def enter_battle(self, index):
-        target = self.partitions[index - 1]
+    def enter_battle(self, target):
         while 1:
             time.sleep(1)
             self.screenshot()
-            if not self.appear(self.I_C_REALM_RAID):
+            if not self.appear(self.I_RR_RANK_ICON):
                 break
 
             if self.appear(self.I_RAID_ATTACK_MODAL, 0.97):
@@ -140,112 +192,35 @@ class TaskScript(RealmRaidAssets, Battle):
             if self.click(target):
                 continue
 
-    def run_three_win(self):
-        if not self.check_page_appear(page_realm_raid):
-            self.goto(page_realm_raid)
-
+    def get_viable_partition_indexes(self):
         image = self.screenshot()
-        ticket, total = self.O_RAID_TICKET.digit_counter(image)
-
-        refresh_time = datetime.now()
-        if self.wait_until_appear(self.I_RAID_WIN3, 1):
-            self.click_refresh()
-            refresh_time = datetime.now()
-
-        self.toggle_realm_team_lock()  # Lock team
-        count = 3
-        attack_list = self.order.copy()
-
-        while ticket:
-            index = attack_list.pop()
-            self.enter_battle(index)
-            if not self.run_easy_battle(self.I_REALM_RAID_HEADER, self.I_REALM_RAID_FAILED):
+        indexes = []
+        for idx, part in self.partitions.items():
+            cropped = part.crop(image)
+            if self.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True) or self.I_RAID_LOSE.match_target(cropped, threshold=0.95, cropped=True):
                 continue
-            else:
-                count -= 1
-                ticket -= 1
-            if count == 0:
-                if not self.click_refresh():
-                    time.sleep((refresh_time +
-                               timedelta(minutes=5) - datetime.now()).total_seconds())
-                    self.click_refresh()
 
-                refresh_time = datetime.now()
-                count = 3
-                attack_list = self.order.copy()
-                random.shuffle(attack_list)
+            indexes.append(idx)
 
-        logger.critical("No enough tickets")
-        exit()
-
-    # 第一次进突破界面的时候，扫描，记录目前的挑战情况
-    def update_partition_prop(self, image):
-        for part in self.partitions_prop:
-            x, y, w, h = part['flag_area']
-            cropped = image[y: y + h, x: x + w]
-            if self.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True):
-                part['defeated'] = True
-            else:
-                ax, ay, aw, ah = part['lose_arrow_area']
-                arrow_cropped = image[ay: ay + ah, ax: ax + aw]
-                if self.I_RAID_LOSE.match_target(arrow_cropped, threshold=0.95, cropped=True):
-                    part['lose'] = True
+        if len(indexes) == len(self.partitions) and self.reverse:
+            indexes.reverse()
+        else:
+            self.reverse = False
+        return indexes
 
     @cached_property
-    def medals(self) -> list:
-        return [self.I_REALM_MEDAL_5, self.I_REALM_MEDAL_4, self.I_REALM_MEDAL_3,
-                self.I_REALM_MEDAL_2, self.I_REALM_MEDAL_1, self.I_REALM_MEDAL_0]
-
-    @cached_property
-    def partitions(self) -> list:
-        return [self.I_REALM_PARTITION_1, self.I_REALM_PARTITION_2, self.I_REALM_PARTITION_3,
-                self.I_REALM_PARTITION_4, self.I_REALM_PARTITION_5, self.I_REALM_PARTITION_6,
-                self.I_REALM_PARTITION_7, self.I_REALM_PARTITION_8, self.I_REALM_PARTITION_9]
-
-    @cached_property
-    def partitions_prop(self) -> list:
-        # 计算每格位置大小
-        w, h = 325, 125
-        xl = [150, 480, 810]  # left border
-        yl = [150, 280, 415]  # top border
-
-        parts = []
-        for y in yl:
-            for x in xl:
-                parts.append({
-                    'partition_area': (x, y, w, h),
-                    'flag_area': (), 'medal_area': (),
-                    'defeated': False, 'medal': -1,
-                    "lose_arrow_area": (), 'lose': False
-                })
-
-        # 计算勋章位置大小
-        mw, mh = 217, 55
-        i = 0
-        for y in yl:
-            for x in xl:
-                mx, my = x + 84, y + 60
-                parts[i]['medal_area'] = (mx, my, mw, mh)
-                i += 1
-
-        # 计算 "破" 位置大小
-        fw, fh = 70, 70
-        i = 0
-        for y in yl:
-            for x in xl:
-                fx, fy = x + 250, y + 12
-                parts[i]['flag_area'] = (fx, fy, fw, fh)
-                i += 1
-
-        # 计算失败箭头位置大小
-        aw, ah = 84, 40
-        i = 0
-        for y in yl:
-            for x in xl:
-                ax, ay = x + 238, y - 10
-                parts[i]['lose_arrow_area'] = (ax, ay, aw, ah)
-                i += 1
-        return parts
+    def partitions(self):
+        return {
+            1: self.I_REALM_PARTITION_1,
+            2: self.I_REALM_PARTITION_2,
+            3: self.I_REALM_PARTITION_3,
+            4: self.I_REALM_PARTITION_4,
+            5: self.I_REALM_PARTITION_5,
+            6: self.I_REALM_PARTITION_6,
+            7: self.I_REALM_PARTITION_7,
+            8: self.I_REALM_PARTITION_8,
+            9: self.I_REALM_PARTITION_9
+        }
 
     def quit_and_fight(self, index, quit_count=4):
         self.class_logger(
@@ -267,12 +242,6 @@ class TaskScript(RealmRaidAssets, Battle):
 
         self.toggle_realm_team_lock()
 
-    def is_defeated(self, index):
-        return self.partitions_prop[index]['defeated']
-
-    def is_lose(self, index):
-        return self.partitions_prop[index]['lose']
-
     def is_downgrad_required(self):
         image = self.screenshot()
         level = self.O_RAID_PARTITION_1_LV.digit(image)
@@ -283,14 +252,14 @@ class TaskScript(RealmRaidAssets, Battle):
             if level_3 > 57:
                 level_9 = self.O_RAID_PARTITION_9_LV.digit(image)
                 if level_9 > 57:
-                    print(
-                        f"----- level: {level}, level_3: {level_3}, level_9: {level_9}")
+                    self.class_logger(self.name,
+                                      f"----- level_1: {level}, level_3: {level_3}, level_9: {level_9}")
                     downgrad_required = True
 
         return downgrad_required
 
     def downgrade(self) -> bool:
-        image = self.screenshot()
+        self.screenshot()
         if not self.wait_until_appear(self.I_REALM_RAID_HEADER, 2):
             return False
 
@@ -299,15 +268,11 @@ class TaskScript(RealmRaidAssets, Battle):
         while downgrad_required:
             # 不锁定退得快点
             self.toggle_realm_team_lock(False)
-
-            for idx, part in enumerate(self.partitions):
-                # 已经挑战过的就skip掉
-                if self.is_defeated(idx) or self.is_lose(idx):
-                    continue
-
+            indexes = self.get_viable_partition_indexes()
+            for idx in indexes:
                 self.class_logger(
-                    self.name, f"** enter and quit for partition {idx + 1}")
-                self.click(part, 0.3)
+                    self.name, f"** enter and quit for partition {idx}")
+                self.click(self.partitions[idx], 0.3)
 
                 if self.wait_until_click(self.I_RAID_ATTACK):
                     self.run_battle_quit()
@@ -347,62 +312,6 @@ class TaskScript(RealmRaidAssets, Battle):
 
         logger.critical("No refresh button found")
         raise RequestHumanTakeover
-
-    def find_one(self) -> tuple:
-        """
-        找到一个可以打的，并且检查一下是不是这一个的是第几个的
-        我们约定次序是:
-            1 2 3
-            4 5 9
-            7 8 9
-        :return: 返回的第一个参数是一个RuleImage, 第二个参数是位置信息
-        如果没有找到, 返回 (None, None)
-        """
-        image = self.screenshot()
-
-        i = 0
-        while i < len(self.medals):
-            medal = self.medals[i]
-            if medal.match_target(screenshot=image):
-                index = self.get_partition_index(medal.roi)
-                if index > 0:
-                    return (medal, index)
-            i += 1
-
-        return (None, None)
-
-    def get_partition_index(self, roi) -> int:
-        """将九宫格用井字划分开，计算位置
-
-        Args:
-            roi (list): roi of target medal position
-
-        Returns:
-            int: index of partition
-        """
-        x_divider = [475, 794, 1270]
-        y_divider = [275, 398, 700]
-
-        x, y, w, h = roi
-        r, c = 0, 0
-        for idx, divider in enumerate(x_divider):
-            if x >= divider:
-                continue
-            c = idx + 1
-            break
-
-        for idx, divider in enumerate(y_divider):
-            if y >= divider:
-                continue
-            r = idx + 1
-            break
-
-        index = r * c
-        if index < 1 or index > 9:
-            logger.error(f"No valid partition found in index {index}")
-            return -1
-
-        return index
 
     def check_ticket(self):
         tickets_required = self.rr_config.tickets_required

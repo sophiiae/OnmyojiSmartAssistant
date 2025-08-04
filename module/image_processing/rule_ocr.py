@@ -54,7 +54,7 @@ class RuleOcr:
         """
         截取图片
         """
-        x, y, w, h = self.roi
+        x, y, w, h = self.area
         return screenshot[y: y + h, x: x + w]
 
     def ocr_full(self, screenshot, keyword: Optional[str] = None) -> Tuple[int, int, int, int]:
@@ -71,15 +71,18 @@ class RuleOcr:
         if not boxed_results:
             return 0, 0, 0, 0
 
+        logger.background(f"<OCR> boxed_results: {boxed_results}")
         index_list = self.filter(boxed_results, keyword)
-        logger.info(
-            f"OCR [{self.name}] detected in {index_list} with {boxed_results[index_list[0]]}")
+        logger.background(
+            f"<OCR> [{keyword}] detected in {index_list} with {boxed_results[index_list[0]]}")
         # 如果一个都没有匹配到
         if not index_list:
             return 0, 0, 0, 0
 
+        logger.background(f"<OCR> index_list: {index_list}")
         # 如果匹配到了多个,则合并所有的坐标，返回合并后的坐标
         if len(index_list) > 1:
+            logger.info(f"<OCR> Going to merge areas.")
             area_list = [(
                 int(cast(np.ndarray, boxed_results[index].box)[0][0]),  # x
                 int(cast(np.ndarray, boxed_results[index].box)[0][1]),  # y
@@ -91,14 +94,19 @@ class RuleOcr:
                     2][1] - cast(np.ndarray, boxed_results[index].box)[0][1]),
             ) for index in index_list]
             area = merge_area(area_list)
+            self.roi = area[0] + self.roi[0], area[1] + \
+                self.roi[1], self.roi[2], self.roi[3]
             self.area = area[0] + self.roi[0], area[1] + \
-                self.roi[1], area[2], area[3]
+                self.roi[1], self.area[2], self.area[3]
         else:
+            logger.info(f"<OCR> Found single area.")
             box = cast(np.ndarray, boxed_results[index_list[0]].box)
+            self.roi = int(box[0][0] + self.roi[0]), int(box[0][1] + self.roi[1]
+                                                         ), self.roi[2], self.roi[3]
             self.area = int(box[0][0] + self.roi[0]), int(box[0][1] + self.roi[1]
-                                                          ), int(box[1][0] - box[0][0]), int(box[2][1] - box[0][1])
-
-        logger.info(f"OCR [{self.name}] detected in {self.area}")
+                                                          ), self.area[2], self.area[3]
+        logger.background(
+            f"<OCR> [{keyword if keyword else self.name}] detected in {self.area}, roi: {self.roi}")
         return self.area
 
     def ocr_single(self, screenshot) -> str:
@@ -173,14 +181,13 @@ class RuleOcr:
         results = []
         # after proces
         for result in boxed_results:
-            # logger.info("ocr result score: %s" % result.score)
+            # logger.background("ocr result score: %s" % result.score)
             if result.score < self.score:
                 continue
             results.append(result)
 
-        logger.info('%s %ss' %
-                    (self.name, float2str(time.time() - start_time)))
-        logger.info(str([result.ocr_text for result in results]))
+        text_results = [result.ocr_text for result in results]
+        logger.background(f"<OCR> detect results: {str(text_results)}")
         return results
 
     def filter(self, boxed_results: List[BoxedResult], keyword: Optional[str] = None) -> List[int]:

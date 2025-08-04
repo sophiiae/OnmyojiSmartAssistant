@@ -7,6 +7,13 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class RealmRaidAssets: 
 
+
+	# Click Rule Assets
+	# 个人突破 
+	C_INDIVIDUAL_RAID = RuleClick(roi=(1210, 250, 40, 75), area=(1210, 250, 40, 75), name="individual_raid")
+	# 寮突破 
+	C_GUILD_RAID = RuleClick(roi=(1210, 365, 40, 90), area=(1210, 365, 40, 90), name="guild_raid")
+
 	# Ocr Rule Assets
 	# 突破第一格等级位置 
 	O_RAID_PARTITION_1_LV = RuleOcr(
@@ -43,24 +50,31 @@ class RealmRaidAssets:
 		keyword="",
 		name="raid_wait_time"
 	)
+	# 寮突破票数 
+	O_GUILD_RAID_TICKET = RuleOcr(
+		roi=(277, 565, 40, 20),
+		area=(277, 565, 40, 20),
+		keyword="",
+		name="guild_raid_ticket"
+	)
 
 	# Image Rule Assets
-	# 个人突破界面 
+	# 结界突破界面 
 	I_REALM_RAID_HEADER = RuleImage(
 		roi=(574, 76, 174, 37),
 		area=(556, 58, 210, 73),
 		file="./tasks/realm_raid/res/realm_raid_header.png"
 	)
-	# 三次胜利奖励 
-	I_RAID_WIN3 = RuleImage(
-		roi=(419, 573, 62, 57),
-		area=(388, 544, 124, 114),
-		file="./tasks/realm_raid/res/raid_win3.png"
+	# 个人突破勋章排名标记 
+	I_RR_RANK_ICON = RuleImage(
+		roi=(14, 555, 29, 23),
+		area=(2, 543, 53, 47),
+		file="./tasks/realm_raid/res/rr_rank_icon.png"
 	)
 	# 个人突破刷新 
 	I_RAID_REFRESH = RuleImage(
-		roi=(959, 566, 180, 67),
-		area=(925, 532, 248, 135),
+		roi=(1019, 586, 61, 28),
+		area=(1005, 572, 89, 56),
 		file="./tasks/realm_raid/res/raid_refresh.png"
 	)
 	# 突破队伍锁定 
@@ -83,7 +97,7 @@ class RealmRaidAssets:
 	)
 	# 进攻 
 	I_RAID_ATTACK = RuleImage(
-		roi=(982, 491, 135, 66),
+		roi=(687, 375, 62, 27),
 		area=(150, 150, 1030, 569),
 		file="./tasks/realm_raid/res/raid_attack.png"
 	)
@@ -105,12 +119,6 @@ class RealmRaidAssets:
 		area=(520, 322, 72, 74),
 		file="./tasks/realm_raid/res/raid_warning_checkbox.png"
 	)
-	# 突破第一格位置(包括头像) 
-	I_RAID_PARTITION_1_WHOLE = RuleImage(
-		roi=(152, 151, 310, 111),
-		area=(0, 96, 620, 222),
-		file=""
-	)
 	# 突破刷新(等待) 
 	I_RAID_REFRESH_UNABLE = RuleImage(
 		roi=(975, 578, 71, 40),
@@ -120,92 +128,56 @@ class RealmRaidAssets:
 	# 个人突破1 
 	I_REALM_PARTITION_1 = RuleImage(
 		roi=(240, 150, 223, 113),
-		area=(130, 130, 1000, 420),
+		area=(240, 150, 223, 113),
 		file=""
 	)
 	# 个人突破2 
 	I_REALM_PARTITION_2 = RuleImage(
 		roi=(574, 150, 220, 113),
-		area=(130, 130, 1000, 420),
+		area=(574, 150, 220, 113),
 		file=""
 	)
 	# 个人突破3 
 	I_REALM_PARTITION_3 = RuleImage(
 		roi=(903, 150, 223, 113),
-		area=(130, 130, 1000, 420),
+		area=(903, 150, 223, 113),
 		file=""
 	)
 	# 个人突破4 
 	I_REALM_PARTITION_4 = RuleImage(
 		roi=(240, 285, 223, 113),
-		area=(130, 130, 1000, 420),
+		area=(240, 285, 223, 113),
 		file=""
 	)
 	# 个人突破5 
 	I_REALM_PARTITION_5 = RuleImage(
 		roi=(574, 285, 220, 113),
-		area=(130, 130, 1000, 420),
+		area=(574, 285, 220, 113),
 		file=""
 	)
 	# 个人突破6 
 	I_REALM_PARTITION_6 = RuleImage(
 		roi=(903, 285, 223, 113),
-		area=(130, 130, 1000, 420),
+		area=(903, 285, 223, 113),
 		file=""
 	)
 	# 个人突破7 
 	I_REALM_PARTITION_7 = RuleImage(
 		roi=(240, 420, 223, 113),
-		area=(130, 130, 1000, 420),
+		area=(240, 420, 223, 113),
 		file=""
 	)
 	# 个人突破8 
 	I_REALM_PARTITION_8 = RuleImage(
 		roi=(574, 420, 220, 113),
-		area=(130, 130, 1000, 420),
+		area=(574, 420, 220, 113),
 		file=""
 	)
 	# 个人突破9 
 	I_REALM_PARTITION_9 = RuleImage(
 		roi=(903, 420, 223, 113),
-		area=(130, 130, 1000, 420),
+		area=(903, 420, 223, 113),
 		file=""
-	)
-	# 0个勋章 
-	I_REALM_MEDAL_0 = RuleImage(
-		roi=(237, 346, 229, 49),
-		area=(210, 130, 940, 400),
-		file="./tasks/realm_raid/res/medals/medal_0.png"
-	)
-	# 1个勋章 
-	I_REALM_MEDAL_1 = RuleImage(
-		roi=(238, 346, 228, 49),
-		area=(210, 130, 940, 400),
-		file="./tasks/realm_raid/res/medals/medal_1.png"
-	)
-	# 2个勋章 
-	I_REALM_MEDAL_2 = RuleImage(
-		roi=(902, 481, 228, 48),
-		area=(210, 130, 940, 400),
-		file="./tasks/realm_raid/res/medals/medal_2.png"
-	)
-	# 3个勋章 
-	I_REALM_MEDAL_3 = RuleImage(
-		roi=(902, 481, 228, 49),
-		area=(210, 130, 940, 400),
-		file="./tasks/realm_raid/res/medals/medal_3.png"
-	)
-	# 4个勋章 
-	I_REALM_MEDAL_4 = RuleImage(
-		roi=(901, 211, 229, 48),
-		area=(210, 130, 940, 400),
-		file="./tasks/realm_raid/res/medals/medal_4.png"
-	)
-	# 5个勋章 
-	I_REALM_MEDAL_5 = RuleImage(
-		roi=(570, 211, 228, 49),
-		area=(210, 130, 940, 400),
-		file="./tasks/realm_raid/res/medals/medal_5.png"
 	)
 	# 战斗失败 
 	I_REALM_RAID_FAILED = RuleImage(
@@ -219,31 +191,49 @@ class RealmRaidAssets:
 		area=(1191, 599, 79, 73),
 		file="./tasks/realm_raid/res/rr_shiki_book_ent.png"
 	)
+	# 寮突破目标 
+	I_RR_TARGET = RuleImage(
+		roi=(713, 132, 33, 30),
+		area=(450, 130, 655, 530),
+		file="./tasks/realm_raid/res/rr_target.png"
+	)
+	# 寮突破进度 
+	I_RR_GUID_PROGRESS = RuleImage(
+		roi=(170, 313, 89, 24),
+		area=(158, 301, 113, 48),
+		file="./tasks/realm_raid/res/rr_guid_progress.png"
+	)
+	# 寮突破100%攻破 
+	I_RR_GUILD_CONQUER = RuleImage(
+		roi=(357, 384, 12, 17),
+		area=(351, 378, 24, 29),
+		file="./tasks/realm_raid/res/rr_guild_conquer.png"
+	)
 
 
 	# Swipe Rule Assets
 	# 寮突破滑到最低 
-	S_RAID_TO_END = RuleSwipe(
-		roi_start=(1121, 147, 1158, 168),
-		roi_end=(1121, 603, 1158, 623),
-		name="raid_to_end"
+	S_RAID_TO_BOTTOM = RuleSwipe(
+		roi_start=(1121, 147, 37, 21),
+		roi_end=(1121, 603, 37, 20),
+		name="raid_to_bottom"
 	)
 	# 寮突破滑到最高 
 	S_RAID_TO_TOP = RuleSwipe(
-		roi_start=(1121, 603, 1158, 623),
-		roi_end=(1121, 147, 1158, 168),
+		roi_start=(1121, 603, 37, 20),
+		roi_end=(1121, 147, 37, 21),
 		name="raid_to_top"
 	)
 	# 往下翻 
 	S_RAID_DOWN = RuleSwipe(
-		roi_start=(700, 400, 800, 500),
-		roi_end=(700, 300, 800, 400),
+		roi_start=(745, 535, 10, 30),
+		roi_end=(745, 255, 10, 30),
 		name="raid_down"
 	)
 	# 往上翻 
 	S_RAID_UP = RuleSwipe(
-		roi_start=(700, 300, 800, 400),
-		roi_end=(700, 400, 800, 500),
+		roi_start=(745, 255, 10, 30),
+		roi_end=(745, 535, 10, 30),
 		name="raid_up"
 	)
 

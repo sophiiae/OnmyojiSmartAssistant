@@ -100,21 +100,21 @@ class ExplorationSection(QGroupBox):
 
         layout.addWidget(switch_soul_group)
 
-        # 卷轴设置
-        scrolls_group = QGroupBox("卷轴设置")
+        # 绘卷设置
+        scrolls_group = QGroupBox("绘卷设置")
         scrolls_layout = QVBoxLayout(scrolls_group)
         self.scrolls_config = self.config["exploration"]["scroll_mode"]
 
-        # 启用卷轴模式（CheckBox独占一行）
-        self.scroll_mode_enable = QCheckBox("启用卷轴模式")
+        # 启用绘卷模式（CheckBox独占一行）
+        self.scroll_mode_enable = QCheckBox("启用绘卷模式")
         self.scroll_mode_enable.setChecked(
             self.scrolls_config["scroll_mode_enable"])
         add_left_row(scrolls_layout, [self.scroll_mode_enable])
 
-        # 卷轴CD（无CheckBox，左对齐）
+        # 绘卷CD（无CheckBox，左对齐）
         self.scrolls_cd = QLineEdit()
         self.scrolls_cd.setText(self.scrolls_config["scrolls_cd"])
-        add_left_row(scrolls_layout, [QLabel("卷轴CD:"), self.scrolls_cd])
+        add_left_row(scrolls_layout, [QLabel("绘卷CD:"), self.scrolls_cd])
 
         # 票数阈值（无CheckBox，左对齐）
         self.ticket_threshold = ValueButton()
@@ -146,7 +146,7 @@ class ExplorationSection(QGroupBox):
         self.exploration_config["lock_team_enable"] = self.lock_team_enable.isChecked(
         )
 
-        # 更新卷轴设置
+        # 更新绘卷设置
         self.scrolls_config["scroll_mode_enable"] = self.scroll_mode_enable.isChecked(
         )
         self.scrolls_config["scrolls_cd"] = self.scrolls_cd.text()

@@ -21,7 +21,7 @@ class DailyRoutineSection(QGroupBox):
 
         self.enable_sign = QCheckBox("签到")
         self.enable_sign.setChecked(self.harvest_config["enable_sign"])
-        grid.addWidget(self.enable_sign, 0, 1)
+        grid.addWidget(self.enable_sign, 0, 0)
 
         self.enable_sign_999 = QCheckBox("签到999")
         self.enable_sign_999.setChecked(self.harvest_config["enable_sign_999"])

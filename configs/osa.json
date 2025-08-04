@@ -87,6 +87,7 @@
       "failure_interval": "00:00:30:00"
     },
     "raid_config": {
+      "enable_guild_realm_raid": false,
       "tickets_required": 9,
       "when_attack_fail": "Continue"
     },

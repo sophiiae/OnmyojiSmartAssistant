@@ -23,19 +23,17 @@ class ExplorationAssets:
 	C_SOUL_EAT_HABIT = RuleClick(roi=(830, 540, 140, 40), area=(830, 540, 140, 40), name="soul_eat_habit")
 	# 贪吃鬼进食不再提示检查框 
 	C_SOUL_EAT_COMFIRM_CHECKBOX = RuleClick(roi=(550, 350, 20, 20), area=(550, 350, 20, 20), name="soul_eat_comfirm_checkbox")
+	# 普通难度 
+	C_EXP_REGULAR = RuleClick(roi=(308, 210, 60, 35), area=(308, 210, 60, 35), name="exp_regular")
+	# 困难难度 
+	C_EXP_HARD = RuleClick(roi=(438, 215, 65, 30), area=(438, 215, 65, 30), name="exp_hard")
 
 	# Image Rule Assets
-	# 第二十五章位置 
-	I_EXP_CHAPTER_25 = RuleImage(
-		roi=(1048, 196, 208, 103),
-		area=(944, 144, 416, 206),
-		file="./tasks/exploration/res/exp_25.png"
-	)
-	# 第二十八章位置（在最底下的时候） 
-	I_EXP_CHAPTER_28 = RuleImage(
-		roi=(1058, 493, 189, 94),
-		area=(1011, 446, 268, 188),
-		file="./tasks/exploration/res/exp_28.png"
+	# 第二十八章 
+	I_EXP_CHAP_28 = RuleImage(
+		roi=(1083, 493, 135, 32),
+		area=(1080, 195, 176, 400),
+		file="./tasks/exploration/res/exp_chap_28.png"
 	)
 	# 探索困难模式按钮(已选) 
 	I_EXP_HARD_BUTTON_CHECKED = RuleImage(
@@ -274,6 +272,13 @@ class ExplorationAssets:
 		keyword="",
 		name="exp_view_ticket_count"
 	)
+	# 探索章节识别 
+	O_EXP_CHAPTER = RuleOcr(
+		roi=(1080, 195, 135, 32),
+		area=(1080, 195, 176, 400),
+		keyword="",
+		name="exp_chapter"
+	)
 	# 探索界面章节入口开启后突破票数量 
 	O_EXP_CHAPTER_TICKET_COUNT = RuleOcr(
 		roi=(940, 16, 73, 27),
@@ -292,16 +297,16 @@ class ExplorationAssets:
 
 	# Swipe Rule Assets
 	# 向上滑动章节 
-	S_EXP_LEVEL_UP = RuleSwipe(
-		roi_start=(1047, 549, 209, 107),
-		roi_end=(1048, 196, 208, 103),
-		name="exp_level_up"
+	S_EXP_CHAPTER_UP = RuleSwipe(
+		roi_start=(1140, 540, 23, 18),
+		roi_end=(1140, 305, 23, 18),
+		name="exp_chapter_up"
 	)
 	# 向下滑动章节 
-	S_EXP_LEVEL_DOWN = RuleSwipe(
-		roi_start=(1048, 196, 208, 103),
-		roi_end=(1047, 549, 209, 107),
-		name="exp_level_down"
+	S_EXP_CHAPTER_DOWN = RuleSwipe(
+		roi_start=(1140, 305, 23, 18),
+		roi_end=(1140, 540, 23, 18),
+		name="exp_chapter_down"
 	)
 	# 往左滑动,往右走 
 	S_EXP_TO_RIGHT = RuleSwipe(

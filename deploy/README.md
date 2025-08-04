@@ -56,7 +56,7 @@ iexpress /n deploy/osa_final.SED
 
 ### 如果出现弹窗
 1. 确认 `osa_launcher.bat` 文件在正确位置
-2. 检查项目路径是否正确（当前设置为 `E:\dev\onmyoji-sa`）
+2. 检查项目路径是否正确
 3. 验证SED文件中的路径配置
 
 ## 更新流程
@@ -75,5 +75,5 @@ iexpress /n deploy/osa_final.SED
 - 生成的exe文件依赖于项目目录结构
 - 不要移动或删除项目根目录中的 `venv/` 和 `config_editor/` 目录
 - 如果需要分发exe文件，需要确保目标机器有相应的Python环境
-- 当前配置使用绝对路径 `E:\dev\onmyoji-sa`，如需修改请更新 `osa_launcher.bat` 文件
+- 当前配置使用相对路径，如需修改请更新 `osa_launcher.bat` 文件
 - exe文件启动时会显示cmd窗口，但程序能正常工作 

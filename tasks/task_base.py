@@ -9,6 +9,7 @@ from module.base.exception import RequestHumanTakeover
 from module.config.config import Config
 from module.image_processing.rule_click import RuleClick
 from module.image_processing.rule_image import RuleImage
+from module.image_processing.rule_ocr import RuleOcr
 from module.image_processing.rule_swipe import RuleSwipe
 from tasks.main_page.assets import MainPageAssets
 from module.control.server.device import Device
@@ -258,6 +259,21 @@ class TaskBase(MainPageAssets):
         self.device.long_click(x, y)
         time.sleep(0.5)
 
+    def ocr_appear_click(self, target: RuleOcr) -> bool:
+        """
+        ocr识别目标，如果目标存在，则触发动作
+        :param target:
+        :param action:
+        :return:
+        """
+        area = target.ocr_full(self.screenshot(), keyword=target.keyword)
+
+        if area == (0, 0, 0, 0):
+            return False
+        x, y = target.coord()
+        self.device.click(x, y)
+        return True
+
     def random_click_right(self, click_delay=0.2):
         """Perform random click within screen
         """
@@ -288,7 +304,7 @@ class TaskBase(MainPageAssets):
             return False
 
         for _ in range(retry):
-            self.wait_and_shot()
+            self.wait_and_shot(0.6)
             if not self.appear(target, threshold=threshold):
                 return True
             self.appear_then_click(target, threshold=threshold)

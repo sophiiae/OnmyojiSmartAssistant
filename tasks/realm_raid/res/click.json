@@ -1,0 +1,16 @@
+[
+  {
+    "name": "individual_raid",
+    "type": "click",
+    "roi": "1210, 250, 40, 75",
+    "area": "1210, 250, 40, 75",
+    "description": "个人突破"
+  },
+  {
+    "name": "guild_raid",
+    "type": "click",
+    "roi": "1210, 365, 40, 90",
+    "area": "1210, 365, 40, 90",
+    "description": "寮突破"
+  }
+]

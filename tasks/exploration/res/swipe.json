@@ -1,16 +1,16 @@
 [
   {
-    "name": "exp_level_up",
+    "name": "exp_chapter_up",
     "type": "swipe",
-    "roi_start": "1047, 549, 209, 107",
-    "roi_end": "1048, 196, 208, 103",
+    "roi_start": "1140, 540, 23, 18",
+    "roi_end": "1140, 305, 23, 18",
     "description": "向上滑动章节"
   },
   {
-    "name": "exp_level_down",
+    "name": "exp_chapter_down",
     "type": "swipe",
-    "roi_start": "1048, 196, 208, 103",
-    "roi_end": "1047, 549, 209, 107",
+    "roi_start": "1140, 305, 23, 18",
+    "roi_end": "1140, 540, 23, 18",
     "description": "向下滑动章节"
   },
   {

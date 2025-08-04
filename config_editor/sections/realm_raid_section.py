@@ -24,6 +24,12 @@ class RealmRaidSection(QGroupBox):
         raid_layout = QVBoxLayout(raid_group)
         self.raid_config = self.config["realm_raid"]["raid_config"]
 
+        # 开启寮突破（CheckBox独占一行）
+        self.enable_guild_check = QCheckBox("开启寮突破")
+        self.enable_guild_check.setChecked(
+            self.raid_config['enable_guild_realm_raid'])
+        add_left_row(raid_layout, [self.enable_guild_check])
+
         # 所需票数（无CheckBox，左对齐）
         self.tickets_required = ValueButton()
         self.tickets_required.setRange(0, 999)
@@ -67,6 +73,9 @@ class RealmRaidSection(QGroupBox):
         self.scheduler_section.update_config()
 
         # 更新突破配置
+        self.raid_config["enable_guild_realm_raid"] = self.enable_guild_check.isChecked(
+        )
+
         self.raid_config["tickets_required"] = self.tickets_required.value()
         self.raid_config["when_attack_fail"] = self.when_attack_fail.currentText()
 
