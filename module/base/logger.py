@@ -6,6 +6,7 @@ from typing import Deque
 from collections import deque
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
+import threading
 
 class ColorFormatter(logging.Formatter):
     COLORS = {
@@ -118,8 +119,8 @@ class GameConsoleLogger:
         self.logger = logging.getLogger('GameConsole')
         self._context_buffer = deque(maxlen=20)
 
-        # UI回调函数
-        self.ui_callback = None
+        # UI回调函数列表 - 支持多个回调，每个回调包含配置名称和回调函数
+        self.ui_callbacks = []
 
         # 替换原error方法
         self._original_error = self.logger.error
@@ -174,18 +175,38 @@ class GameConsoleLogger:
         error_file_handler.setFormatter(error_formatter)
         self.logger.addHandler(error_file_handler)
 
-    def set_ui_callback(self, callback):
-        """设置UI回调函数"""
-        self.ui_callback = callback
+    def set_ui_callback(self, callback, config_name=None):
+        """设置UI回调函数 - 支持按配置名称过滤"""
+        if callback is None:
+            # 如果传入None，清空所有回调
+            self.ui_callbacks.clear()
+        else:
+            # 添加新的回调到列表，包含配置名称
+            callback_info = {'callback': callback, 'config_name': config_name}
+            if callback_info not in self.ui_callbacks:
+                self.ui_callbacks.append(callback_info)
 
-    def _notify_ui(self, message):
-        """通知UI更新"""
-        if self.ui_callback:
-            try:
-                self.ui_callback(message)
-            except Exception as e:
-                # 避免UI回调出错影响日志系统
-                pass
+    def remove_ui_callback(self, callback):
+        """移除特定的UI回调函数"""
+        for callback_info in self.ui_callbacks[:]:
+            if callback_info['callback'] == callback:
+                self.ui_callbacks.remove(callback_info)
+
+    def _notify_ui(self, message, config_name=None):
+        """通知所有UI更新 - 支持按配置名称过滤"""
+        if self.ui_callbacks:
+            # 向所有匹配的回调发送消息
+            for callback_info in self.ui_callbacks[:]:  # 使用副本避免在迭代时修改列表
+                try:
+                    # 如果回调没有指定配置名称，或者配置名称匹配，则发送消息
+                    if (callback_info['config_name'] is None or
+                        config_name is None or
+                            callback_info['config_name'] == config_name):
+                        callback_info['callback'](message)
+                except Exception as e:
+                    # 如果某个回调出错，移除它
+                    print(f"UI callback error: {e}")
+                    self.ui_callbacks.remove(callback_info)
 
     def _enhanced_error(self, msg, *args, **kwargs):
         """增强的错误记录"""
@@ -194,8 +215,11 @@ class GameConsoleLogger:
         self._original_error(msg, *args, **kwargs)
         self._flush_handlers()
 
+        # 获取配置名称
+        config_name = kwargs.get('extra', {}).get('config_name', None)
+
         # 通知UI
-        self._notify_ui(f"❌ {msg}")
+        self._notify_ui(f"❌ {msg}", config_name)
 
     def _flush_handlers(self):
         for handler in self.logger.handlers:
@@ -207,7 +231,7 @@ class GameConsoleLogger:
             f"[{datetime.now().strftime('%H:%M:%S')}] {level}: {message}"
         )
 
-    def _log_with_context(self, level: str, msg: str, **kwargs):
+    def _log_with_context(self, level: str, msg: str, config_name=None, **kwargs):
         """带上下文的日志记录"""
         extra = kwargs.setdefault('extra', {})
         extra['context'] = '\n'.join(self._context_buffer)
@@ -215,63 +239,123 @@ class GameConsoleLogger:
             extra['msg_type'] = kwargs.pop('msg_type')
         if 'is_background' in kwargs:
             extra['is_background'] = kwargs.pop('is_background')
+
+        # 添加配置名称到extra中
+        if config_name:
+            extra['config_name'] = config_name
+
         getattr(self.logger, level.lower())(msg, **kwargs)
 
         # 通知UI
-        self._notify_ui(msg)
+        self._notify_ui(msg, config_name)
 
-    def background(self, msg: str):
+    def background(self, msg: str, config_name=None):
         """后台信息（默认颜色）"""
         self._add_context('BACKGROUND', msg)
-        self._log_with_context('info', msg, is_background=True)
+        self._log_with_context('info', msg, config_name, is_background=True)
 
-    def success(self, msg: str):
+    def success(self, msg: str, config_name=None):
         """成功信息（亮绿色）"""
         self._add_context('SUCCESS', msg)
-        self._log_with_context('info', f"✅ {msg}", msg_type='SUCCESS')
+        self._log_with_context(
+            'info', f"✅ {msg}", config_name, msg_type='SUCCESS')
 
-    def system(self, msg: str):
+    def system(self, msg: str, config_name=None):
         """系统信息（蓝色）"""
         self._add_context('SYSTEM', msg)
-        self._log_with_context('info', f"🖥️ {msg}", msg_type='SYSTEM')
+        self._log_with_context(
+            'info', f"🖥️ {msg}", config_name, msg_type='SYSTEM')
 
-    def network(self, msg: str):
+    def network(self, msg: str, config_name=None):
         """网络信息（紫色）"""
         self._add_context('NETWORK', msg)
-        self._log_with_context('info', f"🌐 {msg}", msg_type='NETWORK')
+        self._log_with_context(
+            'info', f"🌐 {msg}", config_name, msg_type='NETWORK')
 
-    def ai(self, msg: str):
+    def ai(self, msg: str, config_name=None):
         """AI信息（亮青色）"""
         self._add_context('AI', msg)
-        self._log_with_context('info', f"🤖 {msg}", msg_type='AI')
+        self._log_with_context('info', f"🤖 {msg}", config_name, msg_type='AI')
 
-    def debug(self, msg: str):
+    def debug(self, msg: str, config_name=None):
         """调试信息（青色）"""
         self._add_context('DEBUG', msg)
-        self._log_with_context('debug', f"🐛 {msg}")
+        self._log_with_context('debug', f"🐛 {msg}", config_name)
 
-    def info(self, msg: str):
+    def info(self, msg: str, config_name=None):
         """一般信息（绿色）"""
         self._add_context('INFO', msg)
-        self._log_with_context('info', f"ℹ️ {msg}")
+        self._log_with_context('info', f"ℹ️ {msg}", config_name)
 
-    def warning(self, msg: str):
+    def warning(self, msg: str, config_name=None):
         """警告信息（黄色）"""
         self._add_context('WARNING', msg)
-        self._log_with_context('warning', f"⚠️ {msg}")
+        self._log_with_context('warning', f"⚠️ {msg}", config_name)
 
-    def error(self, msg: str, exc_info: bool = True):
+    def error(self, msg: str, config_name=None, exc_info: bool = True):
         """错误信息（红色）- 同时写入文件"""
         self._add_context('ERROR', msg)
-        self._log_with_context('error', f"❌ {msg}", exc_info=exc_info)
+        self._log_with_context(
+            'error', f"❌ {msg}", config_name, exc_info=exc_info)
 
-    def critical(self, msg: str):
+    def critical(self, msg: str, config_name=None):
         """严重错误（红底）- 同时写入文件"""
         self._add_context('CRITICAL', msg)
-        self._log_with_context('critical', f"💥 {msg}")
+        self._log_with_context('critical', f"💥 {msg}", config_name)
 
 
+# 使用线程本地存储来管理配置名称
+_thread_local = threading.local()
+
+def set_current_config_name(config_name):
+    """设置当前配置名称"""
+    _thread_local.current_config_name = config_name
+
+def get_current_config_name():
+    """获取当前配置名称"""
+    return getattr(_thread_local, 'current_config_name', None)
+
+def clear_current_config_name():
+    """清除当前配置名称"""
+    if hasattr(_thread_local, 'current_config_name'):
+        delattr(_thread_local, 'current_config_name')
+
+
+# 创建logger实例
 logger = GameConsoleLogger(debug_mode=False)
+
+# 重写logger方法，自动获取当前配置名称
+def _get_config_name_from_args(args):
+    """从参数中获取配置名称"""
+    if args and isinstance(args[0], str):
+        # 如果第一个参数是字符串，可能是配置名称
+        return args[0]
+    return get_current_config_name()
+
+
+# 重写logger的方法，自动传递配置名称
+original_methods = {}
+
+def _wrap_logger_method(method_name):
+    """包装logger方法，自动传递配置名称"""
+    original_method = getattr(logger, method_name)
+
+    def wrapped_method(msg, *args, **kwargs):
+        # 检查是否已经传递了配置名称
+        if 'config_name' not in kwargs:
+            # 从线程本地存储获取配置名称
+            config_name = get_current_config_name()
+            if config_name:
+                kwargs['config_name'] = config_name
+        return original_method(msg, *args, **kwargs)
+
+    return wrapped_method
+
+
+# 重写所有logger方法
+for method_name in ['info', 'warning', 'error', 'critical', 'debug', 'success', 'system', 'network', 'ai', 'background']:
+    original_methods[method_name] = getattr(logger, method_name)
+    setattr(logger, method_name, _wrap_logger_method(method_name))
 
 # 使用示例
 if __name__ == "__main__":

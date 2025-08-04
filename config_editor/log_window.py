@@ -39,6 +39,12 @@ class LogWindow(QWidget):
         # 不再自动初始化设备，等待用户手动选择
         self.setup_ui()
 
+    def set_active(self, active: bool):
+        """设置日志窗口的活动状态 - 现在只是注册/注销回调"""
+        if active:
+            # 激活时，注册UI回调，传入配置名称
+            self.start_log_capture()
+
     def append_log_safe(self, text):
         """线程安全的日志添加方法"""
         try:
@@ -316,16 +322,16 @@ class LogWindow(QWidget):
         self.update_timer.start(1000)  # 每秒更新一次
 
     def start_log_capture(self):
-        """开始日志捕获 - 设置UI回调"""
-        # 设置logger的UI回调
+        """开始日志捕获 - 注册UI回调，传入配置名称"""
+        # 注册logger的UI回调，传入配置名称
         from module.base.logger import logger
-        logger.set_ui_callback(self.append_log)
+        logger.set_ui_callback(self.append_log, self.config_name)
 
     def stop_log_capture(self):
-        """停止日志捕获 - 清除UI回调"""
-        # 清除logger的UI回调
+        """停止日志捕获 - 注销UI回调"""
+        # 注销logger的UI回调
         from module.base.logger import logger
-        logger.set_ui_callback(None)
+        logger.remove_ui_callback(self.append_log)
 
         # 添加停止分割线
         self.append_stop_separator()

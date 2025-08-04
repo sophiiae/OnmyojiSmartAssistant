@@ -50,6 +50,10 @@ class OSAEditor(ConfigTab):
         self.highlight_timer.timeout.connect(self.clear_all_highlights)
         self.setup_ui()
 
+        # 设置当前日志窗口为活动状态（注册回调）
+        if self.log_window:
+            self.log_window.set_active(True)
+
     def setup_ui(self):
         """设置UI界面"""
         # 主布局 - 使用水平布局来放置配置区域和日志区域
@@ -227,6 +231,23 @@ class OSAEditor(ConfigTab):
         # 添加右侧日志区域到主布局
         main_layout.addWidget(right_widget)
 
+        # 确保日志窗口在创建时就保持活动状态
+        if self.log_window:
+            self.log_window.set_active(True)
+
+    def showEvent(self, a0):
+        """窗口显示时激活日志窗口"""
+        super().showEvent(a0)
+        if self.log_window:
+            self.log_window.set_active(True)
+
+    def hideEvent(self, a0):
+        """窗口隐藏时保持日志窗口活动状态，不注销回调"""
+        super().hideEvent(a0)
+        # 保持日志窗口活动状态，让所有窗口都能同时显示日志
+        if self.log_window:
+            self.log_window.set_active(True)
+
     def setup_section_click_events(self):
         """为所有配置区域设置点击事件"""
         sections = [
@@ -400,6 +421,10 @@ class OSAEditor(ConfigTab):
 
     def closeEvent(self, a0):
         """窗口关闭时的处理"""
+        # 注销日志窗口回调
+        if self.log_window:
+            self.log_window.set_active(False)
+
         if self.script_worker and self.script_worker.isRunning():
             self.script_worker.terminate()
             self.script_worker.wait()

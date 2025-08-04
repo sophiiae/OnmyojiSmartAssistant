@@ -10,7 +10,7 @@ import json
 
 import inflection
 
-from module.base.logger import logger
+from module.base.logger import logger, set_current_config_name, clear_current_config_name
 from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.control.server.device import Device
 from module.config.config import Config
@@ -84,6 +84,8 @@ class Script:
         return True
 
     def start(self):
+        # 设置当前配置名称
+        set_current_config_name(self.config_name)
         logger.info(f'Start scheduler loop: {self.config.model.config_name}')
 
         # 设置脚本为运行状态
@@ -91,40 +93,42 @@ class Script:
         # 设置当前实例为全局实例
         Script._current_instance = self
 
-        while 1:
-            # 检查停止标志
-            if not self.is_running:
-                logger.info("Script stopped by user")
-                break
+        try:
+            while 1:
+                # 检查停止标志
+                if not self.is_running:
+                    logger.info("Script stopped by user")
+                    break
 
-            # Get task
-            task = self.get_next_task()
+                # Get task
+                task = self.get_next_task()
 
-            # Run
-            logger.info(f'Scheduler: Start task ****{task}****')
-            success = self.run(inflection.underscore(task))
+                # Run
+                logger.info(f'Scheduler: Start task ****{task}****')
+                success = self.run(inflection.underscore(task))
 
-            # Check failures
-            # failed = deep_get(self.failure_record, keys=task, default=0)
-            failed = self.failure_record[task] if task in self.failure_record else 0
-            failed = 0 if success else failed + 1
-            # deep_set(self.failure_record, keys=task, value=failed)
-            self.failure_record[task] = failed
-            if failed >= 3:
-                logger.critical(f"Task `{task}` failed 3 or more times.")
-                logger.critical("Possible reason #1: You haven't used it correctly. "
-                                "Please read the help text of the options.")
-                logger.critical("Possible reason #2: There is a problem with this task. "
-                                "Please contact developers or try to fix it yourself.")
-                logger.critical('Request human takeover')
-                exit(1)
+                # Check failures
+                failed = self.failure_record[task] if task in self.failure_record else 0
+                failed = 0 if success else failed + 1
+                self.failure_record[task] = failed
+                if failed >= 3:
+                    logger.critical(f"Task `{task}` failed 3 or more times.")
+                    logger.critical("Possible reason #1: You haven't used it correctly. "
+                                    "Please read the help text of the options.")
+                    logger.critical("Possible reason #2: There is a problem with this task. "
+                                    "Please contact developers or try to fix it yourself.")
+                    logger.critical('Request human takeover')
+                    exit(1)
 
-            if success:
-                self.is_running = True
-                del self.config
-                continue
-            else:
-                break
+                if success:
+                    self.is_running = True
+                    del self.config
+                    continue
+                else:
+                    break
+        finally:
+            # 清除当前配置名称
+            clear_current_config_name()
 
     def get_next_task(self) -> str:
         """

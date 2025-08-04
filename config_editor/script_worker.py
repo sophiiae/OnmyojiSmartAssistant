@@ -37,6 +37,7 @@ class ScriptWorker(QThread):
 
         except Exception as e:
             if not self._stop_flag:
+                logger.error(f"Script error: {str(e)}")
                 self.error.emit(str(e))
         finally:
             # 停止日志捕获

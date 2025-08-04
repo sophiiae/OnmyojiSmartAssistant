@@ -319,4 +319,17 @@ class ConfigEditor(QMainWindow):
                         save_method()
                 except Exception:
                     pass  # 忽略保存错误
+
+        # 确保所有tab的日志窗口都保持活动状态
+        for i in range(self.tabs.count()):
+            tab = self.tabs.widget(i)
+            try:
+                if tab:
+                    log_window = getattr(tab, 'log_window', None)
+                    if log_window:
+                        # 所有日志窗口都保持活动状态
+                        log_window.set_active(True)
+            except Exception:
+                pass  # 忽略日志窗口操作错误
+
         self.last_index = idx
