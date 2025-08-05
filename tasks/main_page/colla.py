@@ -15,14 +15,12 @@ class Colla(EXP):
         max = 10
         count = 0
         while count < max:
-            if self.click_static_target(self.I_EXP_CHAPTER_28):
-                self.click_static_target(self.I_EXP_BUTTON)
+            self.enter_chap_28()
 
             logger.info(f"======== Exp Chapter Entered =========")
             count = self.colla_chapter_battle(max, count)
 
-            if not self.appear(self.I_EXP_C_CHAPTER):
-                self.after_chapter_process()
+            self.after_chapter_battle()
 
         self.exit_chapter()
         self.goto(page_main)

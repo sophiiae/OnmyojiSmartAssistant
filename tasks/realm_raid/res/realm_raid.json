@@ -195,5 +195,61 @@
     "area": "351, 378, 24, 29",
     "file": "./tasks/realm_raid/res/rr_guild_conquer.png",
     "description": "寮突破100%攻破"
+  },
+  {
+    "name": "rr_guild_lose",
+    "type": "image",
+    "roi": "675, 188, 66, 18",
+    "area": "666, 179, 84, 36",
+    "file": "./tasks/realm_raid/res/rr_guild_lose.png",
+    "description": "寮突破失败标记"
+  },
+  {
+    "name": "guild_partition_1",
+    "type": "image",
+    "roi": "513, 140, 228, 121",
+    "area": "513, 140, 228, 121",
+    "file": "",
+    "description": "寮突破1"
+  },
+  {
+    "name": "guild_partition_2",
+    "type": "image",
+    "roi": "850, 140, 228, 121",
+    "area": "850, 140, 228, 121",
+    "file": "",
+    "description": "寮突破2"
+  },
+  {
+    "name": "guild_partition_3",
+    "type": "image",
+    "roi": "513, 275, 228, 121",
+    "area": "513, 275, 228, 121",
+    "file": "",
+    "description": "寮突破3"
+  },
+  {
+    "name": "guild_partition_4",
+    "type": "image",
+    "roi": "850, 275, 228, 121",
+    "area": "850, 275, 228, 121",
+    "file": "",
+    "description": "寮突破4"
+  },
+  {
+    "name": "guild_partition_5",
+    "type": "image",
+    "roi": "513, 410, 228, 121",
+    "area": "513, 410, 228, 121",
+    "file": "",
+    "description": "寮突破5"
+  },
+  {
+    "name": "guild_partition_6",
+    "type": "image",
+    "roi": "850, 410, 228, 121",
+    "area": "850, 410, 228, 121",
+    "file": "",
+    "description": "寮突破6"
   }
 ]

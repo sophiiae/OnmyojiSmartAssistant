@@ -16,15 +16,15 @@
   {
     "name": "raid_down",
     "type": "swipe",
-    "roi_start": "745, 535, 10, 30",
-    "roi_end": "745, 255, 10, 30",
+    "roi_start": "745, 535, 10, 0",
+    "roi_end": "745, 230, 10, 0",
     "description": "往下翻"
   },
   {
     "name": "raid_up",
     "type": "swipe",
-    "roi_start": "745, 255, 10, 30",
-    "roi_end": "745, 535, 10, 30",
+    "roi_start": "745, 230, 10, 0",
+    "roi_end": "745, 535, 10, 0",
     "description": "往上翻"
   }
 ]

@@ -209,6 +209,48 @@ class RealmRaidAssets:
 		area=(351, 378, 24, 29),
 		file="./tasks/realm_raid/res/rr_guild_conquer.png"
 	)
+	# 寮突破失败标记 
+	I_RR_GUILD_LOSE = RuleImage(
+		roi=(675, 188, 66, 18),
+		area=(666, 179, 84, 36),
+		file="./tasks/realm_raid/res/rr_guild_lose.png"
+	)
+	# 寮突破1 
+	I_GUILD_PARTITION_1 = RuleImage(
+		roi=(513, 140, 228, 121),
+		area=(513, 140, 228, 121),
+		file=""
+	)
+	# 寮突破2 
+	I_GUILD_PARTITION_2 = RuleImage(
+		roi=(850, 140, 228, 121),
+		area=(850, 140, 228, 121),
+		file=""
+	)
+	# 寮突破3 
+	I_GUILD_PARTITION_3 = RuleImage(
+		roi=(513, 275, 228, 121),
+		area=(513, 275, 228, 121),
+		file=""
+	)
+	# 寮突破4 
+	I_GUILD_PARTITION_4 = RuleImage(
+		roi=(850, 275, 228, 121),
+		area=(850, 275, 228, 121),
+		file=""
+	)
+	# 寮突破5 
+	I_GUILD_PARTITION_5 = RuleImage(
+		roi=(513, 410, 228, 121),
+		area=(513, 410, 228, 121),
+		file=""
+	)
+	# 寮突破6 
+	I_GUILD_PARTITION_6 = RuleImage(
+		roi=(850, 410, 228, 121),
+		area=(850, 410, 228, 121),
+		file=""
+	)
 
 
 	# Swipe Rule Assets
@@ -226,14 +268,14 @@ class RealmRaidAssets:
 	)
 	# 往下翻 
 	S_RAID_DOWN = RuleSwipe(
-		roi_start=(745, 535, 10, 30),
-		roi_end=(745, 255, 10, 30),
+		roi_start=(745, 535, 10, 0),
+		roi_end=(745, 230, 10, 0),
 		name="raid_down"
 	)
 	# 往上翻 
 	S_RAID_UP = RuleSwipe(
-		roi_start=(745, 255, 10, 30),
-		roi_end=(745, 535, 10, 30),
+		roi_start=(745, 230, 10, 0),
+		roi_end=(745, 535, 10, 0),
 		name="raid_up"
 	)
 

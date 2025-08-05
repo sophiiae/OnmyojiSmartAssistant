@@ -107,25 +107,27 @@ class TaskScript(RealmRaidAssets, Battle):
         image = self.screenshot()
         count, total = self.O_GUILD_RAID_TICKET.digit_counter(image)
         self.class_logger(self.name, f"Got {count} tickets for guild raid. ")
-        retry = 0
-        while count:
-            self.wait_and_shot()
-            if self.appear(self.I_RR_TARGET):
-                retry = 0
+        if count == 0:
+            return True
 
-                self.enter_guild_battle()
-                if self.run_easy_battle(self.I_REALM_RAID_HEADER, self.I_REALM_RAID_FAILED):
-                    count -= 1
+        retry = 0
+        indexes = self.get_guild_partition_indexes()
+        while count:
+            if not indexes:
+                self.swipe(self.S_RAID_DOWN, duration=600)
+                time.sleep(1)
+                indexes = self.get_guild_partition_indexes()
                 continue
 
-            if retry > 5:
-                break
+            attack_index = indexes.pop(0)
 
-            self.swipe(self.S_RAID_DOWN)
-            retry += 1
+            self.enter_guild_battle(self.guild_partitions[attack_index])
+            if self.run_easy_battle(self.I_RR_GUID_PROGRESS, self.I_REALM_RAID_FAILED):
+                count -= 1
+
         return count == 0
 
-    def enter_guild_battle(self):
+    def enter_guild_battle(self, target):
         while 1:
             self.wait_and_shot()
             if not self.appear(self.I_RR_GUID_PROGRESS):
@@ -135,7 +137,7 @@ class TaskScript(RealmRaidAssets, Battle):
                 self.click(self.I_RAID_ATTACK)
                 continue
 
-            self.click(self.I_RR_TARGET)
+            self.click(target)
 
     def start_battle(self, attack_list: list[int]) -> bool:
         # 锁定队伍
@@ -180,8 +182,7 @@ class TaskScript(RealmRaidAssets, Battle):
 
     def enter_battle(self, target):
         while 1:
-            time.sleep(1)
-            self.screenshot()
+            self.wait_and_shot(1)
             if not self.appear(self.I_RR_RANK_ICON):
                 break
 
@@ -206,6 +207,20 @@ class TaskScript(RealmRaidAssets, Battle):
             indexes.reverse()
         else:
             self.reverse = False
+
+        self.class_logger(self.name, f"attack list: {indexes}")
+        return indexes
+
+    def get_guild_partition_indexes(self):
+        image = self.screenshot()
+        indexes = []
+        for idx, part in self.guild_partitions.items():
+            cropped = part.crop(image)
+            if self.I_RAID_BEAT.match_target(cropped, threshold=0.95, cropped=True) or self.I_RR_GUILD_LOSE.match_target(cropped, cropped=True):
+                continue
+            indexes.append(idx)
+
+        self.class_logger(self.name, f"attack list: {indexes}")
         return indexes
 
     @cached_property
@@ -220,6 +235,17 @@ class TaskScript(RealmRaidAssets, Battle):
             7: self.I_REALM_PARTITION_7,
             8: self.I_REALM_PARTITION_8,
             9: self.I_REALM_PARTITION_9
+        }
+
+    @cached_property
+    def guild_partitions(self):
+        return {
+            1: self.I_GUILD_PARTITION_1,
+            2: self.I_GUILD_PARTITION_2,
+            3: self.I_GUILD_PARTITION_3,
+            4: self.I_GUILD_PARTITION_4,
+            5: self.I_GUILD_PARTITION_5,
+            6: self.I_GUILD_PARTITION_6,
         }
 
     def quit_and_fight(self, index, quit_count=4):
