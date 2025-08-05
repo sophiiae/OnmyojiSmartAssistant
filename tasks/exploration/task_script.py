@@ -160,7 +160,7 @@ class TaskScript(ExpBase):
             self.ocr_appear_click(self.O_EXP_CHAPTER)
 
         self.click(self.C_EXP_HARD)
-        self.click_static_target(self.I_EXP_BUTTON)
+        self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)
 
     def enter_chap_28(self):
         while 1:
@@ -171,7 +171,7 @@ class TaskScript(ExpBase):
 
         if self.click_static_target(self.I_EXP_CHAP_28):
             self.click(self.C_EXP_HARD)
-            self.click_static_target(self.I_EXP_BUTTON, 0.97)
+            self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)
 
     def chapter_battle(self):
         # 进入战斗环节

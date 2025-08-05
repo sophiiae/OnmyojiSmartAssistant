@@ -8,6 +8,22 @@
     "description": "主界面"
   },
   {
+    "name": "c_town",
+    "type": "image",
+    "roi": "1065, 32, 90, 98",
+    "area": "1020, 0, 180, 188",
+    "file": "./tasks/general/res/check/c_town.png",
+    "description": "町中节能模式"
+  },
+  {
+    "name": "c_dojo",
+    "type": "image",
+    "roi": "720, 254, 24, 53",
+    "area": "708, 242, 48, 77",
+    "file": "./tasks/general/res/check/c_dojo.png",
+    "description": "町中武馆斗技"
+  },
+  {
     "name": "c_exp",
     "type": "image",
     "roi": "62, 642, 49, 41",
@@ -149,7 +165,7 @@
     "roi": "45, 35, 53, 44",
     "area": "23, 13, 97, 88",
     "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
-    "description": ""
+    "description": "地域鬼王退出"
   },
   {
     "name": "v_main_to_exp",
@@ -187,9 +203,33 @@
     "name": "v_main_to_town",
     "type": "image",
     "roi": "713, 250, 52, 40",
-    "area": "687, 230, 104, 80",
+    "area": "637, 230, 194, 80",
     "file": "./tasks/general/res/goto/v_main_to_town.png",
     "description": "主界面町中入口"
+  },
+  {
+    "name": "v_town_to_main",
+    "type": "image",
+    "roi": "36, 47, 53, 44",
+    "area": "14, 25, 97, 88",
+    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "description": "退出町中"
+  },
+  {
+    "name": "v_town_to_dojo",
+    "type": "image",
+    "roi": "319, 343, 30, 124",
+    "area": "304, 328, 60, 154",
+    "file": "./tasks/general/res/goto/v_town_to_dojo.png",
+    "description": "町中武馆入口"
+  },
+  {
+    "name": "v_dojo_to_town",
+    "type": "image",
+    "roi": "34, 25, 53, 44",
+    "area": "12, 3, 97, 88",
+    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "description": "退出町中武馆"
   },
   {
     "name": "v_exp_to_realm_raid",

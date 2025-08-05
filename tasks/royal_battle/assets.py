@@ -14,6 +14,12 @@ class RoyalBattleAssets:
 		area=(20, 281, 800, 88),
 		file="./tasks/royal_battle/res/rb_ent.png"
 	)
+	# 町中武馆斗技 
+	I_DOJO_TO_ROYAL_BATTLE = RuleImage(
+		roi=(720, 254, 24, 53),
+		area=(708, 242, 48, 77),
+		file="./tasks/general/res/check/c_dojo.png"
+	)
 	# 斗技比赛 
 	I_RB_CONTEST_CHECK = RuleImage(
 		roi=(95, 5, 144, 45),

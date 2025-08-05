@@ -24,6 +24,9 @@ class ConfigModel(BaseModel):
     area_boss: AreaBoss = Field(
         default_factory=AreaBoss
     )
+    royal_battle: RoyalBattle = Field(
+        default_factory=RoyalBattle
+    )
 
     def __init__(self, config_name: str):
         data = self.read_json(config_name)

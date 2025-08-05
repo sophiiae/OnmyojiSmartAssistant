@@ -73,3 +73,21 @@ class BuffClass(Enum):
     GOLD_100_CLOSE = 100  # 金币100
     EXP_50_CLOSE = 110  # 经验50
     EXP_100_CLOSE = 120  # 经验100
+
+class OnmyojiClass(str, Enum):
+    Seimei = '晴明'
+    Hiromasa = '源博雅'
+    Kagura = '神乐'
+    Yaobikuni = '八百比丘尼'
+    Yorimitsu = '源赖光'
+
+class RoyalBattleRank(str, Enum):
+    rank_1 = '一段'
+    rank_2 = '二段'
+    rank_3 = '三段'
+    rank_4 = '四段'
+    rank_5 = '五段'
+    rank_6 = '六段'
+    rank_7 = '七段'
+    rank_8 = '八段'
+    rank_9 = '九段'

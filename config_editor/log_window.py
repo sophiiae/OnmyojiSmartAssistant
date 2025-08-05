@@ -424,9 +424,7 @@ class LogWindow(QWidget):
 
         try:
             success = self.device.capture_screenshot(output_path)
-            if success:
-                self.append_log(f"✅ 截图已保存: {output_path}")
-            else:
+            if not success:
                 self.append_log("❌ 截图失败")
         except Exception as e:
             self.append_log(f"❌ 截图失败: {str(e)}")

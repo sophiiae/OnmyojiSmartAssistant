@@ -56,7 +56,15 @@ page_store = Page(G.I_C_GIFT_SHOP)
 page_store.link(button=G.I_V_STORE_TO_MARKET, destination=page_market)
 page_main.link(button=G.I_V_MAIN_TO_STORE, destination=page_store)
 
-# 町中 Town - TODO
+# 町中 Town
+page_town = Page(G.I_C_TOWN)
+page_town.link(button=G.I_V_TOWN_TO_MAIN, destination=page_main)
+page_main.link(button=G.I_V_MAIN_TO_TOWN, destination=page_town)
+
+# 町中武馆
+page_dojo = Page(G.I_C_DOJO)
+page_dojo.link(button=G.I_V_DOJO_TO_TOWN, destination=page_town)
+page_town.link(button=G.I_V_TOWN_TO_DOJO, destination=page_dojo)
 
 # 休眠页面 Sleep
 page_sleep = Page(G.I_C_SLEEP)

@@ -296,7 +296,7 @@ class TaskBase(MainPageAssets):
             elif self.wait_until_appear(target):
                 continue
 
-    def click_static_target(self, target: RuleImage, threshold: float = 0.9, retry: int = 5):
+    def click_static_target(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.1, retry: int = 5):
         """
         点击静态的图标，比如按钮
         """
@@ -304,10 +304,11 @@ class TaskBase(MainPageAssets):
             return False
 
         for _ in range(retry):
-            self.wait_and_shot(0.6)
+            self.wait_and_shot()
             if not self.appear(target, threshold=threshold):
                 return True
             self.appear_then_click(target, threshold=threshold)
+            time.sleep(delay)
         return False
 
     def click_moving_target(self, target: RuleImage, fail_check: RuleImage, threshold: float = 0.9):

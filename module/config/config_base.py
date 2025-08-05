@@ -593,3 +593,47 @@ class AreaBoss(BaseModel):
         default_factory=SwitchSoulConfig,
         description="御魂切换配置"
     )
+
+
+class RoyalBattleConfig(BaseModel):
+    """
+    斗技段位
+    """
+    elite: bool = Field(
+        default=False,
+        description="是否上名士"
+    )
+
+    rank: RoyalBattleRank = Field(
+        default=RoyalBattleRank.rank_1,
+        description="斗技段位"
+    )
+
+    full_honor_points: bool = Field(
+        default=False,
+        description="是否打满荣誉积分"
+    )
+
+    onmyoji: OnmyojiClass = Field(
+        default=OnmyojiClass.Seimei,
+        description="斗技阴阳师"
+    )
+
+class RoyalBattle(BaseModel):
+    """
+    斗技
+    """
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="斗技任务调度"
+    )
+
+    royal_battle_config: RoyalBattleConfig = Field(
+        default_factory=RoyalBattleConfig,
+        description="斗技配置"
+    )
+
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )

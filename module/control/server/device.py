@@ -201,7 +201,7 @@ class Device:
             logger.error("模拟器截图失败.")
             return False
         cv2.imwrite(filepath, image)
-        logger.background(f"图像已保存: {filepath}")
+        logger.info(f"图像已保存: {filepath}")
         return True
 
     def click(self, x, y):

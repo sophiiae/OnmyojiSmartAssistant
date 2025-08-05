@@ -1,31 +1,63 @@
+from functools import cached_property
 import random
 import time
 from venv import logger
 from module.base.exception import TaskEnd
+from module.config.enums import RoyalBattleRank
+from module.image_processing.rule_image import RuleImage
 from tasks.battle.battle import Battle
-from tasks.general.page import Page, page_exp, page_main
+from tasks.general.page import Page, page_dojo, page_main
 from tasks.royal_battle.assets import RoyalBattleAssets as RB
 from module.base.exception import RequestHumanTakeover
 
 class TaskScript(Battle, RB):
-    name = "Royal battle"
-    current_level = 10
-    levels = [2700, 2400, 2200, 2000, 1800]
+    name = "RoyalBattle"
+    contest_mode = False
 
     # 普通斗技模式 / 斗技赛季模式
-    def run(self, contestMode=False):
+    def run(self):
+        self.rb_config = self.device.config.model.royal_battle.royal_battle_config
         self.screenshot()
-        check_img = self.I_RB_CONTEST_CHECK if contestMode else self.I_RB_CHECK
-        if not self.appear(check_img):
+        if not self.appear(self.page_check):
             self.to_battle_entrance()
 
+        to_elite = self.rb_config.elite
+        if to_elite:
+            self.battle_to_elite()
+        else:
+            self.rank_battle()
+
+        raise TaskEnd(self.name)
+
+    @cached_property
+    def page_check(self):
+        return self.I_RB_CONTEST_CHECK if self.contest_mode else self.I_RB_CHECK
+
+    @cached_property
+    def rank_map(self):
+        return {
+            RoyalBattleRank.rank_1: 1001,
+            RoyalBattleRank.rank_2: 1200,
+            RoyalBattleRank.rank_3: 1400,
+            RoyalBattleRank.rank_4: 1600,
+            RoyalBattleRank.rank_5: 1800,
+            RoyalBattleRank.rank_6: 2000,
+            RoyalBattleRank.rank_7: 2200,
+            RoyalBattleRank.rank_8: 2400,
+            RoyalBattleRank.rank_9: 2700,
+        }
+
+    def battle_to_elite(self):
         retry = 0
-        while 1 and self.current_level > 0:
+        while 1:
             logger.info(f"======== Battle start =========")
 
             self.wait_and_shot(1)
-            if self.appear(check_img):
-                if self.appear(self.I_RB_NOTABLE_NOTIFICATION, 0.95) or self.appear(self.I_RB_NOTABLE_BADGE, 0.95) or retry > 5:
+            if self.appear(self.page_check):
+                if self.appear(self.I_RB_NOTABLE_NOTIFICATION, 0.95) or self.appear(self.I_RB_NOTABLE_BADGE, 0.95):
+                    raise TaskEnd(self.name)
+
+                if retry > 5:
                     raise RequestHumanTakeover(self.name)
 
                 if not self.appear(self.I_RB_FLOWER_BADGE):
@@ -33,67 +65,66 @@ class TaskScript(Battle, RB):
                     retry += 1
                     continue
 
-                self.battle_process(contest=contestMode)
+                self.battle_process()
+                retry = 0
 
-        raise TaskEnd(self.name)
+    def rank_battle(self):
+        target_rank = self.rb_config.rank
+        target_score = self.rank_map[target_rank]
+
+        while 1:
+            if self.check_score(target_score):
+                break
+
+            if self.appear(self.I_RB_FIGHT_BLUE):
+                self.check_score(target_score)
+                break
+
+            self.battle_process()
 
     def check_score(self, target):
         image = self.screenshot()
         score = self.O_RB_SCORE.digit(image)
         return score >= target
 
-    def get_level(self):
-        image = self.screenshot()
-        if self.appear(self.I_REWARD):
-            self.get_reward()
-            time.sleep(0.5)
-
-        image = self.screenshot()
-        score = self.O_RB_SCORE.digit(image)
-        level = 5
-        for lv, score_threshold in enumerate(self.levels):
-            if score > score_threshold:
-                level = lv
-                break
-        return level
-
     def to_battle_entrance(self):
         # 进入庭院页面
         if not self.check_page_appear(page_main):
             self.goto(page_main)
 
-        self.go_to_daily_tasks_board()
-        self.go_to_battle_page()
+        self.switch_souls_and_onmyoji()
+        self.goto(page_dojo, page_main)
 
-    def go_to_daily_tasks_board(self):
-        # 进入日常界面
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_RB_DAILY):
+            if self.appear(self.page_check):
                 break
 
-            if self.appear(self.I_RB_ENT):
-                self.click(self.I_RB_ENT)
-            else:
-                self.swipe(self.S_RB_TO_LEFT)
+            if self.appear(self.I_DOJO_TO_ROYAL_BATTLE):
+                self.click(self.I_DOJO_TO_ROYAL_BATTLE)
 
-    def go_to_battle_page(self):
-        # 进入斗技页面
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_RB_CHECK) or self.appear(self.I_RB_CONTEST_CHECK):
-                break
+    def switch_souls_and_onmyoji(self):
+        ss_config = self.config.model.royal_battle.switch_soul_config
+        ss_enable = ss_config.enable
 
-            if self.appear(self.I_RB_GOTO):
-                self.click(self.I_RB_GOTO)
-                continue
+        # 换御魂
+        if ss_enable:
+            while 1:
+                self.wait_and_shot()
+                if self.appear(self.I_SCROLL_OPEN):
+                    break
 
-            if self.appear(self.I_RB_LOGO):
-                self.click(self.I_RB_LOGO)
+                if self.appear_then_click(self.I_SCROLL_CLOSE):
+                    continue
 
-    def battle_process(self, contest=False):
+            self.run_switch_souls(
+                self.I_MAIN_SHIKI_BOOK_ENT, ss_config.switch_group_team, self.I_C_MAIN)
+
+        # TODO: 换阴阳师
+
+    def battle_process(self):
         time.sleep(1)
-        if contest:
+        if self.contest_mode:
             while 1:
                 self.wait_and_shot()
                 if not self.appear(self.I_RB_CONTEST_CHECK):
@@ -107,6 +138,7 @@ class TaskScript(Battle, RB):
                     self.click(self.I_RB_FIGHT_BLUE)
         else:
             self.start_battle()
+
         self.battle_ready()
         self.toggle_battle_auto()
 

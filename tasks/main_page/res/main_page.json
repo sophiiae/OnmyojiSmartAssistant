@@ -278,5 +278,21 @@
     "area": "927, 142, 92, 92",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "关闭商店礼包推荐"
+  },
+  {
+    "name": "main_shiki_book_ent",
+    "type": "image",
+    "roi": "1095, 617, 66, 28",
+    "area": "1081, 603, 94, 56",
+    "file": "./tasks/main_page/res/main_shiki_book_ent.png",
+    "description": "主页式神录入口"
+  },
+  {
+    "name": "main_onmyoji_ent",
+    "type": "image",
+    "roi": "998, 618, 38, 35",
+    "area": "980, 600, 74, 71",
+    "file": "./tasks/main_page/res/main_onmyoji_ent.png",
+    "description": "阴阳术入口"
   }
 ]

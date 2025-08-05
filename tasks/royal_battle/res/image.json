@@ -8,6 +8,14 @@
     "description": "斗技入口"
   },
   {
+    "name": "dojo_to_royal_battle",
+    "type": "image",
+    "roi": "720, 254, 24, 53",
+    "area": "708, 242, 48, 77",
+    "file": "./tasks/general/res/check/c_dojo.png",
+    "description": "町中武馆斗技"
+  },
+  {
     "name": "rb_contest_check",
     "type": "image",
     "roi": "95, 5, 144, 45",

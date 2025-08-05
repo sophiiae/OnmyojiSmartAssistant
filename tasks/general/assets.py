@@ -67,6 +67,18 @@ class GeneralAssets:
 		area=(600, 110, 500, 96),
 		file="./tasks/general/res/check/c_main.png"
 	)
+	# 町中节能模式 
+	I_C_TOWN = RuleImage(
+		roi=(1065, 32, 90, 98),
+		area=(1020, 0, 180, 188),
+		file="./tasks/general/res/check/c_town.png"
+	)
+	# 町中武馆斗技 
+	I_C_DOJO = RuleImage(
+		roi=(720, 254, 24, 53),
+		area=(708, 242, 48, 77),
+		file="./tasks/general/res/check/c_dojo.png"
+	)
 	# 探索界面妖标志 
 	I_C_EXP = RuleImage(
 		roi=(62, 642, 49, 41),
@@ -169,7 +181,7 @@ class GeneralAssets:
 		area=(1161, 89, 92, 92),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
-	#  
+	# 地域鬼王退出 
 	I_V_BOSS_TO_EXP = RuleImage(
 		roi=(45, 35, 53, 44),
 		area=(23, 13, 97, 88),
@@ -202,8 +214,26 @@ class GeneralAssets:
 	# 主界面町中入口 
 	I_V_MAIN_TO_TOWN = RuleImage(
 		roi=(713, 250, 52, 40),
-		area=(687, 230, 104, 80),
+		area=(637, 230, 194, 80),
 		file="./tasks/general/res/goto/v_main_to_town.png"
+	)
+	# 退出町中 
+	I_V_TOWN_TO_MAIN = RuleImage(
+		roi=(36, 47, 53, 44),
+		area=(14, 25, 97, 88),
+		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+	)
+	# 町中武馆入口 
+	I_V_TOWN_TO_DOJO = RuleImage(
+		roi=(319, 343, 30, 124),
+		area=(304, 328, 60, 154),
+		file="./tasks/general/res/goto/v_town_to_dojo.png"
+	)
+	# 退出町中武馆 
+	I_V_DOJO_TO_TOWN = RuleImage(
+		roi=(34, 25, 53, 44),
+		area=(12, 3, 97, 88),
+		file="./tasks/general/res/buttons/b_blue_left_angle.png"
 	)
 	# 探索界面寮突破入口 
 	I_V_EXP_TO_REALM_RAID = RuleImage(
