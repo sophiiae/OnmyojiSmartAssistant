@@ -30,6 +30,10 @@ class Chapters(str, Enum):
     CHAPTER_27 = "第二十七章"
     CHAPTER_28 = "第二十八章"
 
+class ChapterHardness(str, Enum):
+    NORMAL = "普通"
+    HARD = "困难"
+
 class ChooseRarity(str, Enum):
     N = "N卡"
     S = "素材"
@@ -75,6 +79,7 @@ class BuffClass(Enum):
     EXP_100_CLOSE = 120  # 经验100
 
 class OnmyojiClass(str, Enum):
+    AUTO = '自动'
     Seimei = '晴明'
     Hiromasa = '源博雅'
     Kagura = '神乐'

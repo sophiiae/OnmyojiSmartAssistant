@@ -127,8 +127,8 @@ class ExplorationAssets:
 	)
 	# 探索章节内发现物品 
 	I_EXP_CHAP_REWARD = RuleImage(
-		roi=(635, 489, 33, 21),
-		area=(430, 300, 450, 300),
+		roi=(414, 505, 44, 33),
+		area=(250, 300, 750, 300),
 		file="./tasks/exploration/res/exp_chap_reward.png"
 	)
 	# 章节内小标志 
@@ -310,14 +310,14 @@ class ExplorationAssets:
 	)
 	# 往左滑动,往右走 
 	S_EXP_TO_RIGHT = RuleSwipe(
-		roi_start=(700, 200, 200, 300),
-		roi_end=(150, 200, 350, 300),
+		roi_start=(750, 400, 100, 180),
+		roi_end=(300, 400, 100, 180),
 		name="exp_to_right"
 	)
 	# 往右滑动,往左走 
 	S_EXP_TO_LEFT = RuleSwipe(
-		roi_start=(200, 200, 400, 300),
-		roi_end=(800, 200, 100, 300),
+		roi_start=(300, 400, 100, 180),
+		roi_end=(750, 400, 100, 180),
 		name="exp_to_left"
 	)
 	# 往左滑动,看右边的式神（跨度较大） 

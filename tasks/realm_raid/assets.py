@@ -251,6 +251,12 @@ class RealmRaidAssets:
 		area=(850, 410, 228, 121),
 		file=""
 	)
+	# 寮突破未开启标记 
+	I_GUILD_RAID_CLOSE = RuleImage(
+		roi=(680, 218, 62, 68),
+		area=(649, 187, 124, 130),
+		file="./tasks/realm_raid/res/guild_raid_close.png"
+	)
 
 
 	# Swipe Rule Assets

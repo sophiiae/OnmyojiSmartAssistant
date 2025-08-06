@@ -46,7 +46,7 @@ class RoyalBattleSection(QGroupBox):
 
         # 阴阳师选择（无CheckBox，左对齐）
         self.onmyoji = SelectButton()
-        self.onmyoji.addItems(["晴明", "源博雅", "神乐", "八百比丘尼", "源赖光"])
+        self.onmyoji.addItems(["自动", "晴明", "源博雅", "神乐", "八百比丘尼", "源赖光"])
         self.onmyoji.setCurrentText(self.royal_battle_config["onmyoji"])
         add_left_row(royal_battle_layout, [QLabel("阴阳师:"), self.onmyoji])
 

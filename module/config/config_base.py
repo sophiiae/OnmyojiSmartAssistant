@@ -234,11 +234,6 @@ class QuestInviteConfig(BaseModel):
         description="接受勾玉悬赏"
     )
 
-    invite_gold: bool = Field(
-        default=False,
-        description="接受金币悬赏"
-    )
-
     invite_ap: bool = Field(
         default=False,
         description="接受体力悬赏"
@@ -261,11 +256,6 @@ class AcceptQuestConfig(BaseModel):
     accept_jade: bool = Field(
         default=False,
         description="接受勾玉悬赏"
-    )
-
-    accept_gold: bool = Field(
-        default=False,
-        description="接受金币悬赏"
     )
 
     accept_ap: bool = Field(
@@ -379,6 +369,12 @@ class ExplorationConfig(BaseModel):
         default=Chapters.CHAPTER_28,
         title="探索章节",
         description="探索章节 默认二十八"
+    )
+
+    chapter_hardness: ChapterHardness = Field(
+        default=ChapterHardness.HARD,
+        title="探索难度",
+        description="探索难度 默认困难"
     )
 
     # Backup/fodder settings
@@ -615,7 +611,7 @@ class RoyalBattleConfig(BaseModel):
     )
 
     onmyoji: OnmyojiClass = Field(
-        default=OnmyojiClass.Seimei,
+        default=OnmyojiClass.AUTO,
         description="斗技阴阳师"
     )
 

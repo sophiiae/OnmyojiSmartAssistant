@@ -274,10 +274,10 @@ class MainPageAssets:
 		file="./tasks/main_page/res/daily_jade.png"
 	)
 	# 每日寿司 
-	I_DAILY_EP = RuleImage(
+	I_DAILY_AP = RuleImage(
 		roi=(737, 489, 26, 28),
 		area=(724, 476, 52, 54),
-		file="./tasks/main_page/res/daily_ep.png"
+		file="./tasks/main_page/res/daily_ap.png"
 	)
 	# 寮礼包 
 	I_GUILD_PACK = RuleImage(
@@ -396,10 +396,10 @@ class MainPageAssets:
 		file="./tasks/main_page/res/quest/quest_jade.png"
 	)
 	# 体协邀请 
-	I_QUEST_EP = RuleImage(
+	I_QUEST_AP = RuleImage(
 		roi=(654, 460, 60, 47),
 		area=(526, 420, 235, 135),
-		file="./tasks/main_page/res/quest/quest_ep.png"
+		file="./tasks/main_page/res/quest/quest_ap.png"
 	)
 	# 狗粮协作邀请 
 	I_QUEST_DOG = RuleImage(

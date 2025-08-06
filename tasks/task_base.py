@@ -1,4 +1,5 @@
 from datetime import datetime
+from functools import cached_property
 from typing import Union
 import numpy as np
 import time
@@ -24,7 +25,7 @@ class TaskBase(MainPageAssets):
     limit_count: int  # 限制运行的次数
     current_count: int  # 当前运行的次数
 
-    def __init__(self, device: Device, ignore_quest=False) -> None:
+    def __init__(self, device: Device) -> None:
         """
 
         :rtype: object
@@ -36,7 +37,6 @@ class TaskBase(MainPageAssets):
         self.animates = {}  # 保存缓存
         self.start_time = datetime.now()  # 启动的时间
         self.current_count = 0  # 战斗次数
-        self.ignore_quest = ignore_quest
 
     def _burst(self) -> bool:
         """
@@ -47,27 +47,48 @@ class TaskBase(MainPageAssets):
         self.check_request_invitation()
         return True
 
+    @cached_property
+    def accept_request_map(self):
+        return {
+            'accept_jade': [self.I_QUEST_JADE],
+            'accept_ap': [self.I_QUEST_AP],
+            'accept_virtual': [self.I_QUEST_VIRTUAL],
+            'accept_pet_food': [self.I_QUEST_DOG, self.I_QUEST_CAT],
+        }
+
     def check_request_invitation(self):
         if not self.appear(self.I_QUEST_ACCEPT):
             return False
 
-        click_button = self.I_QUEST_IGNORE
+        # 查看设置
+        quest_config = self.device.config.model.wanted_quests.accept_quest_config
+        accept_types = [
+            k for k, v in quest_config.model_dump().items() if v is True]
 
-        if not self.ignore_quest:
-            # 只接受勾协
-            if self.appear(self.I_QUEST_JADE, 0.96) or self.appear(self.I_QUEST_CAT, 0.96) or self.appear(self.I_QUEST_DOG, 0.96):
+        # 如果任何类型都不接受直接返回
+        if not accept_types:
+            return False
+
+        accept_targets = []
+        for type, imgs in self.accept_request_map.items():
+            if type in accept_types:
+                accept_targets.extend(imgs)
+
+        # 查看邀请符不符合设置
+        click_button = self.I_QUEST_IGNORE
+        for t in accept_targets:
+            if self.appear(t, 0.96):
                 click_button = self.I_QUEST_ACCEPT
-            elif self.appear(self.I_QUEST_VIRTUAL, 0.96):
-                click_button = self.I_QUEST_ACCEPT
+                break
 
         while 1:
-            self.device.get_screenshot()
+            self.wait_and_shot()
             if not self.appear(target=click_button, threshold=0.96):
                 logger.info('Deal with invitation done')
                 break
-            if self.appear_then_click(click_button, threshold=0.96):
-                time.sleep(0.3)
-                continue
+
+            self.appear_then_click(click_button, threshold=0.96)
+
         return True
 
     def wait_request(self):
@@ -148,16 +169,12 @@ class TaskBase(MainPageAssets):
         Args:
             target (RuleImage): _description_
             threshold (float, optional): _description_. Defaults to 0.9.
-            interval (float, optional): _description_. Defaults to 1.
         """
-        if not isinstance(target, RuleImage):
-            return False
+        if self.appear(target, threshold=threshold):
+            self.click(target)
+            return True
 
-        appear = self.appear(target, threshold=threshold)
-        if appear:
-            x, y = target.coord()
-            self.device.click(x, y)
-        return appear
+        return False
 
     def wait_for_result(self, pass_t: RuleImage, fail_t: RuleImage,
                         limit: float = 10,
@@ -199,7 +216,7 @@ class TaskBase(MainPageAssets):
         self._burst()
         return self.image
 
-    def swipe(self, swipe: RuleSwipe, interval: float = 0.5, duration: int = 400) -> None:
+    def swipe(self, swipe: RuleSwipe, duration: int = 400) -> None:
         """swipe
 
         Args:
@@ -210,29 +227,12 @@ class TaskBase(MainPageAssets):
         if not isinstance(swipe, RuleSwipe):
             return
 
-        if interval:
-            if swipe.name in self.interval_timer:
-                # 如果传入的限制时间不一样，则替换限制新的传入的时间
-                if self.interval_timer[swipe.name].waiting_limit != interval:
-                    self.interval_timer[swipe.name] = Timer(interval)
-            else:
-                # 如果没有限制时间，则创建限制时间
-                self.interval_timer[swipe.name] = Timer(interval)
-            # 如果时间还没到达，则不执行
-            if not self.interval_timer[swipe.name].reached():
-                return
-
         logger.info(f"[Swipe] Executing Swipe for {swipe.name}")
         sx, sy, ex, ey = swipe.coord()
         self.device.swipe(start_x=sx, start_y=sy, end_x=ex,
                           end_y=ey, duration=duration)
 
-        # 执行后，如果有限制时间，则重置限制时间
-        if interval:
-            # logger.info(f'Swipe {swipe.name}')
-            self.interval_timer[swipe.name].reset()
-
-    def click(self, target: Union[RuleImage, RuleClick], click_delay: float = 0.2):
+    def click(self, target: Union[RuleImage, RuleClick]):
         """click
 
         Args:
@@ -242,7 +242,6 @@ class TaskBase(MainPageAssets):
         Returns:
             bool:
         """
-        time.sleep(click_delay)
         x, y = target.coord()
         self.device.click(x=x, y=y)
         time.sleep(0.5)
@@ -259,6 +258,13 @@ class TaskBase(MainPageAssets):
         self.device.long_click(x, y)
         time.sleep(0.5)
 
+    def find_ocr_target(self, target: RuleOcr) -> bool:
+        """
+        找到ocr目标，如果目标存在，则返回True，否则返回False
+        """
+        area = target.ocr_full(self.screenshot(), keyword=target.keyword)
+        return area != (0, 0, 0, 0)
+
     def ocr_appear_click(self, target: RuleOcr) -> bool:
         """
         ocr识别目标，如果目标存在，则触发动作
@@ -266,13 +272,14 @@ class TaskBase(MainPageAssets):
         :param action:
         :return:
         """
-        area = target.ocr_full(self.screenshot(), keyword=target.keyword)
-
-        if area == (0, 0, 0, 0):
+        if not self.find_ocr_target(target):
             return False
+        self.ocr_click(target)
+        return True
+
+    def ocr_click(self, target: RuleOcr):
         x, y = target.coord()
         self.device.click(x, y)
-        return True
 
     def random_click_right(self, click_delay=0.2):
         """Perform random click within screen
@@ -300,9 +307,6 @@ class TaskBase(MainPageAssets):
         """
         点击静态的图标，比如按钮
         """
-        if not isinstance(target, RuleImage):
-            return False
-
         for _ in range(retry):
             self.wait_and_shot()
             if not self.appear(target, threshold=threshold):
@@ -315,9 +319,6 @@ class TaskBase(MainPageAssets):
         """
         点击移动的图标，比如怪物
         """
-        if not isinstance(target, RuleImage) or not isinstance(fail_check, RuleImage):
-            return False
-
         while 1:
             self.wait_and_shot(0.1)
             if not self.appear(fail_check, threshold=threshold):

@@ -54,6 +54,14 @@ class ExplorationSection(QGroupBox):
         self.chapter.setCurrentText(self.exploration_config["chapter"])
         add_left_row(exploration_layout, [QLabel("章节:"), self.chapter])
 
+        # 难度（无CheckBox，左对齐）
+        self.chapter_hardness = SelectButton()
+        self.chapter_hardness.addItems(["普通", "困难"])
+        self.chapter_hardness.setCurrentText(
+            self.exploration_config["chapter_hardness"])
+        add_left_row(exploration_layout, [
+                     QLabel("章节难度:"), self.chapter_hardness])
+
         # 自动补充狗粮（CheckBox独占一行）
         self.auto_backup = QCheckBox("自动补充狗粮")
         self.auto_backup.setChecked(self.exploration_config["auto_backup"])
@@ -140,6 +148,8 @@ class ExplorationSection(QGroupBox):
         self.exploration_config["buff_exp_100"] = self.buff_exp_100.isChecked()
         self.exploration_config["count_max"] = self.count_max.value()
         self.exploration_config["chapter"] = self.chapter.currentText()
+        self.exploration_config["chapter_hardness"] = self.chapter_hardness.currentText(
+        )
         self.exploration_config["auto_backup"] = self.auto_backup.isChecked()
         self.exploration_config["backup_rarity"] = self.backup_rarity.currentText(
         )

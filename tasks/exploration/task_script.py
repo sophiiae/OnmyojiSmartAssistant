@@ -1,7 +1,7 @@
 import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
-from module.config.enums import Chapters
+from module.config.enums import ChapterHardness, Chapters
 from tasks.exploration.exp_base import ExpBase
 from tasks.general.page import page_exp, page_main, page_realm_raid
 
@@ -10,6 +10,7 @@ import time
 
 class TaskScript(ExpBase):
     init_battle = True
+    init_hardness = True
 
     def run(self):
         self.exp_config = self.config.model.exploration
@@ -20,15 +21,12 @@ class TaskScript(ExpBase):
 
         # 判断是否开启绘卷模式
         scroll_mode = self.exp_config.scroll_mode
-        if scroll_mode.scroll_mode_enable:
-            exp_count = 50
-        else:
-            exp_count = self.exp_config.exploration_config.count_max
+        exp_count = self.exp_config.exploration_config.count_max
 
         self.check_ticket()
 
         count = 0
-        while exp_count > 0 and count < exp_count:
+        while count < exp_count:
             # 检查票数
             self.check_ticket()
 
@@ -41,9 +39,6 @@ class TaskScript(ExpBase):
             self.after_chapter_battle()
 
             count += 1
-
-        # 关闭章节探索提示
-        self.wait_until_click(self.I_EXP_CHAPTER_DISMISS_ICON, 2)
 
         # 绘卷模式去探索页面，减少页面跳转
         if scroll_mode.scroll_mode_enable:
@@ -64,15 +59,21 @@ class TaskScript(ExpBase):
         if not self.init_battle:
             return
 
-        ss_config = self.config.model.exploration.switch_soul_config
+        ss_config = self.exp_config.switch_soul_config
         ss_enable = ss_config.enable
         if ss_enable:
             self.run_switch_souls(
                 self.I_SHIKI_BOOK_ENT, ss_config.switch_group_team, self.I_EXP_C_CHAPTER)
-            self.init_battle = False
+
+        self.toggle_exp_team_lock(
+            self.exp_config.exploration_config.lock_team_enable)
+
+        self.init_battle = False
 
     def after_chapter_battle(self):
-        time.sleep(1)
+        # 检查章节奖励
+        self.get_chapter_reward()
+
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
@@ -103,17 +104,13 @@ class TaskScript(ExpBase):
                     time.sleep(0.7)
                     self.random_click_right()
 
-    def enter_chapter(self):
-        pick_chapter = self.exp_config.exploration_config.chapter
-        if pick_chapter is Chapters.CHAPTER_28:
-            self.enter_chap_28()
-            return
-
+    def find_assigned_chapter(self, pick_chapter):
         chapter_list = [chapter.value for chapter in Chapters]
         chapter_set = set(chapter_list)  # For faster lookup
         swipe_count = 0
         swipe_action = self.S_EXP_CHAPTER_UP
 
+        # 找到预设章节位置，如果不在当前页面，则滑动
         while 1:
             image = self.wait_and_shot()
             results = self.O_EXP_CHAPTER.detect_and_ocr(image)
@@ -151,16 +148,41 @@ class TaskScript(ExpBase):
 
             self.O_EXP_CHAPTER.keyword = pick_chapter
 
+        # 找到预设章节
+        self.find_ocr_target(self.O_EXP_CHAPTER)
+
+    def enter_chapter(self):
+        pick_chapter = self.exp_config.exploration_config.chapter
+        if pick_chapter is Chapters.CHAPTER_28:
+            self.enter_chap_28()
+            return
+
+        # 如果当前章节不是预设章节，则找到预设章节
+        if self.O_EXP_CHAPTER.keyword != pick_chapter:
+            self.find_assigned_chapter(pick_chapter)
+            self.init_hardness = True
+            self.select_chapter_hardness()
+
         # 进入预设章节
         while 1:
             self.wait_and_shot(0.6)
             if self.appear(self.I_EXP_BUTTON, 0.98):
                 break
 
-            self.ocr_appear_click(self.O_EXP_CHAPTER)
+            self.ocr_click(self.O_EXP_CHAPTER)
 
-        self.click(self.C_EXP_HARD)
         self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)
+
+    def select_chapter_hardness(self):
+        if not self.init_hardness:
+            return
+
+        is_hard = self.exp_config.exploration_config.chapter_hardness == ChapterHardness.HARD
+        if is_hard:
+            self.click(self.C_EXP_HARD)
+        else:
+            self.click(self.C_EXP_REGULAR)
+        self.init_hardness = False
 
     def enter_chap_28(self):
         while 1:
@@ -170,7 +192,7 @@ class TaskScript(ExpBase):
             self.swipe(self.S_EXP_CHAPTER_UP)
 
         if self.click_static_target(self.I_EXP_CHAP_28):
-            self.click(self.C_EXP_HARD)
+            self.select_chapter_hardness()
             self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)
 
     def chapter_battle(self):
@@ -190,7 +212,6 @@ class TaskScript(ExpBase):
                 self.click_moving_target(self.I_EXP_BOSS, self.I_EXP_C_CHAPTER)
 
                 if self.run_easy_battle(self.I_EXP_C_CHAPTER):
-                    self.get_chapter_reward()
                     break
                 else:
                     stuck_count += 1
@@ -212,8 +233,6 @@ class TaskScript(ExpBase):
                 self.left_check()
                 swipe_count = 0
             time.sleep(0.3)
-
-        time.sleep(1)
 
     def check_auto_rotate(self):
         if not self.turn_on_auto_rotate():
@@ -257,8 +276,6 @@ class TaskScript(ExpBase):
             self.swipe(self.S_EXP_TO_LEFT)
 
     def get_chapter_reward(self):
-        self.class_logger(self.name, "Trying to find chapter reward...")
-        # 章节通关奖励，好像最多只有三个
         found = False
         time.sleep(1)
         while 1:
@@ -266,10 +283,12 @@ class TaskScript(ExpBase):
             if not self.appear(self.I_EXP_C_CHAPTER, 0.95):
                 break
 
-            if self.wait_until_click(self.I_EXP_CHAP_REWARD):
-                if self.appear(self.I_GAIN_REWARD):
-                    self.random_click_right()
-                    found = True
+            if self.appear(self.I_GAIN_REWARD):
+                self.random_click_right()
+                found = True
+
+            if self.appear(self.I_EXP_CHAP_REWARD):
+                self.click(self.I_EXP_CHAP_REWARD)
 
         if found:
             self.class_logger(self.name, "Got all chapter reward.")

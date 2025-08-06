@@ -80,11 +80,11 @@
     "description": "勾协邀请"
   },
   {
-    "name": "quest_ep",
+    "name": "quest_ap",
     "type": "image",
     "roi": "654, 460, 60, 47",
     "area": "526, 420, 235, 135",
-    "file": "./tasks/main_page/res/quest/quest_ep.png",
+    "file": "./tasks/main_page/res/quest/quest_ap.png",
     "description": "体协邀请"
   },
   {

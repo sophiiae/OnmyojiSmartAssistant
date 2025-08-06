@@ -3,7 +3,7 @@ import random
 import time
 from venv import logger
 from module.base.exception import TaskEnd
-from module.config.enums import RoyalBattleRank
+from module.config.enums import RoyalBattleRank, OnmyojiClass
 from module.image_processing.rule_image import RuleImage
 from tasks.battle.battle import Battle
 from tasks.general.page import Page, page_dojo, page_main
@@ -120,7 +120,12 @@ class TaskScript(Battle, RB):
             self.run_switch_souls(
                 self.I_MAIN_SHIKI_BOOK_ENT, ss_config.switch_group_team, self.I_C_MAIN)
 
-        # TODO: 换阴阳师
+        # 换阴阳师
+        onmyoji = self.rb_config.onmyoji
+        if onmyoji == OnmyojiClass.AUTO:
+            return
+
+        # TODO: switch
 
     def battle_process(self):
         time.sleep(1)

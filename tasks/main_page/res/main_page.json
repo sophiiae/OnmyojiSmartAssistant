@@ -216,11 +216,11 @@
     "description": "每日勾玉领取"
   },
   {
-    "name": "daily_ep",
+    "name": "daily_ap",
     "type": "image",
     "roi": "737, 489, 26, 28",
     "area": "724, 476, 52, 54",
-    "file": "./tasks/main_page/res/daily_ep.png",
+    "file": "./tasks/main_page/res/daily_ap.png",
     "description": "每日寿司"
   },
   {

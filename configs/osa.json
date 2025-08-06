@@ -34,7 +34,6 @@
   "wanted_quests": {
     "accept_quest_config": {
       "accept_jade": true,
-      "accept_gold": false,
       "accept_ap": false,
       "accept_virtual": true,
       "accept_pet_food": false
@@ -63,6 +62,7 @@
       "buff_exp_100": false,
       "count_max": 30,
       "chapter": "第二十八章",
+      "chapter_hardness": "困难",
       "auto_backup": true,
       "auto_soul_clear": true,
       "backup_rarity": "素材",

@@ -231,3 +231,6 @@ class ExpBase(EA, Battle):
             buff.append(BuffClass.EXP_100_CLOSE)
 
         return self.check_buff(buff, page_exp)
+
+    def toggle_exp_team_lock(self, lock: bool = True):
+        return self.toggle_team_lock(self.I_EXP_TEAM_LOCK, self.I_EXP_TEAM_UNLOCK, lock)

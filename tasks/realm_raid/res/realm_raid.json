@@ -251,5 +251,13 @@
     "area": "850, 410, 228, 121",
     "file": "",
     "description": "寮突破6"
+  },
+  {
+    "name": "guild_raid_close",
+    "type": "image",
+    "roi": "680, 218, 62, 68",
+    "area": "649, 187, 124, 130",
+    "file": "./tasks/realm_raid/res/guild_raid_close.png",
+    "description": "寮突破未开启标记"
   }
 ]
