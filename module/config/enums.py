@@ -31,6 +31,7 @@ class Chapters(str, Enum):
     CHAPTER_28 = "第二十八章"
 
 class ChapterHardness(str, Enum):
+    RANDOM = "随机"
     NORMAL = "普通"
     HARD = "困难"
 

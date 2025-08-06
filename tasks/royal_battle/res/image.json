@@ -158,5 +158,69 @@
     "area": "469, 364, 356, 140",
     "file": "./tasks/royal_battle/res/rb_notable_notification.png",
     "description": "晋升名士"
+  },
+  {
+    "name": "c_onmyodo",
+    "type": "image",
+    "roi": "102, 9, 96, 34",
+    "area": "85, 0, 130, 68",
+    "file": "./tasks/royal_battle/res/c_onmyodo.png",
+    "description": "阴阳术页面"
+  },
+  {
+    "name": "change_onmyoji",
+    "type": "image",
+    "roi": "38, 387, 41, 31",
+    "area": "22, 371, 73, 63",
+    "file": "./tasks/royal_battle/res/change_onmyoji.png",
+    "description": "交换阴阳师"
+  },
+  {
+    "name": "c_change_page",
+    "type": "image",
+    "roi": "92, 13, 177, 38",
+    "area": "73, 0, 215, 76",
+    "file": "./tasks/royal_battle/res/c_change_page.png",
+    "description": "阴阳师交换页面"
+  },
+  {
+    "name": "onmyoji_selected",
+    "type": "image",
+    "roi": "57, 631, 105, 39",
+    "area": "37, 611, 145, 79",
+    "file": "./tasks/royal_battle/res/onmyoji_selected.png",
+    "description": "阴阳师选中"
+  },
+  {
+    "name": "hero_selected",
+    "type": "image",
+    "roi": "72, 630, 71, 38",
+    "area": "53, 611, 109, 76",
+    "file": "./tasks/royal_battle/res/hero_selected.png",
+    "description": "英杰选中"
+  },
+  {
+    "name": "exit_onmyodo",
+    "type": "image",
+    "roi": "22, 7, 42, 41",
+    "area": "2, 0, 82, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "退出阴阳术"
+  },
+  {
+    "name": "main_onmyodo_ent",
+    "type": "image",
+    "roi": "998, 618, 38, 35",
+    "area": "980, 600, 74, 71",
+    "file": "./tasks/royal_battle/res/main_onmyodo_ent.png",
+    "description": "阴阳术入口"
+  },
+  {
+    "name": "exit_change_page",
+    "type": "image",
+    "roi": "11, 13, 53, 44",
+    "area": "0, 0, 97, 88",
+    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "description": ""
   }
 ]

@@ -71,21 +71,22 @@ class TaskScript(Battle, RB):
     def rank_battle(self):
         target_rank = self.rb_config.rank
         target_score = self.rank_map[target_rank]
+        if self.check_score(target_score):
+            return
 
         while 1:
-            if self.check_score(target_score):
-                break
-
-            if self.appear(self.I_RB_FIGHT_BLUE):
-                self.check_score(target_score)
-                break
+            if self.appear(self.I_RB_FIGHT_BLUE, 0.985):
+                if self.check_score(target_score):
+                    break
 
             self.battle_process()
 
     def check_score(self, target):
         image = self.screenshot()
         score = self.O_RB_SCORE.digit(image)
-        return score >= target
+        self.class_logger(
+            self.name, f"current score: {score}, target: {target}")
+        return score > target
 
     def to_battle_entrance(self):
         # 进入庭院页面
@@ -125,10 +126,77 @@ class TaskScript(Battle, RB):
         if onmyoji == OnmyojiClass.AUTO:
             return
 
-        # TODO: switch
+        self.change_onmyoji()
+
+        # 返回庭院
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_C_MAIN, 0.96):
+                break
+            self.appear_then_click(self.I_EXIT_ONMYODO)
+
+    def change_onmyoji(self):
+        # 进入阴阳术
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_C_ONMYODO):
+                break
+            self.appear_then_click(self.I_MAIN_ONMYODO_ENT)
+
+        assigned = self.rb_config.onmyoji
+        # 交换类型
+        if assigned == OnmyojiClass.Yorimitsu:
+            self.change_onmyoji_type(self.I_HERO_SELECTED)
+            return
+        else:
+            self.change_onmyoji_type(self.I_ONMYOJI_SELECTED)
+
+        onmyoji_map = {
+            OnmyojiClass.Seimei: self.C_SEIMEI,
+            OnmyojiClass.Kagura: self.C_KAGURA,
+            OnmyojiClass.Hiromasa: self.C_HIROMASA,
+            OnmyojiClass.Yaobikuni: self.C_YAOBIKUNI
+        }
+
+        # 进入交换
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_C_CHANGE_PAGE):
+                break
+
+            self.appear_then_click(self.I_CHANGE_ONMYOJI)
+
+        # 选择阴阳师
+        retry = 0
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_C_ONMYODO, 0.96):
+                retry = 0
+                break
+
+            if retry > 2:
+                break
+
+            self.click(onmyoji_map[assigned])
+            retry += 1
+
+        if retry > 0:
+            while 1:
+                self.wait_and_shot()
+                if self.appear(self.I_C_ONMYODO, 0.96):
+                    break
+                self.appear_then_click(self.I_EXIT_CHANGE_PAGE)
+
+    def change_onmyoji_type(self, target: RuleImage):
+        while 1:
+            self.wait_and_shot()
+            if self.appear(target):
+                break
+            self.click(self.C_SWITCH_TYPE)
 
     def battle_process(self):
         time.sleep(1)
+        self.class_logger(self.name, "==== Start battle process ====")
         if self.contest_mode:
             while 1:
                 self.wait_and_shot()

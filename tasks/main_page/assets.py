@@ -327,12 +327,6 @@ class MainPageAssets:
 		area=(1081, 603, 94, 56),
 		file="./tasks/main_page/res/main_shiki_book_ent.png"
 	)
-	# 阴阳术入口 
-	I_MAIN_ONMYOJI_ENT = RuleImage(
-		roi=(998, 618, 38, 35),
-		area=(980, 600, 74, 71),
-		file="./tasks/main_page/res/main_onmyoji_ent.png"
-	)
 
 	# Image Rule Assets
 	# 悬赏封印 

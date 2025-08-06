@@ -163,6 +163,7 @@ class TaskScript(ExpBase):
             self.init_hardness = True
             self.select_chapter_hardness()
 
+        self.class_logger(self.name, f"Entering chapter {pick_chapter}")
         # 进入预设章节
         while 1:
             self.wait_and_shot(0.6)
@@ -177,8 +178,12 @@ class TaskScript(ExpBase):
         if not self.init_hardness:
             return
 
-        is_hard = self.exp_config.exploration_config.chapter_hardness == ChapterHardness.HARD
-        if is_hard:
+        hardness = self.exp_config.exploration_config.chapter_hardness
+        self.class_logger(self.name, f"Selected hardness: {hardness}")
+        if hardness == ChapterHardness.RANDOM:
+            return
+
+        if hardness == ChapterHardness.HARD:
             self.click(self.C_EXP_HARD)
         else:
             self.click(self.C_EXP_REGULAR)
@@ -191,6 +196,7 @@ class TaskScript(ExpBase):
                 break
             self.swipe(self.S_EXP_CHAPTER_UP)
 
+        self.class_logger(self.name, "Entering chapter 28")
         if self.click_static_target(self.I_EXP_CHAP_28):
             self.select_chapter_hardness()
             self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)

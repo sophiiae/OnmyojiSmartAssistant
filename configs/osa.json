@@ -41,7 +41,6 @@
     "invite_quest_config": {
       "invite_friend_name": "",
       "invite_jade": true,
-      "invite_gold": false,
       "invite_ap": false,
       "invite_virtual": true,
       "invite_pet_food": false

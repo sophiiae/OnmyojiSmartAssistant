@@ -7,6 +7,19 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class RoyalBattleAssets: 
 
+
+	# Click Rule Assets
+	# 晴明 
+	C_SEIMEI = RuleClick(roi=(170, 180, 180, 320), area=(170, 180, 180, 320), name="Seimei")
+	# 神乐 
+	C_KAGURA = RuleClick(roi=(420, 180, 180, 320), area=(420, 180, 180, 320), name="Kagura")
+	# 源博雅 
+	C_HIROMASA = RuleClick(roi=(670, 180, 180, 320), area=(670, 180, 180, 320), name="Hiromasa")
+	# 八百比丘尼 
+	C_YAOBIKUNI = RuleClick(roi=(930, 180, 180, 320), area=(930, 180, 180, 320), name="Yaobikuni")
+	# 更换阴阳师类型 
+	C_SWITCH_TYPE = RuleClick(roi=(30, 610, 25, 20), area=(30, 610, 25, 20), name="switch_type")
+
 	# Image Rule Assets
 	# 斗技入口 
 	I_RB_ENT = RuleImage(
@@ -127,6 +140,54 @@ class RoyalBattleAssets:
 		roi=(504, 399, 286, 70),
 		area=(469, 364, 356, 140),
 		file="./tasks/royal_battle/res/rb_notable_notification.png"
+	)
+	# 阴阳术页面 
+	I_C_ONMYODO = RuleImage(
+		roi=(102, 9, 96, 34),
+		area=(85, 0, 130, 68),
+		file="./tasks/royal_battle/res/c_onmyodo.png"
+	)
+	# 交换阴阳师 
+	I_CHANGE_ONMYOJI = RuleImage(
+		roi=(38, 387, 41, 31),
+		area=(22, 371, 73, 63),
+		file="./tasks/royal_battle/res/change_onmyoji.png"
+	)
+	# 阴阳师交换页面 
+	I_C_CHANGE_PAGE = RuleImage(
+		roi=(92, 13, 177, 38),
+		area=(73, 0, 215, 76),
+		file="./tasks/royal_battle/res/c_change_page.png"
+	)
+	# 阴阳师选中 
+	I_ONMYOJI_SELECTED = RuleImage(
+		roi=(57, 631, 105, 39),
+		area=(37, 611, 145, 79),
+		file="./tasks/royal_battle/res/onmyoji_selected.png"
+	)
+	# 英杰选中 
+	I_HERO_SELECTED = RuleImage(
+		roi=(72, 630, 71, 38),
+		area=(53, 611, 109, 76),
+		file="./tasks/royal_battle/res/hero_selected.png"
+	)
+	# 退出阴阳术 
+	I_EXIT_ONMYODO = RuleImage(
+		roi=(22, 7, 42, 41),
+		area=(2, 0, 82, 81),
+		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
+	)
+	# 阴阳术入口 
+	I_MAIN_ONMYODO_ENT = RuleImage(
+		roi=(998, 618, 38, 35),
+		area=(980, 600, 74, 71),
+		file="./tasks/royal_battle/res/main_onmyodo_ent.png"
+	)
+	#  
+	I_EXIT_CHANGE_PAGE = RuleImage(
+		roi=(11, 13, 53, 44),
+		area=(0, 0, 97, 88),
+		file="./tasks/general/res/buttons/b_blue_left_angle.png"
 	)
 
 	# Ocr Rule Assets

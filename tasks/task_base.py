@@ -303,7 +303,7 @@ class TaskBase(MainPageAssets):
             elif self.wait_until_appear(target):
                 continue
 
-    def click_static_target(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.1, retry: int = 5):
+    def click_static_target(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.5, retry: int = 5):
         """
         点击静态的图标，比如按钮
         """

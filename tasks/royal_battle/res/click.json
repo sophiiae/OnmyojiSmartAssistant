@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Seimei",
+    "type": "click",
+    "roi": "170, 180, 180, 320",
+    "area": "170, 180, 180, 320",
+    "description": "晴明"
+  },
+  {
+    "name": "Kagura",
+    "type": "click",
+    "roi": "420, 180, 180, 320",
+    "area": "420, 180, 180, 320",
+    "description": "神乐"
+  },
+  {
+    "name": "Hiromasa",
+    "type": "click",
+    "roi": "670, 180, 180, 320",
+    "area": "670, 180, 180, 320",
+    "description": "源博雅"
+  },
+  {
+    "name": "Yaobikuni",
+    "type": "click",
+    "roi": "930, 180, 180, 320",
+    "area": "930, 180, 180, 320",
+    "description": "八百比丘尼"
+  },
+  {
+    "name": "switch_type",
+    "type": "click",
+    "roi": "30, 610, 25, 20",
+    "area": "30, 610, 25, 20",
+    "description": "更换阴阳师类型"
+  }
+]

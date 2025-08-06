@@ -15,7 +15,7 @@ class Colla(EXP):
         max = 10
         count = 0
         while count < max:
-            self.enter_chap_28()
+            self.enter_colla_chapter()
 
             logger.info(f"======== Exp Chapter Entered =========")
             count = self.colla_chapter_battle(max, count)
@@ -25,12 +25,18 @@ class Colla(EXP):
         self.exit_chapter()
         self.goto(page_main)
 
-    def colla_chapter_battle(self, max, count) -> int:
-        if not self.wait_until_appear(self.I_EXP_C_CHAPTER, 2):
-            logger.warning(
-                "***** Not inside chapter or battle finished.")
-            raise RequestHumanTakeover
+    def enter_colla_chapter(self):
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_EXP_CHAP_28, 0.98):
+                break
+            self.swipe(self.S_EXP_CHAPTER_UP)
 
+        self.class_logger(self.name, "Entering chapter 28")
+        if self.click_static_target(self.I_EXP_CHAP_28):
+            self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)
+
+    def colla_chapter_battle(self, max, count) -> int:
         self.toggle_team_lock(self.I_EXP_TEAM_LOCK, self.I_EXP_TEAM_UNLOCK)
 
         c = count

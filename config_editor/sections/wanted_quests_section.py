@@ -14,10 +14,6 @@ class WantedQuestsSection(QGroupBox):
         self.accept_jade.setChecked(self.accept_quest_config["accept_jade"])
         grid.addWidget(self.accept_jade, 0, 0)
 
-        self.accept_gold = QCheckBox("金币悬赏")
-        self.accept_gold.setChecked(self.accept_quest_config["accept_gold"])
-        grid.addWidget(self.accept_gold, 0, 1)
-
         self.accept_ap = QCheckBox("体力悬赏")
         self.accept_ap.setChecked(self.accept_quest_config["accept_ap"])
         grid.addWidget(self.accept_ap, 0, 2)
@@ -76,7 +72,6 @@ class WantedQuestsSection(QGroupBox):
     def update_config(self):
         accept_quest_config = self.config["wanted_quests"]["accept_quest_config"]
         accept_quest_config["accept_jade"] = self.accept_jade.isChecked()
-        accept_quest_config["accept_gold"] = self.accept_gold.isChecked()
         accept_quest_config["accept_ap"] = self.accept_ap.isChecked()
         accept_quest_config["accept_virtual"] = self.accept_virtual.isChecked()
         accept_quest_config["accept_pet_food"] = self.accept_pet_food.isChecked()
@@ -84,7 +79,6 @@ class WantedQuestsSection(QGroupBox):
         # invite_quest_config = self.config["wanted_quests"]["invite_quest_config"]
         # invite_quest_config["invite_friend_name"] = self.invite_friend_name.text()
         # invite_quest_config["invite_jade"] = self.invite_jade.isChecked()
-        # invite_quest_config["invite_gold"] = self.invite_gold.isChecked()
         # invite_quest_config["invite_ap"] = self.invite_ap.isChecked()
         # invite_quest_config["invite_virtual"] = self.invite_virtual.isChecked()
         # invite_quest_config["invite_pet_food"] = self.invite_pet_food.isChecked()

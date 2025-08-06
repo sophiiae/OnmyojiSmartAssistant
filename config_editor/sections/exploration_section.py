@@ -56,7 +56,7 @@ class ExplorationSection(QGroupBox):
 
         # 难度（无CheckBox，左对齐）
         self.chapter_hardness = SelectButton()
-        self.chapter_hardness.addItems(["普通", "困难"])
+        self.chapter_hardness.addItems(["随机", "普通", "困难"])
         self.chapter_hardness.setCurrentText(
             self.exploration_config["chapter_hardness"])
         add_left_row(exploration_layout, [
