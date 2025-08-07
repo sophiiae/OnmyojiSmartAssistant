@@ -1,7 +1,6 @@
 import sys
 from venv import logger
 
-import subprocess
 from tasks.royal_battle.task_script import TaskScript
 from module.control.server.device import Device
 

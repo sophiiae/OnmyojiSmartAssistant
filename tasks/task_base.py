@@ -164,6 +164,7 @@ class TaskBase(MainPageAssets):
     def appear_then_click(self,
                           target: RuleImage,
                           threshold: float = 0.9,
+                          delay: float = 0.1
                           ) -> bool:
         """出现就点击，用于会移动的怪物/图标
         Args:
@@ -171,6 +172,7 @@ class TaskBase(MainPageAssets):
             threshold (float, optional): _description_. Defaults to 0.9.
         """
         if self.appear(target, threshold=threshold):
+            time.sleep(delay)
             self.click(target)
             return True
 

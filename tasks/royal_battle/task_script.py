@@ -27,6 +27,8 @@ class TaskScript(Battle, RB):
         else:
             self.rank_battle()
 
+        self.set_next_run(task='RoyalBattle', success=True, finish=True)
+
         raise TaskEnd(self.name)
 
     @cached_property

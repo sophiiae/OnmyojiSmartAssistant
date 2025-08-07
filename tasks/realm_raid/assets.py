@@ -89,6 +89,18 @@ class RealmRaidAssets:
 		area=(811, 569, 47, 58),
 		file="./tasks/realm_raid/res/raid_team_unlock.png"
 	)
+	# 突破队伍锁定（有活动的时候） 
+	I_RAID_TEAM_LOCK_2 = RuleImage(
+		roi=(1002, 645, 25, 36),
+		area=(990, 633, 49, 60),
+		file="./tasks/realm_raid/res/raid_team_lock.png"
+	)
+	# 突破队伍未锁定（有活动的时候） 
+	I_RAID_TEAM_UNLOCK_2 = RuleImage(
+		roi=(1003, 645, 23, 34),
+		area=(991, 633, 47, 58),
+		file="./tasks/realm_raid/res/raid_team_unlock.png"
+	)
 	# 进攻小窗口 
 	I_RAID_ATTACK_MODAL = RuleImage(
 		roi=(510, 489, 275, 91),

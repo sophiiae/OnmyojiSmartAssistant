@@ -112,6 +112,7 @@ class TaskScript(RealmRaidAssets, Battle):
 
         retry = 0
         indexes = self.get_guild_partition_indexes()
+        attack_index = indexes.pop(0)
         while count:
             if not indexes:
                 self.swipe(self.S_RAID_DOWN, duration=600)
@@ -119,11 +120,11 @@ class TaskScript(RealmRaidAssets, Battle):
                 indexes = self.get_guild_partition_indexes()
                 continue
 
-            attack_index = indexes.pop(0)
-
             self.enter_guild_battle(self.guild_partitions[attack_index])
             if self.run_easy_battle(self.I_RR_GUID_PROGRESS, self.I_REALM_RAID_FAILED):
                 count -= 1
+            else:
+                attack_index = indexes.pop(0)
 
         return count == 0
 
@@ -298,7 +299,7 @@ class TaskScript(RealmRaidAssets, Battle):
             for idx in indexes:
                 self.class_logger(
                     self.name, f"** enter and quit for partition {idx}")
-                self.click(self.partitions[idx], 0.3)
+                self.click(self.partitions[idx])
 
                 if self.wait_until_click(self.I_RAID_ATTACK):
                     self.run_battle_quit()
@@ -371,4 +372,9 @@ class TaskScript(RealmRaidAssets, Battle):
                 continue
 
     def toggle_realm_team_lock(self, lock: bool = True):
+        is_in_activity = self.appear(self.I_RAID_TEAM_LOCK_2) or self.appear(
+            self.I_RAID_TEAM_UNLOCK_2)
+        if is_in_activity:
+            return self.toggle_team_lock(self.I_RAID_TEAM_LOCK_2, self.I_RAID_TEAM_UNLOCK_2, lock)
+
         return self.toggle_team_lock(self.I_RAID_TEAM_LOCK, self.I_RAID_TEAM_UNLOCK, lock)

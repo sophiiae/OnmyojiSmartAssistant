@@ -114,13 +114,13 @@ class Battle(General, Buff, SwitchSouls, BattleAssets):
         """
         # 退出
         while 1:
-            time.sleep(1)
-            self.screenshot()
+            self.wait_and_shot(0.5)
             if self.appear(self.I_BATTLE_FIGHT_AGAIN):
                 break
 
             if self.appear_then_click(self.I_BATTLE_EXIT):
-                self.appear_then_click(self.I_BATTLE_EXIT_CONFIRM)
+                time.sleep(0.3)
+                self.appear_then_click(self.I_BATTLE_EXIT_CONFIRM, 0.3)
                 continue
 
         logger.info("Clicked exit battle confirm")

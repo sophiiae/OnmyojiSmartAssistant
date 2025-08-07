@@ -40,6 +40,22 @@
     "description": "突破队伍未锁定"
   },
   {
+    "name": "raid_team_lock_2",
+    "type": "image",
+    "roi": "1002, 645, 25, 36",
+    "area": "990, 633, 49, 60",
+    "file": "./tasks/realm_raid/res/raid_team_lock.png",
+    "description": "突破队伍锁定（有活动的时候）"
+  },
+  {
+    "name": "raid_team_unlock_2",
+    "type": "image",
+    "roi": "1003, 645, 23, 34",
+    "area": "991, 633, 47, 58",
+    "file": "./tasks/realm_raid/res/raid_team_unlock.png",
+    "description": "突破队伍未锁定（有活动的时候）"
+  },
+  {
     "name": "raid_attack_modal",
     "roi": "510, 489, 275, 91",
     "area": "150, 310, 1130, 409",
