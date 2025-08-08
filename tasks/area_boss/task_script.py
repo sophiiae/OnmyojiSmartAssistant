@@ -9,7 +9,7 @@ class TaskScript(Battle, AreaBossAssets):
     name = 'AreaBoss'
 
     def run(self):
-        self.boss_config = self.device.config.model.area_boss.boss_config
+        self.boss_config = self.config.model.area_boss.boss_config
         if not self.check_page_appear(page_boss):
             self.goto(page_boss)
 

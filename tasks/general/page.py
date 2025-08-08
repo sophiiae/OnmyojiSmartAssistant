@@ -94,3 +94,8 @@ page_exp.link(button=G.I_V_EXP_TO_BOSS, destination=page_boss)
 page_goryou = Page(GR.I_GR_CHECK)
 page_goryou.link(button=G.I_V_GORYOU_TO_EXP, destination=page_exp)
 page_exp.link(button=G.I_V_EXP_TO_GORYOU, destination=page_goryou)
+
+# 契灵之境
+page_bonding_fairyland = Page(G.I_C_FAIRYLAND)
+page_bonding_fairyland.link(button=G.I_V_BF_TO_EXP, destination=page_exp)
+page_exp.link(button=G.I_V_EXP_TO_FB, destination=page_bonding_fairyland)

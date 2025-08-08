@@ -133,6 +133,12 @@ class GeneralAssets:
 		area=(10, 603, 136, 100),
 		file="./tasks/general/res/check/c_boss.png"
 	)
+	# 契灵之境标题 
+	I_C_FAIRYLAND = RuleImage(
+		roi=(110, 25, 126, 34),
+		area=(93, 8, 160, 68),
+		file="./tasks/general/res/check/c_fairyland.png"
+	)
 	# 召唤页面退出 
 	I_V_SUMMON_TO_MAIN = RuleImage(
 		roi=(34, 9, 42, 41),
@@ -276,6 +282,18 @@ class GeneralAssets:
 		roi=(7, 15, 53, 44),
 		area=(0, 0, 97, 88),
 		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+	)
+	# 契灵之境入口 
+	I_V_EXP_TO_FB = RuleImage(
+		roi=(1040, 638, 50, 35),
+		area=(1022, 620, 86, 71),
+		file="./tasks/general/res/goto/v_exp_to_fb.png"
+	)
+	# 退出契灵之境 
+	I_V_BF_TO_EXP = RuleImage(
+		roi=(29, 18, 42, 41),
+		area=(9, 0, 82, 81),
+		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
 	)
 
 

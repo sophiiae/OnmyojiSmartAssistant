@@ -27,6 +27,9 @@ class ConfigModel(BaseModel):
     royal_battle: RoyalBattle = Field(
         default_factory=RoyalBattle
     )
+    bonding_fairyland: BondingFairyland = Field(
+        default_factory=BondingFairyland
+    )
 
     def __init__(self, config_name: str):
         data = self.read_json(config_name)

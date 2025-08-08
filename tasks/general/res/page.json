@@ -96,6 +96,14 @@
     "description": "地域鬼王集结图标"
   },
   {
+    "name": "c_fairyland",
+    "type": "image",
+    "roi": "110, 25, 126, 34",
+    "area": "93, 8, 160, 68",
+    "file": "./tasks/general/res/check/c_fairyland.png",
+    "description": "契灵之境标题"
+  },
+  {
     "name": "v_summon_to_main",
     "type": "image",
     "roi": "34, 9, 42, 41",
@@ -286,5 +294,21 @@
     "area": "0, 0, 97, 88",
     "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
     "description": "御灵退出"
+  },
+  {
+    "name": "v_exp_to_fb",
+    "type": "image",
+    "roi": "1040, 638, 50, 35",
+    "area": "1022, 620, 86, 71",
+    "file": "./tasks/general/res/goto/v_exp_to_fb.png",
+    "description": "契灵之境入口"
+  },
+  {
+    "name": "v_bf_to_exp",
+    "type": "image",
+    "roi": "29, 18, 42, 41",
+    "area": "9, 0, 82, 81",
+    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "description": "退出契灵之境"
   }
 ]

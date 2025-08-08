@@ -16,7 +16,7 @@ class TaskScript(Battle, RB):
 
     # 普通斗技模式 / 斗技赛季模式
     def run(self):
-        self.rb_config = self.device.config.model.royal_battle.royal_battle_config
+        self.rb_config = self.config.model.royal_battle.royal_battle_config
         self.screenshot()
         if not self.appear(self.page_check):
             self.to_battle_entrance()

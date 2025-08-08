@@ -1,0 +1,34 @@
+[
+  {
+    "name": "bf_shiki_book_ent",
+    "type": "image",
+    "roi": "1035, 564, 36, 37",
+    "area": "1017, 546, 72, 73",
+    "file": "./tasks/bonding_fairyland/res/bf_shiki_book_ent.png",
+    "description": "契灵式神录入口"
+  },
+  {
+    "name": "bf_explore",
+    "type": "image",
+    "roi": "1148, 593, 81, 41",
+    "area": "1128, 573, 121, 81",
+    "file": "./tasks/bonding_fairyland/res/bf_explore.png",
+    "description": "探查"
+  },
+  {
+    "name": "bf_team_lock",
+    "type": "image",
+    "roi": "826, 649, 22, 28",
+    "area": "815, 638, 44, 50",
+    "file": "./tasks/bonding_fairyland/res/bf_team_lock.png",
+    "description": "队伍锁定"
+  },
+  {
+    "name": "bf_team_unlock",
+    "type": "image",
+    "roi": "828, 650, 18, 24",
+    "area": "819, 641, 36, 42",
+    "file": "./tasks/bonding_fairyland/res/bf_team_unlock.png",
+    "description": "队伍未锁定"
+  }
+]

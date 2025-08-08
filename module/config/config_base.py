@@ -633,3 +633,34 @@ class RoyalBattle(BaseModel):
         default_factory=SwitchSoulConfig,
         description="御魂切换配置"
     )
+
+class BondingConfig(BaseModel):
+    explore_count: int = Field(
+        default=30,
+        title="探查次数",
+        description="探查最大次数"
+    )
+
+    lock_team_enable: bool = Field(
+        default=True,
+        description="锁定阵容"
+    )
+
+class BondingFairyland(BaseModel):
+    """
+    契灵之境
+    """
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="斗技任务调度"
+    )
+
+    bonding_config: BondingConfig = Field(
+        default_factory=BondingConfig,
+        description="契灵探查配置"
+    )
+
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )

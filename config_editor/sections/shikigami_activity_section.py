@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import (
     QCheckBox, QGroupBox, QVBoxLayout, QLabel, QLineEdit)
 from config_editor.widgets.value_button import ValueButton
 from config_editor.sections.scheduler_section import SchedulerSection
+from config_editor.sections.switch_soul_section import SwitchSoulSection
 from config_editor.sections.general_battle_section import GeneralBattleSection
 from config_editor.utils import add_left_row
 
@@ -56,23 +57,9 @@ class ShikigamiActivitySection(QGroupBox):
         layout.addWidget(climb_group)
 
         # 御魂切换设置
-        switch_soul_group = QGroupBox("御魂切换设置")
-        switch_soul_layout = QVBoxLayout(switch_soul_group)
-        self.switch_soul_config = self.config["shikigami_activity"]["switch_soul_config"]
-
-        # 启用御魂切换（只有CheckBox）
-        self.switch_soul_enable = QCheckBox("启用御魂切换")
-        self.switch_soul_enable.setChecked(self.switch_soul_config["enable"])
-        add_left_row(switch_soul_layout, [self.switch_soul_enable])
-
-        # 切换组和队伍（无CheckBox，左对齐）
-        self.switch_group_team = QLineEdit()
-        self.switch_group_team.setText(
-            self.switch_soul_config["switch_group_team"])
-        add_left_row(switch_soul_layout, [QLabel(
-            "切换组和队伍"), self.switch_group_team])
-
-        layout.addWidget(switch_soul_group)
+        self.switch_soul_section = SwitchSoulSection(
+            self.config, "shikigami_activity")
+        layout.addWidget(self.switch_soul_section)
 
         # # 添加通用战斗配置
         # self.general_battle_section = GeneralBattleSection(
@@ -91,9 +78,7 @@ class ShikigamiActivitySection(QGroupBox):
         climb_config["lock_team_enable"] = self.lock_team_enable.isChecked()
 
         # 更新御魂切换配置
-        self.switch_soul_config["enable"] = self.switch_soul_enable.isChecked()
-        self.switch_soul_config["switch_group_team"] = self.switch_group_team.text(
-        )
+        self.switch_soul_section.update_config()
 
         # 更新通用战斗配置
         # self.general_battle_section.update_config()

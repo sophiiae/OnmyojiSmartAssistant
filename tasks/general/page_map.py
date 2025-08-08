@@ -8,7 +8,7 @@ class PageMap():
         return {
             page_main: [page_exp, page_summon, page_store, page_shikigami, page_town],
             page_sleep: [page_main],
-            page_exp: [page_realm_raid, page_main, page_minamoto, page_boss, page_goryou],
+            page_exp: [page_realm_raid, page_main, page_minamoto, page_boss, page_goryou, page_bonding_fairyland],
             page_realm_raid: [page_exp],
             page_town: [page_main, page_dojo],
             page_dojo: [page_town],
@@ -20,6 +20,7 @@ class PageMap():
             page_shikigami: [page_main],
             page_boss: [page_exp],
             page_goryou: [page_exp],
+            page_bonding_fairyland: [page_exp]
         }
 
     def find_path(self, from_page: Page, to_page: Page, path=[]):

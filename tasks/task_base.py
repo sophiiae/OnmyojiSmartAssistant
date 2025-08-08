@@ -61,7 +61,7 @@ class TaskBase(MainPageAssets):
             return False
 
         # 查看设置
-        quest_config = self.device.config.model.wanted_quests.accept_quest_config
+        quest_config = self.config.model.wanted_quests.accept_quest_config
         accept_types = [
             k for k, v in quest_config.model_dump().items() if v is True]
 
