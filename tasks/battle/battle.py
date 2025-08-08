@@ -65,7 +65,7 @@ class Battle(General, Buff, SwitchSouls, BattleAssets):
         logger.info(f"** Got battle result: {win}")
         if not win:
             action_click = random.choice(
-                [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
+                [self.C_WIN_L, self.C_WIN_R])
             self.click(action_click)
             return win
 
@@ -129,7 +129,7 @@ class Battle(General, Buff, SwitchSouls, BattleAssets):
             self.screenshot()
             if self.appear(self.I_BATTLE_FIGHT_AGAIN):
                 action_click = random.choice(
-                    [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
+                    [self.C_WIN_L, self.C_WIN_R])
                 self.click(action_click)
                 continue
             if not self.appear(self.I_BATTLE_FIGHT_AGAIN):

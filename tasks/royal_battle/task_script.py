@@ -221,7 +221,7 @@ class TaskScript(Battle, RB):
         while 1:
             self.wait_and_shot(1)
             action_click = random.choice(
-                [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
+                [self.C_WIN_L, self.C_WIN_R])
             if self.appear(self.I_BATTLE_WIN, 0.95):
                 self.click(action_click)
                 break

@@ -110,7 +110,7 @@ class TaskScript(Battle, SA):
                 if self.appear(self.I_SA_BATTLE_WIN):
                     # 出现胜利
                     action_click = random.choice(
-                        [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
+                        [self.C_WIN_L, self.C_WIN_R])
                     self.click(action_click)
                     break
 
@@ -145,21 +145,6 @@ class TaskScript(Battle, SA):
                 # 如果出现领奖励
                 self.click(action_click)
                 continue
-
-            # 出现 “获得奖励”
-            # if self.appear(self.I_SA_GAIN_REWARD):
-            #     # 如果出现领奖励
-            #     action_click = random.choice(
-            #         [self.C_SA_REWARD_LEFT, self.C_SA_REWARD_BOTTOM, self.C_SA_REWARD_RIGHT])
-            #     if self.appear(self.I_SA_GAIN_REWARD):
-            #         self.click(action_click)
-            #         continue
-
-            # if self.appear(self.I_SA_BATTLE_WIN):
-            #     # 出现胜利
-            #     action_click = random.choice(
-            #         [self.C_WIN_1, self.C_WIN_2, self.C_WIN_3, self.C_WIN_4])
-            #     self.click(action_click)
         return True
 
     def switch_mode(self, use_ep: bool = True):
