@@ -2,57 +2,29 @@
   {
     "name": "win_l",
     "type": "click",
-    "roi": "50, 70, 150, 470",
-    "area": "50, 70, 150, 470",
+    "roi": "50, 100, 150, 200",
+    "area": "50, 100, 150, 200",
     "description": "left"
   },
   {
     "name": "win_r",
     "type": "click",
-    "roi": "1150, 70, 100, 470",
-    "area": "1150, 70, 100, 470",
+    "roi": "1150, 100, 100, 230",
+    "area": "1150, 100, 100, 230",
     "description": "right"
   },
   {
     "name": "reward_1",
     "type": "click",
-    "roi": "110, 130, 130, 500",
-    "area": "110, 130, 130, 500",
+    "roi": "110, 130, 130, 300",
+    "area": "110, 130, 130, 300",
     "description": "left"
   },
   {
     "name": "reward_2",
     "type": "click",
-    "roi": "1100, 130, 130, 500",
+    "roi": "1100, 130, 130, 300",
     "area": "1100, 130, 130, 500",
     "description": "right"
-  },
-  {
-    "name": "gain_reward_1",
-    "type": "click",
-    "roi": "30, 100, 270, 550",
-    "area": "30, 100, 270, 550",
-    "description": "left"
-  },
-  {
-    "name": "gain_reward_2",
-    "type": "click",
-    "roi": "980, 120, 280, 530",
-    "area": "980, 120, 280, 530",
-    "description": "right"
-  },
-  {
-    "name": "battle_1",
-    "type": "click",
-    "roi": "130,90,400,90",
-    "area": "130,90,400,90",
-    "description": "description"
-  },
-  {
-    "name": "battle_2",
-    "type": "click",
-    "roi": "1100,60,100,140",
-    "area": "1100,60,100,140",
-    "description": "description"
   }
 ]

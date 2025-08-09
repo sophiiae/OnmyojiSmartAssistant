@@ -59,7 +59,7 @@ class TaskScript(MinamotoAssets, Battle):
             #     image = self.screenshot()
             #     level = self.O_GHOST_LEVEL.digit(image)
 
-            if not self.run_battle():
+            if not self.run_easy_battle(self.I_GHOST_CHALLENGE):
                 break
 
         self.check_buff(

@@ -88,6 +88,7 @@ class TaskScript(RealmRaidAssets, Battle):
                 self.reverse = not self.reverse
             else:
                 self.click_refresh()
+
             enough_ticket = self.check_ticket()
             time.sleep(1)
         return success
@@ -134,8 +135,7 @@ class TaskScript(RealmRaidAssets, Battle):
             if not self.appear(self.I_RR_GUID_PROGRESS):
                 break
 
-            if self.appear(self.I_RAID_ATTACK, 0.96):
-                self.click(self.I_RAID_ATTACK)
+            if self.appear_then_click(self.I_RAID_ATTACK, 0.96, 0.3):
                 continue
 
             self.click(target)
@@ -330,7 +330,8 @@ class TaskScript(RealmRaidAssets, Battle):
         如果在CD中, 就返回False
         :return:
         """
-        if self.wait_until_click(self.I_RAID_REFRESH):
+        self.wait_and_shot()
+        if self.appear_then_click(self.I_RAID_REFRESH, delay=0.5):
             if self.wait_until_click(self.I_BATTLE_FIGHT_AGAIN_CONFIRM, 2):
                 return True
             else:
@@ -338,7 +339,7 @@ class TaskScript(RealmRaidAssets, Battle):
                 return False
 
         logger.critical("No refresh button found")
-        raise RequestHumanTakeover
+        return False
 
     def check_ticket(self):
         tickets_required = self.rr_config.tickets_required

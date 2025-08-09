@@ -34,10 +34,12 @@ class Script:
             return config
         except RequestHumanTakeover:
             logger.critical('Request human takeover')
-            exit(1)
+            self.is_running = False
+            raise
         except Exception as e:
             logger.critical(str(e))
-            exit(1)
+            self.is_running = False
+            raise
 
     @cached_property
     def device(self) -> "Device":
@@ -47,10 +49,12 @@ class Script:
             return device
         except RequestHumanTakeover:
             logger.critical('Request human takeover')
-            exit(1)
+            self.is_running = False
+            raise
         except Exception as e:
             logger.critical(str(e))
-            exit(1)
+            self.is_running = False
+            raise
 
     def run(self, name: str) -> bool:
         """
@@ -117,8 +121,10 @@ class Script:
                                     "Please read the help text of the options.")
                     logger.critical("Possible reason #2: There is a problem with this task. "
                                     "Please contact developers or try to fix it yourself.")
-                    logger.critical('Request human takeover')
-                    exit(1)
+                    logger.critical('强制终止脚本')
+                    # 不调用exit(1)，而是正常停止脚本
+                    self.is_running = False
+                    break
 
                 if success:
                     self.is_running = True
@@ -127,6 +133,8 @@ class Script:
                 else:
                     break
         finally:
+            # 在清除配置名称之前记录脚本结束信息
+            logger.info("脚本运行完成")
             # 清除当前配置名称
             clear_current_config_name()
 

@@ -186,9 +186,7 @@ class ExpBase(EA, Battle):
                 self.click(self.I_SOUL_GREED_EAT)
 
         # 随机点击，退出贪吃鬼
-        action_click = random.choice(
-            [self.C_REWARD_1, self.C_REWARD_2])
-        self.click(action_click)
+        self.click(self.reward_click)
 
         # 关闭贪吃鬼小屋
         while 1:

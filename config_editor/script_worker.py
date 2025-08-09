@@ -24,6 +24,11 @@ class ScriptWorker(QThread):
     def run(self):
         try:
             from module.script import Script
+            from module.base.logger import set_current_config_name
+
+            # 设置当前线程的配置名称，确保日志能正确过滤
+            set_current_config_name(self.config_name)
+
             self.script = Script(self.config_name)
 
             # 如果提供了日志窗口，开始日志捕获
@@ -39,8 +44,21 @@ class ScriptWorker(QThread):
             if not self._stop_flag:
                 logger.error(f"Script error: {str(e)}")
                 self.error.emit(str(e))
+            else:
+                logger.info("脚本被用户终止")
         finally:
+            # 记录脚本结束信息（在清除配置名称之前）
+            if not self._stop_flag:
+                logger.info("脚本运行完成")
+            else:
+                logger.info("脚本被用户终止")
+
             # 停止日志捕获
             if self.log_window:
                 self.log_window.stop_log_capture()
+
+            # 清除当前线程的配置名称
+            from module.base.logger import clear_current_config_name
+            clear_current_config_name()
+
             self.finished.emit()

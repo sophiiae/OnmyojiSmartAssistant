@@ -253,11 +253,11 @@ class OSAEditor(ConfigTab):
             self.log_window.set_active(True)
 
     def hideEvent(self, a0):
-        """窗口隐藏时保持日志窗口活动状态，不注销回调"""
+        """窗口隐藏时停止日志窗口活动状态"""
         super().hideEvent(a0)
-        # 保持日志窗口活动状态，让所有窗口都能同时显示日志
+        # 停止日志窗口活动状态，避免日志串到其他窗口
         if self.log_window:
-            self.log_window.set_active(True)
+            self.log_window.set_active(False)
 
     def setup_section_click_events(self):
         """为所有配置区域设置点击事件"""
@@ -505,7 +505,7 @@ class OSAEditor(ConfigTab):
             self.script_worker.terminate()
             self.script_worker.wait(100)  # 只等待100ms
 
-        # 停止日志捕获
+        # 停止日志捕获，显示停止分割线
         if self.log_window:
             self.log_window.stop_log_capture()
 
@@ -515,7 +515,7 @@ class OSAEditor(ConfigTab):
 
     def on_script_finished(self):
         """脚本完成时的回调"""
-        # 停止日志捕获
+        # 停止日志捕获，显示停止分割线
         if self.log_window:
             self.log_window.stop_log_capture()
 
@@ -525,7 +525,7 @@ class OSAEditor(ConfigTab):
 
     def on_script_error(self, error_msg):
         """脚本出错时的回调"""
-        # 停止日志捕获
+        # 停止日志捕获，显示停止分割线
         if self.log_window:
             self.log_window.stop_log_capture()
 

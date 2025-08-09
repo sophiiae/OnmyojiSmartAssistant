@@ -38,11 +38,7 @@ ENV/
 .DS_Store
 Thumbs.db 
 
-test_screenshot.png
-screenshot.png
-output.png
-*.test.png
-*.cap.png
+*.png
 compact_log.txt
 
 data/

@@ -320,15 +320,14 @@ class ConfigEditor(QMainWindow):
                 except Exception:
                     pass  # 忽略保存错误
 
-        # 确保所有tab的日志窗口都保持活动状态
-        for i in range(self.tabs.count()):
-            tab = self.tabs.widget(i)
+        # 只激活当前tab的日志窗口，避免日志串到其他窗口
+        current_tab = self.tabs.widget(idx)
+        if current_tab:
             try:
-                if tab:
-                    log_window = getattr(tab, 'log_window', None)
-                    if log_window:
-                        # 所有日志窗口都保持活动状态
-                        log_window.set_active(True)
+                log_window = getattr(current_tab, 'log_window', None)
+                if log_window:
+                    # 只激活当前tab的日志窗口
+                    log_window.set_active(True)
             except Exception:
                 pass  # 忽略日志窗口操作错误
 

@@ -31,8 +31,7 @@ class TaskScript(Battle, AreaBossAssets):
             if self.appear(self.I_AB_KILL_RANK_CHECK, 0.96):
                 break
 
-            if self.appear(self.I_AB_BOSS_FILTER):
-                self.click(self.I_AB_BOSS_FILTER)
+            self.appear_then_click(self.I_AB_BOSS_FILTER)
 
     def kill_top_bosses(self, boss_number):
         bosses = [
@@ -50,8 +49,7 @@ class TaskScript(Battle, AreaBossAssets):
         while 1:
             self.wait_click_if_appear(boss)
 
-            if self.appear(self.I_AB_REGULAR_HARDNESS):
-                self.click(self.I_AB_REGULAR_HARDNESS)
+            if self.appear_then_click(self.I_AB_REGULAR_HARDNESS):
                 continue
 
             if self.appear(self.I_AB_BOSS_FIGHT):
@@ -73,8 +71,7 @@ class TaskScript(Battle, AreaBossAssets):
         # 进入战斗
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_AB_BOSS_FIGHT):
-                self.click(self.I_AB_BOSS_FIGHT)
+            if self.appear_then_click(self.I_AB_BOSS_FIGHT, delay=0.5):
                 continue
 
             if not self.appear(self.I_AB_BOSS_FIGHT):
@@ -82,21 +79,18 @@ class TaskScript(Battle, AreaBossAssets):
 
         while 1:
             self.wait_and_shot(1)
-            if self.appear(self.I_AB_BOSS_READY):
-                self.click(self.I_AB_BOSS_READY)
+            if self.appear_then_click(self.I_AB_BOSS_READY):
                 continue
 
             if not self.appear(self.I_AB_BOSS_READY):
                 break
 
-        self.run_battle()
+        self.run_easy_battle(self.I_AB_BOSS_EXIT)
 
-        time.sleep(1)
         # 退出BOSS挑战页面
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_AB_BOSS_EXIT):
-                self.click(self.I_AB_BOSS_EXIT)
+            if self.appear_then_click(self.I_AB_BOSS_EXIT):
                 continue
 
             if self.appear(self.I_C_BOSS):

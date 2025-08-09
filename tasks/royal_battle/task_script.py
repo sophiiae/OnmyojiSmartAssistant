@@ -202,7 +202,7 @@ class TaskScript(Battle, RB):
         if self.contest_mode:
             while 1:
                 self.wait_and_shot()
-                if not self.appear(self.I_RB_CONTEST_CHECK):
+                if not self.appear(self.page_check):
                     break
 
                 if self.appear(self.I_RB_CONTEST_FIGHT):
@@ -216,19 +216,7 @@ class TaskScript(Battle, RB):
 
         self.battle_ready()
         self.toggle_battle_auto()
-
-        # 战斗
-        while 1:
-            self.wait_and_shot(1)
-            action_click = random.choice(
-                [self.C_WIN_L, self.C_WIN_R])
-            if self.appear(self.I_BATTLE_WIN, 0.95):
-                self.click(action_click)
-                break
-
-            if self.appear(self.I_RB_BATTLE_FAILED, 0.95):
-                self.click(action_click)
-                break
+        self.run_easy_battle(self.page_check, self.I_RB_BATTLE_FAILED)
 
     def start_battle(self):
         count = 0
@@ -238,7 +226,7 @@ class TaskScript(Battle, RB):
             if self.appear(self.I_RB_TEAM_PREP_CHECK):
                 break
 
-            if self.appear(self.I_RB_CHECK) or self.appear(self.I_RB_CONTEST_CHECK):
+            if self.appear(self.page_check):
                 if self.appear(self.I_RB_FIGHT) or self.appear(self.I_RB_FIGHT_BLUE):
                     self.click(self.I_RB_FIGHT)
                     continue

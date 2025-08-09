@@ -1,12 +1,75 @@
 import logging
 import logging.config
 import sys
-# import os
+import os
 from typing import Deque
 from collections import deque
-from datetime import datetime
+from datetime import datetime, timedelta
 from logging.handlers import RotatingFileHandler
 import threading
+import glob
+import re
+
+def clean_old_logs(logs_dir='logs', max_age_days=7):
+    """
+    清理超过指定天数的日志文件
+    支持按日期命名的文件（如：game_errors_2025-08-08.log）和普通文件
+
+    Args:
+        logs_dir (str): 日志目录路径
+        max_age_days (int): 最大保存天数，默认7天
+    """
+    try:
+        # 确保logs目录存在
+        if not os.path.exists(logs_dir):
+            return
+
+        # 计算截止日期
+        cutoff_date = datetime.now() - timedelta(days=max_age_days)
+
+        # 获取logs目录下的所有文件
+        log_files = glob.glob(os.path.join(logs_dir, '*'))
+
+        # 匹配日期格式的正则表达式：game_errors_2025-08-08.log 或 game_debug_2025-08-08.log
+        date_pattern = re.compile(r'.*_(\d{4}-\d{2}-\d{2})\.log')
+
+        cleaned_files = []
+        for file_path in log_files:
+            if os.path.isfile(file_path):
+                try:
+                    filename = os.path.basename(file_path)
+                    should_delete = False
+
+                    # 尝试从文件名中提取日期
+                    match = date_pattern.match(filename)
+                    if match:
+                        # 按日期命名的文件 - 基于文件名中的日期判断
+                        file_date_str = match.group(1)
+                        file_date = datetime.strptime(
+                            file_date_str, '%Y-%m-%d')
+                        if file_date < cutoff_date:
+                            should_delete = True
+                    else:
+                        # 普通文件 - 基于文件修改时间判断
+                        file_time = datetime.fromtimestamp(
+                            os.path.getmtime(file_path))
+                        if file_time < cutoff_date:
+                            should_delete = True
+
+                    # 删除符合条件的文件
+                    if should_delete:
+                        os.remove(file_path)
+                        cleaned_files.append(filename)
+
+                except Exception as e:
+                    print(f"清理日志文件 {file_path} 时出错: {e}")
+
+        if cleaned_files:
+            print(
+                f"已清理 {len(cleaned_files)} 个超过 {max_age_days} 天的日志文件: {', '.join(cleaned_files)}")
+
+    except Exception as e:
+        print(f"日志清理过程中出错: {e}")
 
 class ColorFormatter(logging.Formatter):
     COLORS = {
@@ -26,28 +89,48 @@ class ColorFormatter(logging.Formatter):
         # 先调用父类的format方法，确保asctime等属性被设置
         super().format(record)
 
+        # 添加配置名称标识
+        config_prefix = ""
+        config_name = getattr(record, 'config_name', None)
+        if config_name:
+            config_prefix = f"[{config_name}] "
+
         # 如果是后台消息，使用特殊格式
         if getattr(record, 'is_background', False):
-            return f"[{record.asctime}] [BG] {record.getMessage()}"
+            return f"[{record.asctime}] [BG] {config_prefix}{record.getMessage()}"
 
         # 获取消息类型
         msg_type = getattr(record, 'msg_type', '')
         if msg_type in self.COLORS:
             color = self.COLORS[msg_type]
-            return f"{color}[{record.asctime}] [{msg_type:<8}] {record.getMessage()}{self.RESET}"
+            return f"{color}[{record.asctime}] [{msg_type:<8}] {config_prefix}{record.getMessage()}{self.RESET}"
 
         # 其他消息使用对应的颜色
         color = self.COLORS.get(record.levelname, '')
         message = super().format(record)
+        # 在消息中插入配置前缀
+        if config_prefix:
+            # 找到消息开始的位置（在时间戳和级别之后）
+            parts = message.split('] ', 2)
+            if len(parts) >= 3:
+                message = f"{parts[0]}] {parts[1]}] {config_prefix}{parts[2]}"
         return f"{color}{message}{self.RESET}"
 
 class ContextFormatter(logging.Formatter):
-    """带上下文的格式化器"""
+    """带上下文的格式化器，支持配置名称标识"""
 
     def format(self, record):
         # 确保context字段存在
         if not hasattr(record, 'context'):
             record.context = ''
+
+        # 添加配置名称标识
+        config_name = getattr(record, 'config_name', None)
+        if config_name:
+            record.config_prefix = f"[{config_name}] "
+        else:
+            record.config_prefix = ""
+
         return super().format(record)
 
 
@@ -58,11 +141,13 @@ LOG_CONFIG = {
 
     'formatters': {
         'console': {
-            'format': '[%(asctime)s] [%(levelname)s] %(message)s',
+            '()': ContextFormatter,
+            'format': '[%(asctime)s] [%(levelname)s] %(config_prefix)s%(message)s',
             'datefmt': '%H:%M:%S'
         },
         'file': {
-            'format': '[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d]\n'
+            '()': ContextFormatter,
+            'format': '[%(asctime)s] [%(levelname)s] %(config_prefix)s[%(filename)s:%(lineno)d]\n'
             '=== CONTEXT ===\n%(context)s\n'
             '=== MESSAGE ===\n%(message)s\n'
             '================',
@@ -100,7 +185,11 @@ LOG_CONFIG = {
 class GameConsoleLogger:
     def __init__(self, debug_mode: bool = False):
         """初始化日志系统"""
-        # os.makedirs('logs', exist_ok=True)
+        # 确保logs目录存在
+        os.makedirs('logs', exist_ok=True)
+
+        # 清理超过7天的旧日志文件
+        clean_old_logs()
 
         # # 删除现有的日志文件
         # log_files = ['logs/game_debug.log', 'logs/game_errors.log']
@@ -139,14 +228,18 @@ class GameConsoleLogger:
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
 
-        # 调试日志文件Handler - 仅在debug_mode为True时创建
+        # 获取当前日期，用于日志文件命名
+        today = datetime.now().strftime('%Y-%m-%d')
+
+        # 调试日志文件Handler - 仅在debug_mode为True时创建，按日期命名
         if debug_mode:
+            debug_log_filename = f'logs/game_debug_{today}.log'
             debug_file_handler = RotatingFileHandler(
-                'logs/game_debug.log',
+                debug_log_filename,
                 maxBytes=5 * 1024 * 1024,  # 5MB
                 backupCount=3,
                 encoding='utf-8',
-                mode='w'  # 使用 'w' 模式，每次创建新文件
+                mode='a'  # 使用 'a' 模式，同一天内追加写入
             )
             debug_file_handler.setLevel(logging.DEBUG)
             debug_formatter = logging.Formatter(
@@ -156,17 +249,18 @@ class GameConsoleLogger:
             debug_file_handler.setFormatter(debug_formatter)
             self.logger.addHandler(debug_file_handler)
 
-        # 错误日志文件Handler
+        # 错误日志文件Handler - 按日期命名
+        error_log_filename = f'logs/game_errors_{today}.log'
         error_file_handler = RotatingFileHandler(
-            'logs/game_errors.log',
+            error_log_filename,
             maxBytes=5 * 1024 * 1024,  # 5MB
             backupCount=3,
             encoding='utf-8',
-            mode='w'  # 使用 'w' 模式，每次创建新文件
+            mode='a'  # 使用 'a' 模式，同一天内追加写入
         )
         error_file_handler.setLevel(logging.ERROR)
-        error_formatter = logging.Formatter(
-            '[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)d]\n'
+        error_formatter = ContextFormatter(
+            '[%(asctime)s] [%(levelname)s] %(config_prefix)s[%(filename)s:%(lineno)d]\n'
             '=== CONTEXT ===\n%(context)s\n'
             '=== MESSAGE ===\n%(message)s\n'
             '================',
@@ -198,15 +292,28 @@ class GameConsoleLogger:
             # 向所有匹配的回调发送消息
             for callback_info in self.ui_callbacks[:]:  # 使用副本避免在迭代时修改列表
                 try:
-                    # 如果回调没有指定配置名称，或者配置名称匹配，则发送消息
-                    if (callback_info['config_name'] is None or
-                        config_name is None or
-                            callback_info['config_name'] == config_name):
+                    # 检查配置名称是否匹配
+                    callback_config_name = callback_info['config_name']
+
+                    # 严格的配置名称匹配逻辑
+                    should_send = False
+
+                    if callback_config_name is not None and config_name is not None:
+                        # 两者都不为None时，必须完全匹配
+                        if callback_config_name == config_name:
+                            should_send = True
+                    elif callback_config_name is None and config_name is None:
+                        # 两者都为None时，发送消息（用于系统日志）
+                        should_send = True
+
+                    if should_send:
                         callback_info['callback'](message)
+
                 except Exception as e:
                     # 如果某个回调出错，移除它
                     print(f"UI callback error: {e}")
-                    self.ui_callbacks.remove(callback_info)
+                    if callback_info in self.ui_callbacks:
+                        self.ui_callbacks.remove(callback_info)
 
     def _enhanced_error(self, msg, *args, **kwargs):
         """增强的错误记录"""

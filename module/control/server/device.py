@@ -5,7 +5,7 @@ import cv2
 import subprocess
 import time
 
-from module.base.logger import logger
+from module.base.logger import logger, set_current_config_name
 from module.config.config import Config
 from module.base.timer import Timer
 from collections import deque
@@ -29,6 +29,7 @@ class Device:
     def __init__(self, config_name: str):
         """Initialize the Device."""
         self.port: Optional[int] = None
+        self.config_name = config_name  # 保存配置名称
         self.config = Config(config_name=config_name)
         self._split_serial(self.config.model.script.device.serial)
         self.device = self.connect_device()
@@ -186,6 +187,9 @@ class Device:
         Returns:
             np.ndarray:
         """
+        # 设置当前配置名称上下文，确保日志能正确关联
+        set_current_config_name(self.config_name)
+
         if self.device is None:
             logger.error("Error: no device detected")
             return
@@ -196,6 +200,9 @@ class Device:
 
     def capture_screenshot(self, filepath) -> bool:
         """Capture the screenshot."""
+        # 设置当前配置名称上下文，确保日志能正确关联
+        set_current_config_name(self.config_name)
+
         image = self.get_screenshot()
         if image is None:
             logger.error("模拟器截图失败.")
@@ -206,6 +213,9 @@ class Device:
 
     def click(self, x, y):
         """Click the screen."""
+        # 设置当前配置名称上下文
+        set_current_config_name(self.config_name)
+
         if self.device is None:
             logger.error("Cannot click - no device connected")
             return

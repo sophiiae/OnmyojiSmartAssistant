@@ -1,7 +1,7 @@
 import random
 import time
 from module.base.logger import logger
-from module.base.timer import Timer
+from functools import cached_property
 from module.config.enums import BuffClass
 from module.image_processing.rule_image import RuleImage
 from tasks.battle.assets import BattleAssets
@@ -16,8 +16,6 @@ class Battle(General, Buff, SwitchSouls, BattleAssets):
         logger.info("Start easy battle process")
 
         win = True
-        action_click = random.choice(
-            [self.C_REWARD_1, self.C_REWARD_2])
 
         while 1:
             self.wait_and_shot(0.4)
@@ -30,81 +28,39 @@ class Battle(General, Buff, SwitchSouls, BattleAssets):
                 continue
 
             if self.appear(self.I_BATTLE_WIN, 0.95):
-                self.click(action_click)
+                self.click(self.battle_end_click)
                 win = True
                 continue
 
             if failed_check and self.appear(failed_check, 0.95):
-                self.click(action_click)
+                self.click(self.battle_end_click)
                 win = False
             elif self.appear(self.I_BATTLE_FAILED, 0.95):
-                self.click(action_click)
+                self.click(self.battle_end_click)
                 win = False
         logger.info(f"** Got battle result: {win}")
         return win
 
-    def run_battle(self) -> bool:
-        # 有的时候是长战斗，需要在设置stuck检测为长战斗
-        # 但是无需取消设置，因为如果有点击或者滑动的话 handle_control_check会自行取消掉
-        self.device.stuck_record_add('BATTLE_STATUS_S')
-        self.device.click_record_clear()
+    @cached_property
+    def reward_click(self):
+        return random.choice(
+            [self.C_REWARD_1, self.C_REWARD_2])
 
-        # 战斗过程 随机点击和滑动 防封
-        logger.info("Start battle process")
-        win = False
-
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_BATTLE_WIN) or self.appear(self.I_REWARD):
-                win = True
-                break
-
-            if self.appear(self.I_BATTLE_FIGHT_AGAIN):
-                break
-
-        logger.info(f"** Got battle result: {win}")
-        if not win:
-            action_click = random.choice(
-                [self.C_WIN_L, self.C_WIN_R])
-            self.click(action_click)
-            return win
-
-        logger.info("Get reward")
-        timeout = Timer(5, 5).start()
-        got_reward = False
-        while 1:
-            if timeout.reached():
-                break
-
-            self.screenshot()
-            if got_reward and not self.appear(self.I_REWARD):
-                break
-
-            if self.appear(self.I_REWARD):
-                self.get_reward()
-                got_reward = True
-                continue
-
-            if self.appear(self.I_BATTLE_WIN):
-                action_click = random.choice(
-                    [self.C_REWARD_1, self.C_REWARD_2])
-                self.click(action_click)
-
-        time.sleep(1)
-        return win
+    @cached_property
+    def battle_end_click(self):
+        return random.choice(
+            [self.C_WIN_L, self.C_WIN_R])
 
     def get_reward(self):
         """领奖励
         """
-        action_click = random.choice(
-            [self.C_REWARD_1, self.C_REWARD_2])
         while 1:
             self.screenshot()
             if not self.appear(self.I_REWARD):
                 break
 
             if self.appear(self.I_REWARD):
-                self.click(action_click)
+                self.click(self.reward_click)
 
     def run_battle_quit(self):
         """
@@ -128,9 +84,7 @@ class Battle(General, Buff, SwitchSouls, BattleAssets):
             time.sleep(0.5)
             self.screenshot()
             if self.appear(self.I_BATTLE_FIGHT_AGAIN):
-                action_click = random.choice(
-                    [self.C_WIN_L, self.C_WIN_R])
-                self.click(action_click)
+                self.click(self.battle_end_click)
                 continue
             if not self.appear(self.I_BATTLE_FIGHT_AGAIN):
                 break

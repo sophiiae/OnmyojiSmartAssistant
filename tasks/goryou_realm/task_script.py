@@ -128,7 +128,7 @@ class TaskScript(Battle, GR):
 
             if self.appear(self.I_GR_FIGHT):
                 self.click(self.I_GR_FIGHT)
-                self.run_battle()
+                self.run_easy_battle(self.I_GR_FIGHT_CHECK)
 
     def get_ticket_count(self):
         image = self.screenshot()

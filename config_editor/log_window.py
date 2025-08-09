@@ -40,10 +40,13 @@ class LogWindow(QWidget):
         self.setup_ui()
 
     def set_active(self, active: bool):
-        """设置日志窗口的活动状态 - 现在只是注册/注销回调"""
+        """设置日志窗口的活动状态"""
         if active:
             # 激活时，注册UI回调，传入配置名称
             self.start_log_capture()
+        else:
+            # 停用时，注销UI回调，但不显示停止分割线
+            self.stop_log_capture_silent()
 
     def append_log_safe(self, text):
         """线程安全的日志添加方法"""
@@ -325,13 +328,25 @@ class LogWindow(QWidget):
         """开始日志捕获 - 注册UI回调，传入配置名称"""
         # 注册logger的UI回调，传入配置名称
         from module.base.logger import logger
+        # 先移除可能存在的旧回调，避免重复注册
+        logger.remove_ui_callback(self.append_log)
+        # 注册新的回调，传入正确的配置名称
         logger.set_ui_callback(self.append_log, self.config_name)
+        print(f"日志窗口 {self.config_name} 开始捕获日志")
+
+    def stop_log_capture_silent(self):
+        """停止日志捕获 - 注销UI回调，但不显示停止分割线"""
+        # 注销logger的UI回调
+        from module.base.logger import logger
+        logger.remove_ui_callback(self.append_log)
+        print(f"日志窗口 {self.config_name} 停止捕获日志")
 
     def stop_log_capture(self):
         """停止日志捕获 - 注销UI回调"""
         # 注销logger的UI回调
         from module.base.logger import logger
         logger.remove_ui_callback(self.append_log)
+        print(f"日志窗口 {self.config_name} 停止捕获日志")
 
         # 添加停止分割线
         self.append_stop_separator()

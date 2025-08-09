@@ -109,9 +109,7 @@ class TaskScript(Battle, SA):
                 self.screenshot()
                 if self.appear(self.I_SA_BATTLE_WIN):
                     # 出现胜利
-                    action_click = random.choice(
-                        [self.C_WIN_L, self.C_WIN_R])
-                    self.click(action_click)
+                    self.click(self.battle_end_click)
                     break
 
     def get_ticket_count(self):
@@ -140,10 +138,8 @@ class TaskScript(Battle, SA):
 
             # 只出现奖励宝箱
             if self.appear(self.I_SA_COIN, 0.95) or self.appear(self.I_REWARD):
-                action_click = random.choice(
-                    [self.C_REWARD_1, self.C_REWARD_2])
                 # 如果出现领奖励
-                self.click(action_click)
+                self.click(self.reward_click)
                 continue
         return True
 
