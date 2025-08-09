@@ -33,5 +33,12 @@
     "roi": "30, 610, 25, 20",
     "area": "30, 610, 25, 20",
     "description": "更换阴阳师类型"
+  },
+  {
+    "name": "duel_exit",
+    "type": "click",
+    "roi": "26, 6, 40, 38",
+    "area": "26, 6, 40, 38",
+    "description": "退出斗技"
   }
 ]

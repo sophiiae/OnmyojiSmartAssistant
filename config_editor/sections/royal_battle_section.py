@@ -11,7 +11,7 @@ class RoyalBattleSection(QGroupBox):
         super().__init__("斗技配置")
         self.config = config
         self.section_name = section_name
-        self.royal_battle_config = config[section_name]["royal_battle_config"]
+        self.duel_config = config[section_name]["duel_config"]
         self.switch_soul_config = config[section_name]["switch_soul_config"]
         self.create_widgets()
 
@@ -29,26 +29,26 @@ class RoyalBattleSection(QGroupBox):
 
         # 上名士（只有CheckBox）
         self.elite_enable = QCheckBox("上名士")
-        self.elite_enable.setChecked(self.royal_battle_config["elite"])
+        self.elite_enable.setChecked(self.duel_config["elite"])
         add_left_row(royal_battle_layout, [self.elite_enable])
 
         # 段位（无CheckBox，左对齐）
         self.rank = SelectButton()
         self.rank.addItems(
             ["一段", "二段", "三段", "四段", "五段", "六段", "七段", "八段", "九段"])
-        self.rank.setCurrentText(self.royal_battle_config["rank"])
+        self.rank.setCurrentText(self.duel_config["rank"])
         add_left_row(royal_battle_layout, [QLabel("段位:"), self.rank])
 
         # 打满荣誉积分（只有CheckBox）
         self.full_honor_points_enable = QCheckBox("打满荣誉积分")
         self.full_honor_points_enable.setChecked(
-            self.royal_battle_config["full_honor_points"])
+            self.duel_config["full_honor_points"])
         add_left_row(royal_battle_layout, [self.full_honor_points_enable])
 
         # 阴阳师选择（无CheckBox，左对齐）
         self.onmyoji = SelectButton()
         self.onmyoji.addItems(["自动", "晴明", "源博雅", "神乐", "八百比丘尼", "源赖光"])
-        self.onmyoji.setCurrentText(self.royal_battle_config["onmyoji"])
+        self.onmyoji.setCurrentText(self.duel_config["onmyoji"])
         add_left_row(royal_battle_layout, [QLabel("阴阳师:"), self.onmyoji])
 
         # 御魂切换设置
@@ -61,10 +61,10 @@ class RoyalBattleSection(QGroupBox):
         # 更新调度配置
         self.scheduler_section.update_config()
 
-        self.royal_battle_config["elite"] = self.elite_enable.isChecked()
-        self.royal_battle_config["rank"] = self.rank.currentText()
-        self.royal_battle_config["onmyoji"] = self.onmyoji.currentText()
-        self.royal_battle_config["full_honor_points"] = self.full_honor_points_enable.isChecked(
+        self.duel_config["elite"] = self.elite_enable.isChecked()
+        self.duel_config["rank"] = self.rank.currentText()
+        self.duel_config["onmyoji"] = self.onmyoji.currentText()
+        self.duel_config["full_honor_points"] = self.full_honor_points_enable.isChecked(
         )
         # 更新御魂切换配置
         self.switch_soul_section.update_config()

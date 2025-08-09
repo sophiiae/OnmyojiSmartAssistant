@@ -1,7 +1,7 @@
 import sys
 from venv import logger
 
-from tasks.royal_battle.task_script import TaskScript
+from tasks.duel.task_script import TaskScript
 from module.control.server.device import Device
 
 if __name__ == "__main__":

@@ -66,8 +66,8 @@
   {
     "name": "close_quest_board",
     "type": "image",
-    "roi": "1156, 113, 46, 46",
-    "area": "1133, 90, 92, 92",
+    "roi": "1162, 117, 32, 34",
+    "area": "1146, 101, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "关闭悬赏面板"
   },

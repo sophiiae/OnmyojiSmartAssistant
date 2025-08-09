@@ -3,50 +3,51 @@ import random
 import time
 from venv import logger
 from module.base.exception import TaskEnd
-from module.config.enums import RoyalBattleRank, OnmyojiClass
+from module.config.enums import DuelRank, OnmyojiClass
 from module.image_processing.rule_image import RuleImage
 from tasks.battle.battle import Battle
 from tasks.general.page import Page, page_dojo, page_main
-from tasks.royal_battle.assets import RoyalBattleAssets as RB
+from tasks.duel.assets import DuelAssets
 from module.base.exception import RequestHumanTakeover
 
-class TaskScript(Battle, RB):
-    name = "RoyalBattle"
+class TaskScript(Battle, DuelAssets):
+    name = "Duel"
     contest_mode = False
 
     # 普通斗技模式 / 斗技赛季模式
     def run(self):
-        self.rb_config = self.config.model.royal_battle.royal_battle_config
+        self.rb_config = self.config.model.duel.duel_config
         self.screenshot()
         if not self.appear(self.page_check):
             self.to_battle_entrance()
 
         to_elite = self.rb_config.elite
+        success = True
         if to_elite:
-            self.battle_to_elite()
+            success = self.battle_to_elite()
         else:
-            self.rank_battle()
+            success = self.rank_battle()
 
-        self.set_next_run(task='RoyalBattle', success=True, finish=True)
-
+        self.set_next_run(task='Duel', success=success, finish=True)
+        self.exit_duel()
         raise TaskEnd(self.name)
 
     @cached_property
     def page_check(self):
-        return self.I_RB_CONTEST_CHECK if self.contest_mode else self.I_RB_CHECK
+        return self.I_DUEL_CONTEST_CHECK if self.contest_mode else self.I_DUEL_CHECK
 
     @cached_property
     def rank_map(self):
         return {
-            RoyalBattleRank.rank_1: 1001,
-            RoyalBattleRank.rank_2: 1200,
-            RoyalBattleRank.rank_3: 1400,
-            RoyalBattleRank.rank_4: 1600,
-            RoyalBattleRank.rank_5: 1800,
-            RoyalBattleRank.rank_6: 2000,
-            RoyalBattleRank.rank_7: 2200,
-            RoyalBattleRank.rank_8: 2400,
-            RoyalBattleRank.rank_9: 2700,
+            DuelRank.rank_1: 1001,
+            DuelRank.rank_2: 1200,
+            DuelRank.rank_3: 1400,
+            DuelRank.rank_4: 1600,
+            DuelRank.rank_5: 1800,
+            DuelRank.rank_6: 2000,
+            DuelRank.rank_7: 2200,
+            DuelRank.rank_8: 2400,
+            DuelRank.rank_9: 2700,
         }
 
     def battle_to_elite(self):
@@ -56,13 +57,13 @@ class TaskScript(Battle, RB):
 
             self.wait_and_shot(1)
             if self.appear(self.page_check):
-                if self.appear(self.I_RB_NOTABLE_NOTIFICATION, 0.95) or self.appear(self.I_RB_NOTABLE_BADGE, 0.95):
-                    raise TaskEnd(self.name)
+                if self.appear(self.I_DUEL_NOTABLE_NOTIFICATION, 0.95) or self.appear(self.I_DUEL_NOTABLE_BADGE, 0.95):
+                    return True
 
                 if retry > 5:
-                    raise RequestHumanTakeover(self.name)
+                    return False
 
-                if not self.appear(self.I_RB_FLOWER_BADGE):
+                if not self.appear(self.I_DUEL_FLOWER_BADGE):
                     self.random_click_right()
                     retry += 1
                     continue
@@ -74,18 +75,18 @@ class TaskScript(Battle, RB):
         target_rank = self.rb_config.rank
         target_score = self.rank_map[target_rank]
         if self.check_score(target_score):
-            return
+            return True
 
         while 1:
-            if self.appear(self.I_RB_FIGHT_BLUE, 0.985):
+            if self.appear(self.I_DUEL_FIGHT_BLUE, 0.985):
                 if self.check_score(target_score):
-                    break
+                    return True
 
             self.battle_process()
 
     def check_score(self, target):
         image = self.screenshot()
-        score = self.O_RB_SCORE.digit(image)
+        score = self.O_DUEL_SCORE.digit(image)
         self.class_logger(
             self.name, f"current score: {score}, target: {target}")
         return score > target
@@ -103,11 +104,10 @@ class TaskScript(Battle, RB):
             if self.appear(self.page_check):
                 break
 
-            if self.appear(self.I_DOJO_TO_ROYAL_BATTLE):
-                self.click(self.I_DOJO_TO_ROYAL_BATTLE)
+            self.appear_then_click(self.I_DOJO_TO_DUEL)
 
     def switch_souls_and_onmyoji(self):
-        ss_config = self.config.model.royal_battle.switch_soul_config
+        ss_config = self.config.model.duel.switch_soul_config
         ss_enable = ss_config.enable
 
         # 换御魂
@@ -205,53 +205,80 @@ class TaskScript(Battle, RB):
                 if not self.appear(self.page_check):
                     break
 
-                if self.appear(self.I_RB_CONTEST_FIGHT):
-                    self.click(self.I_RB_CONTEST_FIGHT)
+                if self.appear_then_click(self.I_DUEL_CONTEST_FIGHT):
                     continue
 
-                if self.appear(self.I_RB_FIGHT_BLUE):
-                    self.click(self.I_RB_FIGHT_BLUE)
+                self.appear_then_click(self.I_DUEL_FIGHT_BLUE)
         else:
             self.start_battle()
 
         self.battle_ready()
         self.toggle_battle_auto()
-        self.run_easy_battle(self.page_check, self.I_RB_BATTLE_FAILED)
+        self.run_easy_battle(self.page_check, self.I_DUEL_BATTLE_FAILED)
 
     def start_battle(self):
         count = 0
         # 开始斗技
         while 1:
             self.wait_and_shot(1)
-            if self.appear(self.I_RB_TEAM_PREP_CHECK):
+            if self.appear(self.I_DUEL_TEAM_PREP_CHECK):
                 break
 
             if self.appear(self.page_check):
-                if self.appear(self.I_RB_FIGHT) or self.appear(self.I_RB_FIGHT_BLUE):
-                    self.click(self.I_RB_FIGHT)
+                if self.appear(self.I_DUEL_FIGHT) or self.appear(self.I_DUEL_FIGHT_BLUE):
+                    self.click(self.I_DUEL_FIGHT)
                     continue
             else:
                 count += 1
                 if count > 3:
-                    raise TaskEnd(self.name)
+                    raise RequestHumanTakeover("Unable to fight")
 
     def battle_ready(self):
         # 开始斗技
         while 1:
             self.wait_and_shot(1)
 
-            if self.appear(self.I_RB_TEAM_PREP_CHECK):
+            if self.appear(self.I_DUEL_TEAM_PREP_CHECK):
                 # 开启自动上阵 (四段以上)
-                if self.appear(self.I_RB_AUTO_TEAM):
-                    self.click(self.I_RB_AUTO_TEAM)
+                if self.appear_then_click(self.I_DUEL_AUTO_TEAM):
                     break
 
             # 准备 （四段以下）
-            if self.appear(self.I_RB_READY, 0.95):
+            if self.appear(self.I_DUEL_READY, 0.95):
                 while 1:
                     self.wait_and_shot()
-                    if not self.appear(self.I_RB_READY):
+                    if not self.appear(self.I_DUEL_READY):
                         break
-                    if self.appear(self.I_RB_READY):
-                        self.click(self.I_RB_READY)
+                    self.appear_then_click(self.I_DUEL_READY)
                 break
+
+    def exit_duel(self):
+        # 退出页面
+        while 1:
+            self.wait_and_shot()
+            if not self.appear(self.page_check):
+                break
+
+            self.click(self.C_DUEL_EXIT)
+
+        # 可能1： 从日常页面进入的斗技（手动进入）
+        if self.appear(self.I_SCHEDULE_ICON, 0.95):
+            while 1:
+                self.wait_and_shot()
+                if not self.appear(self.I_SCHEDULE_ICON):
+                    break
+
+                self.appear_then_click(self.I_SCHEDULE_CLOSE_X)
+
+            # 回到庭院，左滑
+            while 1:
+                self.wait_and_shot()
+                if self.appear(self.I_C_MAIN, 0.95):
+                    return
+
+                self.swipe(self.S_REGION_TO_LEFT)
+
+        # 可能2： 从道馆进入（如果是脚本走的话）
+        # 从到道馆回庭院
+        if self.appear(self.I_C_DOJO):
+            self.goto(page_main, page_dojo)

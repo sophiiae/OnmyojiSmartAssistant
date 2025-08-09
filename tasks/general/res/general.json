@@ -17,8 +17,8 @@
   },
   {
     "name": "b_red_x",
-    "roi": "1184, 112, 46, 46",
-    "area": "1161, 89, 92, 92",
+    "roi": "1194, 27, 32, 34",
+    "area": "1178, 11, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "红色X"
   },

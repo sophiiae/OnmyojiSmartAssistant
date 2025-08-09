@@ -87,6 +87,8 @@ class Config:
         # 如果没有pending任务，返回waiting任务
         if self.waiting_task:
             logger.info("No task pending, returning waiting task")
+            logger.info(f"Waiting tasks: {
+                [f.name for f in self.waiting_task]}")
             task = copy.deepcopy(self.waiting_task[0])
             logger.info(f"Waiting Task: {task}")
             self.task = task

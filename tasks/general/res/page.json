@@ -114,8 +114,8 @@
   {
     "name": "v_exp_modal_to_exp",
     "type": "image",
-    "roi": "1025, 129, 46, 46",
-    "area": "1002, 106, 92, 92",
+    "roi": "1031, 133, 32, 34",
+    "area": "1015, 117, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "探索章节入口退出"
   },
@@ -162,8 +162,8 @@
   {
     "name": "v_realm_raid_to_exp",
     "type": "image",
-    "roi": "1184, 112, 46, 46",
-    "area": "1161, 89, 92, 92",
+    "roi": "1190, 116, 32, 34",
+    "area": "1174, 100, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "结界突破退出"
   },

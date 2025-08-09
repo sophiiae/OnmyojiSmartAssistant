@@ -60,8 +60,8 @@ class KekkaiAssets:
 	)
 	# 关闭体力食盒/经验酒壶 
 	I_KEKKAI_SUPPLY_CLOSE = RuleImage(
-		roi=(952, 143, 46, 46),
-		area=(929, 120, 92, 92),
+		roi=(958, 147, 32, 34),
+		area=(942, 131, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 

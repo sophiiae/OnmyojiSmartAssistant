@@ -38,7 +38,7 @@ ENV/
 .DS_Store
 Thumbs.db 
 
-*.png
+/*.png
 compact_log.txt
 
 data/

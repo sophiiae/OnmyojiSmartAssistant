@@ -24,8 +24,8 @@ class ConfigModel(BaseModel):
     area_boss: AreaBoss = Field(
         default_factory=AreaBoss
     )
-    royal_battle: RoyalBattle = Field(
-        default_factory=RoyalBattle
+    duel: Duel = Field(
+        default_factory=Duel
     )
     bonding_fairyland: BondingFairyland = Field(
         default_factory=BondingFairyland

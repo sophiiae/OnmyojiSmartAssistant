@@ -22,8 +22,8 @@ class GeneralAssets:
 	)
 	# 红色X 
 	I_B_RED_X = RuleImage(
-		roi=(1184, 112, 46, 46),
-		area=(1161, 89, 92, 92),
+		roi=(1194, 27, 32, 34),
+		area=(1178, 11, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 蓝色<退出 
@@ -147,8 +147,8 @@ class GeneralAssets:
 	)
 	# 探索章节入口退出 
 	I_V_EXP_MODAL_TO_EXP = RuleImage(
-		roi=(1025, 129, 46, 46),
-		area=(1002, 106, 92, 92),
+		roi=(1031, 133, 32, 34),
+		area=(1015, 117, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 探索界面返回主界面 
@@ -183,8 +183,8 @@ class GeneralAssets:
 	)
 	# 结界突破退出 
 	I_V_REALM_RAID_TO_EXP = RuleImage(
-		roi=(1184, 112, 46, 46),
-		area=(1161, 89, 92, 92),
+		roi=(1190, 116, 32, 34),
+		area=(1174, 100, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 地域鬼王退出 

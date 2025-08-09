@@ -149,8 +149,8 @@ class MainPageAssets:
 	)
 	# 退出邮件窗口 
 	I_MAIL_EXIT = RuleImage(
-		roi=(1155, 93, 46, 46),
-		area=(1132, 70, 92, 92),
+		roi=(1161, 97, 32, 34),
+		area=(1145, 81, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 菜单绘卷关闭 
@@ -233,14 +233,14 @@ class MainPageAssets:
 	)
 	# 好友羁绊提升关闭 
 	I_FRIEND_LEVEL_UP_CLOSE = RuleImage(
-		roi=(1138, 72, 46, 46),
+		roi=(1161, 97, 32, 34),
 		area=(1115, 49, 92, 92),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 退出好友 
 	I_FRIENDS_EXIT = RuleImage(
-		roi=(1157, 94, 46, 46),
-		area=(1134, 71, 92, 92),
+		roi=(1163, 98, 32, 34),
+		area=(1147, 82, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 签到 
@@ -263,8 +263,8 @@ class MainPageAssets:
 	)
 	# 关闭每日签到 
 	I_CLOSE_DAILY_SIGN = RuleImage(
-		roi=(849, 87, 46, 46),
-		area=(826, 64, 92, 92),
+		roi=(855, 91, 32, 34),
+		area=(839, 75, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 每日勾玉领取 
@@ -317,7 +317,7 @@ class MainPageAssets:
 	)
 	# 关闭商店礼包推荐 
 	I_SHOP_PACK_CLOSE = RuleImage(
-		roi=(950, 165, 46, 46),
+		roi=(855, 91, 32, 34),
 		area=(927, 142, 92, 92),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
@@ -379,8 +379,8 @@ class MainPageAssets:
 	)
 	# 关闭悬赏面板 
 	I_CLOSE_QUEST_BOARD = RuleImage(
-		roi=(1156, 113, 46, 46),
-		area=(1133, 90, 92, 92),
+		roi=(1162, 117, 32, 34),
+		area=(1146, 101, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 勾协邀请 

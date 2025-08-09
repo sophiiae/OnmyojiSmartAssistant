@@ -50,8 +50,8 @@
   {
     "name": "mail_exit",
     "type": "image",
-    "roi": "1155, 93, 46, 46",
-    "area": "1132, 70, 92, 92",
+    "roi": "1161, 97, 32, 34",
+    "area": "1145, 81, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "退出邮件窗口"
   },
@@ -162,7 +162,7 @@
   {
     "name": "friend_level_up_close",
     "type": "image",
-    "roi": "1138, 72, 46, 46",
+    "roi": "1161, 97, 32, 34",
     "area": "1115, 49, 92, 92",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "好友羁绊提升关闭"
@@ -170,8 +170,8 @@
   {
     "name": "friends_exit",
     "type": "image",
-    "roi": "1157, 94, 46, 46",
-    "area": "1134, 71, 92, 92",
+    "roi": "1163, 98, 32, 34",
+    "area": "1147, 82, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "退出好友"
   },
@@ -202,8 +202,8 @@
   {
     "name": "close_daily_sign",
     "type": "image",
-    "roi": "849, 87, 46, 46",
-    "area": "826, 64, 92, 92",
+    "roi": "855, 91, 32, 34",
+    "area": "839, 75, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "关闭每日签到"
   },
@@ -274,7 +274,7 @@
   {
     "name": "shop_pack_close",
     "type": "image",
-    "roi": "950, 165, 46, 46",
+    "roi": "855, 91, 32, 34",
     "area": "927, 142, 92, 92",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "关闭商店礼包推荐"

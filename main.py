@@ -1,5 +1,5 @@
 from module.base.logger import logger
-from tasks.royal_battle.task_script import TaskScript as RB
+from tasks.duel.task_script import TaskScript as RB
 from tasks.exploration.task_script import TaskScript as EXP
 from module.script import Script
 from module.control.server.device import Device

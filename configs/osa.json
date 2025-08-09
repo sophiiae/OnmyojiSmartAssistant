@@ -151,7 +151,7 @@
       "switch_group_team": "-1,-1"
     }
   },
-  "royal_battle": {
+  "duel": {
     "scheduler": {
       "enable": false,
       "next_run": "2023-01-01 00:00:00",
@@ -159,7 +159,7 @@
       "success_interval": "01 00:00:00",
       "failure_interval": "01 00:00:00"
     },
-    "royal_battle_config": {
+    "duel_config": {
       "elite": false,
       "rank": "一段",
       "full_honor_points": false,

@@ -46,8 +46,8 @@ class AreaBossAssets:
 	)
 	# 退出boss挑战页面 
 	I_AB_BOSS_EXIT = RuleImage(
-		roi=(1188, 23, 46, 46),
-		area=(1165, 0, 92, 92),
+		roi=(1194, 27, 32, 34),
+		area=(1178, 11, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 准备 

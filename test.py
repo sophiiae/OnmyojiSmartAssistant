@@ -1,7 +1,7 @@
 import sys
 from module.control.server.device import Device
 from tasks.exploration.task_script import TaskScript as EXP
-from tasks.royal_battle.task_script import TaskScript as RB
+from tasks.duel.task_script import TaskScript as RB
 from module.base.logger import logger
 
 

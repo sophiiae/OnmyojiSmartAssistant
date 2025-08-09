@@ -110,7 +110,7 @@ class OSAEditor(ConfigTab):
             ("goryou_realm", "御灵", "goryou_realm.scheduler.enable"),
             ("shikigami_activity", "式神活动", "shikigami_activity.scheduler.enable"),
             ("area_boss", "地域鬼王", "area_boss.scheduler.enable"),
-            ("royal_battle", "斗技", "royal_battle.scheduler.enable"),
+            ("duel", "斗技", "duel.scheduler.enable"),
             ("bonding_fairyland", "契灵之境", "bonding_fairyland.scheduler.enable")
         ]
 
@@ -197,7 +197,7 @@ class OSAEditor(ConfigTab):
         scroll_layout.addWidget(self.area_boss_section)
 
         self.royal_battle_section = RoyalBattleSection(
-            self.config, "royal_battle")
+            self.config, "duel")
         scroll_layout.addWidget(self.royal_battle_section)
 
         self.bonding_fairyland_section = BondingFairylandSection(self.config)
@@ -598,7 +598,7 @@ class OSAEditor(ConfigTab):
             "goryou_realm": self.goryou_realm_section,
             "shikigami_activity": self.shikigami_activity_section,
             "area_boss": self.area_boss_section,
-            "royal_battle": self.royal_battle_section,
+            "duel": self.royal_battle_section,
             "bonding_fairyland": self.bonding_fairyland_section
         }
 

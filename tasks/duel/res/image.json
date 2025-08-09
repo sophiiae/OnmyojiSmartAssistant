@@ -1,14 +1,14 @@
 [
   {
-    "name": "rb_ent",
+    "name": "duel_ent",
     "type": "image",
     "roi": "125, 303, 48, 44",
     "area": "20, 281, 800, 88",
-    "file": "./tasks/royal_battle/res/rb_ent.png",
+    "file": "./tasks/duel/res/duel_ent.png",
     "description": "斗技入口"
   },
   {
-    "name": "dojo_to_royal_battle",
+    "name": "dojo_to_duel",
     "type": "image",
     "roi": "720, 254, 24, 53",
     "area": "708, 242, 48, 77",
@@ -16,79 +16,79 @@
     "description": "町中武馆斗技"
   },
   {
-    "name": "rb_contest_check",
+    "name": "duel_contest_check",
     "type": "image",
     "roi": "95, 5, 144, 45",
     "area": "73, 0, 188, 89",
-    "file": "./tasks/royal_battle/res/rb_contest_check.png",
+    "file": "./tasks/duel/res/duel_contest_check.png",
     "description": "斗技比赛"
   },
   {
-    "name": "rb_contest_fight",
+    "name": "duel_contest_fight",
     "type": "image",
     "roi": "1161, 589, 88, 93",
     "area": "1117, 545, 176, 181",
-    "file": "./tasks/royal_battle/res/rb_contest_fight.png",
+    "file": "./tasks/duel/res/duel_contest_fight.png",
     "description": "斗技比赛对战"
   },
   {
-    "name": "rb_fight",
+    "name": "duel_fight",
     "type": "image",
     "roi": "1146, 575, 101, 87",
     "area": "1102, 531, 189, 175",
-    "file": "./tasks/royal_battle/res/rb_fight.png",
+    "file": "./tasks/duel/res/duel_fight.png",
     "description": "战斗黄色"
   },
   {
-    "name": "rb_fight_blue",
+    "name": "duel_fight_blue",
     "type": "image",
     "roi": "1156, 571, 75, 72",
     "area": "1120, 535, 147, 144",
-    "file": "./tasks/royal_battle/res/rb_fight_blue.png",
+    "file": "./tasks/duel/res/duel_fight_blue.png",
     "description": "战斗蓝色"
   },
   {
-    "name": "rb_check",
+    "name": "duel_check",
     "type": "image",
     "roi": "97, 5, 142, 45",
     "area": "75, 0, 186, 89",
-    "file": "./tasks/royal_battle/res/rb_check.png",
+    "file": "./tasks/duel/res/duel_check.png",
     "description": ""
   },
   {
-    "name": "rb_daily",
+    "name": "duel_daily",
     "type": "image",
     "roi": "531, 56, 214, 56",
     "area": "503, 28, 270, 112",
-    "file": "./tasks/royal_battle/res/rb_daily.png",
+    "file": "./tasks/duel/res/duel_daily.png",
     "description": "日常界面"
   },
   {
-    "name": "rb_logo",
+    "name": "duel_logo",
     "type": "image",
     "roi": "700, 163, 59, 56",
     "area": "210, 120, 870, 500",
-    "file": "./tasks/royal_battle/res/rb_logo.png",
+    "file": "./tasks/duel/res/duel_logo.png",
     "description": "日常界面斗技图标"
   },
   {
-    "name": "rb_header",
+    "name": "duel_header",
     "type": "image",
     "roi": "470, 167, 107, 102",
     "area": "419, 116, 209, 204",
-    "file": "./tasks/royal_battle/res/rb_header.png",
+    "file": "./tasks/duel/res/duel_header.png",
     "description": "斗技标题图标"
   },
   {
-    "name": "rb_goto",
+    "name": "duel_goto",
     "type": "image",
     "roi": "571, 484, 131, 65",
     "area": "539, 452, 195, 129",
-    "file": "./tasks/royal_battle/res/rb_goto.png",
+    "file": "./tasks/duel/res/duel_goto.png",
     "description": "前往"
   },
   {
-    "name": "rb_ready",
+    "name": "duel_ready",
     "type": "image",
     "roi": "1135, 565, 87, 46",
     "area": "1112, 542, 133, 92",
@@ -96,7 +96,7 @@
     "description": "斗技准备"
   },
   {
-    "name": "rb_win",
+    "name": "duel_win",
     "type": "image",
     "roi": "411, 54, 172, 129",
     "area": "347, 0, 300, 257",
@@ -104,23 +104,23 @@
     "description": "斗技胜利"
   },
   {
-    "name": "rb_upgrade",
+    "name": "duel_upgrade",
     "type": "image",
     "roi": "323, 291, 136, 65",
     "area": "291, 259, 200, 129",
-    "file": "./tasks/royal_battle/res/rb_upgrade.png",
+    "file": "./tasks/duel/res/duel_upgrade.png",
     "description": "段位上升"
   },
   {
-    "name": "rb_auto_team",
+    "name": "duel_auto_team",
     "type": "image",
     "roi": "39, 132, 45, 54",
     "area": "17, 110, 89, 98",
-    "file": "./tasks/royal_battle/res/rb_auto_team.png",
+    "file": "./tasks/duel/res/duel_auto_team.png",
     "description": "自动上阵"
   },
   {
-    "name": "rb_battle_failed",
+    "name": "duel_battle_failed",
     "type": "image",
     "roi": "409, 68, 125, 100",
     "area": "359, 18, 225, 200",
@@ -128,35 +128,35 @@
     "description": "战斗失败"
   },
   {
-    "name": "rb_team_prep_check",
+    "name": "duel_team_prep_check",
     "type": "image",
     "roi": "611, 40, 58, 55",
     "area": "583, 12, 114, 111",
-    "file": "./tasks/royal_battle/res/rb_team_prep_check.png",
+    "file": "./tasks/duel/res/duel_team_prep_check.png",
     "description": "上阵战图标"
   },
   {
-    "name": "rb_notable_badge",
+    "name": "duel_notable_badge",
     "type": "image",
     "roi": "668, 535, 23, 20",
     "area": "658, 525, 43, 40",
-    "file": "./tasks/royal_battle/res/rb_notable_badge.png",
+    "file": "./tasks/duel/res/duel_notable_badge.png",
     "description": "名士徽章"
   },
   {
-    "name": "rb_flower_badge",
+    "name": "duel_flower_badge",
     "type": "image",
     "roi": "665, 507, 38, 36",
     "area": "647, 489, 74, 72",
-    "file": "./tasks/royal_battle/res/rb_flower_badge.png",
+    "file": "./tasks/duel/res/duel_flower_badge.png",
     "description": "普通花朵徽章"
   },
   {
-    "name": "rb_notable_notification",
+    "name": "duel_notable_notification",
     "type": "image",
     "roi": "504, 399, 286, 70",
     "area": "469, 364, 356, 140",
-    "file": "./tasks/royal_battle/res/rb_notable_notification.png",
+    "file": "./tasks/duel/res/duel_notable_notification.png",
     "description": "晋升名士"
   },
   {
@@ -164,7 +164,7 @@
     "type": "image",
     "roi": "102, 9, 96, 34",
     "area": "85, 0, 130, 68",
-    "file": "./tasks/royal_battle/res/c_onmyodo.png",
+    "file": "./tasks/duel/res/c_onmyodo.png",
     "description": "阴阳术页面"
   },
   {
@@ -172,7 +172,7 @@
     "type": "image",
     "roi": "38, 387, 41, 31",
     "area": "22, 371, 73, 63",
-    "file": "./tasks/royal_battle/res/change_onmyoji.png",
+    "file": "./tasks/duel/res/change_onmyoji.png",
     "description": "交换阴阳师"
   },
   {
@@ -180,7 +180,7 @@
     "type": "image",
     "roi": "92, 13, 177, 38",
     "area": "73, 0, 215, 76",
-    "file": "./tasks/royal_battle/res/c_change_page.png",
+    "file": "./tasks/duel/res/c_change_page.png",
     "description": "阴阳师交换页面"
   },
   {
@@ -188,7 +188,7 @@
     "type": "image",
     "roi": "57, 631, 105, 39",
     "area": "37, 611, 145, 79",
-    "file": "./tasks/royal_battle/res/onmyoji_selected.png",
+    "file": "./tasks/duel/res/onmyoji_selected.png",
     "description": "阴阳师选中"
   },
   {
@@ -196,7 +196,7 @@
     "type": "image",
     "roi": "72, 630, 71, 38",
     "area": "53, 611, 109, 76",
-    "file": "./tasks/royal_battle/res/hero_selected.png",
+    "file": "./tasks/duel/res/hero_selected.png",
     "description": "英杰选中"
   },
   {
@@ -212,7 +212,7 @@
     "type": "image",
     "roi": "998, 618, 38, 35",
     "area": "980, 600, 74, 71",
-    "file": "./tasks/royal_battle/res/main_onmyodo_ent.png",
+    "file": "./tasks/duel/res/main_onmyodo_ent.png",
     "description": "阴阳术入口"
   },
   {
@@ -221,6 +221,22 @@
     "roi": "11, 13, 53, 44",
     "area": "0, 0, 97, 88",
     "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
-    "description": ""
+    "description": "退出更换阴阳师页面"
+  },
+  {
+    "name": "schedule_icon",
+    "type": "image",
+    "roi": "181, 113, 23, 63",
+    "area": "169, 101, 47, 87",
+    "file": "./tasks/duel/res/schedule_icon.png",
+    "description": "日程标志"
+  },
+  {
+    "name": "schedule_close_x",
+    "type": "image",
+    "roi": "1127, 73, 32, 34",
+    "area": "1111, 57, 64, 66",
+    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "description": "关闭日程按钮"
   }
 ]

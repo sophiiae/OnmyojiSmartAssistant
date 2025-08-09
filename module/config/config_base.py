@@ -591,7 +591,7 @@ class AreaBoss(BaseModel):
     )
 
 
-class RoyalBattleConfig(BaseModel):
+class DuelConfig(BaseModel):
     """
     斗技段位
     """
@@ -600,8 +600,8 @@ class RoyalBattleConfig(BaseModel):
         description="是否上名士"
     )
 
-    rank: RoyalBattleRank = Field(
-        default=RoyalBattleRank.rank_1,
+    rank: DuelRank = Field(
+        default=DuelRank.rank_1,
         description="斗技段位"
     )
 
@@ -615,7 +615,7 @@ class RoyalBattleConfig(BaseModel):
         description="斗技阴阳师"
     )
 
-class RoyalBattle(BaseModel):
+class Duel(BaseModel):
     """
     斗技
     """
@@ -624,8 +624,8 @@ class RoyalBattle(BaseModel):
         description="斗技任务调度"
     )
 
-    royal_battle_config: RoyalBattleConfig = Field(
-        default_factory=RoyalBattleConfig,
+    duel_config: DuelConfig = Field(
+        default_factory=DuelConfig,
         description="斗技配置"
     )
 

@@ -87,7 +87,7 @@ class OnmyojiClass(str, Enum):
     Yaobikuni = '八百比丘尼'
     Yorimitsu = '源赖光'
 
-class RoyalBattleRank(str, Enum):
+class DuelRank(str, Enum):
     rank_1 = '一段'
     rank_2 = '二段'
     rank_3 = '三段'
