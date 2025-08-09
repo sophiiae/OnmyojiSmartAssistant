@@ -80,6 +80,14 @@ class ConfigTab(QWidget):
 
                 # 刷新UI
                 self.update_nav_buttons()
+                # 如果有refresh_ui_from_config方法，调用它来刷新所有UI控件
+                if hasattr(self, 'refresh_ui_from_config'):
+                    try:
+                        refresh_method = getattr(
+                            self, 'refresh_ui_from_config')
+                        refresh_method()
+                    except Exception as e:
+                        logger.error(f"刷新UI控件时出错: {e}")
                 logger.info(f"配置界面已更新: {os.path.basename(self.config_path)}")
             else:
                 logger.debug("配置内容未发生变化，跳过UI更新")

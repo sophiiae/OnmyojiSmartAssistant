@@ -26,10 +26,22 @@ class ShikigamiActivitySection(QGroupBox):
         climb_layout = QVBoxLayout(climb_group)
 
         # 启用体力模式（CheckBox独占一行）
-        self.enable_ap_mode = QCheckBox("启用体力模式")
+        self.enable_ap_mode = QCheckBox("启用体力模式(普通爬塔)")
         self.enable_ap_mode.setChecked(
             climb_config.get("enable_ap_mode", False))
         add_left_row(climb_layout, [self.enable_ap_mode])
+
+        # 启用周年庆模式（CheckBox独占一行）
+        self.anniversary_mode = QCheckBox("启用周年庆模式")
+        self.anniversary_mode.setChecked(
+            climb_config.get("anniversary_mode", False))
+        add_left_row(climb_layout, [self.anniversary_mode])
+
+        # 启用超鬼王模式（CheckBox独占一行）
+        self.demon_king_mode = QCheckBox("启用超鬼王模式")
+        self.demon_king_mode.setChecked(
+            climb_config.get("demon_king_mode", False))
+        add_left_row(climb_layout, [self.demon_king_mode])
 
         # 自动切换（CheckBox独占一行）
         self.auto_switch = QCheckBox("自动切换")
@@ -72,6 +84,8 @@ class ShikigamiActivitySection(QGroupBox):
         # 更新爬塔配置
         climb_config = self.config["shikigami_activity"]["climb_config"]
         climb_config["enable_ap_mode"] = self.enable_ap_mode.isChecked()
+        climb_config["anniversary_mode"] = self.anniversary_mode.isChecked()
+        climb_config["demon_king_mode"] = self.demon_king_mode.isChecked()
         climb_config["auto_switch"] = self.auto_switch.isChecked()
         climb_config["ticket_max"] = self.max_tickets_spin.value()
         climb_config["ap_max"] = self.max_stamina_spin.value()
@@ -92,22 +106,6 @@ class ShikigamiActivitySection(QGroupBox):
             # 刷新调度器设置
             if hasattr(self.scheduler_section, 'refresh_from_config'):
                 self.scheduler_section.refresh_from_config(config)
-
-            # 重新获取配置引用
-            shikigami_activity = config.get("shikigami_activity", {})
-            climb_config = shikigami_activity.get("climb_config", {})
-
-            # 刷新式神活动配置UI控件
-            self.enable_ap_mode.setChecked(
-                climb_config.get("enable_ap_mode", False))
-            self.auto_switch.setChecked(
-                climb_config.get("auto_switch", False))
-            self.max_tickets_spin.setValue(
-                climb_config.get("ticket_max", 50))
-            self.max_stamina_spin.setValue(
-                climb_config.get("ap_max", 300))
-            self.lock_team_enable.setChecked(
-                climb_config.get("lock_team_enable", True))
 
         except Exception as e:
             from module.base.logger import logger

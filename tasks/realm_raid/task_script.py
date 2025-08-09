@@ -96,9 +96,13 @@ class TaskScript(RealmRaidAssets, Battle):
     def start_guild_raid(self):
         # 进入寮突破
         while 1:
-            self.screenshot()
+            self.wait_and_shot()
+            if self.appear(self.I_GUILD_RAID_CLOSE):
+                return True
+
             if self.appear(self.I_RR_GUID_PROGRESS):
                 break
+
             self.click(self.C_GUILD_RAID)
 
         # 寮已全部攻破
@@ -334,12 +338,13 @@ class TaskScript(RealmRaidAssets, Battle):
         if self.appear_then_click(self.I_RAID_REFRESH, delay=0.5):
             if self.wait_until_click(self.I_BATTLE_FIGHT_AGAIN_CONFIRM, 2):
                 return True
-            else:
-                logger.warning("Unable to refresh, waiting for CD.")
-                return False
 
         logger.critical("No refresh button found")
-        return False
+        target_time = datetime.now() + timedelta(minutes=5)
+        self.set_next_run(self.name, success=True,
+                          finish=True, target_time=target_time)
+        raise TaskEnd(
+            self.name, f"Waiting for refresh button to be enabled. {self.name}")
 
     def check_ticket(self):
         tickets_required = self.rr_config.tickets_required

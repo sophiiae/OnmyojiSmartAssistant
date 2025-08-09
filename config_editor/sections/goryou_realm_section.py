@@ -71,20 +71,6 @@ class GoryouRealmSection(QGroupBox):
             if hasattr(self.scheduler_section, 'refresh_from_config'):
                 self.scheduler_section.refresh_from_config(config)
 
-            # 重新获取配置引用
-            goryou_realm = config.get("goryou_realm", {})
-            goryou_config = goryou_realm.get("goryou_config", {})
-
-            # 刷新御灵配置UI控件
-            self.goryou_type_combo.setCurrentText(
-                goryou_config.get("goryou_class", "暗孔雀"))
-            self.max_count_spin.setValue(
-                goryou_config.get("count_max", 50))
-            self.level_combo.setCurrentText(
-                goryou_config.get("level", "三层"))
-            self.lock_team_enable.setChecked(
-                goryou_config.get("lock_team_enable", True))
-
         except Exception as e:
             from module.base.logger import logger
             logger.error(f"刷新御灵设置UI时出错: {e}")

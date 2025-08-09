@@ -17,8 +17,8 @@ class RequestHumanTakeover(Exception):
         exit()
 
 class TaskEnd(Exception):
-    def __init__(self, task="Name"):
-        logger.warning(f"{task} ended.")
+    def __init__(self, task="Name", msg=''):
+        logger.warning(f"{task} ended. {msg}")
 
 class ScriptError(Exception):
     # This is likely to be a mistake of developers, but sometimes a random issue

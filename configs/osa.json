@@ -124,6 +124,8 @@
     },
     "climb_config": {
       "enable_ap_mode": true,
+      "anniversary_mode": false,
+      "demon_king_mode": false,
       "auto_switch": false,
       "ticket_max": 50,
       "ap_max": 300,
