@@ -7,6 +7,7 @@ import importlib
 import importlib.util
 import sys
 import json
+import os
 
 import inflection
 
@@ -25,21 +26,63 @@ class Script:
         self.state_queue: Queue = Queue()
         # Key: str, task name, value: int, failure count
         self.failure_record = {}
+        # 配置文件监控
+        self.config_file_path = Path.cwd() / "configs" / f"{config_name}.json"
+        self.last_config_mtime = self.get_config_mtime()
+        # 强制重载配置的标志
+        self._config_cache = None
 
-    @cached_property
-    def config(self) -> "Config":
+    def get_config_mtime(self):
+        """获取配置文件的修改时间"""
         try:
-            from module.config.config import Config
-            config = Config(config_name=self.config_name)
-            return config
-        except RequestHumanTakeover:
-            logger.critical('Request human takeover')
-            self.is_running = False
-            raise
-        except Exception as e:
-            logger.critical(str(e))
-            self.is_running = False
-            raise
+            if self.config_file_path.exists():
+                return os.path.getmtime(self.config_file_path)
+            return 0
+        except OSError:
+            return 0
+
+    def check_config_file_changed(self):
+        """检查配置文件是否发生变化"""
+        current_mtime = self.get_config_mtime()
+        if current_mtime != self.last_config_mtime:
+            logger.info(f"配置文件 {self.config_name}.json 已更新，重新加载配置")
+            self.last_config_mtime = current_mtime
+            return True
+        return False
+
+    def force_reload_config(self):
+        """强制重新加载配置"""
+        # 清除缓存的config对象
+        if hasattr(self, '_config_cache'):
+            self._config_cache = None
+        # 如果config属性已经被缓存，删除它以强制重新创建
+        if 'config' in self.__dict__:
+            del self.__dict__['config']
+        logger.info(f"强制重新加载配置: {self.config_name}")
+
+    @property
+    def config(self) -> "Config":
+        """动态配置属性，支持自动重载"""
+        # 检查配置文件是否有变化
+        if self.check_config_file_changed():
+            self.force_reload_config()
+
+        # 如果没有缓存的配置或需要重新加载，创建新的配置对象
+        if self._config_cache is None:
+            try:
+                from module.config.config import Config
+                self._config_cache = Config(config_name=self.config_name)
+                logger.debug(f"创建新的配置对象: {self.config_name}")
+            except RequestHumanTakeover:
+                logger.critical('Request human takeover')
+                self.is_running = False
+                raise
+            except Exception as e:
+                logger.critical(str(e))
+                self.is_running = False
+                raise
+
+        return self._config_cache
 
     @cached_property
     def device(self) -> "Device":
@@ -128,7 +171,7 @@ class Script:
 
                 if success:
                     self.is_running = True
-                    del self.config
+                    # 不再手动删除config，让自动重载机制处理
                     continue
                 else:
                     break
@@ -207,12 +250,36 @@ class Script:
             result[key] = item
         return json.dumps(result)
 
+    def reload_config_if_needed(self):
+        """检查并重载配置（供外部调用）"""
+        if self.check_config_file_changed():
+            self.force_reload_config()
+            return True
+        return False
+
     def stop_immediately(self):
         """立即停止脚本"""
         self.is_running = False
 
         # 清理全局实例
         Script._current_instance = None
+
+    @classmethod
+    def get_current_instance(cls):
+        """获取当前运行的脚本实例"""
+        return cls._current_instance
+
+    @classmethod
+    def reload_current_config(cls):
+        """重载当前运行脚本的配置"""
+        instance = cls.get_current_instance()
+        if instance:
+            instance.force_reload_config()
+            logger.info("通过全局方法重新加载了当前脚本的配置")
+            return True
+        else:
+            logger.warning("没有正在运行的脚本实例，无法重载配置")
+            return False
 
 
 if __name__ == "__main__":

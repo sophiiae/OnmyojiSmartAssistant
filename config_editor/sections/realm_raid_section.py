@@ -70,3 +70,29 @@ class RealmRaidSection(QGroupBox):
 
         # 更新通用战斗配置
         # self.general_battle_section.update_config()
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+
+            # 刷新调度器设置
+            if hasattr(self.scheduler_section, 'refresh_from_config'):
+                self.scheduler_section.refresh_from_config(config)
+
+            # 重新获取配置引用
+            realm_raid = config.get("realm_raid", {})
+            self.raid_config = realm_raid.get("raid_config", {})
+
+            # 刷新突破配置UI控件
+            self.enable_guild_check.setChecked(
+                self.raid_config.get("enable_guild_realm_raid", False))
+            self.tickets_required.setValue(
+                self.raid_config.get("tickets_required", 9))
+            self.when_attack_fail.setCurrentText(
+                self.raid_config.get("when_attack_fail", "Continue"))
+
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新结界突破设置UI时出错: {e}")

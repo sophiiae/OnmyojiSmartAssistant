@@ -10,28 +10,7 @@ class GoryouRealmSection(QGroupBox):
     def __init__(self, config):
         super().__init__("御灵设置")
         self.config = config
-
-        # 确保所有必需的配置项存在
-        if "goryou_realm" not in self.config:
-            self.config["goryou_realm"] = {}
         goryou_realm = self.config["goryou_realm"]
-
-        if "scheduler" not in goryou_realm:
-            goryou_realm["scheduler"] = {
-                "enable": False,
-                "next_run": "2023-01-01 00:00:00",
-                "priority": 5,
-                "success_interval": "00:00:30:00",
-                "failure_interval": "00:00:10:00"
-            }
-
-        if "goryou_config" not in goryou_realm:
-            goryou_realm["goryou_config"] = {
-                "goryou_class": "暗孔雀",
-                "count_max": 50,
-                "level": "三层",
-                "lock_team_enable": True
-            }
 
         layout = QVBoxLayout(self)
         goryou_config = goryou_realm["goryou_config"]
@@ -81,3 +60,31 @@ class GoryouRealmSection(QGroupBox):
 
         # 更新御魂切换配置
         self.switch_soul_section.update_config()
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+
+            # 刷新调度器设置
+            if hasattr(self.scheduler_section, 'refresh_from_config'):
+                self.scheduler_section.refresh_from_config(config)
+
+            # 重新获取配置引用
+            goryou_realm = config.get("goryou_realm", {})
+            goryou_config = goryou_realm.get("goryou_config", {})
+
+            # 刷新御灵配置UI控件
+            self.goryou_type_combo.setCurrentText(
+                goryou_config.get("goryou_class", "暗孔雀"))
+            self.max_count_spin.setValue(
+                goryou_config.get("count_max", 50))
+            self.level_combo.setCurrentText(
+                goryou_config.get("level", "三层"))
+            self.lock_team_enable.setChecked(
+                goryou_config.get("lock_team_enable", True))
+
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新御灵设置UI时出错: {e}")

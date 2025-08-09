@@ -193,7 +193,7 @@ class SchedulerSection(QGroupBox):
         self.enable_check.setChecked(scheduler_config.get("enable", False))
 
         # 更新优先级
-        self.priority.setCurrentText(scheduler_config.get("priority", "0"))
+        self.priority.setCurrentText(str(scheduler_config.get("priority", 0)))
 
         # 更新其他时间设置
         self.next_run_row.update_gui(
@@ -202,3 +202,22 @@ class SchedulerSection(QGroupBox):
             scheduler_config.get("success_interval", "00:00:30:00"))
         self.failure_interval_row.update_gui(
             scheduler_config.get("failure_interval", "00:00:10:00"))
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+            # 重新获取scheduler配置引用
+            self.scheduler = config[self.section_name].setdefault("scheduler", {
+                "enable": False,
+                "priority": 0,
+                "next_run": "2023-01-01 00:00:00",
+                "success_interval": "00:00:30:00",
+                "failure_interval": "00:00:10:00",
+            })
+            # 使用现有的update_gui方法
+            self.update_gui()
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新调度器设置UI时出错: {e}")

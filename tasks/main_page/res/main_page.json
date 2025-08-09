@@ -274,8 +274,8 @@
   {
     "name": "shop_pack_close",
     "type": "image",
-    "roi": "855, 91, 32, 34",
-    "area": "927, 142, 92, 92",
+    "roi": "1048, 132, 32, 34",
+    "area": "1032, 116, 64, 66",
     "file": "./tasks/general/res/buttons/b_red_x.png",
     "description": "关闭商店礼包推荐"
   },

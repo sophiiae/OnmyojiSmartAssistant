@@ -29,10 +29,25 @@ class Config:
 
     def reload(self):
         """
-        保存配置文件
+        重新加载配置文件
         :return:
         """
+        logger.info(f"重新加载配置文件: {self.config_name}")
+        # 重新创建配置模型
         self.model = ConfigModel(config_name=self.config_name)
+
+        # 重置任务相关的属性
+        self.waiting_tasks: list["Function"] = []
+        self.waiting_tasks = TaskScheduler.priority(self.waiting_tasks)
+        self.task: Optional[Function] = None
+
+        # 清除可能存在的缓存属性
+        if hasattr(self, 'pending_task'):
+            delattr(self, 'pending_task')
+        if hasattr(self, 'waiting_task'):
+            delattr(self, 'waiting_task')
+
+        logger.info(f"配置文件重新加载完成: {self.config_name}")
 
     def save(self):
         self.model.write_json(self.config_name)

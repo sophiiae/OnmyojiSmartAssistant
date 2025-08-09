@@ -154,3 +154,52 @@ class ExplorationSection(QGroupBox):
 
         # 更新通用战斗配置
         # self.general_battle_section.update_config()
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+
+            # 刷新调度器设置
+            if hasattr(self.scheduler_section, 'refresh_from_config'):
+                self.scheduler_section.refresh_from_config(config)
+
+            # 重新获取配置引用
+            exploration = config.get("exploration", {})
+            self.exploration_config = exploration.get("exploration_config", {})
+            self.scrolls_config = exploration.get("scroll_mode", {})
+
+            # 刷新探索配置UI控件
+            self.buff_gold_50.setChecked(
+                self.exploration_config.get("buff_gold_50", False))
+            self.buff_gold_100.setChecked(
+                self.exploration_config.get("buff_gold_100", False))
+            self.buff_exp_50.setChecked(
+                self.exploration_config.get("buff_exp_50", False))
+            self.buff_exp_100.setChecked(
+                self.exploration_config.get("buff_exp_100", False))
+            self.count_max.setValue(
+                self.exploration_config.get("count_max", 30))
+            self.chapter.setCurrentText(
+                self.exploration_config.get("chapter", "第二十八章"))
+            self.chapter_hardness.setCurrentText(
+                self.exploration_config.get("chapter_hardness", "困难"))
+            self.auto_backup.setChecked(
+                self.exploration_config.get("auto_backup", True))
+            self.backup_rarity.setCurrentText(
+                self.exploration_config.get("backup_rarity", "素材"))
+            self.lock_team_enable.setChecked(
+                self.exploration_config.get("lock_team_enable", False))
+
+            # 刷新绘卷配置UI控件
+            self.scroll_mode_enable.setChecked(
+                self.scrolls_config.get("scroll_mode_enable", True))
+            self.scrolls_cd.setText(
+                self.scrolls_config.get("scrolls_cd", "0:30:00"))
+            self.ticket_threshold.setValue(
+                self.scrolls_config.get("ticket_threshold", 23))
+
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新探索设置UI时出错: {e}")

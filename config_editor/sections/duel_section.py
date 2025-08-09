@@ -6,7 +6,7 @@ from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
 from config_editor.utils import add_checkbox_right_row, add_left_row
 
-class RoyalBattleSection(QGroupBox):
+class DuelSection(QGroupBox):
     def __init__(self, config, section_name):
         super().__init__("斗技配置")
         self.config = config
@@ -24,38 +24,38 @@ class RoyalBattleSection(QGroupBox):
         layout.addWidget(self.scheduler_section)
 
         # 斗技配置
-        royal_battle_group = QGroupBox("斗技配置")
-        royal_battle_layout = QVBoxLayout(royal_battle_group)
+        duel_group = QGroupBox("斗技配置")
+        duel_layout = QVBoxLayout(duel_group)
 
         # 上名士（只有CheckBox）
         self.elite_enable = QCheckBox("上名士")
         self.elite_enable.setChecked(self.duel_config["elite"])
-        add_left_row(royal_battle_layout, [self.elite_enable])
+        add_left_row(duel_layout, [self.elite_enable])
 
         # 段位（无CheckBox，左对齐）
         self.rank = SelectButton()
         self.rank.addItems(
             ["一段", "二段", "三段", "四段", "五段", "六段", "七段", "八段", "九段"])
         self.rank.setCurrentText(self.duel_config["rank"])
-        add_left_row(royal_battle_layout, [QLabel("段位:"), self.rank])
+        add_left_row(duel_layout, [QLabel("段位:"), self.rank])
 
         # 打满荣誉积分（只有CheckBox）
         self.full_honor_points_enable = QCheckBox("打满荣誉积分")
         self.full_honor_points_enable.setChecked(
             self.duel_config["full_honor_points"])
-        add_left_row(royal_battle_layout, [self.full_honor_points_enable])
+        add_left_row(duel_layout, [self.full_honor_points_enable])
 
         # 阴阳师选择（无CheckBox，左对齐）
         self.onmyoji = SelectButton()
         self.onmyoji.addItems(["自动", "晴明", "源博雅", "神乐", "八百比丘尼", "源赖光"])
         self.onmyoji.setCurrentText(self.duel_config["onmyoji"])
-        add_left_row(royal_battle_layout, [QLabel("阴阳师:"), self.onmyoji])
+        add_left_row(duel_layout, [QLabel("阴阳师:"), self.onmyoji])
 
         # 御魂切换设置
         self.switch_soul_section = SwitchSoulSection(
             self.config, self.section_name)
-        royal_battle_layout.addWidget(self.switch_soul_section)
-        layout.addWidget(royal_battle_group)
+        duel_layout.addWidget(self.switch_soul_section)
+        layout.addWidget(duel_group)
 
     def update_config(self):
         # 更新调度配置
@@ -68,3 +68,33 @@ class RoyalBattleSection(QGroupBox):
         )
         # 更新御魂切换配置
         self.switch_soul_section.update_config()
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+
+            # 刷新调度器设置
+            if hasattr(self.scheduler_section, 'refresh_from_config'):
+                self.scheduler_section.refresh_from_config(config)
+
+            # 重新获取配置引用
+            duel_section = config.get(self.section_name, {})
+            self.duel_config = duel_section.get("duel_config", {})
+            self.switch_soul_config = duel_section.get(
+                "switch_soul_config", {})
+
+            # 刷新斗技配置UI控件
+            self.elite_enable.setChecked(
+                self.duel_config.get("elite", False))
+            self.rank.setCurrentText(
+                self.duel_config.get("rank", "一段"))
+            self.full_honor_points_enable.setChecked(
+                self.duel_config.get("full_honor_points", False))
+            self.onmyoji.setCurrentText(
+                self.duel_config.get("onmyoji", "自动"))
+
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新斗技设置UI时出错: {e}")

@@ -12,7 +12,7 @@ from config_editor.sections.exploration_section import ExplorationSection
 from config_editor.sections.wanted_quests_section import WantedQuestsSection
 from config_editor.sections.daily_routine_section import DailyRoutineSection
 from config_editor.sections.script_section import ScriptSection
-from config_editor.sections.royal_battle_section import RoyalBattleSection
+from config_editor.sections.duel_section import DuelSection
 from config_editor.sections.bonding_fairyland_section import BondingFairylandSection
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
@@ -196,9 +196,9 @@ class OSAEditor(ConfigTab):
         self.area_boss_section = AreaBossSection(self.config)
         scroll_layout.addWidget(self.area_boss_section)
 
-        self.royal_battle_section = RoyalBattleSection(
+        self.duel_section = DuelSection(
             self.config, "duel")
-        scroll_layout.addWidget(self.royal_battle_section)
+        scroll_layout.addWidget(self.duel_section)
 
         self.bonding_fairyland_section = BondingFairylandSection(self.config)
         scroll_layout.addWidget(self.bonding_fairyland_section)
@@ -270,7 +270,7 @@ class OSAEditor(ConfigTab):
             self.goryou_realm_section,
             self.shikigami_activity_section,
             self.area_boss_section,
-            self.royal_battle_section,
+            self.duel_section,
             self.bonding_fairyland_section
         ]
 
@@ -459,7 +459,7 @@ class OSAEditor(ConfigTab):
         self.goryou_realm_section.update_config()
         self.shikigami_activity_section.update_config()
         self.area_boss_section.update_config()
-        self.royal_battle_section.update_config()
+        self.duel_section.update_config()
         self.bonding_fairyland_section.update_config()
         self.save_config()
 
@@ -570,7 +570,7 @@ class OSAEditor(ConfigTab):
         # 给所有控件加信号，内容变动时自动保存
         for section in [self.script_section, self.daily_routine_section, self.wanted_quests_section,
                         self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
-                        self.shikigami_activity_section, self.area_boss_section, self.royal_battle_section,
+                        self.shikigami_activity_section, self.area_boss_section, self.duel_section,
                         self.bonding_fairyland_section]:
             for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
                 if hasattr(child, 'textChanged'):
@@ -587,6 +587,101 @@ class OSAEditor(ConfigTab):
         self.save_osa_config()
         self.update_nav_buttons()
 
+    def refresh_ui_from_config(self):
+        """根据配置刷新UI"""
+        logger.info("开始刷新OSA编辑器UI")
+        try:
+            # 调用父类方法更新导航按钮
+            super().update_nav_buttons()
+            logger.debug("导航按钮已更新")
+
+            # 刷新各个配置区域的UI控件
+            sections = [
+                ("exploration_section", self.exploration_section),
+                ("realm_raid_section", self.realm_raid_section),
+                ("goryou_realm_section", self.goryou_realm_section),
+                ("shikigami_activity_section", self.shikigami_activity_section),
+                ("area_boss_section", self.area_boss_section),
+                ("duel_section", self.duel_section),
+                ("bonding_fairyland_section", self.bonding_fairyland_section)
+            ]
+
+            for section_name, section in sections:
+                logger.debug(f"刷新配置区域: {section_name}")
+                self.refresh_section_ui(section)
+
+            logger.info("所有任务配置区域UI已刷新")
+
+        except Exception as e:
+            logger.error(f"刷新UI时出错: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+
+    def refresh_section_ui(self, section):
+        """刷新单个配置区域的UI控件"""
+        try:
+            # 临时断开信号连接，避免在更新UI时触发保存
+            self.disconnect_section_signals(section)
+
+            # 如果section有refresh_from_config方法，调用它
+            if hasattr(section, 'refresh_from_config'):
+                section.refresh_from_config(self.config)
+            else:
+                # 否则尝试通用的刷新方法
+                self.generic_refresh_section(section)
+
+        except Exception as e:
+            logger.error(f"刷新配置区域 {section.__class__.__name__} 时出错: {e}")
+        finally:
+            # 重新连接信号
+            self.connect_section_signals(section)
+
+    def disconnect_section_signals(self, section):
+        """临时断开配置区域的信号连接"""
+        for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
+            try:
+                if hasattr(child, 'textChanged'):
+                    child.textChanged.disconnect()
+                if hasattr(child, 'currentIndexChanged'):
+                    child.currentIndexChanged.disconnect()
+                if hasattr(child, 'stateChanged'):
+                    child.stateChanged.disconnect()
+                if hasattr(child, 'valueChanged'):
+                    child.valueChanged.disconnect()
+            except TypeError:
+                # 信号可能没有连接，忽略错误
+                pass
+
+    def connect_section_signals(self, section):
+        """重新连接配置区域的信号"""
+        for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
+            if hasattr(child, 'textChanged'):
+                child.textChanged.connect(self.on_config_changed)
+            if hasattr(child, 'currentIndexChanged'):
+                child.currentIndexChanged.connect(self.on_config_changed)
+            if hasattr(child, 'stateChanged'):
+                child.stateChanged.connect(self.on_config_changed)
+            if hasattr(child, 'valueChanged'):
+                child.valueChanged.connect(self.on_config_changed)
+
+    def generic_refresh_section(self, section):
+        """通用的配置区域刷新方法"""
+        logger.debug(f"使用通用刷新方法刷新 {section.__class__.__name__}")
+        try:
+            # 如果section有update_gui方法，调用它
+            if hasattr(section, 'update_gui'):
+                logger.debug(
+                    f"调用 {section.__class__.__name__} 的 update_gui 方法")
+                section.update_gui()
+            elif hasattr(section, 'config'):
+                # 更新section的config引用
+                section.config = self.config
+                logger.debug(f"更新了 {section.__class__.__name__} 的配置引用")
+            else:
+                logger.debug(f"{section.__class__.__name__} 没有可用的刷新方法")
+        except Exception as e:
+            logger.error(f"通用刷新 {section.__class__.__name__} 时出错: {e}")
+
     def scroll_to_section(self, section_id):
         """滚动到指定的配置部分"""
         section_map = {
@@ -598,7 +693,7 @@ class OSAEditor(ConfigTab):
             "goryou_realm": self.goryou_realm_section,
             "shikigami_activity": self.shikigami_activity_section,
             "area_boss": self.area_boss_section,
-            "duel": self.royal_battle_section,
+            "duel": self.duel_section,
             "bonding_fairyland": self.bonding_fairyland_section
         }
 

@@ -82,3 +82,33 @@ class ShikigamiActivitySection(QGroupBox):
 
         # 更新通用战斗配置
         # self.general_battle_section.update_config()
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+
+            # 刷新调度器设置
+            if hasattr(self.scheduler_section, 'refresh_from_config'):
+                self.scheduler_section.refresh_from_config(config)
+
+            # 重新获取配置引用
+            shikigami_activity = config.get("shikigami_activity", {})
+            climb_config = shikigami_activity.get("climb_config", {})
+
+            # 刷新式神活动配置UI控件
+            self.enable_ap_mode.setChecked(
+                climb_config.get("enable_ap_mode", False))
+            self.auto_switch.setChecked(
+                climb_config.get("auto_switch", False))
+            self.max_tickets_spin.setValue(
+                climb_config.get("ticket_max", 50))
+            self.max_stamina_spin.setValue(
+                climb_config.get("ap_max", 300))
+            self.lock_team_enable.setChecked(
+                climb_config.get("lock_team_enable", True))
+
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新式神活动设置UI时出错: {e}")
