@@ -161,7 +161,7 @@
     },
     "duel_config": {
       "elite": false,
-      "rank": "一段",
+      "tier": "一段",
       "full_honor_points": false,
       "onmyoji": "源赖光"
     },

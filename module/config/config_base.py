@@ -600,8 +600,8 @@ class DuelConfig(BaseModel):
         description="是否上名士"
     )
 
-    rank: DuelRank = Field(
-        default=DuelRank.rank_1,
+    tier: DuelTier = Field(
+        default=DuelTier.tier_1,
         description="斗技段位"
     )
 
