@@ -483,6 +483,15 @@ class OSAEditor(ConfigTab):
                 # 保存当前配置
                 self.save_osa_config()
 
+                # 检查是否有启用的任务
+                if not self.has_enabled_tasks():
+                    QMessageBox.warning(
+                        self,
+                        "警告",
+                        "没有发现任何启用的任务！\n\n请至少启用一个任务后再运行脚本。"
+                    )
+                    return
+
                 # 清空旧的日志
                 if self.log_window:
                     self.log_window.clear_log()
@@ -835,3 +844,29 @@ class OSAEditor(ConfigTab):
                 logger.error(f"刷新 {section.__class__.__name__} 时出错: {e}")
 
         logger.info("所有section配置信息刷新完成")
+
+    def has_enabled_tasks(self):
+        """检查是否有启用的任务"""
+        try:
+            # 获取配置名称（文件名去掉.json后缀）
+            config_name = os.path.splitext(
+                os.path.basename(self.config_path))[0]
+
+            # 导入Config类来检查任务状态
+            from module.config.config import Config
+            config = Config(config_name)
+
+            # 检查是否有启用的任务，找到一个就立即返回True
+            for key, value in config.model.model_dump().items():
+                if isinstance(value, dict) and "scheduler" in value:
+                    scheduler = value["scheduler"]
+                    if scheduler.get("enable", False):
+                        return True  # 找到一个启用的任务就立即返回
+
+            # 没有找到任何启用的任务
+            return False
+
+        except Exception as e:
+            # 如果检查过程中出错，为了安全起见，返回False
+            logger.error(f"检查启用任务时出错: {e}")
+            return False

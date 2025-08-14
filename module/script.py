@@ -8,7 +8,8 @@ import importlib.util
 import sys
 import json
 import os
-
+import time
+import math
 import inflection
 
 from module.base.logger import logger, set_current_config_name, clear_current_config_name
@@ -199,10 +200,23 @@ class Script:
             # 检查任务是否到了执行时间
             now = datetime.now()
             if task.next_run > now:
-                logger.info(f"Task {task.name} not ready yet, waiting...")
-                # 等待一段时间后再次检查
-                import time
-                time.sleep(60)  # 等待60秒
+                # 计算需要等待的时间
+                wait_time = task.next_run - now
+                wait_seconds = wait_time.total_seconds()
+                logger.info(
+                    f"Next run time: {datetime.strftime(task.next_run, '%Y-%m-%d %H:%M:%S')}")
+
+                # 运行等待任务
+                try:
+                    logger.info(
+                        f"⏳ Task {task.name} not ready yet, waiting {wait_seconds:.0f} seconds...")
+                    wait_minutes = math.ceil(wait_seconds / 60)
+                    self.run_waiting_task(wait_minutes)
+                except Exception as e:
+                    logger.error(f"等待任务执行出错: {e}")
+                    # 如果等待任务出错，继续等待
+                    time.sleep(60)  # 等待60秒
+
                 continue
 
             self.config.task = task
@@ -216,6 +230,33 @@ class Script:
             logger.info(
                 f"Getting {task.name} and time: {datetime.strftime(task.next_run, '%Y-%m-%d %H:%M:%S')}")
             return task.name
+
+    def run_waiting_task(self, wait_minutes: float):
+        """
+        运行等待任务
+        :param wait_seconds: 需要等待的秒数
+        """
+        try:
+            # 加载等待任务模块
+            module_name = 'waiting_task'
+            module_path = str(Path.cwd() / 'tasks' / (module_name + '.py'))
+
+            task_module = self.load_module(module_name, module_path)
+
+            # 创建等待任务实例并运行
+            waiting_task = task_module.WaitingTask(device=self.device)
+
+            # 将秒数转换为分钟，使用ceil向上取整
+            logger.info(f"⏳ 等待时间: -> {wait_minutes}分钟")
+
+            # 调用等待任务的run方法，传入分钟数
+            waiting_task.run(wait_minutes)
+
+        except Exception as e:
+            logger.error(f"加载或运行等待任务时出错: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            raise
 
     def load_module(self, moduleName: str, moduleFile: str):
         """

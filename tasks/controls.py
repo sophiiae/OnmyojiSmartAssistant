@@ -211,7 +211,7 @@ class Controls(PageAssets, MainPageAssets, PageMap, WidgetsAssets):
             np.array: image
         """
         self.image = self.device.get_screenshot()
-        # 判断勾协
+        # 判断突发事件
         self._burst()
         return self.image
 
