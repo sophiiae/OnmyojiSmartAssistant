@@ -8,6 +8,8 @@ from config_editor.widgets.select_button import SelectButton
 from config_editor.utils import add_left_row
 
 class RealmRaidSection(QGroupBox):
+    name = "realm_raid"
+
     def __init__(self, config):
         super().__init__("结界突破")
         self.config = config
@@ -17,13 +19,13 @@ class RealmRaidSection(QGroupBox):
         layout = QVBoxLayout(self)
 
         # 添加调度设置
-        self.scheduler_section = SchedulerSection(self.config, "realm_raid")
+        self.scheduler_section = SchedulerSection(self.config, self.name)
         layout.addWidget(self.scheduler_section)
 
         # 突破配置
         raid_group = QGroupBox("突破配置")
         raid_layout = QVBoxLayout(raid_group)
-        self.raid_config = self.config["realm_raid"]["raid_config"]
+        self.raid_config = self.config[self.name]["raid_config"]
 
         # 开启寮突破（CheckBox独占一行）
         self.enable_guild_check = QCheckBox("开启寮突破")
@@ -47,13 +49,13 @@ class RealmRaidSection(QGroupBox):
         layout.addWidget(raid_group)
 
         # 御魂切换设置
-        self.switch_soul_section = SwitchSoulSection(self.config, "realm_raid")
+        self.switch_soul_section = SwitchSoulSection(self.config, self.name)
         layout.addWidget(self.switch_soul_section)
 
-        # # 添加通用战斗配置
-        # self.general_battle_section = GeneralBattleSection(
-        #     self.config, "realm_raid")
-        # layout.addWidget(self.general_battle_section)
+        # 添加通用战斗配置
+        self.general_battle_section = GeneralBattleSection(
+            self.config, self.name)
+        layout.addWidget(self.general_battle_section)
 
     def update_config(self):
         self.scheduler_section.update_config()
@@ -69,7 +71,7 @@ class RealmRaidSection(QGroupBox):
         self.switch_soul_section.update_config()
 
         # 更新通用战斗配置
-        # self.general_battle_section.update_config()
+        self.general_battle_section.update_config()
 
     def refresh_from_config(self, config):
         """根据配置刷新UI控件"""

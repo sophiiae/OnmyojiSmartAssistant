@@ -97,3 +97,11 @@ class DuelTier(str, Enum):
     tier_7 = '七段'
     tier_8 = '八段'
     tier_9 = '九段'
+
+class GreenMarkType(str, Enum):
+    GREEN_ONMYOJI = "阴阳师"
+    GREEN_LEFT1 = '第一个'
+    GREEN_LEFT2 = '第二个'
+    GREEN_LEFT3 = '第三个'
+    GREEN_LEFT4 = '第四个'
+    GREEN_LEFT5 = '第五个'

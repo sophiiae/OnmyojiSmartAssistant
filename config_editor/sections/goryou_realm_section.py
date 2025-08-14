@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import (
     QCheckBox, QGroupBox, QVBoxLayout, QLabel, QLineEdit)
+from config_editor.sections.general_battle_section import GeneralBattleSection
 from config_editor.widgets.value_button import ValueButton
 from config_editor.widgets.select_button import SelectButton
 from config_editor.sections.scheduler_section import SchedulerSection
@@ -7,16 +8,18 @@ from config_editor.sections.switch_soul_section import SwitchSoulSection
 from config_editor.utils import add_left_row
 
 class GoryouRealmSection(QGroupBox):
+    name = "goryou_realm"
+
     def __init__(self, config):
         super().__init__("御灵")
         self.config = config
-        goryou_realm = self.config["goryou_realm"]
+        goryou_realm = self.config[self.name]
 
         layout = QVBoxLayout(self)
         goryou_config = goryou_realm["goryou_config"]
 
         # 添加调度设置
-        self.scheduler_section = SchedulerSection(self.config, "goryou_realm")
+        self.scheduler_section = SchedulerSection(self.config, self.name)
         layout.addWidget(self.scheduler_section)
 
         # 御灵类型（无CheckBox，左对齐）
@@ -38,28 +41,29 @@ class GoryouRealmSection(QGroupBox):
         self.level_combo.setCurrentText(goryou_config.get("level", "三层"))
         add_left_row(layout, [QLabel("层数"), self.level_combo])
 
-        # 锁定队伍（CheckBox独占一行）
-        self.lock_team_enable = QCheckBox("锁定队伍")
-        self.lock_team_enable.setChecked(
-            goryou_config.get("lock_team_enable", True))
-        add_left_row(layout, [self.lock_team_enable])
-
         # 御魂切换设置
         self.switch_soul_section = SwitchSoulSection(
-            self.config, "goryou_realm")
+            self.config, self.name)
         layout.addWidget(self.switch_soul_section)
+
+        # 添加通用战斗配置
+        self.general_battle_section = GeneralBattleSection(
+            self.config, self.name)
+        layout.addWidget(self.general_battle_section)
 
     def update_config(self):
         self.scheduler_section.update_config()
 
-        goryou_config = self.config["goryou_realm"]["goryou_config"]
+        goryou_config = self.config[self.name]["goryou_config"]
         goryou_config["goryou_class"] = self.goryou_type_combo.currentText()
         goryou_config["count_max"] = self.max_count_spin.value()
         goryou_config["level"] = self.level_combo.currentText()
-        goryou_config["lock_team_enable"] = self.lock_team_enable.isChecked()
 
         # 更新御魂切换配置
         self.switch_soul_section.update_config()
+
+        # 更新通用战斗配置
+        self.general_battle_section.update_config()
 
     def refresh_from_config(self, config):
         """根据配置刷新UI控件"""

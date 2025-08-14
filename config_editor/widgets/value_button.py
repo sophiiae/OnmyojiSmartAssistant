@@ -38,7 +38,7 @@ class ValueButton(QPushButton):
         self._max_value = 99
         self.setStyleSheet("""
             QPushButton {
-                padding: 5px 10px;
+                padding: 3px 10px;
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 background: #f5f5f5;

@@ -26,7 +26,7 @@ class WantedQuestsSection(QGroupBox):
         self.accept_virtual = QCheckBox("现世悬赏")
         self.accept_virtual.setChecked(
             self.accept_quest_config["accept_virtual"])
-        grid.addWidget(self.accept_virtual, 1, 0)
+        grid.addWidget(self.accept_virtual, 0, 3)
 
         group = QGroupBox("接受悬赏任务类型")
         group.setLayout(grid)
@@ -47,23 +47,19 @@ class WantedQuestsSection(QGroupBox):
         # self.invite_jade.setChecked(self.invite_quest_config["invite_jade"])
         # grid.addWidget(self.invite_jade, 0, 0)
 
-        # self.invite_gold = QCheckBox("金币悬赏")
-        # self.invite_gold.setChecked(self.invite_quest_config["invite_gold"])
-        # grid.addWidget(self.invite_gold, 0, 1)
-
         # self.invite_ap = QCheckBox("体力悬赏")
         # self.invite_ap.setChecked(self.invite_quest_config["invite_ap"])
-        # grid.addWidget(self.invite_ap, 0, 2)
+        # grid.addWidget(self.invite_ap, 0, 1)
 
         # self.invite_virtual = QCheckBox("现世悬赏")
         # self.invite_virtual.setChecked(
         #     self.invite_quest_config["invite_virtual"])
-        # grid.addWidget(self.invite_virtual, 1, 0)
+        # grid.addWidget(self.invite_virtual, 0, 2)
 
         # self.invite_pet_food = QCheckBox("宠物粮悬赏")
         # self.invite_pet_food.setChecked(
         #     self.invite_quest_config["invite_pet_food"])
-        # grid.addWidget(self.invite_pet_food, 1, 1)
+        # grid.addWidget(self.invite_pet_food, 0, 3)
 
         # group = QGroupBox("邀请悬赏任务类型")
         # group.setLayout(grid)

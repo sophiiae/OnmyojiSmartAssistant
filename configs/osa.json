@@ -22,9 +22,7 @@
       "enable_sign_999": true,
       "enable_mail": true,
       "enable_soul": true,
-      "enable_ap": true
-    },
-    "trifles_config": {
+      "enable_ap": true,
       "one_summon": false,
       "friend_love": false,
       "store_sign": true
@@ -74,6 +72,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "realm_raid": {
@@ -92,6 +98,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "goryou_realm": {
@@ -111,6 +125,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "shikigami_activity": {
@@ -133,6 +155,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "area_boss": {
@@ -150,6 +180,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "duel": {
@@ -169,6 +207,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "bonding_fairyland": {
@@ -186,6 +232,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "netherworld": {
@@ -199,6 +253,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   },
   "demon_encounter": {
@@ -212,6 +274,14 @@
     "switch_soul_config": {
       "enable": true,
       "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
     }
   }
 }

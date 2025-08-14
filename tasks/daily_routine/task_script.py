@@ -31,11 +31,6 @@ class TaskScript(Battle, DailyRoutineAssets):
         havest_config = self.config.model.daily_routine.harvest_config
         return havest_config.model_dump()
 
-    @property
-    def trifles_tasks(self):
-        trifles_config = self.config.model.daily_routine.trifles_config
-        return trifles_config.model_dump()
-
     def run(self):
         # 进入庭院页面
         if not self.check_page_appear(page_main):
@@ -44,7 +39,6 @@ class TaskScript(Battle, DailyRoutineAssets):
         self.check_shop_pack()
 
         self.check_harvest()
-        self.check_trifles()
         # self.get_talisman_pass_reward()
 
         self.set_next_run(self.name, success=True, finish=True)
@@ -119,20 +113,15 @@ class TaskScript(Battle, DailyRoutineAssets):
                 self.click(self.I_DAILY_AP)
                 self.gain_reward()
 
-    def check_trifles(self):
-        # 进入庭院页面
-        if not self.check_page_appear(page_main):
-            self.goto(page_main)
+                self.toggle_scroll(True)
 
-        self.toggle_scroll(True)
-
-        if self.trifles_tasks["friend_love"]:
+        if self.harvest_config["friend_love"]:
             self.get_friends_points()
 
-        if self.trifles_tasks["store_sign"]:
+        if self.harvest_config["store_sign"]:
             self.get_store_gift()
 
-        # TODO: one_summon, guild_wish
+        # TODO: one_summon
 
     def get_buff_pack(self):
         if not self.wait_until_appear(self.I_DAILY_BUFF, 1, threshold=0.96):

@@ -137,6 +137,28 @@ class SwitchSoulConfig(BaseModel):
     switch_group_team: str = Field(
         default='-1,-1', description='switch_group_team_help')
 
+class GeneralBattleConfig(BaseModel):
+    lock_team_enable: bool = Field(
+        default=False,
+        description="锁定阵容"
+    )
+
+    preset_enable: bool = Field(
+        default=False,
+        description="启用预设阵容"
+    )
+
+    preset_group: int = Field(
+        default=1, description='预设组', ge=1, le=7)
+
+    preset_team: int = Field(
+        default=1, description='预设队伍', ge=1, le=5)
+
+    green_enable: bool = Field(default=False, description='启用绿标')
+
+    green_mark: GreenMarkType = Field(
+        default=GreenMarkType.GREEN_LEFT1, description='绿标目标')
+
 class HarvestConfig(BaseModel):
     """
     Daily harvest/collection task configuration.
@@ -174,11 +196,6 @@ class HarvestConfig(BaseModel):
         description="体力"
     )
 
-class TriflesConfig(BaseModel):
-    """
-    每日设置（包含签到、体力、御魂加成、邮件、永久勾玉卡、999天的签到福袋）
-    """
-
     one_summon: bool = Field(
         default=False,
         description="每日一抽"
@@ -208,11 +225,6 @@ class DailyRoutine(BaseModel):
     harvest_config: HarvestConfig = Field(
         default_factory=HarvestConfig,
         description="Configuration for main daily collection tasks"
-    )
-
-    trifles_config: TriflesConfig = Field(
-        default_factory=TriflesConfig,
-        description="Configuration for optional daily tasks"
     )
 
 class QuestInviteConfig(BaseModel):
@@ -323,6 +335,11 @@ class RealmRaid(BaseModel):
     switch_soul_config: SwitchSoulConfig = Field(
         default_factory=SwitchSoulConfig,
         description="御魂切换配置"
+    )
+
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
     )
 
 class ExplorationConfig(BaseModel):
@@ -444,6 +461,11 @@ class Exploration(BaseModel):
         description="御魂切换配置"
     )
 
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
+
 class ClimbConfig(BaseModel):
     """
     Climbing tower configuration for events.
@@ -512,6 +534,11 @@ class ShikigamiActivity(BaseModel):
         description="御魂切换配置"
     )
 
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
+
 # 御灵
 class GoryouConfig(BaseModel):
     """
@@ -562,6 +589,11 @@ class GoryouRealm(BaseModel):
         description="御魂切换配置"
     )
 
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
+
 class AreaBossConfig(BaseModel):
     """
     鬼王设置
@@ -596,6 +628,10 @@ class AreaBoss(BaseModel):
         description="御魂切换配置"
     )
 
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
 
 class DuelConfig(BaseModel):
     """
@@ -640,6 +676,11 @@ class Duel(BaseModel):
         description="御魂切换配置"
     )
 
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
+
 class BondingConfig(BaseModel):
     explore_count: int = Field(
         default=30,
@@ -671,6 +712,11 @@ class BondingFairyland(BaseModel):
         description="御魂切换配置"
     )
 
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
+
 class Netherworld(BaseModel):
     """
     阴界之门配置
@@ -685,6 +731,11 @@ class Netherworld(BaseModel):
         description="御魂切换配置"
     )
 
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
+
 class DemonEncounter(BaseModel):
     """
     逢魔之时配置
@@ -697,4 +748,9 @@ class DemonEncounter(BaseModel):
     switch_soul_config: SwitchSoulConfig = Field(
         default_factory=SwitchSoulConfig,
         description="御魂切换配置"
+    )
+
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
     )
