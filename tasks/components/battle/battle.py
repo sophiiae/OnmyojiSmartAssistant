@@ -20,6 +20,8 @@ class Battle(Buff, SwitchSouls, BattleAssets):
             if self.appear(exit_battle_check, 0.95):
                 break
 
+            self.appear_then_click(self.I_BATTLE_READY, 0.95)
+
             if self.appear(self.I_REWARD):
                 self.get_reward()
                 win = True

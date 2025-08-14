@@ -195,7 +195,7 @@ class DailyRoutineAssets:
 	I_MAIL_CONFIRM = RuleImage(
 		roi=(685, 545, 172, 57),
 		area=(657, 517, 228, 113),
-		file="./tasks/components/battle/res/battle_fight_again_confirm.png"
+		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 退出邮件窗口 
 	I_MAIL_EXIT = RuleImage(

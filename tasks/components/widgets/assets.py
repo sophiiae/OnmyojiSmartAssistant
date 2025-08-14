@@ -26,6 +26,24 @@ class WidgetsAssets:
 		area=(0, 0, 300, 300),
 		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle.png"
 	)
+	# 黄色<退出 2 
+	I_B_YELLOW_LEFT_ANGLE_2 = RuleImage(
+		roi=(27, 9, 29, 36),
+		area=(13, 0, 57, 64),
+		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle_2.png"
+	)
+	# 确定 
+	I_B_CONFIRM_WIDE = RuleImage(
+		roi=(672, 403, 172, 57),
+		area=(586, 374, 344, 114),
+		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
+	)
+	# 确认 
+	I_B_CONFIRM_NARROW = RuleImage(
+		roi=(679, 396, 124, 52),
+		area=(653, 370, 176, 104),
+		file="./tasks/components/widgets/res/buttons/b_confirm_narrow.png"
+	)
 	# 获得奖励栏标 
 	I_GAIN_REWARD = RuleImage(
 		roi=(476, 233, 329, 42),

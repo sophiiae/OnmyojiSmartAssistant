@@ -1,14 +1,14 @@
 import sys
 from module.control.server.device import Device
-from tasks.exploration.task_script import TaskScript as EXP
+from tasks.daily_routine.task_script import TaskScript as TS
 from tasks.duel.task_script import TaskScript as RB
 from module.base.logger import logger
 
 
 def RunTaskTest(name):
     d = Device(config_name=name)
-    exp = EXP(device=d)
-    exp.add_backup_shiki()
+    dr = TS(device=d)
+    dr.get_store_gift()
     # exp.soul_clear(exp.I_EXP_C_CHAPTER)
     # r = RB(device=d)
     # r.run()

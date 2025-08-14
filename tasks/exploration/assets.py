@@ -243,7 +243,7 @@ class ExplorationAssets:
 	I_SOUL_GREED_EAT_CONFIRM = RuleImage(
 		roi=(672, 403, 172, 57),
 		area=(644, 375, 228, 113),
-		file="./tasks/components/battle/res/battle_fight_again_confirm.png"
+		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 关闭贪吃鬼小屋 
 	I_SOUL_GREED_CLOSE = RuleImage(

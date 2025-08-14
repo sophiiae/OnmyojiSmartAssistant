@@ -42,7 +42,7 @@ class BattleAssets:
 	I_BATTLE_EXIT_CONFIRM = RuleImage(
 		roi=(679, 396, 124, 52),
 		area=(653, 370, 176, 104),
-		file="./tasks/components/battle/res/battle_exit_confirm.png"
+		file="./tasks/components/widgets/res/buttons/b_confirm_narrow.png"
 	)
 	# 再次挑战 
 	I_BATTLE_FIGHT_AGAIN = RuleImage(
@@ -54,7 +54,7 @@ class BattleAssets:
 	I_BATTLE_FIGHT_AGAIN_CONFIRM = RuleImage(
 		roi=(672, 403, 172, 57),
 		area=(586, 374, 344, 114),
-		file="./tasks/components/battle/res/battle_fight_again_confirm.png"
+		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 战斗金币奖励 
 	I_BATTLE_GOLD = RuleImage(

@@ -28,7 +28,7 @@
     "type": "image",
     "roi": "672, 403, 172, 57",
     "area": "644, 375, 228, 113",
-    "file": "./tasks/components/battle/res/battle_fight_again_confirm.png",
+    "file": "./tasks/components/widgets/res/buttons/b_confirm_wide.png",
     "description": "确定更换御魂"
   },
   {
