@@ -1,0 +1,9 @@
+[
+  {
+    "name": "enter_game",
+    "type": "click",
+    "roi": "558, 576, 158, 38",
+    "area": "558, 576, 158, 38",
+    "description": "进入游戏"
+  }
+]

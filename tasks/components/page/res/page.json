@@ -8,6 +8,14 @@
     "description": "主界面"
   },
   {
+    "name": "c_login",
+    "type": "image",
+    "roi": "165, 565, 52, 69",
+    "area": "0, 539, 300, 121",
+    "file": "./tasks/components/page/res/check/c_login.png",
+    "description": "适龄提示"
+  },
+  {
     "name": "c_town",
     "type": "image",
     "roi": "1065, 32, 90, 98",

@@ -1,7 +1,7 @@
 import time
 from module.base.exception import RequestHumanTakeover
 from tasks.exploration.task_script import TaskScript as EXP
-from tasks.general.page import page_exp, page_main
+from tasks.components.page.page import page_exp, page_main
 from module.base.logger import logger
 from tasks.general.assets import GeneralAssets as GA
 
@@ -20,7 +20,7 @@ class Colla(EXP):
             logger.info(f"======== Exp Chapter Entered =========")
             count = self.colla_chapter_battle(max, count)
 
-            self.after_chapter_battle()
+            self.post_chapter_battle()
 
         self.exit_chapter()
         self.goto(page_main)

@@ -7,7 +7,9 @@ from typing import Optional
 
 from module.base.exception import GamePageUnknownError
 
-from tasks.main_page.assets import MainPageAssets
+from module.image_processing.rule_click import RuleClick
+from module.image_processing.rule_image import RuleImage
+from tasks.components.widgets.assets import WidgetsAssets
 from module.control.server.device import Device
 from module.base.timer import Timer
 from module.base.logger import logger
@@ -36,7 +38,7 @@ class TaskBase(Controls):
         """
         判断庭院界面卷轴是否打开
         """
-        return self.appear(MainPageAssets.I_SCROLL_CLOSE)
+        return self.appear(WidgetsAssets.I_SCROLL_CLOSE)
 
     def get_current_page(self) -> Page:
         timeout = Timer(5, 20).start()
@@ -88,12 +90,20 @@ class TaskBase(Controls):
 
             while 1:
                 self.screenshot()
-
                 if self.check_page_appear(path[idx + 1]):
                     break
 
                 button = page.links[path[idx + 1]]
-                if self.wait_until_click(button, interval=0.2):
-                    logger.info(f"[PATH] Heading from {
-                                page.name} to {path[idx + 1].name}.")
-                    time.sleep(0.2)
+                if isinstance(button, RuleClick):
+                    self.click(button)
+                    time.sleep(1)
+
+                elif isinstance(button, RuleImage):
+                    if self.wait_until_click(button, interval=0.2):
+                        logger.info(f"[PATH] Heading from {
+                                    page.name} to {path[idx + 1].name}.")
+                else:
+                    raise GamePageUnknownError(
+                        "Unable to identify the page button")
+
+                time.sleep(0.2)

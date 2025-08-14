@@ -1,0 +1,130 @@
+[
+  {
+    "name": "store_pack",
+    "type": "image",
+    "roi": "1140, 647, 62, 38",
+    "area": "1109, 628, 124, 76",
+    "file": "./tasks/daily_routine/res/store/store_pack.png",
+    "description": "商店礼包屋入口"
+  },
+  {
+    "name": "store_rec",
+    "type": "image",
+    "roi": "1195, 194, 28, 58",
+    "area": "1172, 50, 70, 350",
+    "file": "./tasks/daily_routine/res/store/store_rec.png",
+    "description": "商店礼包推荐灯笼"
+  },
+  {
+    "name": "store_daily_reward",
+    "type": "image",
+    "roi": "251, 164, 280, 103",
+    "area": "111, 112, 560, 206",
+    "file": "./tasks/daily_routine/res/store/store_daily_reward.png",
+    "description": "商店每日签到奖励"
+  },
+  {
+    "name": "store_exit",
+    "type": "image",
+    "roi": "16, 7, 44, 40",
+    "area": "0, 0, 88, 80",
+    "file": "./tasks/daily_routine/res/store/store_exit.png",
+    "description": "商店礼包屋退出"
+  },
+  {
+    "name": "sign",
+    "type": "image",
+    "roi": "253, 509, 24, 20",
+    "area": "243, 499, 44, 40",
+    "file": "./tasks/daily_routine/res/sign.png",
+    "description": "签到"
+  },
+  {
+    "name": "daily_sign",
+    "type": "image",
+    "roi": "597, 165, 87, 194",
+    "area": "553, 121, 175, 282",
+    "file": "./tasks/daily_routine/res/daily_sign.png",
+    "description": "每日一签"
+  },
+  {
+    "name": "sign_doll",
+    "type": "image",
+    "roi": "843, 538, 39, 120",
+    "area": "823, 518, 79, 160",
+    "file": "./tasks/daily_routine/res/sign_doll.png",
+    "description": "签到页面纸人"
+  },
+  {
+    "name": "close_daily_sign",
+    "type": "image",
+    "roi": "855, 91, 32, 34",
+    "area": "839, 75, 64, 66",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
+    "description": "关闭每日签到"
+  },
+  {
+    "name": "daily_jade",
+    "type": "image",
+    "roi": "734, 482, 31, 34",
+    "area": "718, 466, 63, 66",
+    "file": "./tasks/daily_routine/res/daily_jade.png",
+    "description": "每日勾玉领取"
+  },
+  {
+    "name": "daily_ap",
+    "type": "image",
+    "roi": "737, 489, 26, 28",
+    "area": "724, 476, 52, 54",
+    "file": "./tasks/daily_routine/res/daily_ap.png",
+    "description": "每日寿司"
+  },
+  {
+    "name": "guild_pack",
+    "type": "image",
+    "roi": "246, 502, 34, 34",
+    "area": "229, 485, 68, 68",
+    "file": "./tasks/daily_routine/res/guild_pack.png",
+    "description": "寮礼包"
+  },
+  {
+    "name": "huahe",
+    "type": "image",
+    "roi": "782, 614, 46, 44",
+    "area": "760, 592, 90, 88",
+    "file": "./tasks/daily_routine/res/huahe.png",
+    "description": "花合战"
+  },
+  {
+    "name": "get_all_huahe",
+    "type": "image",
+    "roi": "912, 604, 57, 55",
+    "area": "884, 576, 113, 111",
+    "file": "./tasks/daily_routine/res/get_all_huahe.png",
+    "description": "全部领取花合战"
+  },
+  {
+    "name": "daily_buff",
+    "type": "image",
+    "roi": "251, 502, 27, 33",
+    "area": "237, 488, 55, 61",
+    "file": "./tasks/daily_routine/res/daily_buff.png",
+    "description": "每日御魂觉醒加成包"
+  },
+  {
+    "name": "shop_pack",
+    "type": "image",
+    "roi": "252, 497, 32, 39",
+    "area": "250, 500, 60, 70",
+    "file": "./tasks/daily_routine/res/shop_pack.png",
+    "description": "商店礼包推荐"
+  },
+  {
+    "name": "shop_pack_close",
+    "type": "image",
+    "roi": "1048, 132, 32, 34",
+    "area": "1032, 116, 64, 66",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
+    "description": "关闭商店礼包推荐"
+  }
+]

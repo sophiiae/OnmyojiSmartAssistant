@@ -5,7 +5,8 @@ class DeviceNotRunningError(Exception):
         logger.error(msg)
         exit()
 class GamePageUnknownError(Exception):
-    def __init__(self):
+    def __init__(self, msg=''):
+        logger.critical(msg)
         exit()
 
 class RequestHumanTakeover(Exception):

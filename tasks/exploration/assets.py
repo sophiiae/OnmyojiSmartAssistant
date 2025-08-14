@@ -140,7 +140,7 @@ class ExplorationAssets:
 	# 探索界面宝箱 
 	I_EXP_TREASURE_BOX = RuleImage(
 		roi=(695, 219, 71, 60),
-		area=(620, 180, 180, 140),
+		area=(620, 160, 200, 200),
 		file="./tasks/exploration/res/exp_treasure_box.png"
 	)
 	# 探索设置 

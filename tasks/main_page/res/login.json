@@ -16,14 +16,6 @@
     "description": "切换账号"
   },
   {
-    "name": "login_warning",
-    "type": "image",
-    "roi": "165, 565, 52, 69",
-    "area": "0, 539, 300, 121",
-    "file": "./tasks/main_page/res/login/login_warning.png",
-    "description": "适龄提示"
-  },
-  {
     "name": "login",
     "roi": "383, 413, 514, 64",
     "area": "351, 381, 578, 128",
@@ -32,6 +24,7 @@
   },
   {
     "name": "apple_logo",
+    "type": "image",
     "roi": "511, 371, 58, 67",
     "area": "482, 342, 116, 125",
     "file": "./tasks/main_page/res/login/apple_logo.png",
@@ -47,6 +40,7 @@
   },
   {
     "name": "own_characters",
+    "type": "image",
     "roi": "245, 417, 121, 29",
     "area": "231, 403, 149, 57",
     "file": "./tasks/main_page/res/login/own_characters.png",

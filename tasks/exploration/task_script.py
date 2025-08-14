@@ -238,7 +238,7 @@ class TaskScript(ExpBase):
             if swipe_count > 7:
                 self.left_check()
                 swipe_count = 0
-            time.sleep(0.3)
+            time.sleep(0.6)
 
     def check_auto_rotate(self):
         if not self.turn_on_auto_rotate():

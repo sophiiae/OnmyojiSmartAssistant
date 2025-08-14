@@ -20,7 +20,8 @@ class PageMap():
             page_shikigami: [page_main],
             page_boss: [page_exp],
             page_goryou: [page_exp],
-            page_bonding_fairyland: [page_exp]
+            page_bonding_fairyland: [page_exp],
+            page_login: [page_main]
         }
 
     def find_path(self, from_page: Page, to_page: Page, path=[]):

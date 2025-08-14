@@ -7,12 +7,23 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class PageAssets: 
 
+
+	# Click Rule Assets
+	# 进入游戏 
+	C_ENTER_GAME = RuleClick(roi=(558, 576, 158, 38), area=(558, 576, 158, 38), name="enter_game")
+
 	# Image Rule Assets
 	# 主界面 
 	I_C_MAIN = RuleImage(
 		roi=(905, 134, 48, 48),
 		area=(600, 110, 500, 96),
 		file="./tasks/components/page/res/check/c_main.png"
+	)
+	# 适龄提示 
+	I_C_LOGIN = RuleImage(
+		roi=(165, 565, 52, 69),
+		area=(0, 539, 300, 121),
+		file="./tasks/components/page/res/check/c_login.png"
 	)
 	# 町中节能模式 
 	I_C_TOWN = RuleImage(

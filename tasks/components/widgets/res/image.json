@@ -38,5 +38,37 @@
     "area": "497, 376, 273, 301",
     "file": "./tasks/components/widgets/res/signs/reward.png",
     "description": "战斗/突破/宝箱奖励领取图标"
+  },
+  {
+    "name": "scroll_close",
+    "type": "image",
+    "roi": "1179, 637, 36, 27",
+    "area": "1161, 624, 72, 54",
+    "file": "./tasks/components/widgets/res/scroll_close.png",
+    "description": "菜单绘卷关闭"
+  },
+  {
+    "name": "scroll_open",
+    "type": "image",
+    "roi": "1207, 609, 33, 83",
+    "area": "1190, 568, 66, 166",
+    "file": "./tasks/components/widgets/res/scroll_open.png",
+    "description": "菜单绘卷开启"
+  },
+  {
+    "name": "main_shiki_book_ent",
+    "type": "image",
+    "roi": "1095, 617, 66, 28",
+    "area": "1081, 603, 94, 56",
+    "file": "./tasks/components/widgets/res/main_shiki_book_ent.png",
+    "description": "主页式神录入口"
+  },
+  {
+    "name": "day_character",
+    "type": "image",
+    "roi": "224, 427, 27, 28",
+    "area": "210, 413, 55, 56",
+    "file": "./tasks/components/widgets/res/day_character.png",
+    "description": "曜"
   }
 ]

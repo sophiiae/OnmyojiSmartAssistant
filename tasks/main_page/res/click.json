@@ -7,24 +7,10 @@
     "description": "庭院头像"
   },
   {
-    "name": "enter_game",
-    "type": "click",
-    "roi": "558, 576, 158, 38",
-    "area": "558, 576, 158, 38",
-    "description": "进入游戏"
-  },
-  {
     "name": "region",
     "type": "click",
     "roi": "556, 508, 152, 34",
     "area": "556, 508, 152, 34",
     "description": "区域按钮"
-  },
-  {
-    "name": "exit_huahe",
-    "type": "image",
-    "roi": "19, 15, 55, 48",
-    "area": "19, 15, 55, 48",
-    "description": "退出花合战"
   }
 ]

@@ -38,5 +38,38 @@ class WidgetsAssets:
 		area=(497, 376, 273, 301),
 		file="./tasks/components/widgets/res/signs/reward.png"
 	)
+	# 菜单绘卷关闭 
+	I_SCROLL_CLOSE = RuleImage(
+		roi=(1179, 637, 36, 27),
+		area=(1161, 624, 72, 54),
+		file="./tasks/components/widgets/res/scroll_close.png"
+	)
+	# 菜单绘卷开启 
+	I_SCROLL_OPEN = RuleImage(
+		roi=(1207, 609, 33, 83),
+		area=(1190, 568, 66, 166),
+		file="./tasks/components/widgets/res/scroll_open.png"
+	)
+	# 主页式神录入口 
+	I_MAIN_SHIKI_BOOK_ENT = RuleImage(
+		roi=(1095, 617, 66, 28),
+		area=(1081, 603, 94, 56),
+		file="./tasks/components/widgets/res/main_shiki_book_ent.png"
+	)
+	# 曜 
+	I_DAY_CHARACTER = RuleImage(
+		roi=(224, 427, 27, 28),
+		area=(210, 413, 55, 56),
+		file="./tasks/components/widgets/res/day_character.png"
+	)
+
+
+	# Swipe Rule Assets
+	# 往左滑 
+	S_SWIPE_TO_LEFT = RuleSwipe(
+		roi_start=(800, 470, 60, 100),
+		roi_end=(400, 470, 50, 100),
+		name="swipe_to_left"
+	)
 
 

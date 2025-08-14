@@ -28,6 +28,10 @@ class Page():
 # 主界面 Main
 page_main = Page(PA.I_C_MAIN)
 
+# 登录界面
+page_login = Page(PA.I_C_LOGIN)
+page_login.link(button=PA.C_ENTER_GAME, destination=page_main)
+
 # 召唤界面 Summon
 page_summon = Page(PA.I_C_SUMMON)
 page_summon.link(button=PA.I_V_SUMMON_TO_MAIN, destination=page_main)
