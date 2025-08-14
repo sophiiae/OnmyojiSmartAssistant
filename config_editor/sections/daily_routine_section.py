@@ -85,3 +85,18 @@ class DailyRoutineSection(QGroupBox):
         self.trifles_config["guild_wish"] = self.guild_wish.isChecked()
         self.trifles_config["friend_love"] = self.friend_love.isChecked()
         self.trifles_config["store_sign"] = self.store_sign.isChecked()
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+            daily_config = config["daily_routine"]
+
+            # 刷新scheduler section
+            if hasattr(self, 'scheduler_section'):
+                self.scheduler_section.refresh_from_config(config)
+
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新日常任务设置UI时出错: {e}")

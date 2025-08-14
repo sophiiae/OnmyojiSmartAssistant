@@ -732,3 +732,89 @@ class OSAEditor(ConfigTab):
 
         # 显示菜单
         menu.exec(pos)
+
+    def reload_config_from_file(self):
+        """从文件重新加载配置并更新所有section"""
+        logger.info(f"开始重新加载配置文件: {os.path.basename(self.config_path)}")
+        try:
+            current_mtime = self.get_file_mtime()
+            logger.debug(f"当前修改时间: {current_mtime}, 上次修改时间: {self.last_mtime}")
+
+            if current_mtime == self.last_mtime:
+                # 文件没有实际修改，跳过
+                logger.debug("文件修改时间未变化，跳过重载")
+                return
+
+            logger.info(
+                f"检测到配置文件更改，重新加载: {os.path.basename(self.config_path)}")
+
+            # 重新加载配置
+            old_config = self.config.copy() if isinstance(
+                self.config, dict) else self.config
+            new_config = self.load_config()
+            logger.debug(f"配置文件读取完成，比较配置差异")
+
+            if new_config != self.config:
+                logger.info("配置内容发生变化，更新UI")
+                self.config = new_config
+                self.last_mtime = current_mtime
+
+                # 更新所有section的配置引用和scheduler信息
+                self.refresh_all_sections()
+
+                # 刷新UI
+                self.update_nav_buttons()
+                logger.info(f"配置界面已更新: {os.path.basename(self.config_path)}")
+            else:
+                logger.debug("配置内容未发生变化，跳过UI更新")
+
+        except Exception as e:
+            logger.error(f"重新加载配置文件时出错: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+        finally:
+            # 重新添加文件监控（某些情况下文件监控可能会失效）
+            if not self.file_watcher.files():
+                logger.warning("文件监控失效，重新添加监控")
+                self.file_watcher.addPath(self.config_path)
+            else:
+                logger.debug("文件监控正常")
+
+    def refresh_all_sections(self):
+        """刷新所有section的配置信息"""
+        logger.info("开始刷新所有section的配置信息")
+
+        # 定义所有section及其对应的section_name
+        sections_to_refresh = [
+            (self.daily_routine_section, "daily_routine"),
+            (self.exploration_section, "exploration"),
+            (self.realm_raid_section, "realm_raid"),
+            (self.goryou_realm_section, "goryou_realm"),
+            (self.shikigami_activity_section, "shikigami_activity"),
+            (self.area_boss_section, "area_boss"),
+            (self.duel_section, "duel"),
+            (self.bonding_fairyland_section, "bonding_fairyland")
+        ]
+
+        for section, section_name in sections_to_refresh:
+            try:
+                # 更新section的config引用
+                section.config = self.config
+
+                # 如果section有refresh_from_config方法，调用它
+                if hasattr(section, 'refresh_from_config'):
+                    logger.debug(
+                        f"调用 {section.__class__.__name__} 的 refresh_from_config 方法")
+                    section.refresh_from_config(self.config)
+                # 如果section有update_gui方法，调用它
+                elif hasattr(section, 'update_gui'):
+                    logger.debug(
+                        f"调用 {section.__class__.__name__} 的 update_gui 方法")
+                    section.update_gui()
+                else:
+                    logger.debug(f"{section.__class__.__name__} 没有可用的刷新方法")
+
+            except Exception as e:
+                logger.error(f"刷新 {section.__class__.__name__} 时出错: {e}")
+
+        logger.info("所有section配置信息刷新完成")
