@@ -195,7 +195,7 @@ class RealmRaidAssets:
 	I_REALM_RAID_FAILED = RuleImage(
 		roi=(409, 136, 125, 100),
 		area=(359, 86, 225, 200),
-		file="./tasks/battle/res/battle_failed.png"
+		file="./tasks/components/battle/res/battle_failed.png"
 	)
 	# 式神录入口 
 	I_RR_SHIKI_BOOK_ENT = RuleImage(

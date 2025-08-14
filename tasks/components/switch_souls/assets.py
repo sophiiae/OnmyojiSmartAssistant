@@ -29,7 +29,7 @@ class SwitchSoulsAssets:
 	I_SHIKI_SOUL_EXIT = RuleImage(
 		roi=(27, 9, 29, 36),
 		area=(13, 0, 57, 64),
-		file="./tasks/general/res/buttons/b_yellow_left_angle_2.png"
+		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle_2.png"
 	)
 	# 阵容预设标签 
 	I_SS_PRESET_CHECK = RuleImage(
@@ -41,7 +41,7 @@ class SwitchSoulsAssets:
 	I_SS_CONFIRM = RuleImage(
 		roi=(672, 403, 172, 57),
 		area=(644, 375, 228, 113),
-		file="./tasks/battle/res/battle_fight_again_confirm.png"
+		file="./tasks/components/battle/res/battle_fight_again_confirm.png"
 	)
 	# 预设分组1 
 	I_SS_GROUP_1 = RuleImage(

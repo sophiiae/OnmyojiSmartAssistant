@@ -3,7 +3,7 @@ from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.config.enums import ChapterHardness, Chapters
 from tasks.exploration.exp_base import ExpBase
-from tasks.general.page import page_exp, page_main, page_realm_raid
+from tasks.components.page.page import page_exp, page_main, page_realm_raid
 
 from datetime import datetime, timedelta
 import time
@@ -36,7 +36,7 @@ class TaskScript(ExpBase):
             # 进入章节战斗
             self.pre_chapter_battle()
             self.chapter_battle()
-            self.after_chapter_battle()
+            self.post_chapter_battle()
 
             count += 1
 
@@ -70,15 +70,15 @@ class TaskScript(ExpBase):
 
         self.init_battle = False
 
-    def after_chapter_battle(self):
+    def post_chapter_battle(self):
         # 检查章节奖励
         self.get_chapter_reward()
 
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
-                self.click_static_target(
-                    self.I_EXP_CHAPTER_DISMISS_ICON, retry=2)
+            if self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON):
+                time.sleep(0.5)
+                continue
 
             # 如果回到了探索界面 -> 检查宝箱
             if self.appear(self.I_C_EXP):

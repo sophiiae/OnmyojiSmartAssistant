@@ -1,9 +1,9 @@
 import time
 from module.config.enums import BuffClass
 from tasks.minamoto.assets import MinamotoAssets
-from tasks.general.page import page_minamoto, page_main
+from tasks.components.page.page import page_minamoto, page_main
 from module.base.exception import TaskEnd
-from tasks.battle.battle import Battle
+from tasks.components.battle.battle import Battle
 from module.base.logger import logger
 
 class TaskScript(MinamotoAssets, Battle):

@@ -53,13 +53,13 @@ class GoryouRealmAssets:
 	I_GR_TEAM_LOCK = RuleImage(
 		roi=(559, 563, 23, 30),
 		area=(547, 551, 47, 54),
-		file="./tasks/battle/res/battle_team_lock.png"
+		file="./tasks/components/battle/res/battle_team_lock.png"
 	)
 	# 队伍不锁定 
 	I_GR_TEAM_UNLOCK = RuleImage(
 		roi=(562, 566, 17, 25),
 		area=(554, 558, 33, 41),
-		file="./tasks/battle/res/battle_team_unlock.png"
+		file="./tasks/components/battle/res/battle_team_unlock.png"
 	)
 	# 暗黑豹开放 
 	I_GR_DBP_OPEN = RuleImage(

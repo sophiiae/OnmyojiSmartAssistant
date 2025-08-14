@@ -12,7 +12,7 @@
     "type": "image",
     "roi": "27, 9, 29, 36",
     "area": "13, 0, 57, 64",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle_2.png",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle_2.png",
     "description": "退出式神录"
   },
   {
@@ -28,7 +28,7 @@
     "type": "image",
     "roi": "672, 403, 172, 57",
     "area": "644, 375, 228, 113",
-    "file": "./tasks/battle/res/battle_fight_again_confirm.png",
+    "file": "./tasks/components/battle/res/battle_fight_again_confirm.png",
     "description": "确定更换御魂"
   },
   {

@@ -5,10 +5,10 @@ from pathlib import Path
 from module.base.logger import logger
 from module.image_processing.rule_ocr import RuleOcr
 from module.image_processing.rule_image import RuleImage
-from tasks.buff.assets import BuffAssets
+from tasks.components.buff.assets import BuffAssets
 from tasks.task_base import TaskBase
-from tasks.general.page import Page
-from tasks.general.page import page_main, page_exp, page_minamoto
+from tasks.components.page.page import Page
+from tasks.components.page.page import page_main, page_exp, page_minamoto
 
 
 class Buff(TaskBase, BuffAssets):

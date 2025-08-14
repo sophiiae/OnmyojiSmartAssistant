@@ -12,7 +12,7 @@
     "type": "image",
     "roi": "720, 254, 24, 53",
     "area": "708, 242, 48, 77",
-    "file": "./tasks/general/res/check/c_dojo.png",
+    "file": "./tasks/components/page/res/check/c_dojo.png",
     "description": "町中武馆斗技"
   },
   {
@@ -92,7 +92,7 @@
     "type": "image",
     "roi": "1135, 565, 87, 46",
     "area": "1112, 542, 133, 92",
-    "file": "./tasks/battle/res/battle_ready.png",
+    "file": "./tasks/components/battle/res/battle_ready.png",
     "description": "斗技准备"
   },
   {
@@ -100,7 +100,7 @@
     "type": "image",
     "roi": "411, 54, 172, 129",
     "area": "347, 0, 300, 257",
-    "file": "./tasks/battle/res/battle_win.png",
+    "file": "./tasks/components/battle/res/battle_win.png",
     "description": "斗技胜利"
   },
   {
@@ -124,7 +124,7 @@
     "type": "image",
     "roi": "409, 68, 125, 100",
     "area": "359, 18, 225, 200",
-    "file": "./tasks/battle/res/battle_failed.png",
+    "file": "./tasks/components/battle/res/battle_failed.png",
     "description": "战斗失败"
   },
   {
@@ -204,7 +204,7 @@
     "type": "image",
     "roi": "22, 7, 42, 41",
     "area": "2, 0, 82, 81",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
     "description": "退出阴阳术"
   },
   {
@@ -220,7 +220,7 @@
     "type": "image",
     "roi": "11, 13, 53, 44",
     "area": "0, 0, 97, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "退出更换阴阳师页面"
   },
   {
@@ -236,7 +236,7 @@
     "type": "image",
     "roi": "1127, 73, 32, 34",
     "area": "1111, 57, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "关闭日程按钮"
   }
 ]

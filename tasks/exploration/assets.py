@@ -69,19 +69,19 @@ class ExplorationAssets:
 	I_EXP_TEAM_UNLOCK = RuleImage(
 		roi=(898, 654, 17, 25),
 		area=(890, 642, 34, 50),
-		file="./tasks/battle/res/battle_team_unlock.png"
+		file="./tasks/components/battle/res/battle_team_unlock.png"
 	)
 	# 探索队伍锁定 
 	I_EXP_TEAM_LOCK = RuleImage(
 		roi=(895, 651, 23, 30),
 		area=(884, 636, 46, 60),
-		file="./tasks/battle/res/battle_team_lock.png"
+		file="./tasks/components/battle/res/battle_team_lock.png"
 	)
 	# 探索章节退出 
 	I_EXP_CHAPTER_EXIT = RuleImage(
 		roi=(24, 42, 53, 44),
 		area=(2, 20, 97, 88),
-		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
 	)
 	# 探索章节退出确认 
 	I_EXP_CHAPTER_EXIT_CONFIRM = RuleImage(
@@ -113,18 +113,6 @@ class ExplorationAssets:
 		area=(231, 153, 1000, 446),
 		file="./tasks/exploration/res/exp_realm_raid_ticket.png"
 	)
-	# 探索发现物品栏(左) 
-	I_EXP_TREASURE_BOX_LEFT = RuleImage(
-		roi=(37, 203, 65, 35),
-		area=(4, 186, 135, 320),
-		file="./tasks/exploration/res/exp_treasure_box.png"
-	)
-	# 困28探索界面宝箱区域 
-	I_EXP_TREASURE_BOX_MAP = RuleImage(
-		roi=(695, 219, 71, 60),
-		area=(400, 106, 500, 200),
-		file="./tasks/exploration/res/exp_treasure_box.png"
-	)
 	# 探索章节内发现物品 
 	I_EXP_CHAP_REWARD = RuleImage(
 		roi=(414, 505, 44, 33),
@@ -152,7 +140,7 @@ class ExplorationAssets:
 	# 探索界面宝箱 
 	I_EXP_TREASURE_BOX = RuleImage(
 		roi=(695, 219, 71, 60),
-		area=(665, 189, 131, 120),
+		area=(620, 180, 180, 140),
 		file="./tasks/exploration/res/exp_treasure_box.png"
 	)
 	# 探索设置 
@@ -255,7 +243,7 @@ class ExplorationAssets:
 	I_SOUL_GREED_EAT_CONFIRM = RuleImage(
 		roi=(672, 403, 172, 57),
 		area=(644, 375, 228, 113),
-		file="./tasks/battle/res/battle_fight_again_confirm.png"
+		file="./tasks/components/battle/res/battle_fight_again_confirm.png"
 	)
 	# 关闭贪吃鬼小屋 
 	I_SOUL_GREED_CLOSE = RuleImage(

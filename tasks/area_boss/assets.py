@@ -48,13 +48,13 @@ class AreaBossAssets:
 	I_AB_BOSS_EXIT = RuleImage(
 		roi=(1194, 27, 32, 34),
 		area=(1178, 11, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 准备 
 	I_AB_BOSS_READY = RuleImage(
 		roi=(1135, 565, 87, 46),
 		area=(1112, 542, 133, 92),
-		file="./tasks/battle/res/battle_ready.png"
+		file="./tasks/components/battle/res/battle_ready.png"
 	)
 	# 普通难度 
 	I_AB_REGULAR_HARDNESS = RuleImage(

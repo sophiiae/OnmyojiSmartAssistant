@@ -44,7 +44,7 @@
     "type": "image",
     "roi": "685, 545, 172, 57",
     "area": "657, 517, 228, 113",
-    "file": "./tasks/battle/res/battle_fight_again_confirm.png",
+    "file": "./tasks/components/battle/res/battle_fight_again_confirm.png",
     "description": "全部领取确定"
   },
   {
@@ -52,7 +52,7 @@
     "type": "image",
     "roi": "1161, 97, 32, 34",
     "area": "1145, 81, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "退出邮件窗口"
   },
   {
@@ -164,7 +164,7 @@
     "type": "image",
     "roi": "1161, 97, 32, 34",
     "area": "1115, 49, 92, 92",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "好友羁绊提升关闭"
   },
   {
@@ -172,7 +172,7 @@
     "type": "image",
     "roi": "1163, 98, 32, 34",
     "area": "1147, 82, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "退出好友"
   },
   {
@@ -204,7 +204,7 @@
     "type": "image",
     "roi": "855, 91, 32, 34",
     "area": "839, 75, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "关闭每日签到"
   },
   {
@@ -248,14 +248,6 @@
     "description": "全部领取花合战"
   },
   {
-    "name": "huahe_gain_reward",
-    "type": "image",
-    "roi": "476, 233, 329, 42",
-    "area": "400, 160, 500, 170",
-    "file": "./tasks/general/res/gain_reward.png",
-    "description": "获得奖励"
-  },
-  {
     "name": "daily_buff",
     "type": "image",
     "roi": "251, 502, 27, 33",
@@ -276,7 +268,7 @@
     "type": "image",
     "roi": "1048, 132, 32, 34",
     "area": "1032, 116, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "关闭商店礼包推荐"
   },
   {

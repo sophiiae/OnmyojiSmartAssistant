@@ -33,7 +33,7 @@ class DuelAssets:
 	I_DOJO_TO_DUEL = RuleImage(
 		roi=(720, 254, 24, 53),
 		area=(708, 242, 48, 77),
-		file="./tasks/general/res/check/c_dojo.png"
+		file="./tasks/components/page/res/check/c_dojo.png"
 	)
 	# 斗技比赛 
 	I_DUEL_CONTEST_CHECK = RuleImage(
@@ -93,13 +93,13 @@ class DuelAssets:
 	I_DUEL_READY = RuleImage(
 		roi=(1135, 565, 87, 46),
 		area=(1112, 542, 133, 92),
-		file="./tasks/battle/res/battle_ready.png"
+		file="./tasks/components/battle/res/battle_ready.png"
 	)
 	# 斗技胜利 
 	I_DUEL_WIN = RuleImage(
 		roi=(411, 54, 172, 129),
 		area=(347, 0, 300, 257),
-		file="./tasks/battle/res/battle_win.png"
+		file="./tasks/components/battle/res/battle_win.png"
 	)
 	# 段位上升 
 	I_DUEL_UPGRADE = RuleImage(
@@ -117,7 +117,7 @@ class DuelAssets:
 	I_DUEL_BATTLE_FAILED = RuleImage(
 		roi=(409, 68, 125, 100),
 		area=(359, 18, 225, 200),
-		file="./tasks/battle/res/battle_failed.png"
+		file="./tasks/components/battle/res/battle_failed.png"
 	)
 	# 上阵战图标 
 	I_DUEL_TEAM_PREP_CHECK = RuleImage(
@@ -177,7 +177,7 @@ class DuelAssets:
 	I_EXIT_ONMYODO = RuleImage(
 		roi=(22, 7, 42, 41),
 		area=(2, 0, 82, 81),
-		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
+		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle.png"
 	)
 	# 阴阳术入口 
 	I_MAIN_ONMYODO_ENT = RuleImage(
@@ -189,7 +189,7 @@ class DuelAssets:
 	I_EXIT_CHANGE_PAGE = RuleImage(
 		roi=(11, 13, 53, 44),
 		area=(0, 0, 97, 88),
-		file="./tasks/general/res/buttons/b_blue_left_angle.png"
+		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
 	)
 	# 日程标志 
 	I_SCHEDULE_ICON = RuleImage(
@@ -201,7 +201,7 @@ class DuelAssets:
 	I_SCHEDULE_CLOSE_X = RuleImage(
 		roi=(1127, 73, 32, 34),
 		area=(1111, 57, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 
 	# Ocr Rule Assets

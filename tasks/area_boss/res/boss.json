@@ -52,7 +52,7 @@
     "type": "image",
     "roi": "1194, 27, 32, 34",
     "area": "1178, 11, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "退出boss挑战页面"
   },
   {
@@ -60,7 +60,7 @@
     "type": "image",
     "roi": "1135, 565, 87, 46",
     "area": "1112, 542, 133, 92",
-    "file": "./tasks/battle/res/battle_ready.png",
+    "file": "./tasks/components/battle/res/battle_ready.png",
     "description": "准备"
   },
   {

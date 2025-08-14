@@ -4,7 +4,7 @@
     "type": "image",
     "roi": "905, 134, 48, 48",
     "area": "600, 110, 500, 96",
-    "file": "./tasks/general/res/check/c_main.png",
+    "file": "./tasks/components/page/res/check/c_main.png",
     "description": "主界面"
   },
   {
@@ -12,7 +12,7 @@
     "type": "image",
     "roi": "1065, 32, 90, 98",
     "area": "1020, 0, 180, 188",
-    "file": "./tasks/general/res/check/c_town.png",
+    "file": "./tasks/components/page/res/check/c_town.png",
     "description": "町中节能模式"
   },
   {
@@ -20,7 +20,7 @@
     "type": "image",
     "roi": "720, 254, 24, 53",
     "area": "708, 242, 48, 77",
-    "file": "./tasks/general/res/check/c_dojo.png",
+    "file": "./tasks/components/page/res/check/c_dojo.png",
     "description": "町中武馆斗技"
   },
   {
@@ -28,7 +28,7 @@
     "type": "image",
     "roi": "62, 642, 49, 41",
     "area": "42, 622, 89, 81",
-    "file": "./tasks/general/res/check/c_exp.png",
+    "file": "./tasks/components/page/res/check/c_exp.png",
     "description": "探索界面妖标志"
   },
   {
@@ -36,7 +36,7 @@
     "type": "image",
     "roi": "1064, 233, 62, 108",
     "area": "1033, 202, 124, 170",
-    "file": "./tasks/general/res/check/c_exp_modal.png",
+    "file": "./tasks/components/page/res/check/c_exp_modal.png",
     "description": "章节入口探索标志"
   },
   {
@@ -44,7 +44,7 @@
     "type": "image",
     "roi": "258, 470, 58, 44",
     "area": "229, 448, 116, 88",
-    "file": "./tasks/general/res/check/c_market.png",
+    "file": "./tasks/components/page/res/check/c_market.png",
     "description": "商店街建筑"
   },
   {
@@ -52,7 +52,7 @@
     "type": "image",
     "roi": "1141, 646, 61, 38",
     "area": "1122, 627, 99, 76",
-    "file": "./tasks/general/res/check/c_gift_shop.png",
+    "file": "./tasks/components/page/res/check/c_gift_shop.png",
     "description": "礼包屋标志"
   },
   {
@@ -60,7 +60,7 @@
     "type": "image",
     "roi": "597, 606, 64, 59",
     "area": "567, 576, 124, 119",
-    "file": "./tasks/general/res/check/c_summon.png",
+    "file": "./tasks/components/page/res/check/c_summon.png",
     "description": "召唤界面蓝票"
   },
   {
@@ -68,7 +68,7 @@
     "type": "image",
     "roi": "574, 76, 174, 37",
     "area": "556, 58, 210, 73",
-    "file": "./tasks/general/res/check/c_realm_raid.png",
+    "file": "./tasks/components/page/res/check/c_realm_raid.png",
     "description": "结界突破界面"
   },
   {
@@ -76,7 +76,7 @@
     "type": "image",
     "roi": "256, 36, 36, 36",
     "area": "238, 18, 72, 72",
-    "file": "./tasks/general/res/check/c_sleep.png",
+    "file": "./tasks/components/page/res/check/c_sleep.png",
     "description": "闲庭设置"
   },
   {
@@ -84,7 +84,7 @@
     "type": "image",
     "roi": "60, 615, 46, 50",
     "area": "37, 592, 92, 96",
-    "file": "./tasks/general/res/check/c_minamoto.png",
+    "file": "./tasks/components/page/res/check/c_minamoto.png",
     "description": "英杰试炼源氏补给图标"
   },
   {
@@ -92,7 +92,7 @@
     "type": "image",
     "roi": "35, 628, 86, 50",
     "area": "10, 603, 136, 100",
-    "file": "./tasks/general/res/check/c_boss.png",
+    "file": "./tasks/components/page/res/check/c_boss.png",
     "description": "地域鬼王集结图标"
   },
   {
@@ -100,7 +100,7 @@
     "type": "image",
     "roi": "110, 25, 126, 34",
     "area": "93, 8, 160, 68",
-    "file": "./tasks/general/res/check/c_fairyland.png",
+    "file": "./tasks/components/page/res/check/c_fairyland.png",
     "description": "契灵之境标题"
   },
   {
@@ -108,7 +108,7 @@
     "type": "image",
     "roi": "34, 9, 42, 41",
     "area": "14, 0, 82, 81",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
     "description": "召唤页面退出"
   },
   {
@@ -116,7 +116,7 @@
     "type": "image",
     "roi": "1031, 133, 32, 34",
     "area": "1015, 117, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "探索章节入口退出"
   },
   {
@@ -124,7 +124,7 @@
     "type": "image",
     "roi": "30, 36, 53, 44",
     "area": "4, 14, 106, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "探索界面返回主界面"
   },
   {
@@ -132,7 +132,7 @@
     "type": "image",
     "roi": "24, 36, 53, 44",
     "area": "2, 14, 97, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "商店街退出"
   },
   {
@@ -140,7 +140,7 @@
     "type": "image",
     "roi": "30, 16, 42, 41",
     "area": "10, 0, 82, 81",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
     "description": "商店退出到商店街"
   },
   {
@@ -148,7 +148,7 @@
     "type": "image",
     "roi": "20, 16, 42, 41",
     "area": "0, 0, 82, 81",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
     "description": "英杰试炼退出"
   },
   {
@@ -156,7 +156,7 @@
     "type": "image",
     "roi": "30, 18, 42, 41",
     "area": "10, 0, 82, 81",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
     "description": "阴阳寮退出"
   },
   {
@@ -164,7 +164,7 @@
     "type": "image",
     "roi": "1190, 116, 32, 34",
     "area": "1174, 100, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "结界突破退出"
   },
   {
@@ -172,7 +172,7 @@
     "type": "image",
     "roi": "45, 35, 53, 44",
     "area": "23, 13, 97, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "地域鬼王退出"
   },
   {
@@ -180,7 +180,7 @@
     "type": "image",
     "roi": "655, 102, 55, 87",
     "area": "490, 58, 600, 174",
-    "file": "./tasks/general/res/goto/v_main_to_exp.png",
+    "file": "./tasks/components/page/res/goto/v_main_to_exp.png",
     "description": "主界面探索灯笼"
   },
   {
@@ -188,7 +188,7 @@
     "type": "image",
     "roi": "1058, 493, 189, 94",
     "area": "1011, 446, 268, 188",
-    "file": "./tasks/general/res/goto/v_exp_to_ch28.png",
+    "file": "./tasks/components/page/res/goto/v_exp_to_ch28.png",
     "description": "第二十八章位置（在最底下的时候）"
   },
   {
@@ -196,7 +196,7 @@
     "type": "image",
     "roi": "542, 602, 47, 53",
     "area": "518, 576, 94, 106",
-    "file": "./tasks/general/res/goto/v_main_to_guild.png",
+    "file": "./tasks/components/page/res/goto/v_main_to_guild.png",
     "description": "主界面阴阳寮入口"
   },
   {
@@ -204,7 +204,7 @@
     "type": "image",
     "roi": "1081, 170, 35, 76",
     "area": "1064, 132, 70, 152",
-    "file": "./tasks/general/res/goto/v_main_to_summon.png",
+    "file": "./tasks/components/page/res/goto/v_main_to_summon.png",
     "description": "主界面召唤灯笼"
   },
   {
@@ -212,7 +212,7 @@
     "type": "image",
     "roi": "713, 250, 52, 40",
     "area": "637, 230, 194, 80",
-    "file": "./tasks/general/res/goto/v_main_to_town.png",
+    "file": "./tasks/components/page/res/goto/v_main_to_town.png",
     "description": "主界面町中入口"
   },
   {
@@ -220,7 +220,7 @@
     "type": "image",
     "roi": "36, 47, 53, 44",
     "area": "14, 25, 97, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "退出町中"
   },
   {
@@ -228,7 +228,7 @@
     "type": "image",
     "roi": "319, 343, 30, 124",
     "area": "304, 328, 60, 154",
-    "file": "./tasks/general/res/goto/v_town_to_dojo.png",
+    "file": "./tasks/components/page/res/goto/v_town_to_dojo.png",
     "description": "町中武馆入口"
   },
   {
@@ -236,7 +236,7 @@
     "type": "image",
     "roi": "34, 25, 53, 44",
     "area": "12, 3, 97, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "退出町中武馆"
   },
   {
@@ -244,7 +244,7 @@
     "type": "image",
     "roi": "251, 635, 58, 52",
     "area": "222, 609, 116, 104",
-    "file": "./tasks/general/res/goto/v_exp_to_realm_raid.png",
+    "file": "./tasks/components/page/res/goto/v_exp_to_realm_raid.png",
     "description": "探索界面寮突破入口"
   },
   {
@@ -252,7 +252,7 @@
     "type": "image",
     "roi": "43, 36, 32, 34",
     "area": "27, 20, 64, 66",
-    "file": "./tasks/general/res/goto/v_sleep_to_main.png",
+    "file": "./tasks/components/page/res/goto/v_sleep_to_main.png",
     "description": "退出闲庭"
   },
   {
@@ -260,7 +260,7 @@
     "type": "image",
     "roi": "643, 616, 68, 56",
     "area": "609, 588, 136, 112",
-    "file": "./tasks/general/res/goto/v_main_to_store.png",
+    "file": "./tasks/components/page/res/goto/v_main_to_store.png",
     "description": "商店入口"
   },
   {
@@ -268,7 +268,7 @@
     "type": "image",
     "roi": "837, 639, 60, 46",
     "area": "814, 616, 106, 92",
-    "file": "./tasks/general/res/goto/v_exp_to_minamoto.png",
+    "file": "./tasks/components/page/res/goto/v_exp_to_minamoto.png",
     "description": "英杰试炼入口"
   },
   {
@@ -276,7 +276,7 @@
     "type": "image",
     "roi": "641, 638, 60, 47",
     "area": "617, 614, 108, 95",
-    "file": "./tasks/general/res/goto/v_exp_to_boss.png",
+    "file": "./tasks/components/page/res/goto/v_exp_to_boss.png",
     "description": "地域鬼王入口"
   },
   {
@@ -284,7 +284,7 @@
     "type": "image",
     "roi": "353, 639, 51, 45",
     "area": "331, 617, 95, 89",
-    "file": "./tasks/general/res/goto/v_exp_to_goryou.png",
+    "file": "./tasks/components/page/res/goto/v_exp_to_goryou.png",
     "description": "御灵入口"
   },
   {
@@ -292,7 +292,7 @@
     "type": "image",
     "roi": "7, 15, 53, 44",
     "area": "0, 0, 97, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "御灵退出"
   },
   {
@@ -300,7 +300,7 @@
     "type": "image",
     "roi": "1040, 638, 50, 35",
     "area": "1022, 620, 86, 71",
-    "file": "./tasks/general/res/goto/v_exp_to_fb.png",
+    "file": "./tasks/components/page/res/goto/v_exp_to_fb.png",
     "description": "契灵之境入口"
   },
   {
@@ -308,7 +308,7 @@
     "type": "image",
     "roi": "29, 18, 42, 41",
     "area": "9, 0, 82, 81",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
     "description": "退出契灵之境"
   }
 ]

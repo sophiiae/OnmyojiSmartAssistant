@@ -6,9 +6,9 @@ from module.base.logger import logger
 from module.base.exception import TaskEnd
 from module.image_processing.rule_image import RuleImage
 from tasks.realm_raid.assets import RealmRaidAssets
-from tasks.general.page import page_realm_raid, page_main, page_exp
+from tasks.components.page.page import page_realm_raid, page_main, page_exp
 from module.base.exception import RequestHumanTakeover
-from tasks.battle.battle import Battle
+from tasks.components.battle.battle import Battle
 
 class TaskScript(RealmRaidAssets, Battle):
     reverse: bool = False
@@ -90,14 +90,16 @@ class TaskScript(RealmRaidAssets, Battle):
                 self.click_refresh()
 
             enough_ticket = self.check_ticket()
-            time.sleep(1)
+        self.class_logger(
+            self.name, "Completed all battles, no enough ticket for next round. ")
         return success
 
     def start_guild_raid(self):
         # 进入寮突破
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_GUILD_RAID_CLOSE):
+            if self.appear(self.I_GUILD_RAID_CLOSE, 0.95):
+                self.class_logger(self.name, "Guild raid hasn't opened yet.")
                 return True
 
             if self.appear(self.I_RR_GUID_PROGRESS):

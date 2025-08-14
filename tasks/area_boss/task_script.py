@@ -1,7 +1,7 @@
 
 import time
-from tasks.battle.battle import Battle
-from tasks.general.page import page_boss, page_main
+from tasks.components.battle.battle import Battle
+from tasks.components.page.page import page_boss, page_main
 from tasks.area_boss.assets import AreaBossAssets
 from module.base.exception import TaskEnd
 

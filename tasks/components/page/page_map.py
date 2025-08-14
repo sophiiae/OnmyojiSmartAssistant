@@ -1,6 +1,6 @@
 from functools import cached_property
 import sys
-from tasks.general.page import *
+from tasks.components.page.page import *
 
 class PageMap():
     @cached_property
@@ -40,7 +40,7 @@ class PageMap():
 if __name__ == "__main__":
     from pathlib import Path
     sys.path.append(str(Path(__file__).parent.parent.parent))
-    from tasks.general.page import *
+    from tasks.components.page.page import *
     m = PageMap()
     path = m.find_path(page_exp, page_summon)
     print([p.name for p in path] if path else 'No path found')

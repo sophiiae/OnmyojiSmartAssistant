@@ -4,14 +4,12 @@ from module.base.logger import logger
 from functools import cached_property
 from module.config.enums import BuffClass
 from module.image_processing.rule_image import RuleImage
-from tasks.battle.assets import BattleAssets
-from tasks.buff.buff import Buff
-from tasks.general.page import Page
-from tasks.general.general import General
-from tasks.general.page import page_main
+from tasks.components.battle.assets import BattleAssets
+from tasks.components.buff.buff import Buff
+from tasks.components.page.page import Page
+from tasks.components.page.page import page_main
 from tasks.components.switch_souls.switch_souls import SwitchSouls
-
-class Battle(General, Buff, SwitchSouls, BattleAssets):
+class Battle(Buff, SwitchSouls, BattleAssets):
     def run_easy_battle(self, exit_battle_check: RuleImage, failed_check: RuleImage | None = None) -> bool:
         logger.info("Start easy battle process")
 

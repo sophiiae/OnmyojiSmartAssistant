@@ -1,8 +1,8 @@
 from functools import cached_property
 import random
 from module.base.logger import logger
-from tasks.battle.battle import Battle
-from tasks.general.page import page_main, page_goryou
+from tasks.components.battle.battle import Battle
+from tasks.components.page.page import page_main, page_goryou
 from tasks.goryou_realm.assets import GoryouRealmAssets as GR
 from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.config.enums import GoryouClass, GoryouLevel

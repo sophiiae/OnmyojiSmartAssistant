@@ -62,7 +62,7 @@ class KekkaiAssets:
 	I_KEKKAI_SUPPLY_CLOSE = RuleImage(
 		roi=(958, 147, 32, 34),
 		area=(942, 131, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 
 

@@ -2,8 +2,8 @@ import time
 import random
 from module.base.exception import TaskEnd
 from module.base.logger import logger
-from tasks.battle.battle import Battle
-from tasks.general.page import page_main, page_shikigami
+from tasks.components.battle.battle import Battle
+from tasks.components.page.page import page_main, page_shikigami
 from tasks.shikigami_activity.assets import ShikigamiActivityAssets as SA
 
 """

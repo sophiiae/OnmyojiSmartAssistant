@@ -68,7 +68,7 @@
     "type": "image",
     "roi": "1162, 117, 32, 34",
     "area": "1146, 101, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "关闭悬赏面板"
   },
   {

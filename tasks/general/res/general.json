@@ -14,43 +14,5 @@
     "area": "665, 595, 220, 105",
     "file": "./tasks/general/res/summon_again.png",
     "description": "再次召唤"
-  },
-  {
-    "name": "b_red_x",
-    "roi": "1194, 27, 32, 34",
-    "area": "1178, 11, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
-    "description": "红色X"
-  },
-  {
-    "name": "b_blue_left_angle",
-    "type": "image",
-    "roi": "24, 36, 53, 44",
-    "area": "0, 14, 106, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
-    "description": "蓝色<退出"
-  },
-  {
-    "name": "b_yellow_left_angle",
-    "roi": "34, 9, 42, 41",
-    "area": "10, 0, 86, 81",
-    "file": "./tasks/general/res/buttons/b_yellow_left_angle.png",
-    "description": "黄色<退出"
-  },
-  {
-    "name": "gain_reward",
-    "type": "image",
-    "roi": "476, 233, 329, 42",
-    "area": "312, 212, 658, 84",
-    "file": "./tasks/general/res/gain_reward.png",
-    "description": "获得奖励栏标"
-  },
-  {
-    "name": "reward",
-    "type": "image",
-    "roi": "565, 444, 137, 165",
-    "area": "497, 376, 273, 301",
-    "file": "./tasks/general/res/reward.png",
-    "description": "战斗/突破/宝箱奖励领取图标"
   }
 ]

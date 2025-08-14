@@ -5,8 +5,8 @@ from venv import logger
 from module.base.exception import TaskEnd
 from module.config.enums import DuelTier, OnmyojiClass
 from module.image_processing.rule_image import RuleImage
-from tasks.battle.battle import Battle
-from tasks.general.page import Page, page_dojo, page_main
+from tasks.components.battle.battle import Battle
+from tasks.components.page.page import Page, page_dojo, page_main
 from tasks.duel.assets import DuelAssets
 from module.base.exception import RequestHumanTakeover
 

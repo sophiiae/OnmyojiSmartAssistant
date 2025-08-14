@@ -1,7 +1,7 @@
 from module.base.exception import TaskEnd
-from tasks.battle.battle import Battle
+from tasks.components.battle.battle import Battle
 from tasks.bonding_fairyland.assets import BondingFairylandAssets as BFA
-from tasks.general.page import page_bonding_fairyland
+from tasks.components.page.page import page_bonding_fairyland
 
 class TaskScript(Battle, BFA):
     name = "BondingFairyland"

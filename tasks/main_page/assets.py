@@ -145,13 +145,13 @@ class MainPageAssets:
 	I_MAIL_CONFIRM = RuleImage(
 		roi=(685, 545, 172, 57),
 		area=(657, 517, 228, 113),
-		file="./tasks/battle/res/battle_fight_again_confirm.png"
+		file="./tasks/components/battle/res/battle_fight_again_confirm.png"
 	)
 	# 退出邮件窗口 
 	I_MAIL_EXIT = RuleImage(
 		roi=(1161, 97, 32, 34),
 		area=(1145, 81, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 菜单绘卷关闭 
 	I_SCROLL_CLOSE = RuleImage(
@@ -235,13 +235,13 @@ class MainPageAssets:
 	I_FRIEND_LEVEL_UP_CLOSE = RuleImage(
 		roi=(1161, 97, 32, 34),
 		area=(1115, 49, 92, 92),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 退出好友 
 	I_FRIENDS_EXIT = RuleImage(
 		roi=(1163, 98, 32, 34),
 		area=(1147, 82, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 签到 
 	I_SIGN = RuleImage(
@@ -265,7 +265,7 @@ class MainPageAssets:
 	I_CLOSE_DAILY_SIGN = RuleImage(
 		roi=(855, 91, 32, 34),
 		area=(839, 75, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 每日勾玉领取 
 	I_DAILY_JADE = RuleImage(
@@ -297,12 +297,6 @@ class MainPageAssets:
 		area=(884, 576, 113, 111),
 		file="./tasks/main_page/res/get_all_huahe.png"
 	)
-	# 获得奖励 
-	I_HUAHE_GAIN_REWARD = RuleImage(
-		roi=(476, 233, 329, 42),
-		area=(400, 160, 500, 170),
-		file="./tasks/general/res/gain_reward.png"
-	)
 	# 每日御魂觉醒加成包 
 	I_DAILY_BUFF = RuleImage(
 		roi=(251, 502, 27, 33),
@@ -319,7 +313,7 @@ class MainPageAssets:
 	I_SHOP_PACK_CLOSE = RuleImage(
 		roi=(1048, 132, 32, 34),
 		area=(1032, 116, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 主页式神录入口 
 	I_MAIN_SHIKI_BOOK_ENT = RuleImage(
@@ -387,7 +381,7 @@ class MainPageAssets:
 	I_CLOSE_QUEST_BOARD = RuleImage(
 		roi=(1162, 117, 32, 34),
 		area=(1146, 101, 64, 66),
-		file="./tasks/general/res/buttons/b_red_x.png"
+		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 勾协邀请 
 	I_QUEST_JADE = RuleImage(

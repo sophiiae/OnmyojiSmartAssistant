@@ -87,7 +87,7 @@ class ShikigamiActivityAssets:
 	I_SA_EXIT = RuleImage(
 		roi=(20, 16, 42, 41),
 		area=(0, 0, 82, 81),
-		file="./tasks/general/res/buttons/b_yellow_left_angle.png"
+		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle.png"
 	)
 	# 没票了 
 	I_SA_NO_TICKETS = RuleImage(
@@ -95,17 +95,11 @@ class ShikigamiActivityAssets:
 		area=(662, 14, 161, 52),
 		file="./tasks/shikigami_activity/res/sa_no_tickets.png"
 	)
-	# 获得奖励 
-	I_SA_GAIN_REWARD = RuleImage(
-		roi=(476, 233, 329, 42),
-		area=(400, 160, 500, 170),
-		file="./tasks/general/res/gain_reward.png"
-	)
 	# 胜利 
 	I_SA_BATTLE_WIN = RuleImage(
 		roi=(411, 122, 172, 129),
 		area=(347, 58, 300, 257),
-		file="./tasks/battle/res/battle_win.png"
+		file="./tasks/components/battle/res/battle_win.png"
 	)
 	# 召唤鬼王 
 	I_SA_SUMMON = RuleImage(
@@ -123,7 +117,7 @@ class ShikigamiActivityAssets:
 	I_SA_BATTLE_READY = RuleImage(
 		roi=(1135, 565, 87, 46),
 		area=(1112, 542, 133, 92),
-		file="./tasks/battle/res/battle_ready.png"
+		file="./tasks/components/battle/res/battle_ready.png"
 	)
 	# 战斗确认 
 	I_SA_BATTLE_CHECK = RuleImage(

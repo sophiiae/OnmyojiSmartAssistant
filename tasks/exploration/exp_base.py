@@ -4,10 +4,9 @@ from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover
 from module.config.enums import BuffClass
 from module.image_processing.rule_image import RuleImage
-from tasks.battle.battle import Battle
+from tasks.components.battle.battle import Battle
 from tasks.exploration.assets import ExplorationAssets as EA
-from tasks.general.assets import GeneralAssets as GA
-from tasks.general.page import page_exp, page_main
+from tasks.components.page.page import page_exp, page_main
 
 class ExpBase(EA, Battle):
     name = "Exploration"
@@ -127,7 +126,7 @@ class ExpBase(EA, Battle):
         # 关闭章节探索弹窗
         while 1:
             self.wait_and_shot()
-            if self.appear(GA.I_C_EXP):
+            if self.appear(self.I_C_EXP):
                 break
 
             if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):

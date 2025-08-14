@@ -52,7 +52,7 @@
     "type": "image",
     "roi": "898, 654, 17, 25",
     "area": "890, 642, 34, 50",
-    "file": "./tasks/battle/res/battle_team_unlock.png",
+    "file": "./tasks/components/battle/res/battle_team_unlock.png",
     "description": "探索队伍未锁定"
   },
   {
@@ -60,7 +60,7 @@
     "type": "image",
     "roi": "895, 651, 23, 30",
     "area": "884, 636, 46, 60",
-    "file": "./tasks/battle/res/battle_team_lock.png",
+    "file": "./tasks/components/battle/res/battle_team_lock.png",
     "description": "探索队伍锁定"
   },
   {
@@ -68,7 +68,7 @@
     "type": "image",
     "roi": "24, 42, 53, 44",
     "area": "2, 20, 97, 88",
-    "file": "./tasks/general/res/buttons/b_blue_left_angle.png",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
     "description": "探索章节退出"
   },
   {
@@ -112,22 +112,6 @@
     "description": "怪物奖励突破票掉落显示区域"
   },
   {
-    "name": "exp_treasure_box_left",
-    "type": "image",
-    "roi": "37, 203, 65, 35",
-    "area": "4, 186, 135, 320",
-    "file": "./tasks/exploration/res/exp_treasure_box.png",
-    "description": "探索发现物品栏(左)"
-  },
-  {
-    "name": "exp_treasure_box_map",
-    "type": "image",
-    "roi": "695, 219, 71, 60",
-    "area": "400, 106, 500, 200",
-    "file": "./tasks/exploration/res/exp_treasure_box.png",
-    "description": "困28探索界面宝箱区域"
-  },
-  {
     "name": "exp_chap_reward",
     "type": "image",
     "roi": "414, 505, 44, 33",
@@ -162,7 +146,7 @@
     "name": "exp_treasure_box",
     "type": "image",
     "roi": "695, 219, 71, 60",
-    "area": "665, 189, 131, 120",
+    "area": "620, 180, 180, 140",
     "file": "./tasks/exploration/res/exp_treasure_box.png",
     "description": "探索界面宝箱"
   },
@@ -299,7 +283,7 @@
     "type": "image",
     "roi": "672, 403, 172, 57",
     "area": "644, 375, 228, 113",
-    "file": "./tasks/battle/res/battle_fight_again_confirm.png",
+    "file": "./tasks/components/battle/res/battle_fight_again_confirm.png",
     "description": "确定进食"
   },
   {

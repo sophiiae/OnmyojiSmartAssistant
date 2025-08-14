@@ -28,7 +28,7 @@
     "type": "image",
     "roi": "958, 147, 32, 34",
     "area": "942, 131, 64, 66",
-    "file": "./tasks/general/res/buttons/b_red_x.png",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
     "description": "关闭体力食盒/经验酒壶"
   }
 ]

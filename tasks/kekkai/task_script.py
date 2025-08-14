@@ -1,7 +1,7 @@
 import time
 from tasks.main_page.task_script import MainPage
-from tasks.general.page import page_main, page_guild
-from tasks.battle.battle import Battle
+from tasks.components.page.page import page_main, page_guild
+from tasks.components.battle.battle import Battle
 from tasks.kekkai.assets import KekkaiAssets as KA
 
 class TaskScript(MainPage, Battle, KA):
