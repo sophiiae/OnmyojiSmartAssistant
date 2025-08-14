@@ -286,5 +286,13 @@
     "area": "1081, 603, 94, 56",
     "file": "./tasks/main_page/res/main_shiki_book_ent.png",
     "description": "主页式神录入口"
+  },
+  {
+    "name": "day_character",
+    "type": "image",
+    "roi": "224, 427, 27, 28",
+    "area": "210, 413, 55, 56",
+    "file": "./tasks/main_page/res/day_character.png",
+    "description": "曜"
   }
 ]

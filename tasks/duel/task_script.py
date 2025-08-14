@@ -3,7 +3,7 @@ import random
 import time
 from venv import logger
 from module.base.exception import TaskEnd
-from module.config.enums import DuelRank, OnmyojiClass
+from module.config.enums import DuelTier, OnmyojiClass
 from module.image_processing.rule_image import RuleImage
 from tasks.battle.battle import Battle
 from tasks.general.page import Page, page_dojo, page_main
@@ -26,7 +26,7 @@ class TaskScript(Battle, DuelAssets):
         if to_elite:
             success = self.battle_to_elite()
         else:
-            success = self.rank_battle()
+            success = self.tier_battle()
 
         self.set_next_run(task='Duel', success=success, finish=True)
         self.exit_duel()
@@ -37,17 +37,17 @@ class TaskScript(Battle, DuelAssets):
         return self.I_DUEL_CONTEST_CHECK if self.contest_mode else self.I_DUEL_CHECK
 
     @cached_property
-    def rank_map(self):
+    def tier_map(self):
         return {
-            DuelRank.rank_1: 1001,
-            DuelRank.rank_2: 1200,
-            DuelRank.rank_3: 1400,
-            DuelRank.rank_4: 1600,
-            DuelRank.rank_5: 1800,
-            DuelRank.rank_6: 2000,
-            DuelRank.rank_7: 2200,
-            DuelRank.rank_8: 2400,
-            DuelRank.rank_9: 2700,
+            DuelTier.tier_1: 1001,
+            DuelTier.tier_2: 1200,
+            DuelTier.tier_3: 1400,
+            DuelTier.tier_4: 1600,
+            DuelTier.tier_5: 1800,
+            DuelTier.tier_6: 2000,
+            DuelTier.tier_7: 2200,
+            DuelTier.tier_8: 2400,
+            DuelTier.tier_9: 2700,
         }
 
     def battle_to_elite(self):
@@ -71,9 +71,9 @@ class TaskScript(Battle, DuelAssets):
                 self.battle_process()
                 retry = 0
 
-    def rank_battle(self):
-        target_rank = self.rb_config.rank
-        target_score = self.rank_map[target_rank]
+    def tier_battle(self):
+        target_tier = self.rb_config.tier
+        target_score = self.tier_map[target_tier]
         if self.check_score(target_score):
             return True
 

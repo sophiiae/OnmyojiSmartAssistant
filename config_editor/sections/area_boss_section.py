@@ -89,14 +89,6 @@ class AreaBossSection(QGroupBox):
             if hasattr(self.scheduler_section, 'refresh_from_config'):
                 self.scheduler_section.refresh_from_config(config)
 
-            # 重新获取配置引用
-            area_boss = config.get("area_boss", {})
-            self.boss_config = area_boss.get("boss_config", {})
-
-            # 刷新鬼王配置UI控件
-            self.boss_number_spin.setValue(
-                self.boss_config.get("boss_number", 0))
-
         except Exception as e:
             from module.base.logger import logger
             logger.error(f"刷新地域鬼王设置UI时出错: {e}")

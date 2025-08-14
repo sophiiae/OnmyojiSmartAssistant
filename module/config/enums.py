@@ -87,13 +87,13 @@ class OnmyojiClass(str, Enum):
     Yaobikuni = '八百比丘尼'
     Yorimitsu = '源赖光'
 
-class DuelRank(str, Enum):
-    rank_1 = '一段'
-    rank_2 = '二段'
-    rank_3 = '三段'
-    rank_4 = '四段'
-    rank_5 = '五段'
-    rank_6 = '六段'
-    rank_7 = '七段'
-    rank_8 = '八段'
-    rank_9 = '九段'
+class DuelTier(str, Enum):
+    tier_1 = '一段'
+    tier_2 = '二段'
+    tier_3 = '三段'
+    tier_4 = '四段'
+    tier_5 = '五段'
+    tier_6 = '六段'
+    tier_7 = '七段'
+    tier_8 = '八段'
+    tier_9 = '九段'

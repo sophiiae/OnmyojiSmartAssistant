@@ -33,11 +33,11 @@ class DuelSection(QGroupBox):
         add_left_row(duel_layout, [self.elite_enable])
 
         # 段位（无CheckBox，左对齐）
-        self.rank = SelectButton()
-        self.rank.addItems(
+        self.tier = SelectButton()
+        self.tier.addItems(
             ["一段", "二段", "三段", "四段", "五段", "六段", "七段", "八段", "九段"])
-        self.rank.setCurrentText(self.duel_config["rank"])
-        add_left_row(duel_layout, [QLabel("段位:"), self.rank])
+        self.tier.setCurrentText(self.duel_config["tier"])
+        add_left_row(duel_layout, [QLabel("段位:"), self.tier])
 
         # 打满荣誉积分（只有CheckBox）
         self.full_honor_points_enable = QCheckBox("打满荣誉积分")
@@ -62,7 +62,7 @@ class DuelSection(QGroupBox):
         self.scheduler_section.update_config()
 
         self.duel_config["elite"] = self.elite_enable.isChecked()
-        self.duel_config["rank"] = self.rank.currentText()
+        self.duel_config["tier"] = self.tier.currentText()
         self.duel_config["onmyoji"] = self.onmyoji.currentText()
         self.duel_config["full_honor_points"] = self.full_honor_points_enable.isChecked(
         )
@@ -88,8 +88,8 @@ class DuelSection(QGroupBox):
             # 刷新斗技配置UI控件
             self.elite_enable.setChecked(
                 self.duel_config.get("elite", False))
-            self.rank.setCurrentText(
-                self.duel_config.get("rank", "一段"))
+            self.tier.setCurrentText(
+                self.duel_config.get("tier", "一段"))
             self.full_honor_points_enable.setChecked(
                 self.duel_config.get("full_honor_points", False))
             self.onmyoji.setCurrentText(

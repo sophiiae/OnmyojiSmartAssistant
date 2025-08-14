@@ -67,16 +67,6 @@ class BondingFairylandSection(QGroupBox):
             if hasattr(self.scheduler_section, 'refresh_from_config'):
                 self.scheduler_section.refresh_from_config(config)
 
-            # 重新获取配置引用
-            bonding_fairyland = config.get("bonding_fairyland", {})
-            self.bonding_config = bonding_fairyland.get("bonding_config", {})
-
-            # 刷新契灵配置UI控件
-            self.explore_count_spin.setValue(
-                self.bonding_config.get("explore_count", 30))
-            self.lock_team_enable.setChecked(
-                self.bonding_config.get("lock_team_enable", True))
-
         except Exception as e:
             from module.base.logger import logger
             logger.error(f"刷新契灵之境设置UI时出错: {e}")

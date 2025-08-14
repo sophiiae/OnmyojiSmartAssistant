@@ -466,9 +466,20 @@ class ClimbConfig(BaseModel):
         description="门票耗尽后自动切换到体力模式"
     )
 
+    anniversary_mode: bool = Field(
+        default=False,
+        description="周年庆模式"
+    )
+
+    demon_king_mode: bool = Field(
+        default=False,
+        description="超鬼王模式"
+    )
+
     ticket_max: int = Field(
         default=50,
         ge=1,
+        le=999,
         title="门票爬塔次数",
         description="门票爬塔次数， 默认门票爬塔50次"
     )
@@ -600,8 +611,8 @@ class DuelConfig(BaseModel):
         description="是否上名士"
     )
 
-    rank: DuelRank = Field(
-        default=DuelRank.rank_1,
+    tier: DuelTier = Field(
+        default=DuelTier.tier_1,
         description="斗技段位"
     )
 

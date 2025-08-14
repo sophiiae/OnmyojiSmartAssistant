@@ -317,8 +317,8 @@ class MainPageAssets:
 	)
 	# 关闭商店礼包推荐 
 	I_SHOP_PACK_CLOSE = RuleImage(
-		roi=(855, 91, 32, 34),
-		area=(927, 142, 92, 92),
+		roi=(1048, 132, 32, 34),
+		area=(1032, 116, 64, 66),
 		file="./tasks/general/res/buttons/b_red_x.png"
 	)
 	# 主页式神录入口 
@@ -326,6 +326,12 @@ class MainPageAssets:
 		roi=(1095, 617, 66, 28),
 		area=(1081, 603, 94, 56),
 		file="./tasks/main_page/res/main_shiki_book_ent.png"
+	)
+	# 曜 
+	I_DAY_CHARACTER = RuleImage(
+		roi=(224, 427, 27, 28),
+		area=(210, 413, 55, 56),
+		file="./tasks/main_page/res/day_character.png"
 	)
 
 	# Image Rule Assets

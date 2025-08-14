@@ -124,6 +124,8 @@
     },
     "climb_config": {
       "enable_ap_mode": true,
+      "anniversary_mode": false,
+      "demon_king_mode": false,
       "auto_switch": false,
       "ticket_max": 50,
       "ap_max": 300,
@@ -161,7 +163,7 @@
     },
     "duel_config": {
       "elite": false,
-      "rank": "一段",
+      "tier": "一段",
       "full_honor_points": false,
       "onmyoji": "源赖光"
     },

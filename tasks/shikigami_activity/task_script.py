@@ -1,11 +1,10 @@
 import time
 import random
+from module.base.exception import TaskEnd
 from module.base.logger import logger
 from tasks.battle.battle import Battle
-from tasks.general.page import Page, page_exp, page_shikigami
+from tasks.general.page import page_main, page_shikigami
 from tasks.shikigami_activity.assets import ShikigamiActivityAssets as SA
-from module.base.exception import RequestHumanTakeover
-
 
 """
 每月活动变动 （快速)
@@ -13,17 +12,43 @@ from module.base.exception import RequestHumanTakeover
 1. 爬塔界面截图更新 sa_fight_check & sa_fight
 2. py .\module\image_processing\assets_extractor.py 
 3. 用 py ./match.py [script_name] [tupian] 更新坐标
-4. 变更战斗次数，直接跑 py ./activity.py
+4. 变更战斗次数，直接跑 py ./activity.py [config_name] 或者运行OSA
 """
 class TaskScript(Battle, SA):
-    fight_count = 200  # 战斗次数
+    name = "ShikigamiActivity"
 
     def run(self):
+        self.sa_config = self.config.model.shikigami_activity.climb_config
+
         # 进入式神活动页面
         if not (self.appear(self.I_SA_FIGHT_CHECK) or self.check_page_appear(page_shikigami)):
             self.goto(page_shikigami)
-            time.sleep(1)
 
+        # 根据配置选择活动模式
+        if self.sa_config.anniversary_mode:
+            self.anniversary_battle()
+        elif self.sa_config.demon_king_mode:
+            self.demon_king()
+        else:
+            self.run_climb()
+
+        # self.toggle_team_lock(self.I_SA_TEAM_LOCK, self.I_SA_TEAM_UNLOCK)
+
+        # # 每天指定御魂不一样，不刷的话，就先关了这一块
+        # ticket = self.get_ticket_count()
+        # if ticket > 0:
+        #     self.switch_mode(False)
+        # for i in range(ticket):
+        #     self.class_logger(self.name, f"======== Round {i + 1} by ticket =========")
+        #     self.start_battle()
+
+        # self.switch_mode()
+
+        self.set_next_run(self.name, finish=True, success=True)
+        self.goto(page_main, page_shikigami)
+        raise TaskEnd(self.name)
+
+    def run_climb(self):
         self.wait_and_shot()
         if not self.appear(self.I_SA_FIGHT_CHECK):
             # 进入爬塔页面
@@ -36,77 +61,53 @@ class TaskScript(Battle, SA):
                     self.click(self.I_SA_FIGHT_ENT)
                     continue
 
-        # self.toggle_team_lock(self.I_SA_TEAM_LOCK, self.I_SA_TEAM_UNLOCK)
-
-        # # 每天指定御魂不一样，不刷的话，就先关了这一块
-        # ticket = self.get_ticket_count()
-        # if ticket > 0:
-        #     self.switch_mode(False)
-        # for i in range(ticket):
-        #     logger.info(f"======== Round {i + 1} by ticket =========")
-        #     self.start_battle()
-
-        # self.switch_mode()
-
-        # # 用体力刷999
-        # count = 0
-        # while count < 999:
-        #     if count > 0 and count % 100 == 0:
-        #         wait = np.random.randint(1, 200)
-        #         logger.info(f"wating for {wait} seconds")
-        #         time.sleep(wait)
-
-        #     logger.info(f"======== Round {count + 1} by EP =========")
-        #     self.start_battle()
-        #     count += 1
-
-        #     # if not self.wait_until_appear(self.I_SA_FIGHT_CHECK, 2):
-        #     #     raise RequestHumanTakeover
-
-        # # 返回庭院
-        # while 1:
-        #     time.sleep(0.3)
-        #     self.screenshot()
-        #     if self.appear(self.I_C_MAIN):
-        #         break
-        #     if self.appear(self.I_SA_EXIT):
-        #         self.click(self.I_SA_EXIT)
-
         # 简单刷活动
-        for i in range(self.fight_count):
-            logger.info(f"======== Round {i + 1} by ticket =========")
+        for i in range(self.sa_config.ticket_max):
+            self.class_logger(
+                self.name, f"======== Round {i + 1} by ticket =========")
             if not self.start_battle():
                 break
 
-        # self.guiwang()
-        self.exit_activity()
+    def anniversary_battle(self):
+        # TODO: Need update
+        self.class_logger(self.name, f"======== 周年庆 =========")
 
-    def guiwang(self):
-        #  鬼王
+        # 用体力刷999
+        count = self.sa_config.ticket_max
+        while count:
+            if count % 100 == 0:
+                wait = random.randint(1, 60)
+                self.class_logger(self.name, f"Random waiting time: {wait}")
+                time.sleep(wait)
+
+            self.class_logger(self.name,
+                              f"======== Round {self.sa_config.ticket_max - count + 1} by AP ========")
+            self.start_battle()
+            count -= 1
+
+    def demon_king(self):
+        # TODO: Need update
+        #  超鬼王
         while 1:
-            logger.info(f"======== 鬼王 =========")
+            self.class_logger(self.name, f"======== 超鬼王 ========")
 
             while 1:
-                time.sleep(0.4)
-                self.screenshot()
+                self.wait_and_shot()
                 if self.appear(self.I_SA_BATTLE_CHECK):
                     break
 
-                if self.appear(self.I_SA_SUMMON, 0.95):
-                    self.click(self.I_SA_SUMMON)
+                if self.appear_then_click(self.I_SA_SUMMON, 0.95):
+                    self.class_logger(self.name, "召唤鬼王")
                     continue
 
-                if self.appear(self.I_SA_SUMMON_FIGHT, 0.95):
-                    self.click(self.I_SA_SUMMON_FIGHT)
+                if self.appear_then_click(self.I_SA_SUMMON_FIGHT, 0.95):
                     continue
 
-                if self.appear(self.I_SA_BATTLE_READY, 0.95):
-                    self.click(self.I_SA_BATTLE_READY)
+                self.appear_then_click(self.I_SA_BATTLE_READY, 0.95)
 
             while 1:
-                logger.info(f"|||||||||| 战斗中 ||||||||||||")
-                time.sleep(1)
-                self.screenshot()
+                self.class_logger(self.name, f"|||||||||| 战斗中 ||||||||||")
+                self.wait_and_shot(1)
                 if self.appear(self.I_SA_BATTLE_WIN):
                     # 出现胜利
                     self.click(self.battle_end_click)
@@ -149,7 +150,7 @@ class TaskScript(Battle, SA):
                 time.sleep(0.3)
                 self.screenshot()
                 if self.appear(self.I_SA_EP):
-                    logger.info("Using EP")
+                    self.class_logger(self.name, "Using EP")
                     return True
 
                 if self.appear(self.I_SA_TICKET):
@@ -160,22 +161,8 @@ class TaskScript(Battle, SA):
                 time.sleep(0.3)
                 self.screenshot()
                 if self.appear(self.I_SA_TICKET):
-                    logger.info("Using ticket")
+                    self.class_logger(self.name, "Using ticket")
                     return True
 
                 if self.appear(self.I_SA_EP):
                     self.wait_until_click(self.I_SA_SWITCH)
-
-    def exit_activity(self):
-        retry = 0
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_C_MAIN, 0.95):
-                break
-
-            if retry > 10:
-                raise RequestHumanTakeover()
-
-            if self.appear(self.I_SA_EXIT):
-                self.click(self.I_SA_EXIT)
-                retry += 1

@@ -29,7 +29,7 @@ class DateTimeSelectRow:
         self.label = label
         y, m, d, h, mi, s = parse_datetime(default_str)
         self.year = SelectButton()
-        self.year.addItems([str(i) for i in range(2023, 2031)])
+        self.year.addItems([str(i) for i in range(2024, 2034)])
         self.year.setCurrentText(str(y))
         self.year.setFixedWidth(44)
         self.year.setSizePolicy(QSizePolicy.Policy.Fixed,
