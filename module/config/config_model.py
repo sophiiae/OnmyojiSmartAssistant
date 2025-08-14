@@ -30,6 +30,12 @@ class ConfigModel(BaseModel):
     bonding_fairyland: BondingFairyland = Field(
         default_factory=BondingFairyland
     )
+    netherworld: Netherworld = Field(
+        default_factory=Netherworld
+    )
+    demon_encounter: DemonEncounter = Field(
+        default_factory=DemonEncounter
+    )
 
     def __init__(self, config_name: str):
         data = self.read_json(config_name)

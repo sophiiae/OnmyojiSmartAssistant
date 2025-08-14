@@ -675,3 +675,31 @@ class BondingFairyland(BaseModel):
         default_factory=SwitchSoulConfig,
         description="御魂切换配置"
     )
+
+class Netherworld(BaseModel):
+    """
+    阴界之门配置
+    """
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="阴界之门任务调度"
+    )
+
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )
+
+class DemonEncounter(BaseModel):
+    """
+    逢魔之时配置
+    """
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="逢魔之时任务调度"
+    )
+
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )

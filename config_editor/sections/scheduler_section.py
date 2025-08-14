@@ -136,7 +136,7 @@ class SchedulerSection(QGroupBox):
         self.section_name = section_name
         self.scheduler = config[section_name].setdefault("scheduler", {
             "enable": False,
-            "priority": 0,
+            "priority": 5,
             "next_run": "2023-01-01 00:00:00",
             "success_interval": "00:00:30:00",
             "failure_interval": "00:00:10:00",
@@ -155,8 +155,9 @@ class SchedulerSection(QGroupBox):
         priority_layout = QHBoxLayout()
         priority_layout.addWidget(QLabel("优先级:"))
         self.priority = SelectButton()
-        self.priority.addItems(["0", "1", "2", "3", "4", "5"])
-        self.priority.setCurrentText(str(self.scheduler.get("priority", 0)))
+        self.priority.addItems(
+            ["1", "2", "3", "4", "5"])
+        self.priority.setCurrentText(str(self.scheduler.get("priority", 5)))
         priority_layout.addWidget(self.priority)
         layout.addLayout(priority_layout)
 
@@ -193,7 +194,7 @@ class SchedulerSection(QGroupBox):
         self.enable_check.setChecked(scheduler_config.get("enable", False))
 
         # 更新优先级
-        self.priority.setCurrentText(str(scheduler_config.get("priority", 0)))
+        self.priority.setCurrentText(str(scheduler_config.get("priority", 5)))
 
         # 更新其他时间设置
         self.next_run_row.update_gui(
@@ -211,7 +212,7 @@ class SchedulerSection(QGroupBox):
             # 重新获取scheduler配置引用
             self.scheduler = config[self.section_name].setdefault("scheduler", {
                 "enable": False,
-                "priority": 0,
+                "priority": 5,
                 "next_run": "2023-01-01 00:00:00",
                 "success_interval": "00:00:30:00",
                 "failure_interval": "00:00:10:00",

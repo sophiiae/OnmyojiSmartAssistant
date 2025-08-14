@@ -9,7 +9,7 @@ from config_editor.utils import add_left_row
 
 class RealmRaidSection(QGroupBox):
     def __init__(self, config):
-        super().__init__("结界突破设置")
+        super().__init__("结界突破")
         self.config = config
         self.create_widgets()
 

@@ -7,12 +7,12 @@ from config_editor.widgets.select_button import SelectButton
 from config_editor.utils import add_checkbox_right_row, add_left_row
 
 class DuelSection(QGroupBox):
-    def __init__(self, config, section_name):
+    def __init__(self, config):
         super().__init__("斗技配置")
         self.config = config
-        self.section_name = section_name
-        self.duel_config = config[section_name]["duel_config"]
-        self.switch_soul_config = config[section_name]["switch_soul_config"]
+        dule_config = self.config["duel"]
+        self.duel_config = dule_config["duel_config"]
+        self.switch_soul_config = dule_config["switch_soul_config"]
         self.create_widgets()
 
     def create_widgets(self):
@@ -20,7 +20,7 @@ class DuelSection(QGroupBox):
 
         # 添加调度设置
         self.scheduler_section = SchedulerSection(
-            self.config, self.section_name)
+            self.config, "duel")
         layout.addWidget(self.scheduler_section)
 
         # 斗技配置
@@ -53,7 +53,7 @@ class DuelSection(QGroupBox):
 
         # 御魂切换设置
         self.switch_soul_section = SwitchSoulSection(
-            self.config, self.section_name)
+            self.config, "duel")
         duel_layout.addWidget(self.switch_soul_section)
         layout.addWidget(duel_group)
 
@@ -80,7 +80,7 @@ class DuelSection(QGroupBox):
                 self.scheduler_section.refresh_from_config(config)
 
             # 重新获取配置引用
-            duel_section = config.get(self.section_name, {})
+            duel_section = config.get("duel", {})
             self.duel_config = duel_section.get("duel_config", {})
             self.switch_soul_config = duel_section.get(
                 "switch_soul_config", {})

@@ -9,7 +9,7 @@ from config_editor.utils import add_left_row
 
 class BondingFairylandSection(QGroupBox):
     def __init__(self, config):
-        super().__init__("契灵之境设置")
+        super().__init__("契灵之境")
         self.config = config
         self.create_widgets()
 

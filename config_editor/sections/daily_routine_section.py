@@ -3,7 +3,7 @@ from config_editor.sections.scheduler_section import SchedulerSection
 
 class DailyRoutineSection(QGroupBox):
     def __init__(self, config):
-        super().__init__("日常任务设置")
+        super().__init__("日常任务")
         self.config = config
         self.create_widgets()
 

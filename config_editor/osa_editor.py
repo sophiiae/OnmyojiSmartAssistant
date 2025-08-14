@@ -14,6 +14,8 @@ from config_editor.sections.daily_routine_section import DailyRoutineSection
 from config_editor.sections.script_section import ScriptSection
 from config_editor.sections.duel_section import DuelSection
 from config_editor.sections.bonding_fairyland_section import BondingFairylandSection
+from config_editor.sections.netherworld_section import NetherworldSection
+from config_editor.sections.demon_encounter_section import DemonEncounterSection
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
                              QWidget, QScrollArea, QCheckBox, QComboBox, QSpinBox, QLineEdit,
@@ -111,7 +113,9 @@ class OSAEditor(ConfigTab):
             ("shikigami_activity", "式神活动", "shikigami_activity.scheduler.enable"),
             ("area_boss", "地域鬼王", "area_boss.scheduler.enable"),
             ("duel", "斗技", "duel.scheduler.enable"),
-            ("bonding_fairyland", "契灵之境", "bonding_fairyland.scheduler.enable")
+            ("bonding_fairyland", "契灵之境", "bonding_fairyland.scheduler.enable"),
+            ("netherworld", "阴界之门", "netherworld.scheduler.enable"),
+            ("demon_encounter", "逢魔之时", "demon_encounter.scheduler.enable")
         ]
 
         # 设置统一的按钮样式
@@ -196,12 +200,17 @@ class OSAEditor(ConfigTab):
         self.area_boss_section = AreaBossSection(self.config)
         scroll_layout.addWidget(self.area_boss_section)
 
-        self.duel_section = DuelSection(
-            self.config, "duel")
+        self.duel_section = DuelSection(self.config)
         scroll_layout.addWidget(self.duel_section)
 
         self.bonding_fairyland_section = BondingFairylandSection(self.config)
         scroll_layout.addWidget(self.bonding_fairyland_section)
+
+        self.netherworld_section = NetherworldSection(self.config)
+        scroll_layout.addWidget(self.netherworld_section)
+
+        self.demon_encounter_section = DemonEncounterSection(self.config)
+        scroll_layout.addWidget(self.demon_encounter_section)
 
         # 为所有section添加点击事件
         self.setup_section_click_events()
@@ -271,7 +280,9 @@ class OSAEditor(ConfigTab):
             self.shikigami_activity_section,
             self.area_boss_section,
             self.duel_section,
-            self.bonding_fairyland_section
+            self.bonding_fairyland_section,
+            self.netherworld_section,
+            self.demon_encounter_section
         ]
 
         for section in sections:
@@ -461,6 +472,8 @@ class OSAEditor(ConfigTab):
         self.area_boss_section.update_config()
         self.duel_section.update_config()
         self.bonding_fairyland_section.update_config()
+        self.netherworld_section.update_config()
+        self.demon_encounter_section.update_config()
         self.save_config()
 
     def run_osa_config(self):
@@ -571,7 +584,7 @@ class OSAEditor(ConfigTab):
         for section in [self.script_section, self.daily_routine_section, self.wanted_quests_section,
                         self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
                         self.shikigami_activity_section, self.area_boss_section, self.duel_section,
-                        self.bonding_fairyland_section]:
+                        self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section]:
             for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
                 if hasattr(child, 'textChanged'):
                     child.textChanged.connect(self.on_config_changed)
@@ -603,7 +616,9 @@ class OSAEditor(ConfigTab):
                 ("shikigami_activity_section", self.shikigami_activity_section),
                 ("area_boss_section", self.area_boss_section),
                 ("duel_section", self.duel_section),
-                ("bonding_fairyland_section", self.bonding_fairyland_section)
+                ("bonding_fairyland_section", self.bonding_fairyland_section),
+                ("netherworld_section", self.netherworld_section),
+                ("demon_encounter_section", self.demon_encounter_section)
             ]
 
             for section_name, section in sections:
@@ -694,7 +709,9 @@ class OSAEditor(ConfigTab):
             "shikigami_activity": self.shikigami_activity_section,
             "area_boss": self.area_boss_section,
             "duel": self.duel_section,
-            "bonding_fairyland": self.bonding_fairyland_section
+            "bonding_fairyland": self.bonding_fairyland_section,
+            "netherworld": self.netherworld_section,
+            "demon_encounter": self.demon_encounter_section
         }
 
         if section_id in section_map:

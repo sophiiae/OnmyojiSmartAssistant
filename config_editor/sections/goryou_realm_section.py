@@ -8,7 +8,7 @@ from config_editor.utils import add_left_row
 
 class GoryouRealmSection(QGroupBox):
     def __init__(self, config):
-        super().__init__("御灵设置")
+        super().__init__("御灵")
         self.config = config
         goryou_realm = self.config["goryou_realm"]
 

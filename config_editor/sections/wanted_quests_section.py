@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QLineEdit, QLabel, QGroupBox, QVBoxLayout, QGridLayo
 
 class WantedQuestsSection(QGroupBox):
     def __init__(self, config):
-        super().__init__("悬赏任务设置")
+        super().__init__("悬赏任务")
         self.config = config
         layout = QVBoxLayout(self)
 

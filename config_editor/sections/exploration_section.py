@@ -9,7 +9,7 @@ from config_editor.utils import add_left_row
 
 class ExplorationSection(QGroupBox):
     def __init__(self, config):
-        super().__init__("探索设置")
+        super().__init__("探索")
         self.config = config
         self.create_widgets()
 

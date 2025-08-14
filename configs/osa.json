@@ -188,5 +188,31 @@
       "enable": true,
       "switch_group_team": "-1,-1"
     }
+  },
+  "netherworld": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2023-01-01 00:00:00",
+      "priority": 5,
+      "success_interval": "01 00:00:00",
+      "failure_interval": "01 00:00:00"
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
+    }
+  },
+  "demon_encounter": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2023-01-01 00:00:00",
+      "priority": 5,
+      "success_interval": "01 00:00:00",
+      "failure_interval": "01 00:00:00"
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
+    }
   }
 }

@@ -8,7 +8,7 @@ from config_editor.utils import add_left_row
 
 class ShikigamiActivitySection(QGroupBox):
     def __init__(self, config):
-        super().__init__("式神活动设置")
+        super().__init__("式神活动")
         self.config = config
         self.create_widgets()
 
