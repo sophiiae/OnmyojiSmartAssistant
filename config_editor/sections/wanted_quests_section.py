@@ -16,17 +16,17 @@ class WantedQuestsSection(QGroupBox):
 
         self.accept_ap = QCheckBox("体力悬赏")
         self.accept_ap.setChecked(self.accept_quest_config["accept_ap"])
-        grid.addWidget(self.accept_ap, 0, 2)
+        grid.addWidget(self.accept_ap, 0, 1)
+
+        self.accept_pet_food = QCheckBox("宠物粮悬赏")
+        self.accept_pet_food.setChecked(
+            self.accept_quest_config["accept_pet_food"])
+        grid.addWidget(self.accept_pet_food, 0, 2)
 
         self.accept_virtual = QCheckBox("现世悬赏")
         self.accept_virtual.setChecked(
             self.accept_quest_config["accept_virtual"])
         grid.addWidget(self.accept_virtual, 1, 0)
-
-        self.accept_pet_food = QCheckBox("宠物粮悬赏")
-        self.accept_pet_food.setChecked(
-            self.accept_quest_config["accept_pet_food"])
-        grid.addWidget(self.accept_pet_food, 1, 1)
 
         group = QGroupBox("接受悬赏任务类型")
         group.setLayout(grid)

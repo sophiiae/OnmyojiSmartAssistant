@@ -69,17 +69,17 @@ class DailyRoutineAssets:
 		area=(1109, 628, 124, 76),
 		file="./tasks/daily_routine/res/store/store_pack.png"
 	)
-	# 商店礼包推荐灯笼 
-	I_STORE_REC = RuleImage(
-		roi=(1195, 194, 28, 58),
-		area=(1172, 50, 70, 350),
-		file="./tasks/daily_routine/res/store/store_rec.png"
+	# 日常灯笼 
+	I_DAILY_LANTERN = RuleImage(
+		roi=(1195, 286, 27, 62),
+		area=(1160, 70, 110, 530),
+		file="./tasks/daily_routine/res/store/daily_lantern.png"
 	)
 	# 商店每日签到奖励 
-	I_STORE_DAILY_REWARD = RuleImage(
-		roi=(251, 164, 280, 103),
-		area=(111, 112, 560, 206),
-		file="./tasks/daily_routine/res/store/store_daily_reward.png"
+	I_DAILY_REWARD = RuleImage(
+		roi=(197, 206, 110, 75),
+		area=(159, 140, 860, 460),
+		file="./tasks/daily_routine/res/store/daily_reward.png"
 	)
 	# 商店礼包屋退出 
 	I_STORE_EXIT = RuleImage(

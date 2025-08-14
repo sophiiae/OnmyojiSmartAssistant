@@ -57,8 +57,8 @@ class PageAssets:
 	)
 	# 礼包屋标志 
 	I_C_GIFT_SHOP = RuleImage(
-		roi=(1141, 646, 61, 38),
-		area=(1122, 627, 99, 76),
+		roi=(1139, 658, 50, 26),
+		area=(1126, 645, 76, 52),
 		file="./tasks/components/page/res/check/c_gift_shop.png"
 	)
 	# 召唤界面蓝票 

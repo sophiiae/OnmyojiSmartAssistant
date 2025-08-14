@@ -25,12 +25,6 @@ class Controls(PageAssets, MainPageAssets, PageMap, WidgetsAssets):
     device: Device
     image = None
 
-    ui_close = [
-        WidgetsAssets.I_B_BLUE_LEFT_ANGLE,
-        WidgetsAssets.I_B_RED_X,
-        WidgetsAssets.I_B_YELLOW_LEFT_ANGLE
-    ]
-
     def __init__(self, device: Device) -> None:
         self.device = device
         self.config = device.config
@@ -45,6 +39,14 @@ class Controls(PageAssets, MainPageAssets, PageMap, WidgetsAssets):
 
         self.check_request_invitation()
         return True
+
+    @cached_property
+    def ui_close(self):
+        return [
+            self.I_B_BLUE_LEFT_ANGLE,
+            self.I_B_RED_X,
+            self.I_B_YELLOW_LEFT_ANGLE
+        ]
 
     @cached_property
     def accept_request_map(self):

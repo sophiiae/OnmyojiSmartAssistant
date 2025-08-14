@@ -24,6 +24,18 @@ class TaskBase(Controls):
         self.device.get_screenshot()
         self.check_request_invitation()
 
+    def gain_reward(self):
+        time.sleep(0.3)
+        appear = False
+        while 1:
+            self.wait_and_shot()
+            if not self.appear(self.I_GAIN_REWARD):
+                break
+
+            self.random_click_right()
+            appear = True
+        return appear
+
     def check_page_appear(self, page, check_delay: float = 0.01):
         """
         判断当前页面是否为page
@@ -34,11 +46,23 @@ class TaskBase(Controls):
             return False
         return True
 
-    def is_scroll_closed(self):
-        """
-        判断庭院界面卷轴是否打开
-        """
-        return self.appear(WidgetsAssets.I_SCROLL_CLOSE)
+    def toggle_scroll(self, open: bool = True):
+        # 打开卷轴
+        while open:
+            self.wait_and_shot()
+            if self.appear(self.I_SCROLL_OPEN):
+                return
+
+            if self.appear_then_click(self.I_SCROLL_CLOSE):
+                continue
+        # 关闭卷轴
+        while not open:
+            self.wait_and_shot()
+            if self.appear(self.I_SCROLL_CLOSE):
+                return
+
+            if self.appear_then_click(self.I_SCROLL_OPEN):
+                continue
 
     def get_current_page(self) -> Page:
         timeout = Timer(5, 20).start()

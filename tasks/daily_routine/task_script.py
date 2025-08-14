@@ -1,51 +1,78 @@
+from functools import cached_property
 import time
 from module.image_processing.rule_image import RuleImage
 from tasks.components.battle.battle import Battle
 from tasks.components.page.page import page_store, page_main
 from tasks.daily_routine.assets import DailyRoutineAssets
-from module.base.exception import RequestHumanTakeover
+from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.base.logger import logger
 
+"""
+"harvest_config": {
+    "enable_jade": true,
+    "enable_sign": true,
+    "enable_sign_999": true,
+    "enable_mail": true,
+    "enable_soul": true,
+    "enable_ap": true
+},
+"trifles_config": {
+    "one_summon": false,
+    "guild_wish": false,
+    "friend_love": false,
+    "store_sign": true
+}
+"""
 class TaskScript(Battle, DailyRoutineAssets):
+    name = "DailyRoutine"
+
+    @property
+    def harvest_config(self):
+        havest_config = self.config.model.daily_routine.harvest_config
+        return havest_config.model_dump()
+
+    @property
+    def trifles_tasks(self):
+        trifles_config = self.config.model.daily_routine.trifles_config
+        return trifles_config.model_dump()
 
     def run(self):
-        self.havest_config = self.config.model.daily_routine.harvest_config
-        self.trifles_config = self.config.model.daily_routine.trifles_config
-
         # 进入庭院页面
         if not self.check_page_appear(page_main):
             self.goto(page_main)
 
         self.check_shop_pack()
 
-        # TODO: rewrite
-        self.daily_prep()
-        self.open_scroll()
-        self.get_friends_points()
-        self.get_store_gift()
-        self.get_huahe()
+        self.check_harvest()
+        self.check_trifles()
+        # self.get_huahe()
 
+        self.set_next_run(self.name, success=True, finish=True)
         # 进入庭院页面
         if not self.check_page_appear(page_main):
             self.goto(page_main)
+
+        raise TaskEnd(self.name)
 
     def check_shop_pack(self):
         if not self.wait_until_appear(self.I_SHOP_PACK, 1, threshold=0.96):
             return
 
+        # 商店礼包推荐
         while 1:
             self.wait_and_shot()
             if not (self.appear(self.I_SHOP_PACK) or self.appear(self.I_SHOP_PACK_CLOSE)):
                 break
 
-            if self.appear(self.I_SHOP_PACK_CLOSE):
-                self.click(self.I_SHOP_PACK_CLOSE)
+            if self.appear_then_click(self.I_SHOP_PACK_CLOSE):
                 continue
 
-            if self.appear(self.I_SHOP_PACK):
-                self.click(self.I_SHOP_PACK)
+            self.appear_then_click(self.I_SHOP_PACK)
 
-    def daily_prep(self):
+    def check_harvest(self):
+        sign = self.harvest_config["enable_sign"]
+        get_mail = self.harvest_config["enable_mail"]
+
         while 1:
             self.wait_and_shot()
             if not (self.appear(self.I_MAIL) or
@@ -54,15 +81,15 @@ class TaskScript(Battle, DailyRoutineAssets):
                     self.appear(self.I_DAILY_SIGN)):
                 break
 
-            if self.appear(self.I_SIGN, 0.96):
+            if sign and self.appear(self.I_SIGN, 0.96):
                 self.daily_sign()
                 continue
 
-            if self.appear(self.I_MAIL, 0.96):
+            if get_mail and self.appear(self.I_MAIL, 0.96):
                 self.get_mails()
                 continue
 
-            if self.appear(self.I_GUILD_PACK, 0.96):
+            if get_mail and self.appear(self.I_GUILD_PACK, 0.96):
                 self.get_guild_pack()
                 continue
 
@@ -70,37 +97,42 @@ class TaskScript(Battle, DailyRoutineAssets):
                 self.get_buff_pack()
                 continue
 
-        self.get_daily_supply()
+        get_jade = self.harvest_config["enable_jade"]
+        get_ap = self.harvest_config["enable_ap"]
+        if not (get_jade or get_ap):
+            return
 
-    def get_daily_supply(self):
-        # 进入庭院页面
-        if not self.check_page_appear(page_main):
-            self.goto(page_main)
-        got_gift = False
+        self.class_logger(self.name, "Getting jade / ap. ")
+        # 拿勾玉和体力
         while 1:
             self.wait_and_shot()
             if not (self.appear(self.I_DAILY_AP) or self.appear(self.I_DAILY_JADE)):
                 break
 
-            if self.appear(self.I_DAILY_JADE):
+            if get_jade and self.appear(self.I_DAILY_JADE):
                 self.click(self.I_DAILY_JADE)
-                if self.wait_until_appear(self.I_GAIN_REWARD, 2):
-                    got_gift = True
-                    self.random_click_right()
-                    time.sleep(0.3)
-                    self.screenshot()
-                    if self.appear(self.I_CLOSE_DAILY_SIGN):
-                        self.click(self.I_CLOSE_DAILY_SIGN)
+                if self.gain_reward():
+                    self.appear_then_click(self.I_CLOSE_DAILY_SIGN)
                     continue
 
-            if self.appear(self.I_DAILY_AP):
+            if get_ap and self.appear(self.I_DAILY_AP):
                 self.click(self.I_DAILY_AP)
-                if self.wait_until_appear(self.I_GAIN_REWARD, 2):
-                    got_gift = True
-                    self.random_click_right()
+                self.gain_reward()
 
-        if got_gift:
-            logger.info("==>>> Got all daily gifts")
+    def check_trifles(self):
+        # 进入庭院页面
+        if not self.check_page_appear(page_main):
+            self.goto(page_main)
+
+        self.open_scroll()
+
+        if self.trifles_tasks["friend_love"]:
+            self.get_friends_points()
+
+        if self.trifles_tasks["store_sign"]:
+            self.get_store_gift()
+
+        # TODO: one_summon, guild_wish
 
     def get_buff_pack(self):
         if not self.wait_until_appear(self.I_DAILY_BUFF, 1, threshold=0.96):
@@ -112,30 +144,10 @@ class TaskScript(Battle, DailyRoutineAssets):
             if not (self.appear(self.I_DAILY_BUFF) or self.appear(self.I_GAIN_REWARD)):
                 break
 
-            if self.appear(self.I_GAIN_REWARD):
-                self.random_click_right()
+            if self.gain_reward():
                 break
 
-            if self.appear(self.I_DAILY_BUFF, 0.96):
-                self.click(self.I_DAILY_BUFF)
-
-    def toggle_scroll(self, open: bool = True):
-        # 打开卷轴
-        while open:
-            self.wait_and_shot()
-            if self.appear(self.I_SCROLL_OPEN):
-                return
-
-            if self.appear_then_click(self.I_SCROLL_CLOSE):
-                continue
-
-        while not open:
-            self.wait_and_shot()
-            if self.appear(self.I_SCROLL_CLOSE):
-                return
-
-            if self.appear_then_click(self.I_SCROLL_OPEN):
-                continue
+            self.appear_then_click(self.I_DAILY_BUFF, 0.96)
 
     def get_huahe(self):
         self.toggle_scroll()
@@ -176,13 +188,10 @@ class TaskScript(Battle, DailyRoutineAssets):
 
         while 1:
             self.wait_and_shot()
-
-            if self.appear(self.I_GAIN_REWARD):
-                self.random_click_right()
+            if self.gain_reward():
                 break
-
-            if self.appear(self.I_GUILD_PACK):
-                self.click(self.I_GUILD_PACK)
+            self.appear_then_click(self.I_GUILD_PACK)
+            time.sleep(0.5)
 
     def get_store_gift(self):
         self.goto(page_store, page_main)
@@ -191,47 +200,36 @@ class TaskScript(Battle, DailyRoutineAssets):
         while 1:
             self.wait_and_shot()
 
-            if self.appear(self.I_STORE_REC, 0.96):
-                self.click(self.I_STORE_REC)
+            if self.appear_then_click(self.I_DAILY_LANTERN, 0.96):
                 break
 
-            if self.appear(self.I_C_GIFT_SHOP):
-                self.click(self.I_C_GIFT_SHOP)
+            self.appear_then_click(self.I_C_GIFT_SHOP)
 
-        got_gift = False
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_GAIN_REWARD):
                 self.get_reward()
                 break
 
-            if self.appear(self.I_STORE_DAILY_REWARD):
-                self.click(self.I_STORE_DAILY_REWARD)
-
-        if got_gift:
-            logger.info("==>>> Got daily store gift")
+            self.appear_then_click(self.I_DAILY_REWARD)
 
         self.goto(page_main, page_store)
 
     def daily_sign(self):
-        if not self.wait_until_appear(self.I_SIGN, 1, threshold=0.96):
-            return
-
+        self.class_logger(self.name, "Daily lot")
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_CLOSE_DAILY_SIGN):
+            if self.appear(self.I_SIGN_DOLL):
                 break
 
             if self.appear(self.I_REWARD):
                 self.random_click_right()
                 continue
 
-            if self.appear(self.I_DAILY_SIGN, 0.96):
-                self.click(self.I_DAILY_SIGN)
+            if self.appear_then_click(self.I_DAILY_SIGN, 0.96):
                 continue
 
-            if self.appear(self.I_SIGN, 0.96):
-                self.click(self.I_SIGN)
+            self.appear_then_click(self.I_SIGN, 0.96)
 
         # 退出每日签到
         while 1:
@@ -277,8 +275,7 @@ class TaskScript(Battle, DailyRoutineAssets):
                 self.appear_then_click(self.I_MAIL_EXIT)
                 continue
 
-            if self.appear(self.I_UNREAD_MAIL, 0.98):
-                self.click(self.I_UNREAD_MAIL)
+            if self.appear_then_click(self.I_UNREAD_MAIL, 0.98):
                 continue
 
             if self.appear_then_click(self.I_GET_ALL_MAIL):
@@ -326,12 +323,10 @@ class TaskScript(Battle, DailyRoutineAssets):
                 self.click(self.I_FRIEND_POINTS)
 
                 # 跨区好友， 不同区小号专用
-                if self.appear(self.I_CROSS_REGION_FRIENDS):
-                    self.click(self.I_CROSS_REGION_FRIENDS)
+                self.appear_then_click(self.I_CROSS_REGION_FRIENDS)
 
         while 1:
-            time.sleep(0.1)
-            self.screenshot()
+            self.wait_and_shot()
             if self.appear_then_click(self.I_GET_ALL_FRIEND_POINTS):
                 if self.wait_until_appear(self.I_GAIN_REWARD, 2):
                     self.random_click_right()
