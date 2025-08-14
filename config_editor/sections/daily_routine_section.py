@@ -56,10 +56,6 @@ class DailyRoutineSection(QGroupBox):
         self.one_summon.setChecked(self.trifles_config["one_summon"])
         trifles_layout.addWidget(self.one_summon)
 
-        self.guild_wish = QCheckBox("寮祈愿")
-        self.guild_wish.setChecked(self.trifles_config["guild_wish"])
-        trifles_layout.addWidget(self.guild_wish)
-
         self.friend_love = QCheckBox("好友爱心")
         self.friend_love.setChecked(self.trifles_config["friend_love"])
         trifles_layout.addWidget(self.friend_love)
@@ -82,7 +78,6 @@ class DailyRoutineSection(QGroupBox):
 
         # 更新杂项配置
         self.trifles_config["one_summon"] = self.one_summon.isChecked()
-        self.trifles_config["guild_wish"] = self.guild_wish.isChecked()
         self.trifles_config["friend_love"] = self.friend_love.isChecked()
         self.trifles_config["store_sign"] = self.store_sign.isChecked()
 

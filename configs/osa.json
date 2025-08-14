@@ -26,7 +26,6 @@
     },
     "trifles_config": {
       "one_summon": false,
-      "guild_wish": false,
       "friend_love": false,
       "store_sign": true
     }

@@ -184,11 +184,6 @@ class TriflesConfig(BaseModel):
         description="每日一抽"
     )
 
-    guild_wish: bool = Field(
-        default=False,
-        description="寮祈愿"
-    )
-
     friend_love: bool = Field(
         default=False,
         description="友情点"

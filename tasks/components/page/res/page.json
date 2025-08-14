@@ -219,7 +219,7 @@
     "name": "v_main_to_town",
     "type": "image",
     "roi": "713, 250, 52, 40",
-    "area": "637, 230, 194, 80",
+    "area": "360, 230, 790, 90",
     "file": "./tasks/components/page/res/goto/v_main_to_town.png",
     "description": "主界面町中入口"
   },

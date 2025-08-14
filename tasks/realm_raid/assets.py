@@ -229,38 +229,38 @@ class RealmRaidAssets:
 	)
 	# 寮突破1 
 	I_GUILD_PARTITION_1 = RuleImage(
-		roi=(513, 140, 228, 121),
-		area=(513, 140, 228, 121),
+		roi=(510, 118, 240, 147),
+		area=(510, 118, 240, 147),
 		file=""
 	)
 	# 寮突破2 
 	I_GUILD_PARTITION_2 = RuleImage(
-		roi=(850, 140, 228, 121),
-		area=(850, 140, 228, 121),
+		roi=(850, 118, 240, 147),
+		area=(850, 118, 240, 147),
 		file=""
 	)
 	# 寮突破3 
 	I_GUILD_PARTITION_3 = RuleImage(
-		roi=(513, 275, 228, 121),
-		area=(513, 275, 228, 121),
+		roi=(510, 265, 240, 147),
+		area=(510, 265, 240, 147),
 		file=""
 	)
 	# 寮突破4 
 	I_GUILD_PARTITION_4 = RuleImage(
-		roi=(850, 275, 228, 121),
-		area=(850, 275, 228, 121),
+		roi=(850, 265, 240, 147),
+		area=(850, 265, 240, 147),
 		file=""
 	)
 	# 寮突破5 
 	I_GUILD_PARTITION_5 = RuleImage(
-		roi=(513, 410, 228, 121),
-		area=(513, 410, 228, 121),
+		roi=(510, 400, 240, 147),
+		area=(510, 400, 240, 147),
 		file=""
 	)
 	# 寮突破6 
 	I_GUILD_PARTITION_6 = RuleImage(
-		roi=(850, 410, 228, 121),
-		area=(850, 410, 228, 121),
+		roi=(850, 400, 240, 147),
+		area=(850, 400, 240, 147),
 		file=""
 	)
 	# 寮突破未开启标记 
@@ -268,6 +268,12 @@ class RealmRaidAssets:
 		roi=(680, 218, 62, 68),
 		area=(649, 187, 124, 130),
 		file="./tasks/realm_raid/res/guild_raid_close.png"
+	)
+	# 寮徽章 
+	I_RAID_MEDAL = RuleImage(
+		roi=(854, 223, 191, 33),
+		area=(510, 118, 570, 537),
+		file="./tasks/realm_raid/res/raid_medal.png"
 	)
 
 

@@ -16,16 +16,21 @@ class TaskScript(Battle, DuelAssets):
 
     # 普通斗技模式 / 斗技赛季模式
     def run(self):
-        self.rb_config = self.config.model.duel.duel_config
+        self.duel_config = self.config.model.duel.duel_config
+
         self.screenshot()
         if not self.appear(self.page_check):
             self.to_battle_entrance()
 
-        to_elite = self.rb_config.elite
+        self.class_logger(self.name, "Entered duel page.")
+
+        to_elite = self.duel_config.elite
         success = True
         if to_elite:
+            self.class_logger(self.name, "Battle until elite. ")
             success = self.battle_to_elite()
         else:
+            self.class_logger(self.name, "Battle until reach target tier.")
             success = self.tier_battle()
 
         self.set_next_run(task='Duel', success=success, finish=True)
@@ -57,13 +62,13 @@ class TaskScript(Battle, DuelAssets):
 
             self.wait_and_shot(1)
             if self.appear(self.page_check):
-                if self.appear(self.I_DUEL_NOTABLE_NOTIFICATION, 0.95) or self.appear(self.I_DUEL_NOTABLE_BADGE, 0.95):
+                if self.check_points() and (self.appear(self.I_DUEL_NOTABLE_NOTIFICATION, 0.95) or self.appear(self.I_DUEL_NOTABLE_BADGE, 0.95)):
                     return True
 
                 if retry > 5:
                     return False
 
-                if not self.appear(self.I_DUEL_FLOWER_BADGE):
+                if not (self.appear(self.I_DUEL_FLOWER_BADGE) or self.appear(self.I_DUEL_NOTABLE_BADGE, 0.95)):
                     self.random_click_right()
                     retry += 1
                     continue
@@ -72,14 +77,14 @@ class TaskScript(Battle, DuelAssets):
                 retry = 0
 
     def tier_battle(self):
-        target_tier = self.rb_config.tier
+        target_tier = self.duel_config.tier
         target_score = self.tier_map[target_tier]
         if self.check_score(target_score):
             return True
 
         while 1:
             if self.appear(self.I_DUEL_FIGHT_BLUE, 0.985):
-                if self.check_score(target_score):
+                if self.check_points() and self.check_score(target_score):
                     return True
 
             self.battle_process()
@@ -90,6 +95,17 @@ class TaskScript(Battle, DuelAssets):
         self.class_logger(
             self.name, f"current score: {score}, target: {target}")
         return score > target
+
+    def check_points(self):
+        if not self.duel_config.full_honor_points:
+            return True
+
+        image = self.screenshot()
+        points, total = self.O_DUEL_POINTS.digit_counter(image)
+        self.class_logger(
+            self.name, f"current points: {points}, total: {total}")
+
+        return points >= total
 
     def to_battle_entrance(self):
         # 进入庭院页面
@@ -124,7 +140,7 @@ class TaskScript(Battle, DuelAssets):
                 self.I_MAIN_SHIKI_BOOK_ENT, ss_config.switch_group_team, self.I_C_MAIN)
 
         # 换阴阳师
-        onmyoji = self.rb_config.onmyoji
+        onmyoji = self.duel_config.onmyoji
         if onmyoji == OnmyojiClass.AUTO:
             return
 
@@ -145,7 +161,7 @@ class TaskScript(Battle, DuelAssets):
                 break
             self.appear_then_click(self.I_MAIN_ONMYODO_ENT)
 
-        assigned = self.rb_config.onmyoji
+        assigned = self.duel_config.onmyoji
         # 交换类型
         if assigned == OnmyojiClass.Yorimitsu:
             self.change_onmyoji_type(self.I_HERO_SELECTED)
@@ -224,13 +240,18 @@ class TaskScript(Battle, DuelAssets):
             if self.appear(self.I_DUEL_TEAM_PREP_CHECK):
                 break
 
+            if self.appear_then_click(self.I_DUEL_BAN):
+                count = 0
+                continue
+
             if self.appear(self.page_check):
                 if self.appear(self.I_DUEL_FIGHT) or self.appear(self.I_DUEL_FIGHT_BLUE):
                     self.click(self.I_DUEL_FIGHT)
+                    count = 0
                     continue
             else:
                 count += 1
-                if count > 3:
+                if count > 5:
                     raise RequestHumanTakeover("Unable to fight")
 
     def battle_ready(self):
@@ -240,8 +261,8 @@ class TaskScript(Battle, DuelAssets):
 
             if self.appear(self.I_DUEL_TEAM_PREP_CHECK):
                 # 开启自动上阵 (四段以上)
-                if self.appear_then_click(self.I_DUEL_AUTO_TEAM):
-                    break
+                self.click_static_target(self.I_DUEL_AUTO_TEAM, retry=3)
+                break
 
             # 准备 （四段以下）
             if self.appear(self.I_DUEL_READY, 0.95):

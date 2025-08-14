@@ -223,48 +223,48 @@
   {
     "name": "guild_partition_1",
     "type": "image",
-    "roi": "513, 140, 228, 121",
-    "area": "513, 140, 228, 121",
+    "roi": "510, 118, 240, 147",
+    "area": "510, 118, 240, 147",
     "file": "",
     "description": "寮突破1"
   },
   {
     "name": "guild_partition_2",
     "type": "image",
-    "roi": "850, 140, 228, 121",
-    "area": "850, 140, 228, 121",
+    "roi": "850, 118, 240, 147",
+    "area": "850, 118, 240, 147",
     "file": "",
     "description": "寮突破2"
   },
   {
     "name": "guild_partition_3",
     "type": "image",
-    "roi": "513, 275, 228, 121",
-    "area": "513, 275, 228, 121",
+    "roi": "510, 265, 240, 147",
+    "area": "510, 265, 240, 147",
     "file": "",
     "description": "寮突破3"
   },
   {
     "name": "guild_partition_4",
     "type": "image",
-    "roi": "850, 275, 228, 121",
-    "area": "850, 275, 228, 121",
+    "roi": "850, 265, 240, 147",
+    "area": "850, 265, 240, 147",
     "file": "",
     "description": "寮突破4"
   },
   {
     "name": "guild_partition_5",
     "type": "image",
-    "roi": "513, 410, 228, 121",
-    "area": "513, 410, 228, 121",
+    "roi": "510, 400, 240, 147",
+    "area": "510, 400, 240, 147",
     "file": "",
     "description": "寮突破5"
   },
   {
     "name": "guild_partition_6",
     "type": "image",
-    "roi": "850, 410, 228, 121",
-    "area": "850, 410, 228, 121",
+    "roi": "850, 400, 240, 147",
+    "area": "850, 400, 240, 147",
     "file": "",
     "description": "寮突破6"
   },
@@ -275,5 +275,13 @@
     "area": "649, 187, 124, 130",
     "file": "./tasks/realm_raid/res/guild_raid_close.png",
     "description": "寮突破未开启标记"
+  },
+  {
+    "name": "raid_medal",
+    "type": "image",
+    "roi": "854, 223, 191, 33",
+    "area": "510, 118, 570, 537",
+    "file": "./tasks/realm_raid/res/raid_medal.png",
+    "description": "寮徽章"
   }
 ]

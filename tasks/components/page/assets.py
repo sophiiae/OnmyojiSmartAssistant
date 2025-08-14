@@ -178,7 +178,7 @@ class PageAssets:
 	# 主界面町中入口 
 	I_V_MAIN_TO_TOWN = RuleImage(
 		roi=(713, 250, 52, 40),
-		area=(637, 230, 194, 80),
+		area=(360, 230, 790, 90),
 		file="./tasks/components/page/res/goto/v_main_to_town.png"
 	)
 	# 退出町中 

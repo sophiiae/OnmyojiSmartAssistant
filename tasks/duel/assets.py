@@ -203,6 +203,12 @@ class DuelAssets:
 		area=(1111, 57, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
+	# 名士禁选 
+	I_DUEL_BAN = RuleImage(
+		roi=(1118, 559, 97, 52),
+		area=(1092, 533, 149, 104),
+		file="./tasks/duel/res/duel_ban.png"
+	)
 
 	# Ocr Rule Assets
 	# 斗技分数 
@@ -211,6 +217,13 @@ class DuelAssets:
 		area=(692, 500, 74, 47),
 		keyword="",
 		name="duel_score"
+	)
+	# 斗技积分 
+	O_DUEL_POINTS = RuleOcr(
+		roi=(695, 578, 137, 24),
+		area=(695, 578, 137, 24),
+		keyword="",
+		name="duel_points"
 	)
 
 

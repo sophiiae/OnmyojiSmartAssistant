@@ -82,7 +82,7 @@ class TaskScript(Battle, DailyRoutineAssets):
                 break
 
             if sign and self.appear(self.I_SIGN, 0.96):
-                self.daily_sign()
+                self.daily_lot()
                 continue
 
             if get_mail and self.appear(self.I_MAIL, 0.96):
@@ -124,7 +124,7 @@ class TaskScript(Battle, DailyRoutineAssets):
         if not self.check_page_appear(page_main):
             self.goto(page_main)
 
-        self.open_scroll()
+        self.toggle_scroll(True)
 
         if self.trifles_tasks["friend_love"]:
             self.get_friends_points()
@@ -215,11 +215,11 @@ class TaskScript(Battle, DailyRoutineAssets):
 
         self.goto(page_main, page_store)
 
-    def daily_sign(self):
+    def daily_lot(self):
         self.class_logger(self.name, "Daily lot")
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_SIGN_DOLL):
+            if self.appear(self.I_CLOSE_DAILY_SIGN, 0.95):
                 break
 
             if self.appear(self.I_REWARD):
@@ -232,22 +232,7 @@ class TaskScript(Battle, DailyRoutineAssets):
             self.appear_then_click(self.I_SIGN, 0.96)
 
         # 退出每日签到
-        while 1:
-            self.wait_and_shot()
-            if not self.appear(self.I_SIGN_DOLL):
-                break
-
-            if self.appear(self.I_CLOSE_DAILY_SIGN):
-                self.click(self.I_CLOSE_DAILY_SIGN)
-
-    def open_scroll(self):
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_SCROLL_OPEN):
-                break
-
-            if self.appear_then_click(self.I_SCROLL_CLOSE):
-                continue
+        self.click_static_target(self.I_CLOSE_DAILY_SIGN)
 
     def get_mails(self):
         got_mail = False
@@ -261,9 +246,7 @@ class TaskScript(Battle, DailyRoutineAssets):
             if self.appear(self.I_MAIL_HEADER):
                 break
 
-            if self.appear(self.I_MAIL_ENT):
-                self.click(self.I_MAIL_ENT)
-                continue
+            self.appear_then_click(self.I_MAIL_ENT)
 
         while 1:
             self.wait_and_shot()

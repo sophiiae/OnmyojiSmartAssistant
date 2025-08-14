@@ -117,14 +117,11 @@ class TaskScript(RealmRaidAssets, Battle):
         if count == 0:
             return True
 
-        retry = 0
-        indexes = self.get_guild_partition_indexes()
+        indexes = self.find_guild_attack_indexes()
         attack_index = indexes.pop(0)
         while count:
             if not indexes:
-                self.swipe(self.S_RAID_DOWN, duration=600)
-                time.sleep(1)
-                indexes = self.get_guild_partition_indexes()
+                indexes = self.find_guild_attack_indexes()
                 continue
 
             self.enter_guild_battle(self.guild_partitions[attack_index])
@@ -135,7 +132,16 @@ class TaskScript(RealmRaidAssets, Battle):
 
         return count == 0
 
-    def enter_guild_battle(self, target):
+    def find_guild_attack_indexes(self) -> list[int]:
+        indexes = self.get_guild_partition_indexes()
+        while not indexes:
+            self.swipe(self.S_RAID_DOWN, duration=600)
+            time.sleep(1)
+            indexes = self.get_guild_partition_indexes()
+
+        return indexes
+
+    def enter_guild_battle(self, target: RuleImage):
         while 1:
             self.wait_and_shot()
             if not self.appear(self.I_RR_GUID_PROGRESS):
@@ -144,7 +150,8 @@ class TaskScript(RealmRaidAssets, Battle):
             if self.appear_then_click(self.I_RAID_ATTACK, 0.96, 0.3):
                 continue
 
-            self.click(target)
+            x, y = target.roi_center_random()
+            self.device.click(x, y)
 
     def start_battle(self, attack_list: list[int]) -> bool:
         # 锁定队伍

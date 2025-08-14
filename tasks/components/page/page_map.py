@@ -6,8 +6,8 @@ class PageMap():
     @cached_property
     def MAP(self):
         return {
-            page_main: [page_exp, page_summon, page_store, page_shikigami, page_town],
             page_sleep: [page_main],
+            page_main: [page_exp, page_summon, page_store, page_shikigami, page_town],
             page_exp: [page_realm_raid, page_main, page_minamoto, page_boss, page_goryou, page_bonding_fairyland],
             page_realm_raid: [page_exp],
             page_town: [page_main, page_dojo],

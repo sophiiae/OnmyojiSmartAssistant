@@ -1,5 +1,6 @@
 from functools import cached_property
 from pathlib import Path
+from random import Random
 import cv2
 import numpy as np
 from typing import Optional
@@ -78,6 +79,17 @@ class RuleImage:
         """
         x, y, w, h = self.roi
         return int(x + w // 2), int(y + h // 2)
+
+    def roi_center_random(self) -> tuple:
+        """
+        获取roi的中心坐标
+        :return:
+        """
+        x, y, w, h = self.roi
+        c_x, c_y = int(x + w // 2), int(y + h // 2)
+        offset_x = np.random.randint(0 - w // 2, w // 2)
+        offset_y = np.random.randint(0 - h // 2, h // 2)
+        return c_x + offset_x, c_y + offset_y
 
     def get_target_size(self):
         """

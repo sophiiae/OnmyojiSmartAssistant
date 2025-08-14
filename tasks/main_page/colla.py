@@ -18,11 +18,13 @@ class Colla(EXP):
             self.enter_colla_chapter()
 
             logger.info(f"======== Exp Chapter Entered =========")
-            count = self.colla_chapter_battle(max, count)
+            count, killed_boss = self.colla_chapter_battle(max, count)
 
-            self.post_chapter_battle()
+            if killed_boss:
+                self.post_chapter_battle()
 
         self.exit_chapter()
+        self.post_chapter_battle()
         self.goto(page_main)
 
     def enter_colla_chapter(self):
@@ -36,10 +38,11 @@ class Colla(EXP):
         if self.click_static_target(self.I_EXP_CHAP_28):
             self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)
 
-    def colla_chapter_battle(self, max, count) -> int:
+    def colla_chapter_battle(self, max, count) -> tuple:
         self.toggle_team_lock(self.I_EXP_TEAM_LOCK, self.I_EXP_TEAM_UNLOCK)
 
         c = count
+        killed_boss = False
         while 1:
             if c > max:
                 break
@@ -55,7 +58,7 @@ class Colla(EXP):
 
                 if self.run_easy_battle(self.I_EXP_C_CHAPTER):
                     c += 1
-                    self.get_chapter_reward()
+                    killed_boss = True
                     break
 
             # 普通怪挑战
@@ -64,10 +67,11 @@ class Colla(EXP):
                     self.I_EXP_BATTLE, self.I_EXP_C_CHAPTER)
                 self.run_easy_battle(self.I_EXP_C_CHAPTER)
                 c += 1
+                killed_boss = False
                 continue
 
             else:
                 self.swipe(self.S_EXP_TO_RIGHT)
 
             time.sleep(0.3)
-        return c
+        return c, killed_boss

@@ -1,10 +1,11 @@
-from PyQt6.QtWidgets import QMainWindow, QTabWidget, QApplication, QLabel
+from PyQt6.QtWidgets import QMainWindow, QTabWidget, QApplication, QLabel, QInputDialog, QMessageBox
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QAction
-from PyQt6.QtWidgets import QMenu
+from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtWidgets import QMenu, QPushButton, QHBoxLayout, QWidget
 import sys
 import os
 import json
+import shutil
 from module.base.logger import logger
 from config_editor.osa_editor import OSAEditor, CONFIG_DIR
 
@@ -48,8 +49,34 @@ class ConfigEditor(QMainWindow):
             }
         """)
 
+        # 创建标签页容器
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
+
+        # 创建加号按钮
+        self.add_config_button = QPushButton("+")
+        self.add_config_button.setFixedSize(24, 24)
+        self.add_config_button.setStyleSheet("""
+            QPushButton {
+                background-color: #532b88;
+                color: white;
+                border: 1px solid #532b88;
+                border-radius: 12px;
+                font-size: 14px;
+                font-weight: bold;
+                margin: 2px;
+            }
+            QPushButton:hover {
+                background-color: #6b3a9e;
+                border-color: #6b3a9e;
+            }
+            QPushButton:pressed {
+                background-color: #4a2577;
+                border-color: #4a2577;
+            }
+        """)
+        self.add_config_button.clicked.connect(self.create_new_config)
+        self.add_config_button.setToolTip("创建新配置文件")
 
         # 设置标签页样式，使当前选中的标签页更突出
         self.setup_tab_styles()
@@ -125,6 +152,83 @@ class ConfigEditor(QMainWindow):
                 }
             """)
             self.tabs.addTab(no_config_label, "无配置")
+
+        # 添加一个特殊的标签页来放置加号按钮
+        self.add_plus_tab()
+
+    def create_new_config(self):
+        """创建新的配置文件"""
+        # 显示输入对话框
+        name, ok = QInputDialog.getText(
+            self,
+            "创建新配置文件",
+            "请输入新配置文件的名称:",
+            text=""
+        )
+
+        if ok and name.strip():
+            # 清理文件名，移除不允许的字符
+            clean_name = "".join(c for c in name.strip()
+                                 if c.isalnum() or c in ('_', '-'))
+            if not clean_name:
+                QMessageBox.warning(self, "错误", "文件名不能为空或只包含特殊字符")
+                return
+
+            # 检查文件是否已存在
+            new_file_path = os.path.join(CONFIG_DIR, f"{clean_name}.json")
+            if os.path.exists(new_file_path):
+                QMessageBox.warning(
+                    self, "错误", f"配置文件 '{clean_name}.json' 已存在")
+                return
+
+            # 复制模板文件
+            template_path = os.path.join(CONFIG_DIR, "osa.json")
+            if not os.path.exists(template_path):
+                QMessageBox.critical(self, "错误", "模板文件 osa.json 不存在")
+                return
+
+            try:
+                # 复制模板文件
+                shutil.copy2(template_path, new_file_path)
+
+                # 修改新文件中的配置名称
+                with open(new_file_path, 'r', encoding='utf-8') as f:
+                    config_data = json.load(f)
+
+                config_data['config_name'] = clean_name
+
+                with open(new_file_path, 'w', encoding='utf-8') as f:
+                    json.dump(config_data, f, ensure_ascii=False, indent=2)
+
+                    # 添加到配置文件列表
+                self.config_files.append(f"{clean_name}.json")
+
+                # 添加到自定义顺序的开头
+                if not hasattr(self, 'custom_order'):
+                    self.custom_order = []
+                self.custom_order.insert(0, f"{clean_name}.json")
+                self.save_custom_order()
+
+                # 直接添加新标签页，而不是重新加载所有标签页
+                try:
+                    path = os.path.join(CONFIG_DIR, f"{clean_name}.json")
+                    tab = OSAEditor(path)
+                    # 在加号标签页之前插入新标签页
+                    insert_index = self.tabs.count() - 1
+                    self.tabs.insertTab(insert_index, tab, clean_name)
+                    self.tab_widgets[f"{clean_name}.json"] = tab
+
+                    # 切换到新创建的配置文件
+                    self.tabs.setCurrentIndex(insert_index)
+                except Exception as e:
+                    logger.error(f"添加新标签页失败: {e}")
+
+                QMessageBox.information(
+                    self, "成功", f"已成功创建配置文件 '{clean_name}.json'")
+
+            except Exception as e:
+                logger.error(f"创建配置文件失败: {e}")
+                QMessageBox.critical(self, "错误", f"创建配置文件失败: {str(e)}")
 
     def setup_tab_styles(self):
         """设置标签页样式，使当前选中的标签页更突出"""
@@ -229,6 +333,12 @@ class ConfigEditor(QMainWindow):
         # 保存当前选中的tab索引
         current_index = self.tabs.currentIndex()
 
+        # 临时断开信号连接
+        try:
+            self.tabs.currentChanged.disconnect()
+        except:
+            pass
+
         # 清空所有tabs
         self.tabs.clear()
 
@@ -245,6 +355,12 @@ class ConfigEditor(QMainWindow):
                 self.tab_widgets[file] = tab
             except Exception as e:
                 logger.warning(f"无法加载配置文件 {file}: {e}")
+
+        # 重新添加加号标签页
+        self.add_plus_tab()
+
+        # 重新连接信号
+        self.tabs.currentChanged.connect(self.on_tab_changed)
 
         # 恢复选中的tab
         if 0 <= current_index < self.tabs.count():
@@ -332,3 +448,29 @@ class ConfigEditor(QMainWindow):
                 pass  # 忽略日志窗口操作错误
 
         self.last_index = idx
+
+    def add_plus_tab(self):
+        """添加一个特殊的标签页来放置加号按钮"""
+        try:
+            # 创建一个空的标签页
+            empty_widget = QWidget()
+            self.tabs.addTab(empty_widget, "+")
+
+            # 连接标签页切换事件
+            self.tabs.currentChanged.connect(self.on_plus_tab_clicked)
+
+        except Exception as e:
+            logger.warning(f"添加加号标签页失败: {e}")
+
+    def on_plus_tab_clicked(self, index):
+        """当点击加号标签页时创建新配置文件"""
+        if index == self.tabs.count() - 1:  # 最后一个标签页是加号标签页
+            # 临时断开信号连接，避免冲突
+            self.tabs.currentChanged.disconnect()
+            self.create_new_config()
+            # 重新连接信号
+            self.tabs.currentChanged.connect(self.on_tab_changed)
+            self.tabs.currentChanged.connect(self.on_plus_tab_clicked)
+            # 切换回前一个标签页
+            if self.tabs.count() > 2:  # 至少有2个标签页（一个配置 + 一个加号）
+                self.tabs.setCurrentIndex(index - 1)

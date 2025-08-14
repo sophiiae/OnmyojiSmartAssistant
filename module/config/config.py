@@ -118,6 +118,9 @@ class Config:
         获取调度器的数据， 但是你必须使用update_scheduler来更新信息
         :return:
         """
+        # 确保调度器数据是最新的
+        self.update_scheduler()
+
         running = {}
         if self.task is not None and self.task.next_run < datetime.now():
             running = {"name": self.task.name,
