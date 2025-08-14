@@ -1,9 +1,10 @@
 
 import time
+from module.base.logger import logger
 from tasks.components.battle.battle import Battle
 from tasks.components.page.page import page_boss, page_main
 from tasks.area_boss.assets import AreaBossAssets
-from module.base.exception import TaskEnd
+from module.base.exception import RequestHumanTakeover, TaskEnd
 
 class TaskScript(Battle, AreaBossAssets):
     name = 'AreaBoss'
@@ -85,8 +86,32 @@ class TaskScript(Battle, AreaBossAssets):
             if not self.appear(self.I_AB_BOSS_READY):
                 break
 
-        self.run_easy_battle(self.I_AB_BOSS_EXIT)
+        self.run_boss_battle()
+        self.exit_area_boss()
 
+    def run_boss_battle(self):
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_AB_BOSS_EXIT, 0.95):
+                break
+
+            self.appear_then_click(self.I_BATTLE_READY, 0.95)
+
+            if self.appear(self.I_REWARD):
+                self.get_reward()
+                continue
+
+            if self.appear(self.I_C_SHARE_PAGE):
+                self.appear_then_click(self.I_SHARE_PAGE_EXIT)
+                continue
+
+            if self.appear(self.I_BATTLE_WIN, 0.95):
+                self.click(self.battle_end_click)
+            elif self.appear(self.I_BATTLE_FAILED, 0.95):
+                self.click(self.battle_end_click)
+                raise RequestHumanTakeover("Area Boss Battle Failed.")
+
+    def exit_area_boss(self):
         # 退出BOSS挑战页面
         while 1:
             self.wait_and_shot()

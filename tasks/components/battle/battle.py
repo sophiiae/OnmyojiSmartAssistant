@@ -150,24 +150,22 @@ class Battle(Buff, SwitchSouls, BattleAssets):
 
     def toggle_team_lock(self, team_lock: RuleImage, team_unlock: RuleImage, lock: bool = True):
         # 不锁定队伍
-        if not lock:
-            if self.appear(team_unlock):
+        while not lock:
+            self.wait_and_shot()
+            if self.appear(team_unlock, 0.95):
                 return
 
-            if self.wait_until_appear(team_lock, 1):
-                self.wait_until_click(team_lock)
-                logger.info("Unlock the team")
-                return
+            self.appear_then_click(team_lock)
+            logger.info("Unlock the team")
 
         # 锁定队伍
-        if lock:
-            if self.appear(team_lock):
+        while lock:
+            self.wait_and_shot()
+            if self.appear(team_lock, 0.95):
                 return
 
-            if self.wait_until_appear(team_unlock, 1):
-                self.wait_until_click(team_unlock)
-                logger.info("Lock the team")
-                return
+            self.appear_then_click(team_unlock)
+            logger.info("Lock the team")
 
     def toggle_battle_auto(self):
         while 1:

@@ -1,15 +1,9 @@
-from datetime import datetime
-from functools import cached_property
-from typing import Union
-import numpy as np
 import time
-from typing import Optional
 
 from module.base.exception import GamePageUnknownError
 
 from module.image_processing.rule_click import RuleClick
 from module.image_processing.rule_image import RuleImage
-from tasks.components.widgets.assets import WidgetsAssets
 from module.control.server.device import Device
 from module.base.timer import Timer
 from module.base.logger import logger
@@ -19,10 +13,6 @@ from tasks.controls import Controls
 class TaskBase(Controls):
     def __init__(self, device: Device) -> None:
         super().__init__(device)
-
-    def wait_request(self):
-        self.device.get_screenshot()
-        self.check_request_invitation()
 
     def gain_reward(self):
         time.sleep(0.3)

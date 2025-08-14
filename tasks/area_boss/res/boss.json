@@ -86,5 +86,21 @@
     "area": "1152, 481, 116, 81",
     "file": "./tasks/area_boss/res/ab_shiki_book_ent.png",
     "description": "式神录入口"
+  },
+  {
+    "name": "c_share_page",
+    "type": "image",
+    "roi": "849, 645, 41, 36",
+    "area": "831, 627, 77, 72",
+    "file": "./tasks/area_boss/res/share_wechat.png",
+    "description": "分享页面"
+  },
+  {
+    "name": "share_page_exit",
+    "type": "image",
+    "roi": "30, 35, 53, 44",
+    "area": "8, 13, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "退出分享页面"
   }
 ]

@@ -115,19 +115,26 @@ class Script:
             return False
 
         try:
+            logger.info(f"开始执行任务: {name}")
             self.device.get_screenshot()
             module_name = 'task_script'
             module_path = str(Path.cwd() / 'tasks' /
                               name / (module_name + '.py')
                               )
-            logger.info(f'module_path: {
-                        module_path}, module_name: {module_name}')
+            logger.info(
+                f'module_path: {module_path}, module_name: {module_name}')
+
             task_module = self.load_module(module_name, module_path)
             task_module.TaskScript(
                 device=self.device
             ).run()
         except TaskEnd:
             self.config.task_call(name)
+        except Exception as e:
+            logger.error(f"执行任务 {name} 时出错: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            raise
         return True
 
     def start(self):
@@ -206,8 +213,8 @@ class Script:
                     {"schedule": self.config.get_schedule_data()}
                 )
 
-            logger.info(f"Getting {task.name} and time: {
-                datetime.strftime(task.next_run, "%Y-%m-%d %H:%M:%S")}")
+            logger.info(
+                f"Getting {task.name} and time: {datetime.strftime(task.next_run, '%Y-%m-%d %H:%M:%S')}")
             return task.name
 
     def load_module(self, moduleName: str, moduleFile: str):

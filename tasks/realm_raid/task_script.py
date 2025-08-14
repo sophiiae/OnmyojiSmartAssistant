@@ -380,8 +380,8 @@ class TaskScript(RealmRaidAssets, Battle):
                 continue
 
     def toggle_realm_team_lock(self, lock: bool = True):
-        is_in_activity = self.appear(self.I_RAID_TEAM_LOCK_2) or self.appear(
-            self.I_RAID_TEAM_UNLOCK_2)
+        is_in_activity = self.appear(self.I_RAID_TEAM_LOCK_2, 0.95) or self.appear(
+            self.I_RAID_TEAM_UNLOCK_2, 0.95)
         if is_in_activity:
             return self.toggle_team_lock(self.I_RAID_TEAM_LOCK_2, self.I_RAID_TEAM_UNLOCK_2, lock)
 

@@ -74,6 +74,18 @@ class AreaBossAssets:
 		area=(1152, 481, 116, 81),
 		file="./tasks/area_boss/res/ab_shiki_book_ent.png"
 	)
+	# 分享页面 
+	I_C_SHARE_PAGE = RuleImage(
+		roi=(849, 645, 41, 36),
+		area=(831, 627, 77, 72),
+		file="./tasks/area_boss/res/share_wechat.png"
+	)
+	# 退出分享页面 
+	I_SHARE_PAGE_EXIT = RuleImage(
+		roi=(30, 35, 53, 44),
+		area=(8, 13, 97, 88),
+		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
+	)
 
 	# Ocr Rule Assets
 	# 地域鬼王等级 

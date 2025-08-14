@@ -83,13 +83,13 @@ class Controls(PageAssets, MainPageAssets, PageMap, WidgetsAssets):
                 break
 
         while 1:
-            self.wait_and_shot()
+            time.sleep(0.3)
+            self.device.get_screenshot()
             if not self.appear(target=click_button, threshold=0.96):
-                logger.info('Deal with invitation done')
+                logger.info('Handled invitation.')
                 break
 
             self.appear_then_click(click_button, threshold=0.96)
-
         return True
 
     def appear(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.1) -> bool:

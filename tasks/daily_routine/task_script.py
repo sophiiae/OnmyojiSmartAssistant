@@ -45,7 +45,7 @@ class TaskScript(Battle, DailyRoutineAssets):
 
         self.check_harvest()
         self.check_trifles()
-        # self.get_huahe()
+        # self.get_talisman_pass_reward()
 
         self.set_next_run(self.name, success=True, finish=True)
         # 进入庭院页面
@@ -149,7 +149,7 @@ class TaskScript(Battle, DailyRoutineAssets):
 
             self.appear_then_click(self.I_DAILY_BUFF, 0.96)
 
-    def get_huahe(self):
+    def get_talisman_pass_reward(self):
         self.toggle_scroll()
         # 进入花合战
         while 1:
