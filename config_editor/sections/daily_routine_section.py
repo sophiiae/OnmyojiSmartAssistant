@@ -73,3 +73,17 @@ class DailyRoutineSection(QGroupBox):
         self.harvest_config["one_summon"] = self.one_summon.isChecked()
         self.harvest_config["friend_love"] = self.friend_love.isChecked()
         self.harvest_config["store_sign"] = self.store_sign.isChecked()
+
+    def refresh_from_config(self, config):
+        """根据配置刷新UI控件"""
+        try:
+            # 更新内部配置引用
+            self.config = config
+
+            # 刷新调度器设置
+            if hasattr(self.scheduler_section, 'refresh_from_config'):
+                self.scheduler_section.refresh_from_config(config)
+
+        except Exception as e:
+            from module.base.logger import logger
+            logger.error(f"刷新探索设置UI时出错: {e}")

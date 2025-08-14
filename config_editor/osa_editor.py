@@ -52,6 +52,10 @@ class OSAEditor(ConfigTab):
         self.highlight_timer = QTimer()  # 高亮清除定时器
         self.highlight_timer.setSingleShot(True)
         self.highlight_timer.timeout.connect(self.clear_all_highlights)
+
+        # 停止初始的文件监控（只在脚本运行期间监控）
+        self.stop_config_monitoring()
+
         self.setup_ui()
 
         # 设置当前日志窗口为活动状态（注册回调）
@@ -508,6 +512,9 @@ class OSAEditor(ConfigTab):
                 # 直接启动线程和脚本
                 self.script_worker.start()
 
+                # 启动文件监控（只在脚本运行期间监控）
+                self.start_config_monitoring()
+
                 # 更新UI状态
                 self.is_running = True
                 self.update_run_button()
@@ -531,6 +538,9 @@ class OSAEditor(ConfigTab):
         if self.log_window:
             self.log_window.stop_log_capture()
 
+        # 停止文件监控
+        self.stop_config_monitoring()
+
         # 立即更新UI状态
         self.is_running = False
         self.update_run_button()
@@ -541,6 +551,9 @@ class OSAEditor(ConfigTab):
         if self.log_window:
             self.log_window.stop_log_capture()
 
+        # 停止文件监控
+        self.stop_config_monitoring()
+
         self.is_running = False
         self.update_run_button()
         self.script_worker = None
@@ -550,6 +563,9 @@ class OSAEditor(ConfigTab):
         # 停止日志捕获，显示停止分割线
         if self.log_window:
             self.log_window.stop_log_capture()
+
+        # 停止文件监控
+        self.stop_config_monitoring()
 
         self.is_running = False
         self.update_run_button()
@@ -650,6 +666,9 @@ class OSAEditor(ConfigTab):
             # 如果section有refresh_from_config方法，调用它
             if hasattr(section, 'refresh_from_config'):
                 section.refresh_from_config(self.config)
+            elif hasattr(section, 'update_gui'):
+                # 如果section有update_gui方法，调用它
+                section.update_gui()
             else:
                 # 否则尝试通用的刷新方法
                 self.generic_refresh_section(section)
@@ -728,7 +747,16 @@ class OSAEditor(ConfigTab):
             # 获取滚动区域
             scroll_area = self.findChild(QScrollArea)
             if scroll_area:
+                # 先确保目标section可见
                 scroll_area.ensureWidgetVisible(section)
+                # 获取垂直滚动条
+                vbar = scroll_area.verticalScrollBar()
+                if vbar:
+                    # 获取目标section在滚动区域中的位置
+                    section_pos = section.mapTo(
+                        scroll_area.widget(), section.rect().topLeft())
+                    # 滚动到目标section的顶部位置，减去一些偏移量确保完全显示在顶部
+                    vbar.setValue(max(0, section_pos.y() - 10))
                 # 高亮选中的配置区域
                 self.highlight_section(section)
 
@@ -763,48 +791,35 @@ class OSAEditor(ConfigTab):
         """从文件重新加载配置并更新所有section"""
         logger.info(f"开始重新加载配置文件: {os.path.basename(self.config_path)}")
         try:
-            current_mtime = self.get_file_mtime()
-            logger.debug(f"当前修改时间: {current_mtime}, 上次修改时间: {self.last_mtime}")
-
-            if current_mtime == self.last_mtime:
-                # 文件没有实际修改，跳过
-                logger.debug("文件修改时间未变化，跳过重载")
-                return
-
-            logger.info(
-                f"检测到配置文件更改，重新加载: {os.path.basename(self.config_path)}")
-
             # 重新加载配置
             old_config = self.config.copy() if isinstance(
                 self.config, dict) else self.config
             new_config = self.load_config()
-            logger.debug(f"配置文件读取完成，比较配置差异")
+            logger.info(f"配置文件读取完成，比较配置差异")
 
-            if new_config != self.config:
-                logger.info("配置内容发生变化，更新UI")
-                self.config = new_config
-                self.last_mtime = current_mtime
+            # 更新主配置引用
+            self.config = new_config
 
-                # 更新所有section的配置引用和scheduler信息
-                self.refresh_all_sections()
+            # 更新所有section的配置引用和scheduler信息
+            self.refresh_all_sections()
 
-                # 刷新UI
-                self.update_nav_buttons()
-                logger.info(f"配置界面已更新: {os.path.basename(self.config_path)}")
-            else:
-                logger.debug("配置内容未发生变化，跳过UI更新")
+            # 刷新UI
+            self.update_nav_buttons()
+            logger.info(f"配置界面已更新: {os.path.basename(self.config_path)}")
 
         except Exception as e:
             logger.error(f"重新加载配置文件时出错: {e}")
             import traceback
             logger.error(traceback.format_exc())
         finally:
-            # 重新添加文件监控（某些情况下文件监控可能会失效）
-            if not self.file_watcher.files():
+            # 如果脚本正在运行，确保文件监控仍然有效
+            if self.is_running and self.normalized_path not in self.file_watcher.files():
                 logger.warning("文件监控失效，重新添加监控")
-                self.file_watcher.addPath(self.config_path)
-            else:
+                self.file_watcher.addPath(self.normalized_path)
+            elif self.is_running:
                 logger.debug("文件监控正常")
+            else:
+                logger.debug("脚本未运行，文件监控已停止")
 
     def refresh_all_sections(self):
         """刷新所有section的配置信息"""
@@ -829,7 +844,7 @@ class OSAEditor(ConfigTab):
 
                 # 如果section有refresh_from_config方法，调用它
                 if hasattr(section, 'refresh_from_config'):
-                    logger.debug(
+                    logger.info(
                         f"调用 {section.__class__.__name__} 的 refresh_from_config 方法")
                     section.refresh_from_config(self.config)
                 # 如果section有update_gui方法，调用它
@@ -870,3 +885,46 @@ class OSAEditor(ConfigTab):
             # 如果检查过程中出错，为了安全起见，返回False
             logger.error(f"检查启用任务时出错: {e}")
             return False
+
+    def start_config_monitoring(self):
+        """启动配置文件监控（只在脚本运行期间）"""
+        try:
+            # 检查是否已经在监控当前文件
+            if self.normalized_path not in self.file_watcher.files():
+                self.file_watcher.addPath(self.normalized_path)
+                logger.info(f"启动配置文件监控: {self.normalized_path}")
+            else:
+                logger.debug("配置文件监控已启动")
+        except Exception as e:
+            logger.error(f"启动配置文件监控时出错: {e}")
+
+    def stop_config_monitoring(self):
+        """停止配置文件监控"""
+        try:
+            if self.normalized_path in self.file_watcher.files():
+                self.file_watcher.removePath(self.normalized_path)
+                logger.info(f"停止配置文件监控: {self.normalized_path}")
+            else:
+                logger.debug("配置文件监控已停止")
+        except Exception as e:
+            logger.error(f"停止配置文件监控时出错: {e}")
+
+    def on_config_file_changed(self, path):
+        """配置文件发生变化时的回调（只在脚本运行期间生效）"""
+        if not self.is_running:
+            logger.debug("脚本未运行，忽略配置文件变化")
+            return
+
+        logger.info(f"脚本运行期间检测到配置文件变化: {path}")
+        # 规范化接收到的路径进行比较
+        normalized_received_path = os.path.abspath(path)
+        logger.debug(
+            f"规范化路径: {normalized_received_path} vs {self.normalized_path}")
+
+        if normalized_received_path == self.normalized_path:
+            logger.info(f"匹配的配置文件路径，重新加载UI")
+            # 重新加载配置并更新UI
+            self.reload_config_from_file()
+        else:
+            logger.debug(
+                f"文件路径不匹配: {normalized_received_path} != {self.normalized_path}")
