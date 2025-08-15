@@ -230,7 +230,30 @@ class TaskScript(Battle, DuelAssets):
 
         self.battle_ready()
         self.toggle_battle_auto()
-        self.run_easy_battle(self.page_check, self.I_DUEL_BATTLE_FAILED)
+        self.run_duel_battle()
+
+    def run_duel_battle(self):
+        while 1:
+            self.wait_and_shot(0.4)
+            if self.appear(self.page_check, 0.95):
+                break
+
+            self.appear_then_click(self.I_BATTLE_READY, 0.95)
+
+            if self.appear(self.I_REWARD):
+                self.get_reward()
+                continue
+
+            if self.appear(self.I_BATTLE_WIN, 0.95):
+                self.click(self.battle_end_click)
+                continue
+
+            if self.appear(self.I_DUEL_BATTLE_FAILED, 0.95):
+                self.click(self.battle_end_click)
+
+            if self.appear(self.I_DUEL_BATTLE_SHARE):
+                self.click(self.battle_end_click)
+                continue
 
     def start_battle(self):
         count = 0
@@ -258,8 +281,8 @@ class TaskScript(Battle, DuelAssets):
         # 开始斗技
         while 1:
             self.wait_and_shot(1)
-
-            if self.appear(self.I_DUEL_TEAM_PREP_CHECK):
+            # 四段以上
+            if self.appear(self.I_DUEL_AUTO_TEAM):
                 # 开启自动上阵 (四段以上)
                 self.click_static_target(self.I_DUEL_AUTO_TEAM, retry=3)
                 break

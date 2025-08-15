@@ -209,6 +209,18 @@ class DuelAssets:
 		area=(1092, 533, 149, 104),
 		file="./tasks/duel/res/duel_ban.png"
 	)
+	# 确定 
+	I_DUEL_BATTLE_ENSURE = RuleImage(
+		roi=(1117, 560, 97, 49),
+		area=(1093, 536, 145, 97),
+		file="./tasks/duel/res/duel_battle_ensure.png"
+	)
+	# 拔得头筹分享页面 
+	I_DUEL_BATTLE_SHARE = RuleImage(
+		roi=(1159, 614, 62, 37),
+		area=(1141, 596, 98, 73),
+		file="./tasks/duel/res/duel_battle_share.png"
+	)
 
 	# Ocr Rule Assets
 	# 斗技分数 
