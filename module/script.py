@@ -1,6 +1,6 @@
 
 from functools import cached_property
-from datetime import datetime, timedelta
+from datetime import datetime
 from multiprocessing import Queue
 from pathlib import Path
 import importlib
@@ -13,7 +13,8 @@ import math
 import inflection
 
 from module.base.logger import logger, set_current_config_name, clear_current_config_name
-from module.base.exception import RequestHumanTakeover, TaskEnd
+from module.base.exception import RequestHumanTakeover
+from module.base.exception_handler import ExceptionHandler
 from module.control.server.device import Device
 from module.config.config import Config
 
@@ -129,14 +130,24 @@ class Script:
             task_module.TaskScript(
                 device=self.device
             ).run()
-        except TaskEnd:
-            self.config.task_call(name)
+
+            # 如果没有异常，任务成功完成
+            logger.info(f"任务 {name} 执行成功")
+            return True
+
         except Exception as e:
-            logger.error(f"执行任务 {name} 时出错: {e}")
-            import traceback
-            logger.error(traceback.format_exc())
-            raise
-        return True
+            # 使用异常处理器来处理异常
+            handler_result = ExceptionHandler.handle_task_exception(e, name)
+
+            # 根据处理结果决定是否继续
+            if handler_result["should_continue"]:
+                logger.info("OSA将继续运行，处理下一个任务")
+            else:
+                logger.critical("OSA将停止运行，需要人工干预")
+                self.is_running = False
+
+            # 返回任务是否成功
+            return handler_result.get("handled", False)
 
     def start(self):
         # 设置当前配置名称

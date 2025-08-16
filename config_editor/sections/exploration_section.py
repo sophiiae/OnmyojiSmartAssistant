@@ -27,26 +27,26 @@ class ExplorationSection(QGroupBox):
         exploration_layout = QVBoxLayout(exploration_group)
         self.exploration_config = self.config[self.name]["exploration_config"]
 
-        grid = QGridLayout()
+        buff_grid = QGridLayout()
 
         self.buff_gold_50 = QCheckBox("金币50%")
         self.buff_gold_50.setChecked(self.exploration_config["buff_gold_50"])
-        grid.addWidget(self.buff_gold_50, 0, 0)
+        buff_grid.addWidget(self.buff_gold_50, 0, 0)
 
         self.buff_gold_100 = QCheckBox("金币100%")
         self.buff_gold_100.setChecked(self.exploration_config["buff_gold_100"])
-        grid.addWidget(self.buff_gold_100, 0, 1)
+        buff_grid.addWidget(self.buff_gold_100, 0, 1)
 
         self.buff_exp_50 = QCheckBox("经验50%")
         self.buff_exp_50.setChecked(self.exploration_config["buff_exp_50"])
-        grid.addWidget(self.buff_exp_50, 0, 2)
+        buff_grid.addWidget(self.buff_exp_50, 0, 2)
 
         self.buff_exp_100 = QCheckBox("经验100%")
         self.buff_exp_100.setChecked(self.exploration_config["buff_exp_100"])
-        grid.addWidget(self.buff_exp_100, 0, 3)
+        buff_grid.addWidget(self.buff_exp_100, 0, 3)
 
         group = QGroupBox("战斗加成配置")
-        group.setLayout(grid)
+        group.setLayout(buff_grid)
         layout.addWidget(group)
 
         # 最大次数（无CheckBox，左对齐）
@@ -121,11 +121,6 @@ class ExplorationSection(QGroupBox):
             self.config, self.name)
         layout.addWidget(self.switch_soul_section)
 
-        # 添加通用战斗配置
-        self.general_battle_section = GeneralBattleSection(
-            self.config, self.name)
-        layout.addWidget(self.general_battle_section)
-
     def update_config(self):
         self.scheduler_section.update_config()
 
@@ -151,9 +146,6 @@ class ExplorationSection(QGroupBox):
 
         # 更新御魂切换配置
         self.switch_soul_section.update_config()
-
-        # 更新通用战斗配置
-        self.general_battle_section.update_config()
 
     def refresh_from_config(self, config):
         """根据配置刷新UI控件"""
