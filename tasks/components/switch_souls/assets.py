@@ -21,90 +21,105 @@ class SwitchSoulsAssets:
 	# Image Rule Assets
 	# 式神录幕间皮肤按钮 
 	I_SHIKI_BOOK_CHECK = RuleImage(
+		name="shiki_book_check",
 		roi=(273, 11, 31, 26),
 		area=(260, 0, 57, 52),
 		file="./tasks/components/switch_souls/res/shiki_book_check.png"
 	)
 	# 退出式神录 
 	I_SHIKI_SOUL_EXIT = RuleImage(
+		name="shiki_soul_exit",
 		roi=(27, 9, 29, 36),
 		area=(13, 0, 57, 64),
 		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle_2.png"
 	)
 	# 阵容预设标签 
 	I_SS_PRESET_CHECK = RuleImage(
+		name="ss_preset_check",
 		roi=(737, 91, 110, 29),
 		area=(723, 77, 138, 57),
 		file="./tasks/components/switch_souls/res/ss_preset_check.png"
 	)
 	# 确定更换御魂 
 	I_SS_CONFIRM = RuleImage(
+		name="ss_confirm",
 		roi=(672, 403, 172, 57),
 		area=(644, 375, 228, 113),
 		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 预设分组1 
 	I_SS_GROUP_1 = RuleImage(
+		name="ss_group_1",
 		roi=(1091, 97, 8, 33),
 		area=(1087, 93, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 预设分组2 
 	I_SS_GROUP_2 = RuleImage(
+		name="ss_group_2",
 		roi=(1091, 167, 8, 33),
 		area=(1087, 163, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 预设分组3 
 	I_SS_GROUP_3 = RuleImage(
+		name="ss_group_3",
 		roi=(1091, 236, 8, 33),
 		area=(1087, 232, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 预设分组4 
 	I_SS_GROUP_4 = RuleImage(
+		name="ss_group_4",
 		roi=(1091, 306, 8, 33),
 		area=(1087, 302, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 预设分组5 
 	I_SS_GROUP_5 = RuleImage(
+		name="ss_group_5",
 		roi=(1091, 376, 8, 33),
 		area=(1087, 372, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 预设分组6 
 	I_SS_GROUP_6 = RuleImage(
+		name="ss_group_6",
 		roi=(1091, 446, 8, 33),
 		area=(1087, 442, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 预设分组7 
 	I_SS_GROUP_7 = RuleImage(
+		name="ss_group_7",
 		roi=(1091, 515, 8, 33),
 		area=(1087, 511, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 预设分组8 
 	I_SS_GROUP_8 = RuleImage(
+		name="ss_group_8",
 		roi=(1091, 585, 8, 33),
 		area=(1087, 581, 16, 41),
 		file="./tasks/components/switch_souls/res/ss_group.png"
 	)
 	# 换御魂图标 
 	I_SS_SWITCH_SOUL_TOP = RuleImage(
+		name="ss_switch_soul_top",
 		roi=(972, 189, 29, 24),
 		area=(960, 140, 53, 110),
 		file="./tasks/components/switch_souls/res/ss_switch_soul.png"
 	)
 	# 换御魂图标 
 	I_SS_SWITCH_SOUL_MID = RuleImage(
+		name="ss_switch_soul_mid",
 		roi=(972, 189, 29, 24),
 		area=(960, 260, 53, 120),
 		file="./tasks/components/switch_souls/res/ss_switch_soul.png"
 	)
 	# 换御魂图标 
 	I_SS_SWITCH_SOUL_BOTTOM = RuleImage(
+		name="ss_switch_soul_bottom",
 		roi=(972, 189, 29, 24),
 		area=(960, 410, 53, 120),
 		file="./tasks/components/switch_souls/res/ss_switch_soul.png"

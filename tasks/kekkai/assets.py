@@ -10,30 +10,35 @@ class KekkaiAssets:
 	# Image Rule Assets
 	# 每日寮金币 
 	I_GUILD_MONEY = RuleImage(
+		name="guild_money",
 		roi=(399, 313, 25, 32),
 		area=(230, 270, 360, 190),
 		file="./tasks/kekkai/res/guild/guild_money.png"
 	)
 	# 领取寮金币 
 	I_GET_GUILD_MONEY = RuleImage(
+		name="get_guild_money",
 		roi=(605, 443, 68, 31),
 		area=(589, 427, 100, 63),
 		file="./tasks/kekkai/res/guild/get_guild_money.png"
 	)
 	# 寮体力 
 	I_GUILD_EP = RuleImage(
+		name="guild_ep",
 		roi=(398, 315, 23, 26),
 		area=(230, 270, 360, 190),
 		file="./tasks/kekkai/res/guild/guild_ep.png"
 	)
 	# 结界入口 
 	I_KEKKAI_ENT = RuleImage(
+		name="kekkai_ent",
 		roi=(1068, 631, 57, 45),
 		area=(1046, 609, 101, 89),
 		file="./tasks/kekkai/res/guild/kekkai_ent.png"
 	)
 	# 结界换装图标 
 	I_GUILD_SKIN_CHANGE = RuleImage(
+		name="guild_skin_change",
 		roi=(174, 481, 57, 35),
 		area=(40, 380, 490, 270),
 		file="./tasks/kekkai/res/guild/guild_skin_change.png"
@@ -42,24 +47,28 @@ class KekkaiAssets:
 	# Image Rule Assets
 	# 体力食盒 
 	I_EP_BOX = RuleImage(
+		name="ep_box",
 		roi=(817, 453, 50, 29),
 		area=(740, 370, 470, 180),
 		file="./tasks/kekkai/res/kekkai/ep_box.png"
 	)
 	# 经验酒壶 
 	I_EXP_BOTTLE = RuleImage(
+		name="exp_bottle",
 		roi=(892, 451, 49, 30),
 		area=(740, 370, 470, 180),
 		file="./tasks/kekkai/res/kekkai/exp_bottle.png"
 	)
 	# 结界卡宝箱 
 	I_KEKKAI_REWARD = RuleImage(
+		name="kekkai_reward",
 		roi=(887, 152, 63, 48),
 		area=(863, 128, 111, 96),
 		file="./tasks/kekkai/res/kekkai/kekkai_reward.png"
 	)
 	# 关闭体力食盒/经验酒壶 
 	I_KEKKAI_SUPPLY_CLOSE = RuleImage(
+		name="kekkai_supply_close",
 		roi=(958, 147, 32, 34),
 		area=(942, 131, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"

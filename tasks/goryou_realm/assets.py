@@ -27,60 +27,70 @@ class GoryouRealmAssets:
 	# Image Rule Assets
 	# 御灵主页标记 
 	I_GR_CHECK = RuleImage(
+		name="gr_check",
 		roi=(81, 21, 128, 34),
 		area=(64, 4, 162, 68),
 		file="./tasks/goryou_realm/res/gr_check.png"
 	)
 	# 御灵挑战 
 	I_GR_FIGHT = RuleImage(
+		name="gr_fight",
 		roi=(1109, 602, 74, 72),
 		area=(1073, 566, 146, 144),
 		file="./tasks/goryou_realm/res/gr_fight.png"
 	)
 	# 御灵挑战页面标记 
 	I_GR_FIGHT_CHECK = RuleImage(
+		name="gr_fight_check",
 		roi=(114, 23, 123, 36),
 		area=(96, 5, 159, 72),
 		file="./tasks/goryou_realm/res/gr_fight_check.png"
 	)
 	# 御灵式神录入口 
 	I_GR_SHIKI_BOOK = RuleImage(
+		name="gr_shiki_book",
 		roi=(957, 647, 42, 37),
 		area=(939, 629, 78, 73),
 		file="./tasks/goryou_realm/res/gr_shiki_book.png"
 	)
 	# 队伍锁定 
 	I_GR_TEAM_LOCK = RuleImage(
+		name="gr_team_lock",
 		roi=(559, 563, 23, 30),
 		area=(547, 551, 47, 54),
 		file="./tasks/components/battle/res/battle_team_lock.png"
 	)
 	# 队伍不锁定 
 	I_GR_TEAM_UNLOCK = RuleImage(
+		name="gr_team_unlock",
 		roi=(562, 566, 17, 25),
 		area=(554, 558, 33, 41),
 		file="./tasks/components/battle/res/battle_team_unlock.png"
 	)
 	# 暗黑豹开放 
 	I_GR_DBP_OPEN = RuleImage(
+		name="gr_dbp_open",
 		roi=(785, 488, 18, 26),
 		area=(776, 479, 36, 44),
 		file="./tasks/goryou_realm/res/gr_dbp_open.png"
 	)
 	# 暗白蔵主开放 
 	I_GR_DH_OPEN = RuleImage(
+		name="gr_dh_open",
 		roi=(504, 295, 20, 18),
 		area=(495, 286, 38, 36),
 		file="./tasks/goryou_realm/res/gr_dh_open.png"
 	)
 	# 暗神龙开放 
 	I_GR_DDD_OPEN = RuleImage(
+		name="gr_ddd_open",
 		roi=(192, 195, 65, 30),
 		area=(177, 180, 95, 60),
 		file="./tasks/goryou_realm/res/gr_ddd_open.png"
 	)
 	# 暗孔雀开放 
 	I_GR_DP_OPEN = RuleImage(
+		name="gr_dp_open",
 		roi=(1062, 294, 62, 49),
 		area=(1038, 270, 110, 97),
 		file="./tasks/goryou_realm/res/gr_dp_open.png"

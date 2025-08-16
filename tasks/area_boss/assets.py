@@ -10,78 +10,91 @@ class AreaBossAssets:
 	# Image Rule Assets
 	# 击杀数最多 
 	I_AB_KILL_RANK_CHECK = RuleImage(
+		name="ab_kill_rank_check",
 		roi=(942, 126, 148, 38),
 		area=(923, 107, 186, 76),
 		file="./tasks/area_boss/res/ab_kill_rank_check.png"
 	)
 	# 筛选 
 	I_AB_BOSS_FILTER = RuleImage(
+		name="ab_boss_filter",
 		roi=(1107, 37, 49, 48),
 		area=(1083, 13, 97, 96),
 		file="./tasks/area_boss/res/ab_boss_filter.png"
 	)
 	# 击杀数排名第一的鬼王 
 	I_AB_KILL_CHALLENGE_1 = RuleImage(
+		name="ab_kill_challenge_1",
 		roi=(1077, 224, 82, 76),
 		area=(1039, 186, 158, 152),
 		file="./tasks/area_boss/res/ab_challenge.png"
 	)
 	# 击杀数排名第二的鬼王 
 	I_AB_KILL_CHALLENGE_2 = RuleImage(
+		name="ab_kill_challenge_2",
 		roi=(1077, 378, 82, 76),
 		area=(1039, 340, 158, 152),
 		file="./tasks/area_boss/res/ab_challenge.png"
 	)
 	# 击杀数排名第三的鬼王 
 	I_AB_KILL_CHALLENGE_3 = RuleImage(
+		name="ab_kill_challenge_3",
 		roi=(1077, 532, 82, 76),
 		area=(1039, 494, 158, 152),
 		file="./tasks/area_boss/res/ab_challenge.png"
 	)
 	# 挑战 
 	I_AB_BOSS_FIGHT = RuleImage(
+		name="ab_boss_fight",
 		roi=(1110, 508, 88, 41),
 		area=(1090, 488, 128, 81),
 		file="./tasks/area_boss/res/ab_boss_fight.png"
 	)
 	# 退出boss挑战页面 
 	I_AB_BOSS_EXIT = RuleImage(
+		name="ab_boss_exit",
 		roi=(1194, 27, 32, 34),
 		area=(1178, 11, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 准备 
 	I_AB_BOSS_READY = RuleImage(
+		name="ab_boss_ready",
 		roi=(1135, 565, 87, 46),
 		area=(1112, 542, 133, 92),
 		file="./tasks/components/battle/res/battle_ready.png"
 	)
 	# 普通难度 
 	I_AB_REGULAR_HARDNESS = RuleImage(
+		name="ab_regular_hardness",
 		roi=(273, 118, 38, 36),
 		area=(255, 100, 74, 72),
 		file="./tasks/area_boss/res/ab_regular_hardness.png"
 	)
 	# 鬼王难度滚球 
 	I_AB_LV_ROLLER = RuleImage(
+		name="ab_lv_roller",
 		roi=(176, 273, 21, 20),
 		area=(166, 263, 384, 40),
 		file="./tasks/area_boss/res/ab_lv_roller.png"
 	)
 	# 式神录入口 
 	I_AB_SHIKI_BOOK_ENT = RuleImage(
+		name="ab_shiki_book_ent",
 		roi=(1172, 501, 76, 41),
 		area=(1152, 481, 116, 81),
 		file="./tasks/area_boss/res/ab_shiki_book_ent.png"
 	)
 	# 分享页面 
 	I_C_SHARE_PAGE = RuleImage(
+		name="c_share_page",
 		roi=(849, 645, 41, 36),
 		area=(831, 627, 77, 72),
 		file="./tasks/area_boss/res/share_wechat.png"
 	)
 	# 退出分享页面 
 	I_SHARE_PAGE_EXIT = RuleImage(
+		name="share_page_exit",
 		roi=(30, 35, 53, 44),
 		area=(8, 13, 97, 88),
 		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"

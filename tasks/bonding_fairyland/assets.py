@@ -10,24 +10,28 @@ class BondingFairylandAssets:
 	# Image Rule Assets
 	# 契灵式神录入口 
 	I_BF_SHIKI_BOOK_ENT = RuleImage(
+		name="bf_shiki_book_ent",
 		roi=(1035, 564, 36, 37),
 		area=(1017, 546, 72, 73),
 		file="./tasks/bonding_fairyland/res/bf_shiki_book_ent.png"
 	)
 	# 探查 
 	I_BF_EXPLORE = RuleImage(
+		name="bf_explore",
 		roi=(1148, 593, 81, 41),
 		area=(1128, 573, 121, 81),
 		file="./tasks/bonding_fairyland/res/bf_explore.png"
 	)
 	# 队伍锁定 
 	I_BF_TEAM_LOCK = RuleImage(
+		name="bf_team_lock",
 		roi=(826, 649, 22, 28),
 		area=(815, 638, 44, 50),
 		file="./tasks/bonding_fairyland/res/bf_team_lock.png"
 	)
 	# 队伍未锁定 
 	I_BF_TEAM_UNLOCK = RuleImage(
+		name="bf_team_unlock",
 		roi=(828, 650, 18, 24),
 		area=(819, 641, 36, 42),
 		file="./tasks/bonding_fairyland/res/bf_team_unlock.png"

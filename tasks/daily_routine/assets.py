@@ -15,48 +15,56 @@ class DailyRoutineAssets:
 	# Image Rule Assets
 	# 好友 
 	I_FRIENDS = RuleImage(
+		name="friends",
 		roi=(889, 626, 42, 46),
 		area=(868, 605, 84, 88),
 		file="./tasks/daily_routine/res/friends/friends.png"
 	)
 	# 好友标题 
 	I_FRIEND_HEADER = RuleImage(
+		name="friend_header",
 		roi=(586, 48, 145, 36),
 		area=(568, 30, 181, 72),
 		file="./tasks/daily_routine/res/friends/friend_header.png"
 	)
 	# 友情点/灰 
 	I_FRIEND_POINTS = RuleImage(
+		name="friend_points",
 		roi=(151, 643, 30, 38),
 		area=(136, 628, 60, 68),
 		file="./tasks/daily_routine/res/friends/friend_points.png"
 	)
 	# 友情点/亮 
 	I_FRIEND_POINTS_ENABLE = RuleImage(
+		name="friend_points_enable",
 		roi=(128, 633, 60, 51),
 		area=(102, 607, 112, 103),
 		file="./tasks/daily_routine/res/friends/friend_points_enable.png"
 	)
 	# 跨区好友 
 	I_CROSS_REGION_FRIENDS = RuleImage(
+		name="cross_region_friends",
 		roi=(240, 582, 99, 22),
 		area=(229, 571, 121, 44),
 		file="./tasks/daily_routine/res/friends/cross_region_friends.png"
 	)
 	# 一键收取 
 	I_GET_ALL_FRIEND_POINTS = RuleImage(
+		name="get_all_friend_points",
 		roi=(50, 541, 136, 44),
 		area=(28, 519, 180, 88),
 		file="./tasks/daily_routine/res/friends/get_all_friend_points.png"
 	)
 	# 好友羁绊提升关闭 
 	I_FRIEND_LEVEL_UP_CLOSE = RuleImage(
+		name="friend_level_up_close",
 		roi=(1161, 97, 32, 34),
 		area=(1115, 49, 92, 92),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 退出好友 
 	I_FRIENDS_EXIT = RuleImage(
+		name="friends_exit",
 		roi=(1163, 98, 32, 34),
 		area=(1147, 82, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
@@ -65,96 +73,112 @@ class DailyRoutineAssets:
 	# Image Rule Assets
 	# 商店礼包屋入口 
 	I_STORE_PACK = RuleImage(
+		name="store_pack",
 		roi=(1140, 647, 62, 38),
 		area=(1109, 628, 124, 76),
 		file="./tasks/daily_routine/res/store/store_pack.png"
 	)
 	# 日常灯笼 
 	I_DAILY_LANTERN = RuleImage(
+		name="daily_lantern",
 		roi=(1195, 286, 27, 62),
 		area=(1160, 70, 110, 530),
 		file="./tasks/daily_routine/res/store/daily_lantern.png"
 	)
 	# 商店每日签到奖励 
 	I_DAILY_REWARD = RuleImage(
+		name="daily_reward",
 		roi=(197, 206, 110, 75),
 		area=(159, 140, 860, 460),
 		file="./tasks/daily_routine/res/store/daily_reward.png"
 	)
 	# 商店礼包屋退出 
 	I_STORE_EXIT = RuleImage(
+		name="store_exit",
 		roi=(16, 7, 44, 40),
 		area=(0, 0, 88, 80),
 		file="./tasks/daily_routine/res/store/store_exit.png"
 	)
 	# 签到 
 	I_SIGN = RuleImage(
+		name="sign",
 		roi=(253, 509, 24, 20),
 		area=(243, 499, 44, 40),
 		file="./tasks/daily_routine/res/sign.png"
 	)
 	# 每日一签 
 	I_DAILY_SIGN = RuleImage(
+		name="daily_sign",
 		roi=(597, 165, 87, 194),
 		area=(553, 121, 175, 282),
 		file="./tasks/daily_routine/res/daily_sign.png"
 	)
 	# 签到页面纸人 
 	I_SIGN_DOLL = RuleImage(
+		name="sign_doll",
 		roi=(843, 538, 39, 120),
 		area=(823, 518, 79, 160),
 		file="./tasks/daily_routine/res/sign_doll.png"
 	)
 	# 关闭每日签到 
 	I_CLOSE_DAILY_SIGN = RuleImage(
+		name="close_daily_sign",
 		roi=(855, 91, 32, 34),
 		area=(839, 75, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 每日勾玉领取 
 	I_DAILY_JADE = RuleImage(
+		name="daily_jade",
 		roi=(734, 482, 31, 34),
 		area=(718, 466, 63, 66),
 		file="./tasks/daily_routine/res/daily_jade.png"
 	)
 	# 每日寿司 
 	I_DAILY_AP = RuleImage(
+		name="daily_ap",
 		roi=(737, 489, 26, 28),
 		area=(724, 476, 52, 54),
 		file="./tasks/daily_routine/res/daily_ap.png"
 	)
 	# 寮礼包 
 	I_GUILD_PACK = RuleImage(
+		name="guild_pack",
 		roi=(246, 502, 34, 34),
 		area=(229, 485, 68, 68),
 		file="./tasks/daily_routine/res/guild_pack.png"
 	)
 	# 花合战 
 	I_HUAHE = RuleImage(
+		name="huahe",
 		roi=(782, 614, 46, 44),
 		area=(760, 592, 90, 88),
 		file="./tasks/daily_routine/res/huahe.png"
 	)
 	# 全部领取花合战 
 	I_GET_ALL_HUAHE = RuleImage(
+		name="get_all_huahe",
 		roi=(912, 604, 57, 55),
 		area=(884, 576, 113, 111),
 		file="./tasks/daily_routine/res/get_all_huahe.png"
 	)
 	# 每日御魂觉醒加成包 
 	I_DAILY_BUFF = RuleImage(
+		name="daily_buff",
 		roi=(251, 502, 27, 33),
 		area=(237, 488, 55, 61),
 		file="./tasks/daily_routine/res/daily_buff.png"
 	)
 	# 商店礼包推荐 
 	I_SHOP_PACK = RuleImage(
+		name="shop_pack",
 		roi=(252, 497, 32, 39),
 		area=(250, 500, 60, 70),
 		file="./tasks/daily_routine/res/shop_pack.png"
 	)
 	# 关闭商店礼包推荐 
 	I_SHOP_PACK_CLOSE = RuleImage(
+		name="shop_pack_close",
 		roi=(1048, 132, 32, 34),
 		area=(1032, 116, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
@@ -163,42 +187,49 @@ class DailyRoutineAssets:
 	# Image Rule Assets
 	# 邮件 
 	I_MAIL = RuleImage(
+		name="mail",
 		roi=(248, 506, 40, 20),
 		area=(238, 496, 60, 40),
 		file="./tasks/daily_routine/res/mail/mail.png"
 	)
 	# 邮件入口 
 	I_MAIL_ENT = RuleImage(
+		name="mail_ent",
 		roi=(1135, 32, 39, 27),
 		area=(1121, 18, 67, 55),
 		file="./tasks/daily_routine/res/mail/mail_ent.png"
 	)
 	# 未读邮件 
 	I_UNREAD_MAIL = RuleImage(
+		name="unread_mail",
 		roi=(166, 132, 49, 40),
 		area=(112, 77, 156, 588),
 		file="./tasks/daily_routine/res/mail/unread_mail.png"
 	)
 	# 邮件标题 
 	I_MAIL_HEADER = RuleImage(
+		name="mail_header",
 		roi=(582, 49, 113, 36),
 		area=(564, 31, 149, 72),
 		file="./tasks/daily_routine/res/mail/mail_header.png"
 	)
 	# 全部领取邮件 
 	I_GET_ALL_MAIL = RuleImage(
+		name="get_all_mail",
 		roi=(89, 617, 64, 56),
 		area=(61, 589, 120, 112),
 		file="./tasks/daily_routine/res/mail/get_all_mail.png"
 	)
 	# 全部领取确定 
 	I_MAIL_CONFIRM = RuleImage(
+		name="mail_confirm",
 		roi=(685, 545, 172, 57),
 		area=(657, 517, 228, 113),
 		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 退出邮件窗口 
 	I_MAIL_EXIT = RuleImage(
+		name="mail_exit",
 		roi=(1161, 97, 32, 34),
 		area=(1145, 81, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"

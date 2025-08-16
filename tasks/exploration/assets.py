@@ -31,222 +31,259 @@ class ExplorationAssets:
 	# Image Rule Assets
 	# 第二十八章 
 	I_EXP_CHAP_28 = RuleImage(
+		name="exp_chap_28",
 		roi=(1083, 493, 135, 32),
 		area=(1080, 195, 176, 400),
 		file="./tasks/exploration/res/exp_chap_28.png"
 	)
 	# 探索困难模式按钮(已选) 
 	I_EXP_HARD_BUTTON_CHECKED = RuleImage(
+		name="exp_hard_button_checked",
 		roi=(417, 198, 101, 61),
 		area=(366, 168, 202, 122),
 		file="./tasks/exploration/res/exp_hard_button_checked.png"
 	)
 	# 探索困难模式按钮(未选) 
 	I_EXP_HARD_BUTTON_UNCHECKED = RuleImage(
+		name="exp_hard_button_unchecked",
 		roi=(433, 205, 74, 46),
 		area=(396, 182, 148, 92),
 		file="./tasks/exploration/res/exp_hard_button_unchecked.png"
 	)
 	# 取消章节探索 
 	I_EXP_CHAPTER_DISMISS_ICON = RuleImage(
+		name="exp_chapter_dismiss_icon",
 		roi=(1024, 129, 45, 45),
 		area=(1002, 106, 90, 90),
 		file="./tasks/exploration/res/exp_chapter_dismiss_icon.png"
 	)
 	# 自动轮换开启 
 	I_AUTO_ROTATE_ON = RuleImage(
+		name="auto_rotate_on",
 		roi=(104, 649, 153, 44),
 		area=(28, 627, 306, 88),
 		file="./tasks/exploration/res/auto_rotate_on.png"
 	)
 	# 自动轮换关闭 
 	I_AUTO_ROTATE_OFF = RuleImage(
+		name="auto_rotate_off",
 		roi=(108, 650, 150, 46),
 		area=(33, 627, 300, 92),
 		file="./tasks/exploration/res/auto_rotate_off.png"
 	)
 	# 探索队伍未锁定 
 	I_EXP_TEAM_UNLOCK = RuleImage(
+		name="exp_team_unlock",
 		roi=(898, 654, 17, 25),
 		area=(890, 642, 34, 50),
 		file="./tasks/components/battle/res/battle_team_unlock.png"
 	)
 	# 探索队伍锁定 
 	I_EXP_TEAM_LOCK = RuleImage(
+		name="exp_team_lock",
 		roi=(895, 651, 23, 30),
 		area=(884, 636, 46, 60),
 		file="./tasks/components/battle/res/battle_team_lock.png"
 	)
 	# 探索章节退出 
 	I_EXP_CHAPTER_EXIT = RuleImage(
+		name="exp_chapter_exit",
 		roi=(24, 42, 53, 44),
 		area=(2, 20, 97, 88),
 		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
 	)
 	# 探索章节退出确认 
 	I_EXP_CHAPTER_EXIT_CONFIRM = RuleImage(
+		name="exp_chapter_exit_confirm",
 		roi=(689, 376, 172, 57),
 		area=(603, 348, 344, 114),
 		file="./tasks/exploration/res/exp_chapter_exit_confirm.png"
 	)
 	# 探索章节确认 
 	I_EXP_BUTTON = RuleImage(
+		name="exp_button",
 		roi=(881, 511, 129, 56),
 		area=(816, 483, 258, 112),
 		file="./tasks/exploration/res/exp_button.png"
 	)
 	# 探索怪物挑战图标 
 	I_EXP_BATTLE = RuleImage(
+		name="exp_battle",
 		roi=(787, 270, 42, 41),
 		area=(0, 0, 1276, 719),
 		file="./tasks/exploration/res/exp_battle.png"
 	)
 	# 探索章节boss 
 	I_EXP_BOSS = RuleImage(
+		name="exp_boss",
 		roi=(615, 250, 49, 44),
 		area=(0, 0, 1276, 719),
 		file="./tasks/exploration/res/exp_boss.png"
 	)
 	# 怪物奖励突破票掉落显示区域 
 	I_EXP_REALM_RAID_TICKET = RuleImage(
+		name="exp_realm_raid_ticket",
 		roi=(414, 179, 76, 91),
 		area=(231, 153, 1000, 446),
 		file="./tasks/exploration/res/exp_realm_raid_ticket.png"
 	)
 	# 探索章节内发现物品 
 	I_EXP_CHAP_REWARD = RuleImage(
+		name="exp_chap_reward",
 		roi=(414, 505, 44, 33),
 		area=(250, 300, 750, 300),
 		file="./tasks/exploration/res/exp_chap_reward.png"
 	)
 	# 章节内小标志 
 	I_EXP_C_CHAPTER = RuleImage(
+		name="exp_c_chapter",
 		roi=(26, 555, 29, 45),
 		area=(12, 541, 57, 73),
 		file="./tasks/exploration/res/exp_c_chapter.png"
 	)
 	# 妖气封印 
 	I_EXP_YAOQI = RuleImage(
+		name="exp_yaoqi",
 		roi=(75, 260, 50, 208),
 		area=(50, 235, 100, 258),
 		file="./tasks/exploration/res/exp_yaoqi.png"
 	)
 	# 妖气封印退出 
 	I_EXP_YAOQI_CLOSE = RuleImage(
+		name="exp_yaoqi_close",
 		roi=(1121, 78, 48, 45),
 		area=(1099, 56, 92, 89),
 		file="./tasks/exploration/res/exp_yaoqi_close.png"
 	)
 	# 探索界面宝箱 
 	I_EXP_TREASURE_BOX = RuleImage(
+		name="exp_treasure_box",
 		roi=(695, 219, 71, 60),
 		area=(620, 160, 200, 200),
 		file="./tasks/exploration/res/exp_treasure_box.png"
 	)
 	# 探索设置 
 	I_BACKUP_CONFIG = RuleImage(
+		name="backup_config",
 		roi=(40, 680, 47, 36),
 		area=(22, 662, 83, 72),
 		file="./tasks/exploration/res/backup/backup_config.png"
 	)
 	# 自动轮换阵容标题 
 	I_BACKUP_PAGE_CHECK = RuleImage(
+		name="backup_page_check",
 		roi=(534, 51, 214, 36),
 		area=(516, 33, 250, 72),
 		file="./tasks/exploration/res/backup/backup_page_check.png"
 	)
 	# 一键清空 
 	I_BACKUP_CLEAR = RuleImage(
+		name="backup_clear",
 		roi=(984, 417, 79, 19),
 		area=(974, 407, 99, 39),
 		file="./tasks/exploration/res/backup/backup_clear.png"
 	)
 	# 置入候补式神 
 	I_BACKUP_PUT = RuleImage(
+		name="backup_put",
 		roi=(735, 267, 159, 25),
 		area=(723, 255, 183, 49),
 		file="./tasks/exploration/res/backup/backup_put.png"
 	)
 	# 候补式神框聚焦 
 	I_BACKUP_FOCUS = RuleImage(
+		name="backup_focus",
 		roi=(478, 160, 21, 20),
 		area=(468, 150, 41, 40),
 		file="./tasks/exploration/res/backup/backup_focus.png"
 	)
 	# 候补式神确定 
 	I_BACKUP_CONFIRM = RuleImage(
+		name="backup_confirm",
 		roi=(1123, 409, 64, 55),
 		area=(1095, 381, 120, 111),
 		file="./tasks/exploration/res/backup/backup_confirm.png"
 	)
 	# 白蛋 
 	I_M_WHITE = RuleImage(
+		name="m_white",
 		roi=(241, 546, 78, 55),
 		area=(170, 500, 900, 150),
 		file="./tasks/exploration/res/backup/m_white.png"
 	)
 	# 红蛋 
 	I_M_RED = RuleImage(
+		name="m_red",
 		roi=(647, 542, 76, 52),
 		area=(170, 500, 900, 150),
 		file="./tasks/exploration/res/backup/m_red.png"
 	)
 	# 蓝蛋 
 	I_M_BLUE = RuleImage(
+		name="m_blue",
 		roi=(195, 529, 56, 43),
 		area=(170, 500, 900, 150),
 		file="./tasks/exploration/res/backup/m_blue.png"
 	)
 	# 全部式神 
 	I_SHIKI_ALL = RuleImage(
+		name="shiki_all",
 		roi=(34, 637, 58, 32),
 		area=(18, 621, 90, 64),
 		file="./tasks/exploration/res/backup/shiki_all.png"
 	)
 	# 素材（式神菜单打开） 
 	I_SHIKI_MATERIAL = RuleImage(
+		name="shiki_material",
 		roi=(42, 297, 51, 29),
 		area=(28, 283, 79, 57),
 		file="./tasks/exploration/res/backup/shiki_material.png"
 	)
 	# 素材（选择后） 
 	I_SHIKI_MATERIAL_SELECTED = RuleImage(
+		name="shiki_material_selected",
 		roi=(41, 634, 51, 29),
 		area=(27, 620, 79, 57),
 		file="./tasks/exploration/res/backup/shiki_material.png"
 	)
 	# 式神录入口 
 	I_SHIKI_BOOK_ENT = RuleImage(
+		name="shiki_book_ent",
 		roi=(788, 645, 47, 41),
 		area=(768, 625, 87, 81),
 		file="./tasks/exploration/res/soul/shiki_book.png"
 	)
 	# 贪吃鬼 
 	I_SOUL_GREED = RuleImage(
+		name="soul_greed",
 		roi=(1160, 617, 56, 48),
 		area=(1136, 593, 104, 96),
 		file="./tasks/exploration/res/soul/soul_greed.png"
 	)
 	# 贪吃鬼小屋 
 	I_SOUL_GREED_CHECK = RuleImage(
+		name="soul_greed_check",
 		roi=(326, 263, 92, 65),
 		area=(294, 231, 156, 129),
 		file="./tasks/exploration/res/soul/soul_greed_check.png"
 	)
 	# 立刻进食 
 	I_SOUL_GREED_EAT = RuleImage(
+		name="soul_greed_eat",
 		roi=(933, 601, 72, 58),
 		area=(904, 572, 130, 116),
 		file="./tasks/exploration/res/soul/soul_greed_eat.png"
 	)
 	# 确定进食 
 	I_SOUL_GREED_EAT_CONFIRM = RuleImage(
+		name="soul_greed_eat_confirm",
 		roi=(672, 403, 172, 57),
 		area=(644, 375, 228, 113),
 		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 关闭贪吃鬼小屋 
 	I_SOUL_GREED_CLOSE = RuleImage(
+		name="soul_greed_close",
 		roi=(936, 216, 29, 30),
 		area=(922, 202, 57, 58),
 		file="./tasks/exploration/res/soul/soul_greed_close.png"

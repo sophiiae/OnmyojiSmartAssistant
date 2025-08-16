@@ -25,198 +25,231 @@ class DuelAssets:
 	# Image Rule Assets
 	# 斗技入口 
 	I_DUEL_ENT = RuleImage(
+		name="duel_ent",
 		roi=(125, 303, 48, 44),
 		area=(20, 281, 800, 88),
 		file="./tasks/duel/res/duel_ent.png"
 	)
 	# 町中武馆斗技 
 	I_DOJO_TO_DUEL = RuleImage(
+		name="dojo_to_duel",
 		roi=(720, 254, 24, 53),
 		area=(708, 242, 48, 77),
 		file="./tasks/components/page/res/check/c_dojo.png"
 	)
 	# 斗技比赛 
 	I_DUEL_CONTEST_CHECK = RuleImage(
+		name="duel_contest_check",
 		roi=(95, 5, 144, 45),
 		area=(73, 0, 188, 89),
 		file="./tasks/duel/res/duel_contest_check.png"
 	)
 	# 斗技比赛对战 
 	I_DUEL_CONTEST_FIGHT = RuleImage(
+		name="duel_contest_fight",
 		roi=(1161, 589, 88, 93),
 		area=(1117, 545, 176, 181),
 		file="./tasks/duel/res/duel_contest_fight.png"
 	)
 	# 战斗黄色 
 	I_DUEL_FIGHT = RuleImage(
+		name="duel_fight",
 		roi=(1146, 575, 101, 87),
 		area=(1102, 531, 189, 175),
 		file="./tasks/duel/res/duel_fight.png"
 	)
 	# 战斗蓝色 
 	I_DUEL_FIGHT_BLUE = RuleImage(
+		name="duel_fight_blue",
 		roi=(1156, 571, 75, 72),
 		area=(1120, 535, 147, 144),
 		file="./tasks/duel/res/duel_fight_blue.png"
 	)
 	#  
 	I_DUEL_CHECK = RuleImage(
+		name="duel_check",
 		roi=(97, 5, 142, 45),
 		area=(75, 0, 186, 89),
 		file="./tasks/duel/res/duel_check.png"
 	)
 	# 日常界面 
 	I_DUEL_DAILY = RuleImage(
+		name="duel_daily",
 		roi=(531, 56, 214, 56),
 		area=(503, 28, 270, 112),
 		file="./tasks/duel/res/duel_daily.png"
 	)
 	# 日常界面斗技图标 
 	I_DUEL_LOGO = RuleImage(
+		name="duel_logo",
 		roi=(700, 163, 59, 56),
 		area=(210, 120, 870, 500),
 		file="./tasks/duel/res/duel_logo.png"
 	)
 	# 斗技标题图标 
 	I_DUEL_HEADER = RuleImage(
+		name="duel_header",
 		roi=(470, 167, 107, 102),
 		area=(419, 116, 209, 204),
 		file="./tasks/duel/res/duel_header.png"
 	)
 	# 前往 
 	I_DUEL_GOTO = RuleImage(
+		name="duel_goto",
 		roi=(571, 484, 131, 65),
 		area=(539, 452, 195, 129),
 		file="./tasks/duel/res/duel_goto.png"
 	)
 	# 斗技准备 
 	I_DUEL_READY = RuleImage(
+		name="duel_ready",
 		roi=(1135, 565, 87, 46),
 		area=(1112, 542, 133, 92),
 		file="./tasks/components/battle/res/battle_ready.png"
 	)
 	# 斗技胜利 
 	I_DUEL_WIN = RuleImage(
+		name="duel_win",
 		roi=(411, 54, 172, 129),
 		area=(347, 0, 300, 257),
 		file="./tasks/components/battle/res/battle_win.png"
 	)
 	# 段位上升 
 	I_DUEL_UPGRADE = RuleImage(
+		name="duel_upgrade",
 		roi=(323, 291, 136, 65),
 		area=(291, 259, 200, 129),
 		file="./tasks/duel/res/duel_upgrade.png"
 	)
 	# 自动上阵 
 	I_DUEL_AUTO_TEAM = RuleImage(
+		name="duel_auto_team",
 		roi=(39, 132, 45, 54),
 		area=(17, 110, 89, 98),
 		file="./tasks/duel/res/duel_auto_team.png"
 	)
 	# 战斗失败 
 	I_DUEL_BATTLE_FAILED = RuleImage(
+		name="duel_battle_failed",
 		roi=(409, 68, 125, 100),
 		area=(359, 18, 225, 200),
 		file="./tasks/components/battle/res/battle_failed.png"
 	)
 	# 上阵战图标 
 	I_DUEL_TEAM_PREP_CHECK = RuleImage(
+		name="duel_team_prep_check",
 		roi=(611, 40, 58, 55),
 		area=(583, 12, 114, 111),
 		file="./tasks/duel/res/duel_team_prep_check.png"
 	)
 	# 名士徽章 
 	I_DUEL_NOTABLE_BADGE = RuleImage(
+		name="duel_notable_badge",
 		roi=(668, 535, 23, 20),
 		area=(658, 525, 43, 40),
 		file="./tasks/duel/res/duel_notable_badge.png"
 	)
 	# 普通花朵徽章 
 	I_DUEL_FLOWER_BADGE = RuleImage(
+		name="duel_flower_badge",
 		roi=(665, 507, 38, 36),
 		area=(647, 489, 74, 72),
 		file="./tasks/duel/res/duel_flower_badge.png"
 	)
 	# 晋升名士 
 	I_DUEL_NOTABLE_NOTIFICATION = RuleImage(
+		name="duel_notable_notification",
 		roi=(504, 399, 286, 70),
 		area=(469, 364, 356, 140),
 		file="./tasks/duel/res/duel_notable_notification.png"
 	)
 	# 阴阳术页面 
 	I_C_ONMYODO = RuleImage(
+		name="c_onmyodo",
 		roi=(102, 9, 96, 34),
 		area=(85, 0, 130, 68),
 		file="./tasks/duel/res/c_onmyodo.png"
 	)
 	# 交换阴阳师 
 	I_CHANGE_ONMYOJI = RuleImage(
+		name="change_onmyoji",
 		roi=(38, 387, 41, 31),
 		area=(22, 371, 73, 63),
 		file="./tasks/duel/res/change_onmyoji.png"
 	)
 	# 阴阳师交换页面 
 	I_C_CHANGE_PAGE = RuleImage(
+		name="c_change_page",
 		roi=(92, 13, 177, 38),
 		area=(73, 0, 215, 76),
 		file="./tasks/duel/res/c_change_page.png"
 	)
 	# 阴阳师选中 
 	I_ONMYOJI_SELECTED = RuleImage(
+		name="onmyoji_selected",
 		roi=(57, 631, 105, 39),
 		area=(37, 611, 145, 79),
 		file="./tasks/duel/res/onmyoji_selected.png"
 	)
 	# 英杰选中 
 	I_HERO_SELECTED = RuleImage(
+		name="hero_selected",
 		roi=(72, 630, 71, 38),
 		area=(53, 611, 109, 76),
 		file="./tasks/duel/res/hero_selected.png"
 	)
 	# 退出阴阳术 
 	I_EXIT_ONMYODO = RuleImage(
+		name="exit_onmyodo",
 		roi=(22, 7, 42, 41),
 		area=(2, 0, 82, 81),
 		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle.png"
 	)
 	# 阴阳术入口 
 	I_MAIN_ONMYODO_ENT = RuleImage(
+		name="main_onmyodo_ent",
 		roi=(998, 618, 38, 35),
 		area=(980, 600, 74, 71),
 		file="./tasks/duel/res/main_onmyodo_ent.png"
 	)
 	# 退出更换阴阳师页面 
 	I_EXIT_CHANGE_PAGE = RuleImage(
+		name="exit_change_page",
 		roi=(11, 13, 53, 44),
 		area=(0, 0, 97, 88),
 		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
 	)
 	# 日程标志 
 	I_SCHEDULE_ICON = RuleImage(
+		name="schedule_icon",
 		roi=(181, 113, 23, 63),
 		area=(169, 101, 47, 87),
 		file="./tasks/duel/res/schedule_icon.png"
 	)
 	# 关闭日程按钮 
 	I_SCHEDULE_CLOSE_X = RuleImage(
+		name="schedule_close_x",
 		roi=(1127, 73, 32, 34),
 		area=(1111, 57, 64, 66),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 名士禁选 
 	I_DUEL_BAN = RuleImage(
+		name="duel_ban",
 		roi=(1118, 559, 97, 52),
 		area=(1092, 533, 149, 104),
 		file="./tasks/duel/res/duel_ban.png"
 	)
 	# 确定 
 	I_DUEL_BATTLE_ENSURE = RuleImage(
+		name="duel_battle_ensure",
 		roi=(1117, 560, 97, 49),
 		area=(1093, 536, 145, 97),
 		file="./tasks/duel/res/duel_battle_ensure.png"
 	)
 	# 拔得头筹分享页面 
 	I_DUEL_BATTLE_SHARE = RuleImage(
+		name="duel_battle_share",
 		roi=(1159, 614, 62, 37),
 		area=(1141, 596, 98, 73),
 		file="./tasks/duel/res/duel_battle_share.png"

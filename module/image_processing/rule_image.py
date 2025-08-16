@@ -8,7 +8,7 @@ from typing import Optional
 from module.base.logger import logger
 
 class RuleImage:
-    def __init__(self, roi: tuple, area: tuple, file: str) -> None:
+    def __init__(self, name: str, roi: tuple, area: tuple, file: str) -> None:
         """
         初始化
         :param roi: roi
@@ -19,17 +19,10 @@ class RuleImage:
         self._match_init = False  # 这个是给后面的 等待图片稳定
         self._image: Optional[np.ndarray] = None  # 这个是匹配的目标
 
+        self.name = name.upper()
         self.roi: list = list(roi)
         self.area = area
         self.file = file
-
-    @cached_property
-    def name(self) -> str:
-        """
-
-        :return:
-        """
-        return Path(self.file).stem.upper()
 
     def crop(self, screenshot) -> np.ndarray:
         """
@@ -95,8 +88,8 @@ class RuleImage:
         """
         获取目标大小
         """
-        tl_x, tl_y, br_x, br_y = self.roi
-        return {'w': br_x - tl_x, 'h': br_y - tl_y}
+        x, y, w, h = self.roi
+        return {'w': w, 'h': h}
 
     def match_target(self, screenshot, threshold=0.9, debug=False, cropped=False) -> bool:
         if not cropped:

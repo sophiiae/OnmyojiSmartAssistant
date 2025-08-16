@@ -10,72 +10,84 @@ class BuffAssets:
 	# Image Rule Assets
 	# 庭院左上角的加成灯笼 
 	I_BUFF_OPEN = RuleImage(
+		name="buff_open",
 		roi=(363, 32, 32, 46),
 		area=(347, 16, 64, 78),
 		file="./tasks/components/buff/res/buff_open.png"
 	)
 	# 探索界面加成灯笼 
 	I_EXP_BUFF_OPEN = RuleImage(
+		name="exp_buff_open",
 		roi=(427, 23, 29, 44),
 		area=(413, 9, 57, 72),
 		file="./tasks/components/buff/res/exp_buff_open.png"
 	)
 	# 鬼兵演武界面加成灯笼 
 	I_MINAMOTO_BUFF_OPEN = RuleImage(
+		name="minamoto_buff_open",
 		roi=(809, 35, 29, 42),
 		area=(795, 21, 57, 70),
 		file="./tasks/components/buff/res/minamoto_buff_open.png"
 	)
 	# 加成窗口下面的云，用来检测和关闭 
 	I_BUFF_CLOUD = RuleImage(
+		name="buff_cloud",
 		roi=(386, 515, 122, 24),
 		area=(374, 503, 146, 48),
 		file="./tasks/components/buff/res/buff_cloud.png"
 	)
 	# 觉醒加成 
 	I_BUFF_AWAKE = RuleImage(
+		name="buff_awake",
 		roi=(377, 132, 47, 46),
 		area=(354, 107, 93, 447),
 		file="./tasks/components/buff/res/buff_awake.png"
 	)
 	# 御魂加成 
 	I_BUFF_SOUL = RuleImage(
+		name="buff_soul",
 		roi=(378, 198, 45, 46),
 		area=(356, 120, 89, 388),
 		file="./tasks/components/buff/res/buff_soul.png"
 	)
 	# 金币50%加成 
 	I_BUFF_GOLD_50 = RuleImage(
+		name="buff_gold_50",
 		roi=(374, 269, 52, 36),
 		area=(356, 120, 88, 391),
 		file="./tasks/components/buff/res/buff_gold_50.png"
 	)
 	# 金币100%加成 
 	I_BUFF_GOLD_100 = RuleImage(
+		name="buff_gold_100",
 		roi=(379, 338, 43, 39),
 		area=(359, 121, 83, 407),
 		file="./tasks/components/buff/res/buff_gold_100.png"
 	)
 	# 经验50%加成 
 	I_BUFF_EXP_50 = RuleImage(
+		name="buff_exp_50",
 		roi=(380, 406, 44, 43),
 		area=(358, 121, 88, 393),
 		file="./tasks/components/buff/res/buff_exp_50.png"
 	)
 	# 经验100%加成 
 	I_BUFF_EXP_100 = RuleImage(
+		name="buff_exp_100",
 		roi=(384, 303, 30, 40),
 		area=(368, 126, 60, 386),
 		file="./tasks/components/buff/res/buff_exp_100.png"
 	)
 	# description 
 	I_BUFF_OPEN_YELLOW = RuleImage(
+		name="buff_open_yellow",
 		roi=(772,347,21,21),
 		area=(766,133,35,366),
 		file="./tasks/components/buff/res/buff_open_yellow.png"
 	)
 	# description 
 	I_BUFF_CLOSE_RED = RuleImage(
+		name="buff_close_red",
 		roi=(772,347,21,21),
 		area=(766,133,35,366),
 		file="./tasks/components/buff/res/buff_close_red.png"

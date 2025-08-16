@@ -10,72 +10,84 @@ class WidgetsAssets:
 	# Image Rule Assets
 	# 红色X 
 	I_B_RED_X = RuleImage(
+		name="b_red_x",
 		roi=(1194, 27, 32, 34),
 		area=(500, 10, 700, 700),
 		file="./tasks/components/widgets/res/buttons/b_red_x.png"
 	)
 	# 蓝色<退出 
 	I_B_BLUE_LEFT_ANGLE = RuleImage(
+		name="b_blue_left_angle",
 		roi=(24, 36, 53, 44),
 		area=(0, 0, 300, 200),
 		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
 	)
 	# 黄色<退出 
 	I_B_YELLOW_LEFT_ANGLE = RuleImage(
+		name="b_yellow_left_angle",
 		roi=(34, 9, 42, 41),
 		area=(0, 0, 300, 300),
 		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle.png"
 	)
 	# 黄色<退出 2 
 	I_B_YELLOW_LEFT_ANGLE_2 = RuleImage(
+		name="b_yellow_left_angle_2",
 		roi=(27, 9, 29, 36),
 		area=(13, 0, 57, 64),
 		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle_2.png"
 	)
 	# 确定 
 	I_B_CONFIRM_WIDE = RuleImage(
+		name="b_confirm_wide",
 		roi=(672, 403, 172, 57),
 		area=(586, 374, 344, 114),
 		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 确认 
 	I_B_CONFIRM_NARROW = RuleImage(
+		name="b_confirm_narrow",
 		roi=(679, 396, 124, 52),
 		area=(653, 370, 176, 104),
 		file="./tasks/components/widgets/res/buttons/b_confirm_narrow.png"
 	)
 	# 获得奖励栏标 
 	I_GAIN_REWARD = RuleImage(
+		name="gain_reward",
 		roi=(476, 233, 329, 42),
 		area=(312, 212, 658, 84),
 		file="./tasks/components/widgets/res/signs/gain_reward.png"
 	)
 	# 战斗/突破/宝箱奖励领取图标 
 	I_REWARD = RuleImage(
+		name="reward",
 		roi=(565, 444, 137, 165),
 		area=(497, 376, 273, 301),
 		file="./tasks/components/widgets/res/signs/reward.png"
 	)
 	# 菜单绘卷关闭 
 	I_SCROLL_CLOSE = RuleImage(
+		name="scroll_close",
 		roi=(1179, 637, 36, 27),
 		area=(1161, 624, 72, 54),
 		file="./tasks/components/widgets/res/scroll_close.png"
 	)
 	# 菜单绘卷开启 
 	I_SCROLL_OPEN = RuleImage(
+		name="scroll_open",
 		roi=(1207, 609, 33, 83),
 		area=(1190, 568, 66, 166),
 		file="./tasks/components/widgets/res/scroll_open.png"
 	)
 	# 主页式神录入口 
 	I_MAIN_SHIKI_BOOK_ENT = RuleImage(
+		name="main_shiki_book_ent",
 		roi=(1095, 617, 66, 28),
 		area=(1081, 603, 94, 56),
 		file="./tasks/components/widgets/res/main_shiki_book_ent.png"
 	)
 	# 曜 
 	I_DAY_CHARACTER = RuleImage(
+		name="day_character",
 		roi=(224, 427, 27, 28),
 		area=(210, 413, 55, 56),
 		file="./tasks/components/widgets/res/day_character.png"

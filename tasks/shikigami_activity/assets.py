@@ -19,114 +19,133 @@ class ShikigamiActivityAssets:
 	# Image Rule Assets
 	# 庭院活动入口 
 	I_SA_ENT = RuleImage(
+		name="sa_ent",
 		roi=(452, 209, 34, 29),
 		area=(438, 195, 62, 57),
 		file="./tasks/shikigami_activity/res/sa_ent.png"
 	)
 	# 活动页面确认 
 	I_SA_CHECK = RuleImage(
+		name="sa_check",
 		roi=(93, 19, 123, 34),
 		area=(76, 2, 157, 68),
 		file="./tasks/shikigami_activity/res/sa_check.png"
 	)
 	# 爬塔入口 
 	I_SA_FIGHT_ENT = RuleImage(
+		name="sa_fight_ent",
 		roi=(749, 328, 28, 125),
 		area=(735, 314, 56, 153),
 		file="./tasks/shikigami_activity/res/sa_fight_ent.png"
 	)
 	# 战斗 
 	I_SA_FIGHT = RuleImage(
+		name="sa_fight",
 		roi=(1133, 599, 95, 50),
 		area=(1108, 574, 145, 100),
 		file="./tasks/shikigami_activity/res/sa_fight.png"
 	)
 	# 爬塔页面确认 
 	I_SA_FIGHT_CHECK = RuleImage(
+		name="sa_fight_check",
 		roi=(90, 21, 127, 33),
 		area=(74, 5, 159, 65),
 		file="./tasks/shikigami_activity/res/sa_fight_check.png"
 	)
 	# 爬塔商店弹窗 
 	I_SA_SHOP = RuleImage(
+		name="sa_shop",
 		roi=(336, 58, 133, 85),
 		area=(294, 16, 217, 169),
 		file="./tasks/shikigami_activity/res/sa_shop.png"
 	)
 	# 使用体力 
 	I_SA_EP = RuleImage(
+		name="sa_ep",
 		roi=(1127, 505, 34, 29),
 		area=(1113, 491, 62, 57),
 		file="./tasks/shikigami_activity/res/sa_ep.png"
 	)
 	# 使用爬塔门票 
 	I_SA_TICKET = RuleImage(
+		name="sa_ticket",
 		roi=(1126, 509, 35, 23),
 		area=(1114, 497, 59, 47),
 		file="./tasks/shikigami_activity/res/sa_ticket.png"
 	)
 	# 体力门票转换 
 	I_SA_SWITCH = RuleImage(
+		name="sa_switch",
 		roi=(1223, 508, 28, 27),
 		area=(1209, 494, 56, 55),
 		file="./tasks/shikigami_activity/res/sa_switch.png"
 	)
 	# 队伍不锁定 
 	I_SA_TEAM_UNLOCK = RuleImage(
+		name="sa_team_unlock",
 		roi=(806, 650, 17, 24),
 		area=(798, 642, 33, 40),
 		file="./tasks/shikigami_activity/res/sa_team_unlock.png"
 	)
 	# 队伍锁定 
 	I_SA_TEAM_LOCK = RuleImage(
+		name="sa_team_lock",
 		roi=(805, 649, 18, 26),
 		area=(796, 640, 36, 44),
 		file="./tasks/shikigami_activity/res/sa_team_lock.png"
 	)
 	# 退出 
 	I_SA_EXIT = RuleImage(
+		name="sa_exit",
 		roi=(20, 16, 42, 41),
 		area=(0, 0, 82, 81),
 		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle.png"
 	)
 	# 没票了 
 	I_SA_NO_TICKETS = RuleImage(
+		name="sa_no_tickets",
 		roi=(675, 27, 135, 26),
 		area=(662, 14, 161, 52),
 		file="./tasks/shikigami_activity/res/sa_no_tickets.png"
 	)
 	# 胜利 
 	I_SA_BATTLE_WIN = RuleImage(
+		name="sa_battle_win",
 		roi=(411, 122, 172, 129),
 		area=(347, 58, 300, 257),
 		file="./tasks/components/battle/res/battle_win.png"
 	)
 	# 召唤鬼王 
 	I_SA_SUMMON = RuleImage(
+		name="sa_summon",
 		roi=(1136, 580, 90, 89),
 		area=(1092, 536, 178, 177),
 		file="./tasks/shikigami_activity/res/sa_summon.png"
 	)
 	# 鬼王挑战 
 	I_SA_SUMMON_FIGHT = RuleImage(
+		name="sa_summon_fight",
 		roi=(1128, 595, 107, 62),
 		area=(1097, 564, 169, 124),
 		file="./tasks/shikigami_activity/res/sa_summon_fight.png"
 	)
 	# 鬼王挑战准备 
 	I_SA_BATTLE_READY = RuleImage(
+		name="sa_battle_ready",
 		roi=(1135, 565, 87, 46),
 		area=(1112, 542, 133, 92),
 		file="./tasks/components/battle/res/battle_ready.png"
 	)
 	# 战斗确认 
 	I_SA_BATTLE_CHECK = RuleImage(
+		name="sa_battle_check",
 		roi=(659, 687, 25, 33),
 		area=(647, 675, 49, 57),
 		file="./tasks/shikigami_activity/res/sa_battle_check.png"
 	)
 	# 活动币 
 	I_SA_COIN = RuleImage(
+		name="sa_coin",
 		roi=(430, 211, 39, 37),
 		area=(240, 140, 840, 160),
 		file="./tasks/shikigami_activity/res/sa_coin.png"

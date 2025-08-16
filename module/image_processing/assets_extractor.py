@@ -65,6 +65,7 @@ class ImageExtractor:
 
         description: str = f'\t# {item["description"]} \n'
         name: str = f'\tI_{name_transform(item["name"])} = RuleImage(\n' \
+            f'\t\tname="{item["name"]}",\n' \
             f'\t\troi=({item["roi"]}),\n' \
             f'\t\tarea=({item["area"]}),\n' \
             f'\t\tfile="{item["file"]}"\n\t)\n'

@@ -10,12 +10,14 @@ class GeneralAssets:
 	# Image Rule Assets
 	# 普通召唤 
 	I_REG_SUMMON = RuleImage(
+		name="reg_summon",
 		roi=(448, 605, 42, 58),
 		area=(427, 584, 84, 100),
 		file="./tasks/general/res/reg_summon.png"
 	)
 	# 再次召唤 
 	I_SUMMON_AGAIN = RuleImage(
+		name="summon_again",
 		roi=(691, 621, 168, 53),
 		area=(665, 595, 220, 105),
 		file="./tasks/general/res/summon_again.png"
