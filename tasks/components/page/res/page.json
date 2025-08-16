@@ -16,6 +16,14 @@
     "description": "适龄提示"
   },
   {
+    "name": "c_guild",
+    "type": "image",
+    "roi": "1167, 617, 77, 58",
+    "area": "1138, 588, 135, 116",
+    "file": "./tasks/components/page/res/check/c_guild.png",
+    "description": "阴阳寮"
+  },
+  {
     "name": "c_town",
     "type": "image",
     "roi": "1065, 32, 90, 98",

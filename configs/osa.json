@@ -283,5 +283,33 @@
       "green_enable": false,
       "green_mark": "第一个"
     }
+  },
+  "rifts_shadows": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2023-01-01 00:00:00",
+      "priority": 5,
+      "success_interval": "01 00:00:00",
+      "failure_interval": "01 00:00:00"
+    },
+    "rifts_shadows_config": {
+      "leader_target_score": 1400,
+      "deputy_target_score": 1500,
+      "elite_target_score": 500,
+      "target_shadow_1": "暗神龙",
+      "target_shadow_2": "暗黑豹"
+    },
+    "switch_soul_config": {
+      "enable": true,
+      "switch_group_team": "-1,-1"
+    },
+    "general_battle_config": {
+      "lock_team_enable": false,
+      "preset_enable": false,
+      "preset_group": 1,
+      "preset_team": 1,
+      "green_enable": false,
+      "green_mark": "第一个"
+    }
   }
 }

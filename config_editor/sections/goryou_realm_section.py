@@ -22,24 +22,30 @@ class GoryouRealmSection(QGroupBox):
         self.scheduler_section = SchedulerSection(self.config, self.name)
         layout.addWidget(self.scheduler_section)
 
+        # 御灵配置
+        goryou_group = QGroupBox("御灵配置")
+        goryou_layout = QVBoxLayout(goryou_group)
+
         # 御灵类型（无CheckBox，左对齐）
         self.goryou_type_combo = SelectButton()
-        self.goryou_type_combo.addItems(["随机", "白藏主", "黑豹", "孔雀", "九尾狐"])
+        self.goryou_type_combo.addItems(["随机", "暗神龙", "暗孔雀", "暗白藏主", "暗黑豹"])
         self.goryou_type_combo.setCurrentText(
             goryou_config.get("goryou_class", "暗孔雀"))
-        add_left_row(layout, [QLabel("御灵类型"), self.goryou_type_combo])
+        add_left_row(goryou_layout, [QLabel("御灵类型"), self.goryou_type_combo])
 
         # 最大次数（无CheckBox，左对齐）
         self.max_count_spin = ValueButton()
         self.max_count_spin.setRange(0, 9999)
         self.max_count_spin.setValue(goryou_config.get("count_max", 50))
-        add_left_row(layout, [QLabel("最大次数"), self.max_count_spin])
+        add_left_row(goryou_layout, [QLabel("最大次数"), self.max_count_spin])
 
         # 层数（无CheckBox，左对齐）
         self.level_combo = SelectButton()
         self.level_combo.addItems(["一层", "二层", "三层"])
         self.level_combo.setCurrentText(goryou_config.get("level", "三层"))
-        add_left_row(layout, [QLabel("层数"), self.level_combo])
+        add_left_row(goryou_layout, [QLabel("层数"), self.level_combo])
+
+        layout.addWidget(goryou_group)
 
         # 御魂切换设置
         self.switch_soul_section = SwitchSoulSection(

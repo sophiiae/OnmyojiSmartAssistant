@@ -12,7 +12,7 @@ class PageMap():
             page_realm_raid: [page_exp],
             page_town: [page_main, page_dojo],
             page_dojo: [page_town],
-            # page_guild: [page_main],
+            page_guild: [page_main],
             page_market: [page_main],
             page_store: [page_market],
             page_summon: [page_main],

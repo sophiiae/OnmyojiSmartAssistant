@@ -1,0 +1,37 @@
+[
+  {
+    "name": "dark_divine_dragon_shadow",
+    "type": "click",
+    "roi": "105, 175, 195, 365",
+    "area": "105, 175, 195, 365",
+    "description": "神龙暗域"
+  },
+  {
+    "name": "dark_peacock_shadow",
+    "type": "click",
+    "roi": "410, 130, 170, 355",
+    "area": "410, 130, 170, 355",
+    "description": "孔雀暗域"
+  },
+  {
+    "name": "dark_hakuzousu_shadow",
+    "type": "click",
+    "roi": "700, 155, 190, 360",
+    "area": "700, 155, 190, 360",
+    "description": "白藏主暗域"
+  },
+  {
+    "name": "dark_black_panther_shadow",
+    "type": "click",
+    "roi": "1030, 130, 170, 355",
+    "area": "1030, 130, 170, 355",
+    "description": "黑豹暗域"
+  },
+  {
+    "name": "rs_mini_map",
+    "type": "click",
+    "roi": "1070, 65, 140, 56",
+    "area": "1070, 65, 140, 56",
+    "description": "暗域小地图"
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "name": "rs_guild_ent",
+    "type": "image",
+    "roi": "34, 257, 81, 21",
+    "area": "10, 150, 190, 400",
+    "file": "./tasks/rifts_shadows/res/rs_guild_ent.png",
+    "description": "阴阳寮内狭间入口"
+  },
+  {
+    "name": "c_rifts_shadow",
+    "type": "image",
+    "roi": "101, 24, 127, 33",
+    "area": "85, 8, 159, 65",
+    "file": "./tasks/rifts_shadows/res/c_rifts_shadow.png",
+    "description": "狭间暗域主页"
+  },
+  {
+    "name": "rs_battle",
+    "type": "image",
+    "roi": "1121, 612, 73, 37",
+    "area": "1103, 594, 109, 73",
+    "file": "./tasks/rifts_shadows/res/rs_battle.png",
+    "description": "挑战"
+  },
+  {
+    "name": "rs_shiki_book_ent",
+    "type": "image",
+    "roi": "1201, 468, 46, 39",
+    "area": "1181, 448, 86, 79",
+    "file": "./tasks/rifts_shadows/res/rs_shiki_book_ent.png",
+    "description": "暗域式神录入口"
+  },
+  {
+    "name": "rs_attack",
+    "type": "image",
+    "roi": "1140, 591, 81, 74",
+    "area": "1103, 554, 155, 148",
+    "file": "./tasks/rifts_shadows/res/rs_attack.png",
+    "description": "暗域攻打标记"
+  },
+  {
+    "name": "rs_demon_leader",
+    "type": "image",
+    "roi": "1006, 87, 37, 43",
+    "area": "988, 69, 73, 79",
+    "file": "./tasks/rifts_shadows/res/rs_demon_leader.png",
+    "description": "暗域首领（大地图里）"
+  },
+  {
+    "name": "rs_demon_deputy_l",
+    "type": "image",
+    "roi": "918, 195, 35, 43",
+    "area": "900, 177, 71, 79",
+    "file": "./tasks/rifts_shadows/res/rs_demon_elite.png",
+    "description": "暗域副将左（大地图里）"
+  },
+  {
+    "name": "rs_demon_deputy_r",
+    "type": "image",
+    "roi": "1109, 195, 35, 43",
+    "area": "1091, 177, 71, 79",
+    "file": "./tasks/rifts_shadows/res/rs_demon_elite.png",
+    "description": "暗域副将右（大地图里）"
+  },
+  {
+    "name": "rs_demon_elite_l",
+    "type": "image",
+    "roi": "893, 314, 35, 43",
+    "area": "875, 296, 71, 79",
+    "file": "./tasks/rifts_shadows/res/rs_demon_elite.png",
+    "description": "暗域精英左（大地图里）"
+  },
+  {
+    "name": "rs_demon_elite_m",
+    "type": "image",
+    "roi": "1004, 314, 35, 43",
+    "area": "986, 296, 71, 79",
+    "file": "./tasks/rifts_shadows/res/rs_demon_elite.png",
+    "description": "暗域精英中（大地图里）"
+  },
+  {
+    "name": "rs_demon_elite_r",
+    "type": "image",
+    "roi": "1120, 314, 35, 43",
+    "area": "1102, 296, 71, 79",
+    "file": "./tasks/rifts_shadows/res/rs_demon_elite.png",
+    "description": "暗域精英右（大地图里）"
+  },
+  {
+    "name": "rs_c_leader",
+    "type": "image",
+    "roi": "410, 146, 27, 57",
+    "area": "396, 132, 55, 85",
+    "file": "./tasks/rifts_shadows/res/rs_c_leader.png",
+    "description": "挑战页面首领标记"
+  },
+  {
+    "name": "rs_c_deputy",
+    "type": "image",
+    "roi": "411, 147, 26, 56",
+    "area": "398, 134, 52, 82",
+    "file": "./tasks/rifts_shadows/res/rs_c_deputy.png",
+    "description": "挑战页面副将标记"
+  },
+  {
+    "name": "rs_c_elite",
+    "type": "image",
+    "roi": "410, 146, 26, 57",
+    "area": "397, 133, 52, 83",
+    "file": "./tasks/rifts_shadows/res/rs_c_elite.png",
+    "description": "挑战页面精英标记"
+  },
+  {
+    "name": "rs_battle_page_close",
+    "type": "image",
+    "roi": "1001, 95, 32, 34",
+    "area": "985, 79, 64, 66",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
+    "description": "关闭挑战页面"
+  },
+  {
+    "name": "rs_battle_ready",
+    "type": "image",
+    "roi": "1135, 565, 87, 46",
+    "area": "1112, 542, 133, 92",
+    "file": "./tasks/components/battle/res/battle_ready.png",
+    "description": "准备"
+  },
+  {
+    "name": "rs_battle_exit",
+    "type": "image",
+    "roi": "23, 20, 30, 30",
+    "area": "8, 5, 60, 60",
+    "file": "./tasks/components/widgets/res/buttons/b_return_u.png",
+    "description": "退出战斗"
+  },
+  {
+    "name": "rs_battle_exit_confirm",
+    "type": "image",
+    "roi": "679, 396, 124, 52",
+    "area": "653, 370, 176, 104",
+    "file": "./tasks/components/widgets/res/buttons/b_confirm_narrow.png",
+    "description": "退出战斗确定"
+  },
+  {
+    "name": "rs_head_for",
+    "type": "image",
+    "roi": "1125, 614, 69, 34",
+    "area": "1108, 597, 103, 68",
+    "file": "./tasks/rifts_shadows/res/rs_head_for.png",
+    "description": "前往"
+  },
+  {
+    "name": "rs_head_for_confirm",
+    "type": "image",
+    "roi": "672, 403, 172, 57",
+    "area": "644, 375, 228, 113",
+    "file": "./tasks/components/widgets/res/buttons/b_confirm_wide.png",
+    "description": "前往确认"
+  }
+]

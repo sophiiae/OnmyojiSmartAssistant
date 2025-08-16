@@ -754,3 +754,55 @@ class DemonEncounter(BaseModel):
         default_factory=GeneralBattleConfig,
         description="预设队伍配置"
     )
+
+class RiftsShadowsConfig(BaseModel):
+    leader_target_score: int = Field(
+        default=1400,
+        gt=1,
+        description="首领最低成绩（万）"
+    )
+    deputy_target_score: int = Field(
+        default=1500,
+        gt=1,
+        description="副将最低成绩（万）"
+    )
+
+    elite_target_score: int = Field(
+        default=500,
+        gt=1,
+        description="精英最低成绩（万）"
+    )
+
+    target_shadow_1: RiftsShadowsClass = Field(
+        default=RiftsShadowsClass.RANDOM,
+        description="攻打暗域1"
+    )
+
+    target_shadow_2: RiftsShadowsClass = Field(
+        default=RiftsShadowsClass.RANDOM,
+        description="攻打暗域2"
+    )
+
+class RiftsShadows(BaseModel):
+    """
+    狭间暗域配置
+    """
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="狭间暗域任务调度"
+    )
+
+    rifts_shadows_config: RiftsShadowsConfig = Field(
+        default_factory=RiftsShadowsConfig,
+        description="狭间暗域战斗配置"
+    )
+
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )
+
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )

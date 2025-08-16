@@ -35,6 +35,12 @@ class DuelSection(QGroupBox):
         self.elite_enable.setChecked(self.duel_config["elite"])
         add_left_row(duel_layout, [self.elite_enable])
 
+        # 打满荣誉积分（只有CheckBox）
+        self.full_honor_points_enable = QCheckBox("打满荣誉积分")
+        self.full_honor_points_enable.setChecked(
+            self.duel_config["full_honor_points"])
+        add_left_row(duel_layout, [self.full_honor_points_enable])
+
         # 段位（无CheckBox，左对齐）
         self.tier = SelectButton()
         self.tier.addItems(
@@ -42,23 +48,18 @@ class DuelSection(QGroupBox):
         self.tier.setCurrentText(self.duel_config["tier"])
         add_left_row(duel_layout, [QLabel("段位:"), self.tier])
 
-        # 打满荣誉积分（只有CheckBox）
-        self.full_honor_points_enable = QCheckBox("打满荣誉积分")
-        self.full_honor_points_enable.setChecked(
-            self.duel_config["full_honor_points"])
-        add_left_row(duel_layout, [self.full_honor_points_enable])
-
         # 阴阳师选择（无CheckBox，左对齐）
         self.onmyoji = SelectButton()
         self.onmyoji.addItems(["自动", "晴明", "源博雅", "神乐", "八百比丘尼", "源赖光"])
         self.onmyoji.setCurrentText(self.duel_config["onmyoji"])
         add_left_row(duel_layout, [QLabel("阴阳师:"), self.onmyoji])
 
+        layout.addWidget(duel_group)
+
         # 御魂切换设置
         self.switch_soul_section = SwitchSoulSection(
             self.config, self.name)
-        duel_layout.addWidget(self.switch_soul_section)
-        layout.addWidget(duel_group)
+        layout.addWidget(self.switch_soul_section)
 
         # 添加通用战斗配置
         self.general_battle_section = GeneralBattleSection(

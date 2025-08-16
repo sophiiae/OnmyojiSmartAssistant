@@ -27,6 +27,13 @@ class PageAssets:
 		area=(0, 539, 300, 121),
 		file="./tasks/components/page/res/check/c_login.png"
 	)
+	# 阴阳寮 
+	I_C_GUILD = RuleImage(
+		name="c_guild",
+		roi=(1167, 617, 77, 58),
+		area=(1138, 588, 135, 116),
+		file="./tasks/components/page/res/check/c_guild.png"
+	)
 	# 町中节能模式 
 	I_C_TOWN = RuleImage(
 		name="c_town",

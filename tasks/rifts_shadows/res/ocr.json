@@ -1,0 +1,10 @@
+[
+  {
+    "name": "rs_battle_score",
+    "type": "text",
+    "roi": "70, 113, 260, 43",
+    "area": "70, 113, 260, 43",
+    "keyword": "",
+    "description": "最佳成绩"
+  }
+]

@@ -1,6 +1,7 @@
 from config_editor.log_window import LogWindow
 from config_editor.script_worker import ScriptWorker
 from PyQt6.QtWidgets import QTabWidget
+from config_editor.sections.rifts_shadows_section import RiftsShadowsSection
 from config_editor.widgets.select_button import SelectButton
 from config_editor.widgets.value_button import ValueButton
 from config_editor.main import ConfigTab
@@ -119,7 +120,9 @@ class OSAEditor(ConfigTab):
             ("duel", "斗技", "duel.scheduler.enable"),
             ("bonding_fairyland", "契灵之境", "bonding_fairyland.scheduler.enable"),
             ("netherworld", "阴界之门", "netherworld.scheduler.enable"),
-            ("demon_encounter", "逢魔之时", "demon_encounter.scheduler.enable")
+            ("demon_encounter", "逢魔之时", "demon_encounter.scheduler.enable"),
+            ("rifts_shadows", "狭间暗域", "rifts_shadows.scheduler.enable")
+
         ]
 
         # 设置统一的按钮样式
@@ -216,6 +219,9 @@ class OSAEditor(ConfigTab):
         self.demon_encounter_section = DemonEncounterSection(self.config)
         scroll_layout.addWidget(self.demon_encounter_section)
 
+        self.rifts_shadows_section = RiftsShadowsSection(self.config)
+        scroll_layout.addWidget(self.rifts_shadows_section)
+
         # 为所有section添加点击事件
         self.setup_section_click_events()
 
@@ -286,7 +292,8 @@ class OSAEditor(ConfigTab):
             self.duel_section,
             self.bonding_fairyland_section,
             self.netherworld_section,
-            self.demon_encounter_section
+            self.demon_encounter_section,
+            self.rifts_shadows_section
         ]
 
         for section in sections:
@@ -609,7 +616,7 @@ class OSAEditor(ConfigTab):
         for section in [self.script_section, self.daily_routine_section, self.wanted_quests_section,
                         self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
                         self.shikigami_activity_section, self.area_boss_section, self.duel_section,
-                        self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section]:
+                        self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section, self.rifts_shadows_section]:
             for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
                 if hasattr(child, 'textChanged'):
                     child.textChanged.connect(self.on_config_changed)
@@ -643,7 +650,8 @@ class OSAEditor(ConfigTab):
                 ("duel_section", self.duel_section),
                 ("bonding_fairyland_section", self.bonding_fairyland_section),
                 ("netherworld_section", self.netherworld_section),
-                ("demon_encounter_section", self.demon_encounter_section)
+                ("demon_encounter_section", self.demon_encounter_section),
+                ("rifts_shadows_section", self.rifts_shadows_section)
             ]
 
             for section_name, section in sections:
@@ -739,7 +747,8 @@ class OSAEditor(ConfigTab):
             "duel": self.duel_section,
             "bonding_fairyland": self.bonding_fairyland_section,
             "netherworld": self.netherworld_section,
-            "demon_encounter": self.demon_encounter_section
+            "demon_encounter": self.demon_encounter_section,
+            "rifts_shadows": self.rifts_shadows_section
         }
 
         if section_id in section_map:

@@ -88,10 +88,10 @@ page_shikigami = Page(SA.I_SA_CHECK)
 page_shikigami.link(button=SA.I_SA_EXIT, destination=page_main)
 page_main.link(button=SA.I_SA_ENT, destination=page_shikigami)
 
-# # 阴阳寮
-# page_guild = Page(PA.I_C_GUILD)
-# page_guild.link(button=PA.I_V_GUILD_TO_MAIN, destination=page_main)
-# page_main.link(button=PA.I_V_MAIN_TO_GUILD, destination=page_guild)
+# 阴阳寮
+page_guild = Page(PA.I_C_GUILD)
+page_guild.link(button=PA.I_V_GUILD_TO_MAIN, destination=page_main)
+page_main.link(button=PA.I_V_MAIN_TO_GUILD, destination=page_guild)
 
 # 地域鬼王
 page_boss = Page(PA.I_C_BOSS)

@@ -63,8 +63,9 @@ class SwitchSouls(TaskBase, SS):
             3: self.I_SS_SWITCH_SOUL_BOTTOM,
         }
         if group < 1 or group > 8 or team < 1:
-            raise ValueError(
+            logger.error(
                 'Switch soul_one group must be in [1-8] and team must be greater than 0')
+            return
 
         if first_time:
             # 第一次换之前先把组往下拉，让第一组在最上面
