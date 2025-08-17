@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class ExplorationAssets: 
 
-
 	# Click Rule Assets
 	# 候补式神框上沿 
 	C_BACKUP_FRAME_TOP = RuleClick(roi=(500, 180, 620, 10), area=(500, 180, 620, 10), name="backup_frame_top")
@@ -318,7 +317,6 @@ class ExplorationAssets:
 		keyword="",
 		name="backup_count"
 	)
-
 
 	# Swipe Rule Assets
 	# 向上滑动章节 

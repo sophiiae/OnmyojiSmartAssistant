@@ -36,6 +36,9 @@ class ConfigModel(BaseModel):
     demon_encounter: DemonEncounter = Field(
         default_factory=DemonEncounter
     )
+    rifts_shadows: RiftsShadows = Field(
+        default_factory=RiftsShadows
+    )
 
     def __init__(self, config_name: str):
         data = self.read_json(config_name)

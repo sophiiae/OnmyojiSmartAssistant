@@ -1,10 +1,8 @@
-from functools import cached_property
 import time
-from module.image_processing.rule_image import RuleImage
 from tasks.components.battle.battle import Battle
 from tasks.components.page.page import page_store, page_main
 from tasks.daily_routine.assets import DailyRoutineAssets
-from module.base.exception import RequestHumanTakeover, TaskEnd
+from module.base.exception import TaskEnd
 from module.base.logger import logger
 
 """
@@ -15,10 +13,7 @@ from module.base.logger import logger
     "enable_mail": true,
     "enable_soul": true,
     "enable_ap": true
-},
-"trifles_config": {
     "one_summon": false,
-    "guild_wish": false,
     "friend_love": false,
     "store_sign": true
 }
@@ -307,74 +302,6 @@ class TaskScript(Battle, DailyRoutineAssets):
 
         self.click(self.I_FRIENDS_EXIT)
         logger.info("==>>> Got all friends points")
-
-    def switch_account(self):
-        # 进入庭院页面
-        if not self.check_page_appear(page_main):
-            self.goto(page_main)
-
-        # 进入用户界面
-        while 1:
-            self.click(self.C_AVATAR)
-
-            self.wait_and_shot()
-            if self.appear(self.I_USER_CENTER):
-                break
-
-        # 返回登录页面
-        while 1:
-            time.sleep(0.5)
-            self.screenshot()
-            if self.appear_then_click(self.I_USER_CENTER):
-                if self.wait_until_click(self.I_SWITCH_ACCOUNT, 2):
-                    continue
-
-            if self.appear_then_click(self.I_LOGIN):
-                continue
-
-            if self.appear_then_click(self.I_APPLE_LOGO):
-                break
-
-    def switch_region(self, region: RuleImage):
-        self.screenshot()
-        if not self.appear(self.I_C_LOGIN):
-            raise RequestHumanTakeover
-
-        # 进入区域选择页面
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_OWN_CHARACTERS):
-                break
-
-            if self.appear(self.I_C_LOGIN) and not self.appear(self.I_PICK_REGION):
-                self.click(self.C_REGION)
-                continue
-
-            if self.appear(self.I_PICK_REGION):
-                if self.wait_until_click(self.I_OPEN_REGIONS, 2, delay=0.5):
-                    continue
-
-        # 选区
-        while 1:
-            self.wait_and_shot()
-            if not self.appear(self.I_PICK_REGION):
-                break
-
-            if self.appear(region, 0.98):
-                self.click(region)
-                break
-            else:
-                self.swipe(self.S_REGION_TO_LEFT, duration=500)
-                time.sleep(0.5)
-
-        while 1:
-            self.wait_and_shot()
-            if self.appear(self.I_C_MAIN, 0.95):
-                logger.info("==>>> Arrive main page")
-                break
-
-            if self.appear(self.I_C_LOGIN):
-                self.click(self.C_ENTER_GAME)
 
     def quest_invite(self):
         # 进入庭院页面

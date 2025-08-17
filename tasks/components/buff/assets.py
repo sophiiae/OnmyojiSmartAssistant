@@ -123,7 +123,6 @@ class BuffAssets:
 		name="exp_100"
 	)
 
-
 	# Swipe Rule Assets
 	# description 
 	S_BUFF_UP = RuleSwipe(

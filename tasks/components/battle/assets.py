@@ -86,7 +86,6 @@ class BattleAssets:
 		file="./tasks/components/battle/res/battle_auto.png"
 	)
 
-
 	# Click Rule Assets
 	# left 
 	C_WIN_L = RuleClick(roi=(50, 100, 150, 200), area=(50, 100, 150, 200), name="win_l")

@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class DuelAssets: 
 
-
 	# Click Rule Assets
 	# 晴明 
 	C_SEIMEI = RuleClick(roi=(170, 180, 180, 320), area=(170, 180, 180, 320), name="Seimei")

@@ -93,7 +93,6 @@ class WidgetsAssets:
 		file="./tasks/components/widgets/res/day_character.png"
 	)
 
-
 	# Swipe Rule Assets
 	# 往左滑 
 	S_SWIPE_TO_LEFT = RuleSwipe(

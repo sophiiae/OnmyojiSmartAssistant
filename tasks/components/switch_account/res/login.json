@@ -1,0 +1,57 @@
+[
+  {
+    "name": "user_center",
+    "type": "image",
+    "roi": "221, 449, 59, 55",
+    "area": "193, 421, 115, 111",
+    "file": "./tasks/components/switch_account/res/user_center.png",
+    "description": "用户中心"
+  },
+  {
+    "name": "switch_account",
+    "type": "image",
+    "roi": "937, 180, 135, 58",
+    "area": "908, 151, 193, 116",
+    "file": "./tasks/components/switch_account/res/switch_account.png",
+    "description": "切换账号"
+  },
+  {
+    "name": "login",
+    "roi": "383, 413, 514, 64",
+    "area": "351, 381, 578, 128",
+    "file": "./tasks/components/switch_account/res/login.png",
+    "description": "账号登录"
+  },
+  {
+    "name": "apple_logo",
+    "type": "image",
+    "roi": "511, 371, 58, 67",
+    "area": "482, 342, 116, 125",
+    "file": "./tasks/components/switch_account/res/apple_logo.png",
+    "description": "苹果图标"
+  },
+  {
+    "name": "pick_region",
+    "type": "image",
+    "roi": "500, 77, 271, 33",
+    "area": "484, 61, 303, 65",
+    "file": "./tasks/components/switch_account/res/pick_region.png",
+    "description": "选择区域"
+  },
+  {
+    "name": "own_characters",
+    "type": "image",
+    "roi": "245, 417, 121, 29",
+    "area": "231, 403, 149, 57",
+    "file": "./tasks/components/switch_account/res/own_characters.png",
+    "description": "已有角色"
+  },
+  {
+    "name": "open_regions",
+    "type": "image",
+    "roi": "1040, 583, 20, 31",
+    "area": "1030, 573, 40, 51",
+    "file": "./tasks/components/switch_account/res/open_regions.png",
+    "description": "展开已有账号区域"
+  }
+]

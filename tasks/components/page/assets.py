@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class PageAssets: 
 
-
 	# Click Rule Assets
 	# 进入游戏 
 	C_ENTER_GAME = RuleClick(roi=(558, 576, 158, 38), area=(558, 576, 158, 38), name="enter_game")

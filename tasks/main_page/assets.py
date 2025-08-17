@@ -7,113 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class MainPageAssets: 
 
-
-	# Click Rule Assets
-	# 庭院头像 
-	C_AVATAR = RuleClick(roi=(22, 39, 73, 59), area=(22, 39, 73, 59), name="avatar")
-	# 区域按钮 
-	C_REGION = RuleClick(roi=(556, 508, 152, 34), area=(556, 508, 152, 34), name="region")
-
-	# Image Rule Assets
-	# 用户中心 
-	I_USER_CENTER = RuleImage(
-		name="user_center",
-		roi=(221, 449, 59, 55),
-		area=(193, 421, 115, 111),
-		file="./tasks/main_page/res/login/user_center.png"
-	)
-	# 切换账号 
-	I_SWITCH_ACCOUNT = RuleImage(
-		name="switch_account",
-		roi=(937, 180, 135, 58),
-		area=(908, 151, 193, 116),
-		file="./tasks/main_page/res/login/switch_account.png"
-	)
-	# 账号登录 
-	I_LOGIN = RuleImage(
-		name="login",
-		roi=(383, 413, 514, 64),
-		area=(351, 381, 578, 128),
-		file="./tasks/main_page/res/login/login.png"
-	)
-	# 苹果图标 
-	I_APPLE_LOGO = RuleImage(
-		name="apple_logo",
-		roi=(511, 371, 58, 67),
-		area=(482, 342, 116, 125),
-		file="./tasks/main_page/res/login/apple_logo.png"
-	)
-	# 选择区域 
-	I_PICK_REGION = RuleImage(
-		name="pick_region",
-		roi=(500, 77, 271, 33),
-		area=(484, 61, 303, 65),
-		file="./tasks/main_page/res/login/pick_region.png"
-	)
-	# 已有角色 
-	I_OWN_CHARACTERS = RuleImage(
-		name="own_characters",
-		roi=(245, 417, 121, 29),
-		area=(231, 403, 149, 57),
-		file="./tasks/main_page/res/login/own_characters.png"
-	)
-	# 展开已有账号区域 
-	I_OPEN_REGIONS = RuleImage(
-		name="open_regions",
-		roi=(1040, 583, 20, 31),
-		area=(1030, 573, 40, 51),
-		file="./tasks/main_page/res/login/open_regions.png"
-	)
-	# 海外加速区 
-	I_REGION_HAIWAI = RuleImage(
-		name="region_haiwai",
-		roi=(681, 492, 64, 47),
-		area=(220, 450, 830, 120),
-		file="./tasks/main_page/res/regions/region_haiwai.png"
-	)
-	# 花火之夏 
-	I_REGION_HUAHUO = RuleImage(
-		name="region_huahuo",
-		roi=(276, 491, 64, 49),
-		area=(220, 450, 830, 120),
-		file="./tasks/main_page/res/regions/region_huahuo.png"
-	)
-	# 人间千年 
-	I_REGION_RENJIAN = RuleImage(
-		name="region_renjian",
-		roi=(473, 494, 73, 45),
-		area=(220, 450, 830, 120),
-		file="./tasks/main_page/res/regions/region_renjian.png"
-	)
-	# 猫川别馆 
-	I_REGION_MAOCHUAN = RuleImage(
-		name="region_maochuan",
-		roi=(882, 492, 65, 48),
-		area=(220, 450, 830, 120),
-		file="./tasks/main_page/res/regions/region_maochuan.png"
-	)
-	# 永生之海 
-	I_REGION_YONGSHENG = RuleImage(
-		name="region_yongsheng",
-		roi=(711, 493, 71, 47),
-		area=(220, 450, 830, 120),
-		file="./tasks/main_page/res/regions/region_yongsheng.png"
-	)
-	# 神之晚宴 
-	I_REGION_SHENZHI = RuleImage(
-		name="region_shenzhi",
-		roi=(916, 492, 65, 48),
-		area=(220, 450, 830, 120),
-		file="./tasks/main_page/res/regions/region_shenzhi.png"
-	)
-	# 有龙则灵 
-	I_REGION_YOULONG = RuleImage(
-		name="region_youlong",
-		roi=(919, 488, 63, 51),
-		area=(220, 450, 830, 120),
-		file="./tasks/main_page/res/regions/region_youlong.png"
-	)
-
 	# Image Rule Assets
 	# 悬赏封印 
 	I_QUEST = RuleImage(
@@ -241,7 +134,6 @@ class MainPageAssets:
 		area=(125, 340, 1015, 88),
 		file="./tasks/main_page/res/quest/virtual_invite.png"
 	)
-
 
 	# Swipe Rule Assets
 	# 已有角色往左滑 

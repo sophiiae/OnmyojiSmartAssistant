@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class SwitchSoulsAssets: 
 
-
 	# Click Rule Assets
 	# 打开队伍预设 
 	C_SS_OPEN_PRESET = RuleClick(roi=(335, 75, 85, 40), area=(335, 75, 85, 40), name="ss_open_preset")
@@ -124,7 +123,6 @@ class SwitchSoulsAssets:
 		area=(960, 410, 53, 120),
 		file="./tasks/components/switch_souls/res/ss_switch_soul.png"
 	)
-
 
 	# Swipe Rule Assets
 	# 向上滑动队伍预设 

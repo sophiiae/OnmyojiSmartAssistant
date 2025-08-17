@@ -1,0 +1,58 @@
+[
+  {
+    "name": "r_hai_wai_jia_su_qu",
+    "type": "image",
+    "roi": "681, 492, 64, 47",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/components/switch_account/res/regions/r_hai_wai_jia_su_qu.png",
+    "description": "海外加速区"
+  },
+  {
+    "name": "r_ren_jian_qian_nian",
+    "type": "image",
+    "roi": "473, 494, 73, 45",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/components/switch_account/res/regions/r_ren_jian_qian_nian.png",
+    "description": "人间千年"
+  },
+  {
+    "name": "r_mao_chuan_bie_guan",
+    "type": "image",
+    "roi": "882, 492, 65, 48",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/components/switch_account/res/regions/r_mao_chuan_bie_guan.png",
+    "description": "猫川别馆"
+  },
+  {
+    "name": "r_yong_sheng_zhi_hai",
+    "type": "image",
+    "roi": "711, 493, 71, 47",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/components/switch_account/res/regions/r_yong_sheng_zhi_hai.png",
+    "description": "永生之海"
+  },
+  {
+    "name": "r_you_long_ze_ling",
+    "type": "image",
+    "roi": "919, 488, 63, 51",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/components/switch_account/res/regions/r_you_long_ze_ling.png",
+    "description": "有龙则灵"
+  },
+  {
+    "name": "r_shou_shan_yao",
+    "type": "image",
+    "roi": "713, 493, 68, 44",
+    "area": "691, 471, 112, 88",
+    "file": "./tasks/components/switch_account/res/regions/r_shou_shan_yao.png",
+    "description": "守山谣"
+  },
+  {
+    "name": "r_mo_ka_qi_yu",
+    "type": "image",
+    "roi": "916, 492, 66, 47",
+    "area": "892, 468, 114, 95",
+    "file": "./tasks/components/switch_account/res/regions/r_mo_ka_qi_yu.png",
+    "description": "魔卡绮遇"
+  }
+]

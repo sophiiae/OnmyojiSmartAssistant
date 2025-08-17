@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class GoryouRealmAssets: 
 
-
 	# Click Rule Assets
 	# 暗神龙 
 	C_DARK_DIVINE_DRAGON = RuleClick(roi=(120, 150, 180, 470), area=(120, 150, 180, 470), name="Dark_Divine_Dragon")

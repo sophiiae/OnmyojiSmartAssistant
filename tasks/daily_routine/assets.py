@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class DailyRoutineAssets: 
 
-
 	# Click Rule Assets
 	# 退出花合战 
 	C_EXIT_HUAHE = RuleClick(roi=(19, 15, 55, 48), area=(19, 15, 55, 48), name="exit_huahe")

@@ -1,6 +1,5 @@
 from config_editor.log_window import LogWindow
 from config_editor.script_worker import ScriptWorker
-from PyQt6.QtWidgets import QTabWidget
 from config_editor.sections.rifts_shadows_section import RiftsShadowsSection
 from config_editor.widgets.select_button import SelectButton
 from config_editor.widgets.value_button import ValueButton
@@ -18,7 +17,7 @@ from config_editor.sections.bonding_fairyland_section import BondingFairylandSec
 from config_editor.sections.netherworld_section import NetherworldSection
 from config_editor.sections.demon_encounter_section import DemonEncounterSection
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtWidgets import (QApplication, QMainWindow, QVBoxLayout,
+from PyQt6.QtWidgets import (QVBoxLayout,
                              QWidget, QScrollArea, QCheckBox, QComboBox, QSpinBox, QLineEdit,
                              QPushButton, QHBoxLayout, QMessageBox, QLabel, QGridLayout, QGroupBox)
 import sys
@@ -122,7 +121,6 @@ class OSAEditor(ConfigTab):
             ("netherworld", "阴界之门", "netherworld.scheduler.enable"),
             ("demon_encounter", "逢魔之时", "demon_encounter.scheduler.enable"),
             ("rifts_shadows", "狭间暗域", "rifts_shadows.scheduler.enable")
-
         ]
 
         # 设置统一的按钮样式
@@ -485,6 +483,7 @@ class OSAEditor(ConfigTab):
         self.bonding_fairyland_section.update_config()
         self.netherworld_section.update_config()
         self.demon_encounter_section.update_config()
+        self.rifts_shadows_section.update_config()
         self.save_config()
 
     def run_osa_config(self):

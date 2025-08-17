@@ -79,7 +79,7 @@ class SwipeExtractor:
         swipe rule 提取
         :param data:  json解析后的数据
         """
-        self._result = '\n\n\t# Swipe Rule Assets\n'
+        self._result = '\n\t# Swipe Rule Assets\n'
         for item in data:
             self._result += self.extract_item(item)
 
@@ -136,7 +136,7 @@ class ClickExtractor:
         click rule 提取
         :param data:  json解析后的数据
         """
-        self._result = '\n\n\t# Click Rule Assets\n'
+        self._result = '\n\t# Click Rule Assets\n'
         for item in data:
             self._result += self.extract_item(item)
 

@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class RealmRaidAssets: 
 
-
 	# Click Rule Assets
 	# 个人突破 
 	C_INDIVIDUAL_RAID = RuleClick(roi=(1210, 250, 40, 75), area=(1210, 250, 40, 75), name="individual_raid")
@@ -311,7 +310,6 @@ class RealmRaidAssets:
 		area=(510, 118, 570, 537),
 		file="./tasks/realm_raid/res/raid_medal.png"
 	)
-
 
 	# Swipe Rule Assets
 	# 寮突破滑到最低 

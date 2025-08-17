@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class RiftsShadowsAssets: 
 
-
 	# Click Rule Assets
 	# 神龙暗域 
 	C_DARK_DIVINE_DRAGON_SHADOW = RuleClick(roi=(105, 175, 195, 365), area=(105, 175, 195, 365), name="dark_divine_dragon_shadow")

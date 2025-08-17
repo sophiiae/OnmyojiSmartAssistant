@@ -7,7 +7,6 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class ShikigamiActivityAssets: 
 
-
 	# Click Rule Assets
 	# left 
 	C_SA_REWARD_LEFT = RuleClick(roi=(40, 80, 220, 660), area=(40, 80, 220, 660), name="sa_reward_left")
