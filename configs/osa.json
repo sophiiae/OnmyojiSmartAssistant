@@ -3,10 +3,33 @@
   "script": {
     "device": {
       "serial": "127.0.0.1:16384"
+    }
+  },
+  "subaccounts": {
+    "scheduler": {
+      "enable": false,
+      "next_run": "2024-08-16 15:03:54",
+      "priority": 1,
+      "success_interval": "01:00:00:00",
+      "failure_interval": "01:00:00:00"
     },
-    "regions": [
-      "海外加速区"
-    ]
+    "subaccounts_config": {
+      "regions": [
+        "海外加速区"
+      ],
+      "enable_collaboration": false,
+      "collaboration_count": 10,
+      "collaboration_account_number": 3,
+      "enable_daily_routine": false,
+      "invite_quest_config": {
+        "enable_quest_invite": false,
+        "invite_friend_name": "",
+        "invite_jade": true,
+        "invite_ap": false,
+        "invite_virtual": true,
+        "invite_pet_food": false
+      }
+    }
   },
   "daily_routine": {
     "scheduler": {
@@ -34,13 +57,6 @@
       "accept_ap": false,
       "accept_virtual": true,
       "accept_pet_food": false
-    },
-    "invite_quest_config": {
-      "invite_friend_name": "",
-      "invite_jade": true,
-      "invite_ap": false,
-      "invite_virtual": true,
-      "invite_pet_food": false
     }
   },
   "exploration": {

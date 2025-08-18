@@ -32,50 +32,9 @@ class WantedQuestsSection(QGroupBox):
         group.setLayout(grid)
         layout.addWidget(group)
 
-        # # 邀请好友
-        # self.invite_quest_config = self.config["wanted_quests"]["invite_quest_config"]
-        # self.invite_friend_name = QLineEdit(
-        #     self.invite_quest_config.get("invite_friend_name", ""))
-        # layout.addWidget(QLabel("邀请好友名称:"))
-        # layout.addWidget(self.invite_friend_name)
-
-        # # 邀请任务类型
-        # self.invite_quest_config = self.config["wanted_quests"]["invite_quest_config"]
-        # grid = QGridLayout()
-
-        # self.invite_jade = QCheckBox("勾玉悬赏")
-        # self.invite_jade.setChecked(self.invite_quest_config["invite_jade"])
-        # grid.addWidget(self.invite_jade, 0, 0)
-
-        # self.invite_ap = QCheckBox("体力悬赏")
-        # self.invite_ap.setChecked(self.invite_quest_config["invite_ap"])
-        # grid.addWidget(self.invite_ap, 0, 1)
-
-        # self.invite_virtual = QCheckBox("现世悬赏")
-        # self.invite_virtual.setChecked(
-        #     self.invite_quest_config["invite_virtual"])
-        # grid.addWidget(self.invite_virtual, 0, 2)
-
-        # self.invite_pet_food = QCheckBox("宠物粮悬赏")
-        # self.invite_pet_food.setChecked(
-        #     self.invite_quest_config["invite_pet_food"])
-        # grid.addWidget(self.invite_pet_food, 0, 3)
-
-        # group = QGroupBox("邀请悬赏任务类型")
-        # group.setLayout(grid)
-        # layout.addWidget(group)
-
     def update_config(self):
         accept_quest_config = self.config["wanted_quests"]["accept_quest_config"]
         accept_quest_config["accept_jade"] = self.accept_jade.isChecked()
         accept_quest_config["accept_ap"] = self.accept_ap.isChecked()
         accept_quest_config["accept_virtual"] = self.accept_virtual.isChecked()
         accept_quest_config["accept_pet_food"] = self.accept_pet_food.isChecked()
-
-        # invite_quest_config = self.config["wanted_quests"]["invite_quest_config"]
-        # invite_quest_config["invite_friend_name"] = self.invite_friend_name.text()
-        # invite_quest_config["invite_jade"] = self.invite_jade.isChecked()
-        # invite_quest_config["invite_ap"] = self.invite_ap.isChecked()
-        # invite_quest_config["invite_virtual"] = self.invite_virtual.isChecked()
-        # invite_quest_config["invite_pet_food"] = self.invite_pet_food.isChecked()
-        # invite_quest_config["invite_friend_name"] = self.invite_friend_name.text()

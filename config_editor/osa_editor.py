@@ -11,7 +11,7 @@ from config_editor.sections.realm_raid_section import RealmRaidSection
 from config_editor.sections.exploration_section import ExplorationSection
 from config_editor.sections.wanted_quests_section import WantedQuestsSection
 from config_editor.sections.daily_routine_section import DailyRoutineSection
-from config_editor.sections.script_section import ScriptSection
+from config_editor.sections.subaccounts_section import SubaccountsSection
 from config_editor.sections.duel_section import DuelSection
 from config_editor.sections.bonding_fairyland_section import BondingFairylandSection
 from config_editor.sections.netherworld_section import NetherworldSection
@@ -108,7 +108,7 @@ class OSAEditor(ConfigTab):
 
         # 创建导航按钮
         sections = [
-            ("script", "脚本设置", None),  # 脚本设置没有启用状态
+            ("subaccounts", "小号设置", "subaccounts.scheduler.enable"),  # 小号设置没有启用状态
             ("daily_routine", "日常任务", "daily_routine.scheduler.enable"),
             ("wanted_quests", "悬赏任务", None),  # 悬赏任务没有启用状态
             ("exploration", "探索", "exploration.scheduler.enable"),
@@ -181,8 +181,8 @@ class OSAEditor(ConfigTab):
         scroll_layout.setContentsMargins(10, 10, 10, 10)  # 设置边距
 
         # 添加所有配置部分
-        self.script_section = ScriptSection(self.config)
-        scroll_layout.addWidget(self.script_section)
+        self.subaccounts_section = SubaccountsSection(self.config)
+        scroll_layout.addWidget(self.subaccounts_section)
 
         self.daily_routine_section = DailyRoutineSection(self.config)
         scroll_layout.addWidget(self.daily_routine_section)
@@ -248,7 +248,7 @@ class OSAEditor(ConfigTab):
         right_layout = QVBoxLayout(right_widget)
 
         # 创建内嵌的日志窗口，并将运行按钮传递给它
-        self.log_window = LogWindow(self.get_config_name())
+        self.log_window = LogWindow(self.get_config_name(), self.config)
         self.log_window.setParent(right_widget)
         self.log_window.set_run_button(self.run_button)  # 传递运行按钮给日志窗口
         right_layout.addWidget(self.log_window)
@@ -279,7 +279,7 @@ class OSAEditor(ConfigTab):
     def setup_section_click_events(self):
         """为所有配置区域设置点击事件"""
         sections = [
-            self.script_section,
+            self.subaccounts_section,
             self.daily_routine_section,
             self.wanted_quests_section,
             self.exploration_section,
@@ -471,7 +471,7 @@ class OSAEditor(ConfigTab):
         super().closeEvent(a0)
 
     def save_osa_config(self):
-        self.script_section.update_config()
+        self.subaccounts_section.update_config()
         self.daily_routine_section.update_config()
         self.wanted_quests_section.update_config()
         self.exploration_section.update_config()
@@ -484,6 +484,11 @@ class OSAEditor(ConfigTab):
         self.netherworld_section.update_config()
         self.demon_encounter_section.update_config()
         self.rifts_shadows_section.update_config()
+
+        # 保存log window中的serial_edit配置
+        if self.log_window and hasattr(self.log_window, 'update_serial_config'):
+            self.log_window.update_serial_config()
+
         self.save_config()
 
     def run_osa_config(self):
@@ -612,7 +617,7 @@ class OSAEditor(ConfigTab):
 
     def install_auto_save(self):
         # 给所有控件加信号，内容变动时自动保存
-        for section in [self.script_section, self.daily_routine_section, self.wanted_quests_section,
+        for section in [self.subaccounts_section, self.daily_routine_section, self.wanted_quests_section,
                         self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
                         self.shikigami_activity_section, self.area_boss_section, self.duel_section,
                         self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section, self.rifts_shadows_section]:
@@ -625,6 +630,11 @@ class OSAEditor(ConfigTab):
                     child.stateChanged.connect(self.on_config_changed)
                 if hasattr(child, 'valueChanged'):
                     child.valueChanged.connect(self.on_config_changed)
+
+        # 给log window中的serial_edit添加自动保存
+        if self.log_window and hasattr(self.log_window, 'serial_edit'):
+            self.log_window.serial_edit.textChanged.connect(
+                self.on_config_changed)
 
     def on_config_changed(self):
         """配置改变时的处理函数"""
@@ -735,7 +745,7 @@ class OSAEditor(ConfigTab):
     def scroll_to_section(self, section_id):
         """滚动到指定的配置部分"""
         section_map = {
-            "script": self.script_section,
+            "subaccounts": self.subaccounts_section,
             "daily_routine": self.daily_routine_section,
             "wanted_quests": self.wanted_quests_section,
             "exploration": self.exploration_section,
@@ -835,6 +845,7 @@ class OSAEditor(ConfigTab):
 
         # 定义所有section及其对应的section_name
         sections_to_refresh = [
+            (self.subaccounts_section, "subaccounts"),
             (self.daily_routine_section, "daily_routine"),
             (self.exploration_section, "exploration"),
             (self.realm_raid_section, "realm_raid"),
@@ -865,6 +876,10 @@ class OSAEditor(ConfigTab):
 
             except Exception as e:
                 logger.error(f"刷新 {section.__class__.__name__} 时出错: {e}")
+
+        # 刷新log window中的serial_edit配置
+        if self.log_window and hasattr(self.log_window, 'set_config'):
+            self.log_window.set_config(self.config)
 
         logger.info("所有section配置信息刷新完成")
 

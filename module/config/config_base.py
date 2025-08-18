@@ -93,11 +93,6 @@ class ScriptSetting(BaseModel):
         description="Device connection and control settings"
     )
 
-    regions: list[str] = Field(
-        default=[],
-        description="Regions to run the script in"
-    )
-
 class Scheduler(BaseModel):
     """
     Task scheduling configuration.
@@ -130,6 +125,82 @@ class Scheduler(BaseModel):
     failure_interval: str = Field(
         default="00 00:10:00",
         description="Interval before retry after failure (DD HH:MM:SS)"
+    )
+
+class QuestInviteConfig(BaseModel):
+    enable_quest_invite: bool = Field(
+        default=False,
+        description="启用悬赏邀请"
+    )
+
+    invite_friend_name: str = Field(
+        default="无",
+        description="邀请指定好友名字"
+    )
+
+    invite_jade: bool = Field(
+        default=False,
+        description="接受勾玉悬赏"
+    )
+
+    invite_ap: bool = Field(
+        default=False,
+        description="接受体力悬赏"
+    )
+
+    invite_virtual: bool = Field(
+        default=False,
+        description="接受虚拟悬赏"
+    )
+
+    invite_pet_food: bool = Field(
+        default=False,
+        description="接受宠物粮悬赏"
+    )
+
+class SubaccountsConfig(BaseModel):
+    regions: list[str] = Field(
+        default=[],
+        description="Regions to run the script in"
+    )
+
+    enable_collaboration: bool = Field(
+        default=False,
+        description="小号协战"
+    )
+
+    collaboration_count: int = Field(
+        default=10,
+        ge=1,
+        le=15,
+        description="协战战斗次数"
+    )
+
+    collaboration_account_number: int = Field(
+        default=3,
+        ge=0,
+        description="协战账号数量（前N个账号）"
+    )
+
+    enable_daily_routine: bool = Field(
+        default=False,
+        description="小号日常任务"
+    )
+
+    invite_quest_config: QuestInviteConfig = Field(
+        default_factory=QuestInviteConfig,
+        description="协作任务邀请配置"
+    )
+
+class SubaccountSetting(BaseModel):
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="狭间暗域任务调度"
+    )
+
+    subaccounts_config: SubaccountsConfig = Field(
+        default_factory=SubaccountsConfig,
+        description="小号配置"
     )
 
 class SwitchSoulConfig(BaseModel):
@@ -227,34 +298,6 @@ class DailyRoutine(BaseModel):
         description="Configuration for main daily collection tasks"
     )
 
-class QuestInviteConfig(BaseModel):
-    """
-    悬赏封印邀请配置
-    """
-    invite_friend_name: str = Field(
-        default="无",
-        description="邀请指定好友名字"
-    )
-
-    invite_jade: bool = Field(
-        default=False,
-        description="接受勾玉悬赏"
-    )
-
-    invite_ap: bool = Field(
-        default=False,
-        description="接受体力悬赏"
-    )
-
-    invite_virtual: bool = Field(
-        default=False,
-        description="接受虚拟悬赏"
-    )
-
-    invite_pet_food: bool = Field(
-        default=False,
-        description="接受宠物粮悬赏"
-    )
 
 class AcceptQuestConfig(BaseModel):
     """
@@ -289,11 +332,6 @@ class WantedQuests(BaseModel):
     accept_quest_config: AcceptQuestConfig = Field(
         default_factory=AcceptQuestConfig,
         description="协作任务接受配置"
-    )
-
-    invite_quest_config: QuestInviteConfig = Field(
-        default_factory=QuestInviteConfig,
-        description="协作任务邀请配置"
     )
 
 class RaidConfig(BaseModel):

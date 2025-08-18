@@ -3,7 +3,7 @@ from datetime import datetime
 from PyQt6.QtGui import QFont, QTextCursor, QColor, QTextCharFormat
 from PyQt6.QtCore import QTimer, pyqtSignal, QObject
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QTextEdit, QPushButton,
-                             QHBoxLayout, QLabel, QCheckBox)
+                             QHBoxLayout, QLabel, QCheckBox, QLineEdit)
 from module.control.server.data_collector import DataCollector
 import sys
 import os
@@ -24,10 +24,11 @@ class LogSignals(QObject):
 class LogWindow(QWidget):
     """日志显示窗口 - 内嵌版本"""
 
-    def __init__(self, config_name: str):
+    def __init__(self, config_name: str, config=None):
         super().__init__()  # 调用父类的__init__方法
         self.run_button = None  # 运行按钮引用
         self.config_name = config_name
+        self.config = config  # 添加配置引用
         self.device = None  # 延迟初始化设备
         self.device_connected = False  # 设备连接状态
         self.is_recording = False  # 录制状态
@@ -38,6 +39,22 @@ class LogWindow(QWidget):
 
         # 不再自动初始化设备，等待用户手动选择
         self.setup_ui()
+
+        # 如果有配置，设置初始值
+        if self.config:
+            self.set_config(self.config)
+
+    def set_config(self, config):
+        """设置配置引用"""
+        self.config = config
+        if self.config and "script" in self.config and "device" in self.config["script"]:
+            device = self.config["script"]["device"]
+            serial_value = device.get("serial", "")
+            # 确保传递给setText的参数是字符串类型
+            if serial_value is not None:
+                self.serial_edit.setText(str(serial_value))
+            else:
+                self.serial_edit.setText("")
 
     def set_active(self, active: bool):
         """设置日志窗口的活动状态"""
@@ -198,12 +215,12 @@ class LogWindow(QWidget):
     def set_run_button(self, run_button):
         """设置运行按钮"""
         self.run_button = run_button
-        # 将运行按钮添加到控制栏
+        # 将运行按钮添加到控制栏的左侧
         if self.run_button:
             # 移除按钮的父级，避免重复添加
             if self.run_button.parent():
                 self.run_button.setParent(None)
-            # 将按钮添加到控制栏的左侧
+            # 将按钮添加到控制栏的左侧（在清空按钮之前）
             self.control_layout.insertWidget(0, self.run_button)
 
     def setup_ui(self):
@@ -213,7 +230,44 @@ class LogWindow(QWidget):
         layout.setContentsMargins(5, 5, 5, 5)
         layout.setSpacing(5)
 
-        # 顶部控制栏
+        # 设备序列号设置区域
+        device_layout = QHBoxLayout()
+
+        # 添加设备序列号标签的样式
+        device_label = QLabel("设备序列号:")
+        device_label.setStyleSheet("""
+            QLabel {
+                font-size: 12px;
+                color: #333;
+                font-weight: bold;
+                padding: 0 5px 0 0;
+            }
+        """)
+        device_layout.addWidget(device_label)
+
+        self.serial_edit = QLineEdit()
+        self.serial_edit.setPlaceholderText("127.0.0.1:16416")
+        self.serial_edit.setStyleSheet("""
+            QLineEdit {
+                padding: 5px 10px;
+                font-size: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: white;
+                min-height: 20px;
+            }
+            QLineEdit:focus {
+                border: 2px solid #aa66cc;
+                outline: none;
+            }
+            QLineEdit:hover {
+                border: 1px solid #aa66cc;
+            }
+        """)
+        device_layout.addWidget(self.serial_edit)
+        device_layout.addStretch()
+
+        # 顶部控制栏（包含运行按钮和清空按钮）
         self.control_layout = QHBoxLayout()
 
         # 清空日志按钮
@@ -236,7 +290,10 @@ class LogWindow(QWidget):
         self.control_layout.addStretch()
         self.control_layout.addWidget(self.clear_button)
 
-        layout.addLayout(self.control_layout)
+        # 将控制栏添加到设备序列号行的最后
+        device_layout.addLayout(self.control_layout)
+
+        layout.addLayout(device_layout)
 
         # 日志显示区域
         self.log_text = QTextEdit()
@@ -516,3 +573,14 @@ class LogWindow(QWidget):
 
         except Exception as e:
             self.append_log(f"❌ 停止录制失败: {str(e)}")
+
+    def get_serial_config(self):
+        """获取设备序列号配置"""
+        if self.config and "script" in self.config and "device" in self.config["script"]:
+            return self.serial_edit.text()
+        return ""
+
+    def update_serial_config(self):
+        """更新设备序列号配置"""
+        if self.config and "script" in self.config and "device" in self.config["script"]:
+            self.config["script"]["device"]["serial"] = self.serial_edit.text()

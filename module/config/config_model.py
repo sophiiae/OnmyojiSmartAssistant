@@ -10,6 +10,7 @@ from module.config.config_base import *
 class ConfigModel(BaseModel):
     config_name: str = Field(default="osa")
     script: ScriptSetting = Field(default_factory=ScriptSetting)
+    subaccounts: SubaccountsConfig = Field(default_factory=SubaccountsConfig)
     daily_routine: DailyRoutine = Field(
         default_factory=DailyRoutine)
     wanted_quests: WantedQuests = Field(
