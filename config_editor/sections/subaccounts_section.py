@@ -53,8 +53,7 @@ class SubaccountsSection(QGroupBox):
         sub_layout = QVBoxLayout(sub_group)
 
         # 账号区域设置
-        subhost_layout = QVBoxLayout()
-        subhost_layout.addWidget(QLabel("账号区服列表: (第一个为默认区服)"))
+        subhost_layout = QHBoxLayout()  # 改为水平布局，让列表和按钮并列
 
         # 创建列表控件
         self.subhost_list = QListWidget()
@@ -62,10 +61,15 @@ class SubaccountsSection(QGroupBox):
         self.subhost_list.setSizeAdjustPolicy(
             QListWidget.SizeAdjustPolicy.AdjustToContents)
         self.subhost_list.addItems(subaccounts_config.get("regions", []))
-        subhost_layout.addWidget(self.subhost_list)
 
-        # 添加按钮布局
-        button_layout = QHBoxLayout()
+        # 创建左侧垂直布局容器
+        left_container = QVBoxLayout()
+        left_container.addWidget(QLabel("账号区服列表: (第一个为默认区服)"))
+        left_container.addWidget(self.subhost_list)
+        subhost_layout.addLayout(left_container)
+
+        # 添加按钮布局（改为垂直排列）
+        button_layout = QVBoxLayout()
         self.add_button = QPushButton("添加")
         self.edit_button = QPushButton("编辑")
         self.remove_button = QPushButton("删除")
@@ -74,9 +78,11 @@ class SubaccountsSection(QGroupBox):
         self.edit_button.clicked.connect(self.edit_region)
         self.remove_button.clicked.connect(self.remove_subhost)
 
+        button_layout.addStretch()  # 顶部弹性空间
         button_layout.addWidget(self.add_button)
         button_layout.addWidget(self.edit_button)
         button_layout.addWidget(self.remove_button)
+        button_layout.addStretch()  # 底部弹性空间，让按钮居中
         subhost_layout.addLayout(button_layout)
 
         sub_layout.addLayout(subhost_layout)
