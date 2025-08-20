@@ -24,8 +24,6 @@ class Colla(EXP):
                 self.post_chapter_battle()
 
         self.exit_chapter()
-        self.post_chapter_battle()
-        self.goto(page_main)
 
     def enter_colla_chapter(self):
         while 1:

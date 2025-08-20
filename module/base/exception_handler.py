@@ -80,7 +80,21 @@ class ExceptionHandler:
             result["should_continue"] = True
             result["should_retry"] = False
             logger.error(result["message"])
+            logger.error(f"异常类型: {type(exception).__name__}")
             logger.error("任务将被标记为失败，但OSA将继续运行")
+
+            # 记录完整的异常堆栈信息
+            import traceback
+            logger.error(f"完整异常堆栈:\n{traceback.format_exc()}")
+
+            # 尝试获取当前配置名称
+            try:
+                from module.base.logger import get_current_config_name
+                config_name = get_current_config_name()
+                if config_name:
+                    logger.error(f"配置文件: {config_name}.json")
+            except:
+                pass
 
         return result
 

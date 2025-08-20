@@ -107,7 +107,7 @@ class ExpBase(EA, Battle):
 
     def exit_chapter(self):
         self.wait_and_shot()
-        if not self.appear(self.I_EXP_C_CHAPTER):
+        if not self.appear(self.I_EXP_C_CHAPTER, 0.95):
             return
 
         # 退出章节探索
@@ -116,12 +116,10 @@ class ExpBase(EA, Battle):
             if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
                 break
 
-            if self.appear(self.I_EXP_CHAPTER_EXIT_CONFIRM):
-                self.click(self.I_EXP_CHAPTER_EXIT_CONFIRM)
+            if self.appear_then_click(self.I_EXP_CHAPTER_EXIT_CONFIRM, 0.95):
                 continue
 
-            if self.appear(self.I_EXP_CHAPTER_EXIT):
-                self.click(self.I_EXP_CHAPTER_EXIT)
+            self.appear_then_click(self.I_EXP_CHAPTER_EXIT)
 
         # 关闭章节探索弹窗
         while 1:
@@ -129,12 +127,11 @@ class ExpBase(EA, Battle):
             if self.appear(self.I_C_EXP):
                 break
 
-            if self.appear(self.I_EXP_CHAPTER_DISMISS_ICON):
-                self.click(self.I_EXP_CHAPTER_DISMISS_ICON)
-                continue
+            self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON)
 
         self.close_config_buff()
-        self.goto(page_main, page_exp)
+        if not self.check_page_appear(page_main):
+            self.goto(page_main)
         raise RequestHumanTakeover()
 
     def soul_clear(self):

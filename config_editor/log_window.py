@@ -267,28 +267,8 @@ class LogWindow(QWidget):
         device_layout.addWidget(self.serial_edit)
         device_layout.addStretch()
 
-        # 顶部控制栏（包含运行按钮和清空按钮）
+        # 顶部控制栏（只包含运行按钮）
         self.control_layout = QHBoxLayout()
-
-        # 清空日志按钮
-        self.clear_button = QPushButton("清空")
-        self.clear_button.setMaximumWidth(60)
-        self.clear_button.setStyleSheet("""
-            QPushButton {
-                padding: 3px 8px;
-                font-size: 12px;
-                border: 1px solid #ccc;
-                border-radius: 3px;
-                color: #D32F2F;
-                background-color: #f8f8f8;
-            }
-            QPushButton:hover {
-                background-color: #e0e0e0;
-            }
-        """)
-        self.clear_button.clicked.connect(self.clear_log)
-        self.control_layout.addStretch()
-        self.control_layout.addWidget(self.clear_button)
 
         # 将控制栏添加到设备序列号行的最后
         device_layout.addLayout(self.control_layout)
@@ -310,8 +290,29 @@ class LogWindow(QWidget):
         # 底部信息栏
         info_layout = QHBoxLayout()
         self.line_count_label = QLabel("行数: 0")
-        self.line_count_label.setStyleSheet("font-size: 11px; color: #666;")
+        self.line_count_label.setStyleSheet(
+            "font-size: 11px; color: #666; min-width: 80px;")
+        self.line_count_label.setMinimumWidth(80)  # 设置最小宽度为80像素
         info_layout.addWidget(self.line_count_label)
+
+        # 清空日志按钮
+        self.clear_button = QPushButton("清空")
+        self.clear_button.setMaximumWidth(60)
+        self.clear_button.setStyleSheet("""
+            QPushButton {
+                padding: 3px 8px;
+                font-size: 12px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                color: #D32F2F;
+                background-color: #f8f8f8;
+            }
+            QPushButton:hover {
+                background-color: #e0e0e0;
+            }
+        """)
+        self.clear_button.clicked.connect(self.clear_log)
+        info_layout.addWidget(self.clear_button)
 
         info_layout.addStretch()
 

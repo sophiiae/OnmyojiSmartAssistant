@@ -145,14 +145,6 @@ LOG_CONFIG = {
             'format': '[%(asctime)s] [%(levelname)s] %(config_prefix)s%(message)s',
             'datefmt': '%H:%M:%S'
         },
-        'file': {
-            '()': ContextFormatter,
-            'format': '[%(asctime)s] [%(levelname)s] %(config_prefix)s[%(filename)s:%(lineno)d]\n'
-            '=== CONTEXT ===\n%(context)s\n'
-            '=== MESSAGE ===\n%(message)s\n'
-            '================',
-            'datefmt': '%Y-%m-%d %H:%M:%S'
-        }
     },
 
     'handlers': {
@@ -162,20 +154,11 @@ LOG_CONFIG = {
             'formatter': 'console',
             'stream': sys.stdout
         },
-        'error_file': {
-            'class': 'logging.handlers.RotatingFileHandler',
-            'level': 'ERROR',
-            'formatter': 'file',
-            'filename': 'logs/game_errors.log',
-            'maxBytes': 5 * 1024 * 1024,
-            'backupCount': 3,
-            'encoding': 'utf-8'
-        }
     },
 
     'loggers': {
         'GameConsole': {
-            'handlers': ['console', 'error_file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False
         }
@@ -408,7 +391,47 @@ class GameConsoleLogger:
     def critical(self, msg: str, config_name=None):
         """严重错误（红底）- 同时写入文件"""
         self._add_context('CRITICAL', msg)
+        # 添加当前时间戳和上下文信息
+        import traceback
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        context_info = f"[{current_time}] CRITICAL: {msg}"
+
+        # 添加配置文件信息
+        if config_name:
+            context_info += f"\n配置文件: {config_name}.json"
+        else:
+            # 尝试从线程本地存储获取配置名称
+            try:
+                current_config = get_current_config_name()
+                if current_config:
+                    context_info += f"\n配置文件: {current_config}.json"
+            except:
+                pass
+
+        # 记录当前调用栈信息
+        stack_info = traceback.format_stack()
+        if len(stack_info) > 1:
+            caller_info = stack_info[-2]  # 获取调用者的信息
+            context_info += f"\n调用位置: {caller_info.strip()}"
+
         self._log_with_context('critical', f"💥 {msg}", config_name)
+
+        # 额外记录到错误日志文件
+        self._log_to_error_file(context_info)
+
+    def _log_to_error_file(self, message: str):
+        """将消息记录到错误日志文件"""
+        try:
+            today = datetime.now().strftime('%Y-%m-%d')
+            error_log_filename = f'logs/game_errors_{today}.log'
+
+            with open(error_log_filename, 'a', encoding='utf-8') as f:
+                f.write(f"{message}\n")
+                f.write("=" * 50 + "\n")
+        except Exception as e:
+            # 如果写入错误日志失败，至少尝试打印到控制台
+            print(f"无法写入错误日志: {e}")
+            print(f"原始消息: {message}")
 
 
 # 使用线程本地存储来管理配置名称

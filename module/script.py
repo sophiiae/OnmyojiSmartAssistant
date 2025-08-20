@@ -13,7 +13,7 @@ import math
 import inflection
 
 from module.base.logger import logger, set_current_config_name, clear_current_config_name
-from module.base.exception import RequestHumanTakeover
+from module.base.exception import RequestHumanTakeover, TaskEnd
 from module.base.exception_handler import ExceptionHandler
 from module.control.server.device import Device
 from module.config.config import Config
@@ -118,6 +118,9 @@ class Script:
 
         try:
             logger.info(f"开始执行任务: {name}")
+            # 设置当前执行的任务
+            self._current_task = name
+
             self.device.get_screenshot()
             module_name = 'task_script'
             module_path = str(Path.cwd() / 'tasks' /
@@ -130,12 +133,23 @@ class Script:
             task_module.TaskScript(
                 device=self.device
             ).run()
-
-            # 如果没有异常，任务成功完成
-            logger.info(f"任务 {name} 执行成功")
             return True
 
         except Exception as e:
+            if isinstance(e, TaskEnd):
+                # 如果没有异常，任务成功完成
+                logger.info(f"任务 {name} 执行成功")
+                # 清除当前任务记录
+                self._current_task = None
+                return True
+
+            # 记录详细的异常信息
+            import traceback
+            logger.error(f"任务 {name} 执行时发生异常: {str(e)}")
+            logger.error(f"异常类型: {type(e).__name__}")
+            logger.error(f"配置文件: {self.config_name}.json")
+            logger.error(f"异常堆栈:\n{traceback.format_exc()}")
+
             # 使用异常处理器来处理异常
             handler_result = ExceptionHandler.handle_task_exception(e, name)
 
@@ -144,7 +158,11 @@ class Script:
                 logger.info("OSA将继续运行，处理下一个任务")
             else:
                 logger.critical("OSA将停止运行，需要人工干预")
+                logger.critical(f"配置文件: {self.config_name}.json")
                 self.is_running = False
+
+            # 清除当前任务记录
+            self._current_task = None
 
             # 返回任务是否成功
             return handler_result.get("handled", False)
@@ -170,7 +188,7 @@ class Script:
                 task = self.get_next_task()
 
                 # Run
-                logger.info(f'Scheduler: Start task ****{task}****')
+                logger.info(f'任务调度器: 开始执行任务 {task}')
                 success = self.run(inflection.underscore(task))
 
                 # Check failures
@@ -178,12 +196,13 @@ class Script:
                 failed = 0 if success else failed + 1
                 self.failure_record[task] = failed
                 if failed >= 3:
-                    logger.critical(f"Task `{task}` failed 3 or more times.")
-                    logger.critical("Possible reason #1: You haven't used it correctly. "
-                                    "Please read the help text of the options.")
-                    logger.critical("Possible reason #2: There is a problem with this task. "
-                                    "Please contact developers or try to fix it yourself.")
-                    logger.critical('强制终止脚本')
+                    logger.critical(f"任务 `{task}` 连续失败3次或以上")
+                    logger.critical(f"失败记录: {self.failure_record}")
+                    logger.critical(f"配置文件: {self.config_name}.json")
+                    logger.critical("可能的原因 #1: 配置使用不当，请检查相关选项的说明")
+                    logger.critical("可能的原因 #2: 任务本身存在问题，请联系开发者或尝试自行修复")
+                    logger.critical(
+                        f"强制终止脚本 - 失败任务: {task} - 配置文件: {self.config_name}")
                     # 不调用exit(1)，而是正常停止脚本
                     self.is_running = False
                     break
@@ -318,6 +337,24 @@ class Script:
 
     def stop_immediately(self):
         """立即停止脚本"""
+        logger.critical(f"脚本被强制停止 - 配置文件: {self.config_name}.json")
+        logger.critical(f"当前失败记录: {self.failure_record}")
+
+        # 记录当前正在执行的任务（如果有的话）
+        try:
+            current_task = getattr(self, '_current_task', None)
+            if current_task:
+                logger.critical(f"正在执行的任务: {current_task}")
+        except:
+            pass
+
+        # 记录配置文件路径
+        config_file_path = Path.cwd() / "configs" / f"{self.config_name}.json"
+        if config_file_path.exists():
+            logger.critical(f"配置文件路径: {config_file_path}")
+        else:
+            logger.critical(f"配置文件不存在: {config_file_path}")
+
         self.is_running = False
 
         # 清理全局实例
