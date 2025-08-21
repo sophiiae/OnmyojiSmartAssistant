@@ -5,19 +5,6 @@ from tasks.daily_routine.assets import DailyRoutineAssets
 from module.base.exception import TaskEnd
 from module.base.logger import logger
 
-"""
-"harvest_config": {
-    "enable_jade": true,
-    "enable_sign": true,
-    "enable_sign_999": true,
-    "enable_mail": true,
-    "enable_soul": true,
-    "enable_ap": true
-    "one_summon": false,
-    "friend_love": false,
-    "store_sign": true
-}
-"""
 class TaskScript(Battle, DailyRoutineAssets):
     name = "DailyRoutine"
 
@@ -32,7 +19,6 @@ class TaskScript(Battle, DailyRoutineAssets):
             self.goto(page_main)
 
         self.check_shop_pack()
-
         self.check_harvest()
         # self.get_talisman_pass_reward()
 
@@ -183,19 +169,23 @@ class TaskScript(Battle, DailyRoutineAssets):
         # 进入礼包屋
         while 1:
             self.wait_and_shot()
-
             if self.appear_then_click(self.I_DAILY_LANTERN, 0.96):
                 break
 
             self.appear_then_click(self.I_C_GIFT_SHOP)
 
+        retry = 0
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_GAIN_REWARD):
                 self.get_reward()
                 break
 
+            if retry > 3:
+                break
+
             self.appear_then_click(self.I_DAILY_REWARD)
+            retry += 1
 
         self.goto(page_main, page_store)
 
@@ -281,9 +271,15 @@ class TaskScript(Battle, DailyRoutineAssets):
                 continue
 
         # 收取友情点
+        retry = 0
+        find_points = True
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_GET_ALL_FRIEND_POINTS):
+                break
+
+            if retry > 3:
+                find_points = False
                 break
 
             if not self.appear(self.I_FRIEND_POINTS_ENABLE):
@@ -291,8 +287,9 @@ class TaskScript(Battle, DailyRoutineAssets):
 
                 # 跨区好友， 不同区小号专用
                 self.appear_then_click(self.I_CROSS_REGION_FRIENDS)
+            retry += 1
 
-        while 1:
+        while find_points:
             self.wait_and_shot()
             if self.appear_then_click(self.I_GET_ALL_FRIEND_POINTS):
                 if self.wait_until_appear(self.I_GAIN_REWARD, 2):
@@ -302,52 +299,3 @@ class TaskScript(Battle, DailyRoutineAssets):
 
         self.click(self.I_FRIENDS_EXIT)
         logger.info("==>>> Got all friends points")
-
-    def quest_invite(self):
-        # 进入庭院页面
-        if not self.check_page_appear(page_main):
-            self.goto(page_main)
-
-        # 进去悬赏页面
-        while 1:
-            self.wait_and_shot()
-
-            if self.appear(self.I_QUEST_HEADER):
-                break
-
-            if self.appear(self.I_QUEST):
-                self.click(self.I_QUEST)
-
-        # 查看协作任务
-        while 1:
-            self.wait_and_shot()
-            if not self.appear(self.I_QUEST_PLUS_BUTTON):
-                break
-
-            if self.appear(self.I_QUEST_PLUS_BUTTON):
-                # x, y = self.I_QUEST_PLUS_BUTTON.roi_center()
-                # self.I_QUEST_JADE.set_area(x, y, 240, 216)
-                # if self.appear(self.I_QUEST_JADE):
-                self.invite_friend()
-                break
-
-    def invite_friend(self):
-        while 1:
-            self.wait_and_shot()
-            if self.appear_then_click(self.I_QUEST_PLUS_BUTTON):
-                self.wait_until_click(self.I_CROSS_REGION)
-                if self.appear(self.I_CROSS_REGION_ENABLE):
-                    time.sleep(1)
-                    if self.wait_until_appear(self.I_QUEST_AVATAR, 2, threshold=0.96):
-                        x, y = self.I_QUEST_AVATAR.roi_center()
-                        while 1:
-                            time.sleep(0.3)
-                            self.screenshot()
-                            if self.appear(self.I_QUEST_AVATAR_SELECTED, threshold=0.96):
-                                break
-                            if self.appear(self.I_QUEST_AVATAR):
-                                self.device.click(x + 100, y)
-                        self.wait_until_click(self.I_INVITE)
-                        break
-                    else:
-                        self.device.click(1205, 310)

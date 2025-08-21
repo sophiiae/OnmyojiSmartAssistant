@@ -26,7 +26,6 @@
         "invite_friend_name": "",
         "invite_jade": true,
         "invite_ap": false,
-        "invite_virtual": true,
         "invite_pet_food": false
       }
     }
@@ -55,7 +54,6 @@
     "accept_quest_config": {
       "accept_jade": true,
       "accept_ap": false,
-      "accept_virtual": true,
       "accept_pet_food": false
     }
   },

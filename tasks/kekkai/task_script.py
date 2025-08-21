@@ -1,10 +1,10 @@
 import time
-from tasks.main_page.task_script import MainPage
+from tasks.subaccounts.assets import SubaccountsAssets
 from tasks.components.page.page import page_main, page_guild
 from tasks.components.battle.battle import Battle
 from tasks.kekkai.assets import KekkaiAssets as KA
 
-class TaskScript(MainPage, Battle, KA):
+class TaskScript(Battle, KA, SubaccountsAssets):
     def run(self):
         self.goto(page_guild, page_main)
         self.get_guild_money_ep()

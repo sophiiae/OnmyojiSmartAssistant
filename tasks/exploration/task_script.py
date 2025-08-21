@@ -72,12 +72,13 @@ class TaskScript(ExpBase):
 
     def post_chapter_battle(self):
         # 检查章节奖励
-        self.get_chapter_reward()
+        if self.get_chapter_reward():
+            time.sleep(1)
 
         while 1:
             self.wait_and_shot()
             if self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON):
-                time.sleep(0.5)
+                time.sleep(1)
                 continue
 
             # 如果回到了探索界面 -> 检查宝箱
@@ -246,7 +247,7 @@ class TaskScript(ExpBase):
             auto_soul_clear = self.exp_config.exploration_config.auto_soul_clear
 
             if not auto_backup and not auto_soul_clear:
-                self.exit_chapter()
+                self.exit_chapter(raise_exception=True)
 
             if auto_backup:
                 self.auto_backup()

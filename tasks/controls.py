@@ -11,7 +11,7 @@ from module.config.config import Config
 from tasks.components.page.assets import PageAssets
 from tasks.components.page.page_map import PageMap
 from tasks.components.widgets.assets import WidgetsAssets
-from tasks.main_page.assets import MainPageAssets
+from tasks.subaccounts.assets import SubaccountsAssets
 from module.image_processing.rule_click import RuleClick
 from module.image_processing.rule_image import RuleImage
 from module.image_processing.rule_ocr import RuleOcr
@@ -20,7 +20,7 @@ from module.base.logger import logger
 from module.base.timer import Timer
 from module.base.exception import RequestHumanTakeover
 
-class Controls(PageAssets, MainPageAssets, PageMap, WidgetsAssets):
+class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
     config: Config
     device: Device
     image = None
@@ -53,7 +53,6 @@ class Controls(PageAssets, MainPageAssets, PageMap, WidgetsAssets):
         return {
             'accept_jade': [self.I_QUEST_JADE],
             'accept_ap': [self.I_QUEST_AP],
-            'accept_virtual': [self.I_QUEST_VIRTUAL],
             'accept_pet_food': [self.I_QUEST_DOG, self.I_QUEST_CAT],
         }
 

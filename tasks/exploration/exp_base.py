@@ -105,7 +105,7 @@ class ExpBase(EA, Battle):
 
             self.swipe(self.S_SHIKI_TO_LEFT)
 
-    def exit_chapter(self):
+    def exit_chapter(self, raise_exception=False):
         self.wait_and_shot()
         if not self.appear(self.I_EXP_C_CHAPTER, 0.95):
             return
@@ -130,9 +130,11 @@ class ExpBase(EA, Battle):
             self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON)
 
         self.close_config_buff()
-        if not self.check_page_appear(page_main):
+        if not self.check_page_appear(page_main, 0.97):
             self.goto(page_main)
-        raise RequestHumanTakeover()
+
+        if raise_exception:
+            raise RequestHumanTakeover()
 
     def soul_clear(self):
         self.enter_shiki_book(self.I_SHIKI_BOOK_ENT)

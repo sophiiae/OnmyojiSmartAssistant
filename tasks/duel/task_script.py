@@ -1,12 +1,11 @@
 from functools import cached_property
-import random
 import time
 from venv import logger
 from module.base.exception import TaskEnd
 from module.config.enums import DuelTier, OnmyojiClass
 from module.image_processing.rule_image import RuleImage
 from tasks.components.battle.battle import Battle
-from tasks.components.page.page import Page, page_dojo, page_main
+from tasks.components.page.page import page_dojo, page_main
 from tasks.duel.assets import DuelAssets
 from module.base.exception import RequestHumanTakeover
 
@@ -320,7 +319,7 @@ class TaskScript(Battle, DuelAssets):
                 if self.appear(self.I_C_MAIN, 0.95):
                     return
 
-                self.swipe(self.S_REGION_TO_LEFT)
+                self.swipe(self.S_SWIPE_TO_LEFT)
 
         # 可能2： 从道馆进入（如果是脚本走的话）
         # 从到道馆回庭院

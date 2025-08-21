@@ -11,10 +11,6 @@ from tasks.components.switch_account.assets import SwitchAccountAssets
 class SwitchAccount(TaskBase, SwitchAccountAssets):
     name = "SwitchAccount"
 
-    def enter_region(self):
-        # TODO
-        pass
-
     @cached_property
     def region_map(self):
         return {
@@ -62,7 +58,18 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
 
         return target
 
-    def switch_region(self, region: str):
+    @cached_property
+    def sub_regions_clicks(self):
+        return {
+            1: self.C_SUB_REGION_1,
+            2: self.C_SUB_REGION_2,
+            3: self.C_SUB_REGION_3
+        }
+
+    def switch_region(self, region: str, index: int = 0):
+        if not self.check_page_appear(page_login):
+            self.switch_account()
+
         target = self.find_region(region)
         if target is None:
             raise RequestHumanTakeover(f"Not able to find region: {region}")
@@ -77,12 +84,18 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
             if self.appear(self.I_OWN_CHARACTERS):
                 break
 
+            self.appear_then_click(self.I_APPLE_LOGO)
+
+            if self.appear_then_click(self.I_LOGIN):
+                continue
+
             if self.appear(self.I_C_LOGIN) and not self.appear(self.I_PICK_REGION):
                 self.click(self.C_REGION)
                 continue
 
             if self.appear(self.I_PICK_REGION):
                 if self.wait_until_click(self.I_OPEN_REGIONS, 2, delay=0.5):
+                    time.sleep(1)
                     continue
 
         # 选区
@@ -100,9 +113,26 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
         # 登录游戏
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_C_MAIN, 0.95):
-                logger.info("==>>> Arrive main page")
+            if not self.appear(self.I_C_LOGIN, 0.95):
+                logger.info("==>>> Entering game")
                 break
 
-            if self.appear(self.I_C_LOGIN):
+            if self.appear(self.I_C_LOGIN, 0.95):
                 self.click(self.C_ENTER_GAME)
+                time.sleep(2)
+
+        time.sleep(1)
+        # 进入庭院
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_C_MAIN, 0.95):
+                break
+
+            if index > 0:
+                logger.info(f"==>>> Entering index [{index}] sub region")
+                for _ in range(2):
+                    self.click(self.sub_regions_clicks[index])
+                    time.sleep(0.3)
+                self.click(self.C_LOGIN_RANDOM_CLICK)
+
+        time.sleep(2)

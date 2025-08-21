@@ -23,11 +23,6 @@ class WantedQuestsSection(QGroupBox):
             self.accept_quest_config["accept_pet_food"])
         grid.addWidget(self.accept_pet_food, 0, 2)
 
-        self.accept_virtual = QCheckBox("现世悬赏")
-        self.accept_virtual.setChecked(
-            self.accept_quest_config["accept_virtual"])
-        grid.addWidget(self.accept_virtual, 0, 3)
-
         group = QGroupBox("接受悬赏任务类型")
         group.setLayout(grid)
         layout.addWidget(group)
@@ -36,5 +31,4 @@ class WantedQuestsSection(QGroupBox):
         accept_quest_config = self.config["wanted_quests"]["accept_quest_config"]
         accept_quest_config["accept_jade"] = self.accept_jade.isChecked()
         accept_quest_config["accept_ap"] = self.accept_ap.isChecked()
-        accept_quest_config["accept_virtual"] = self.accept_virtual.isChecked()
         accept_quest_config["accept_pet_food"] = self.accept_pet_food.isChecked()

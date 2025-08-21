@@ -58,6 +58,7 @@ class SubaccountsSection(QGroupBox):
         # 创建列表控件
         self.subhost_list = QListWidget()
         self.subhost_list.setMinimumHeight(100)
+        self.subhost_list.setMaximumWidth(500)  # 限制列表最大宽度
         self.subhost_list.setSizeAdjustPolicy(
             QListWidget.SizeAdjustPolicy.AdjustToContents)
         self.subhost_list.addItems(subaccounts_config.get("regions", []))
@@ -147,15 +148,10 @@ class SubaccountsSection(QGroupBox):
         self.invite_ap.setChecked(self.invite_quest_config["invite_ap"])
         grid.addWidget(self.invite_ap, 0, 1)
 
-        self.invite_virtual = QCheckBox("现世悬赏")
-        self.invite_virtual.setChecked(
-            self.invite_quest_config["invite_virtual"])
-        grid.addWidget(self.invite_virtual, 0, 2)
-
         self.invite_pet_food = QCheckBox("宠物粮悬赏")
         self.invite_pet_food.setChecked(
             self.invite_quest_config["invite_pet_food"])
-        grid.addWidget(self.invite_pet_food, 0, 3)
+        grid.addWidget(self.invite_pet_food, 0, 2)
 
         group = QGroupBox("邀请悬赏任务类型")
         group.setLayout(grid)
@@ -198,9 +194,10 @@ class SubaccountsSection(QGroupBox):
         )
 
         invite_quest_config = sa_config["invite_quest_config"]
+        invite_quest_config["enable_quest_invite"] = self.enable_quest_invite.isChecked(
+        )
         invite_quest_config["invite_friend_name"] = self.invite_friend_name.text()
         invite_quest_config["invite_jade"] = self.invite_jade.isChecked()
         invite_quest_config["invite_ap"] = self.invite_ap.isChecked()
-        invite_quest_config["invite_virtual"] = self.invite_virtual.isChecked()
         invite_quest_config["invite_pet_food"] = self.invite_pet_food.isChecked()
         invite_quest_config["invite_friend_name"] = self.invite_friend_name.text()

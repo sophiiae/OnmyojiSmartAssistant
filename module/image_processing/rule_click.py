@@ -1,9 +1,10 @@
 
 import numpy as np
+from module.base.logger import logger
 
 class RuleClick:
 
-    def __init__(self, roi: tuple, area: tuple, name: str = 'click') -> None:
+    def __init__(self, roi: tuple, area: tuple, name: str) -> None:
         """
         初始化
         :param roi:
@@ -22,6 +23,7 @@ class RuleClick:
         x, y, w, h = self.roi
         x = np.random.randint(x, x + w)
         y = np.random.randint(y, y + h)
+        logger.background(f"[Click] {self.name} coord: {x}, {y}")
         return x, y
 
     @property

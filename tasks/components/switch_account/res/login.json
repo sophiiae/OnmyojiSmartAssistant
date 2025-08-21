@@ -3,7 +3,7 @@
     "name": "user_center",
     "type": "image",
     "roi": "221, 449, 59, 55",
-    "area": "193, 421, 115, 111",
+    "area": "193, 421, 115, 200",
     "file": "./tasks/components/switch_account/res/user_center.png",
     "description": "用户中心"
   },

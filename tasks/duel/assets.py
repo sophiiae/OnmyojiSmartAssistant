@@ -270,4 +270,12 @@ class DuelAssets:
 		name="duel_points"
 	)
 
+	# Swipe Rule Assets
+	# 往左滑 
+	S_SWIPE_TO_LEFT = RuleSwipe(
+		roi_start=(800, 470, 60, 100),
+		roi_end=(400, 470, 50, 100),
+		name="swipe_to_left"
+	)
+
 

@@ -12,5 +12,33 @@
     "roi": "556, 508, 152, 34",
     "area": "556, 508, 152, 34",
     "description": "区域按钮"
+  },
+  {
+    "name": "sub_region_1",
+    "type": "click",
+    "roi": "110, 130, 160, 70",
+    "area": "110, 130, 160, 70",
+    "description": "合区账号1"
+  },
+  {
+    "name": "sub_region_2",
+    "type": "click",
+    "roi": "110, 250, 160, 70",
+    "area": "110, 250, 160, 70",
+    "description": "合区账号2"
+  },
+  {
+    "name": "sub_region_3",
+    "type": "click",
+    "roi": "110, 275, 160, 70",
+    "area": "110, 275, 160, 70",
+    "description": "合区账号3"
+  },
+  {
+    "name": "login_random_click",
+    "type": "click",
+    "roi": "800, 150, 150, 200",
+    "area": "800, 150, 150, 200",
+    "description": "登录时随机点击"
   }
 ]

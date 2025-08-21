@@ -43,7 +43,7 @@
     "name": "r_shou_shan_yao",
     "type": "image",
     "roi": "713, 493, 68, 44",
-    "area": "691, 471, 112, 88",
+    "area": "220, 450, 830, 120",
     "file": "./tasks/components/switch_account/res/regions/r_shou_shan_yao.png",
     "description": "守山谣"
   },
@@ -51,7 +51,7 @@
     "name": "r_mo_ka_qi_yu",
     "type": "image",
     "roi": "916, 492, 66, 47",
-    "area": "892, 468, 114, 95",
+    "area": "220, 450, 830, 120",
     "file": "./tasks/components/switch_account/res/regions/r_mo_ka_qi_yu.png",
     "description": "魔卡绮遇"
   }

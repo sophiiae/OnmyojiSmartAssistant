@@ -157,6 +157,9 @@ class TaskScript(RealmRaidAssets, Battle):
         # 锁定队伍
         self.toggle_realm_team_lock()
 
+        if not attack_list:
+            return False
+
         # 开始战斗
         success = True
         attack_index = 1

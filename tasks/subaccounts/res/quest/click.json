@@ -1,0 +1,16 @@
+[
+  {
+    "name": "same_region_friends",
+    "type": "click",
+    "roi": "150, 85, 100, 55",
+    "area": "150, 85, 100, 55",
+    "description": "同区好友"
+  },
+  {
+    "name": "cross_region_friends",
+    "type": "click",
+    "roi": "270, 85, 90, 55",
+    "area": "270, 85, 90, 55",
+    "description": "跨区好友"
+  }
+]

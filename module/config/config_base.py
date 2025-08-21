@@ -148,11 +148,6 @@ class QuestInviteConfig(BaseModel):
         description="接受体力悬赏"
     )
 
-    invite_virtual: bool = Field(
-        default=False,
-        description="接受虚拟悬赏"
-    )
-
     invite_pet_food: bool = Field(
         default=False,
         description="接受宠物粮悬赏"
@@ -192,7 +187,7 @@ class SubaccountsConfig(BaseModel):
         description="协作任务邀请配置"
     )
 
-class SubaccountSetting(BaseModel):
+class Subaccounts(BaseModel):
     scheduler: Scheduler = Field(
         default_factory=Scheduler,
         description="狭间暗域任务调度"
@@ -311,11 +306,6 @@ class AcceptQuestConfig(BaseModel):
     accept_ap: bool = Field(
         default=False,
         description="接受体力悬赏"
-    )
-
-    accept_virtual: bool = Field(
-        default=False,
-        description="接受虚拟悬赏"
     )
 
     accept_pet_food: bool = Field(

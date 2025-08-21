@@ -7,18 +7,17 @@ from tasks.general.assets import GeneralAssets as GA
 
 class Colla(EXP):
 
-    def start_colla(self):
+    def start_colla(self, max_battle: int = 10):
         # 进入探索页面
         if not self.check_page_appear(page_exp):
             self.goto(page_exp)
 
-        max = 10
         count = 0
-        while count < max:
+        while count < max_battle:
             self.enter_colla_chapter()
 
             logger.info(f"======== Exp Chapter Entered =========")
-            count, killed_boss = self.colla_chapter_battle(max, count)
+            count, killed_boss = self.colla_chapter_battle(max_battle, count)
 
             if killed_boss:
                 self.post_chapter_battle()

@@ -25,6 +25,7 @@ class WaitingTask(TaskBase):
             f"⏳ 开始执行等待任务，将持续运行 {duration_minutes:.0f} 分钟...")
 
         while time.time() - start_time < duration_seconds:
+            self.screenshot()
             # 检查邀请任务
             self.check_request_invitation()
 

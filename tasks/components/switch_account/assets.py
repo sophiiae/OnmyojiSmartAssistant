@@ -12,13 +12,21 @@ class SwitchAccountAssets:
 	C_AVATAR = RuleClick(roi=(22, 39, 73, 59), area=(22, 39, 73, 59), name="avatar")
 	# 区域按钮 
 	C_REGION = RuleClick(roi=(556, 508, 152, 34), area=(556, 508, 152, 34), name="region")
+	# 合区账号1 
+	C_SUB_REGION_1 = RuleClick(roi=(110, 130, 160, 70), area=(110, 130, 160, 70), name="sub_region_1")
+	# 合区账号2 
+	C_SUB_REGION_2 = RuleClick(roi=(110, 250, 160, 70), area=(110, 250, 160, 70), name="sub_region_2")
+	# 合区账号3 
+	C_SUB_REGION_3 = RuleClick(roi=(110, 275, 160, 70), area=(110, 275, 160, 70), name="sub_region_3")
+	# 登录时随机点击 
+	C_LOGIN_RANDOM_CLICK = RuleClick(roi=(800, 150, 150, 200), area=(800, 150, 150, 200), name="login_random_click")
 
 	# Image Rule Assets
 	# 用户中心 
 	I_USER_CENTER = RuleImage(
 		name="user_center",
 		roi=(221, 449, 59, 55),
-		area=(193, 421, 115, 111),
+		area=(193, 421, 115, 200),
 		file="./tasks/components/switch_account/res/user_center.png"
 	)
 	# 切换账号 
@@ -104,15 +112,23 @@ class SwitchAccountAssets:
 	I_R_SHOU_SHAN_YAO = RuleImage(
 		name="r_shou_shan_yao",
 		roi=(713, 493, 68, 44),
-		area=(691, 471, 112, 88),
+		area=(220, 450, 830, 120),
 		file="./tasks/components/switch_account/res/regions/r_shou_shan_yao.png"
 	)
 	# 魔卡绮遇 
 	I_R_MO_KA_QI_YU = RuleImage(
 		name="r_mo_ka_qi_yu",
 		roi=(916, 492, 66, 47),
-		area=(892, 468, 114, 95),
+		area=(220, 450, 830, 120),
 		file="./tasks/components/switch_account/res/regions/r_mo_ka_qi_yu.png"
+	)
+
+	# Swipe Rule Assets
+	# 已有角色往左滑 
+	S_REGION_TO_LEFT = RuleSwipe(
+		roi_start=(800, 470, 60, 100),
+		roi_end=(400, 470, 50, 100),
+		name="region_to_left"
 	)
 
 
