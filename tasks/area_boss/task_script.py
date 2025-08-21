@@ -22,7 +22,7 @@ class TaskScript(Battle, AreaBossAssets):
 
         self.kill_top_bosses(self.boss_config.boss_number)
 
-        self.set_next_run(task='AreaBoss', success=True, finish=True)
+        self.set_next_run(task='AreaBoss', success=True, finish=False)
         self.goto(page_main, page_boss)
         raise TaskEnd(self.name)
 

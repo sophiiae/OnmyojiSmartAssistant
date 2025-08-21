@@ -61,7 +61,7 @@ class ConfigTab(QWidget):
         # 启用的任务使用绿色
         enabled_style = """
             QPushButton {
-                min-width: 80px;
+                min-width: 70px;
                 padding: 5px 10px;
                 font-size: 12px;
                 background-color: #ea698b;
@@ -72,7 +72,7 @@ class ConfigTab(QWidget):
         # 基础样式（默认样式）
         base_style = """
             QPushButton {
-                min-width: 80px;
+                min-width: 70px;
                 padding: 5px 10px;
                 font-size: 12px;
             }

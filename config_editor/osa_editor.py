@@ -237,7 +237,7 @@ class OSAEditor(ConfigTab):
         self.update_nav_buttons()
 
         # 设置左侧配置区域的固定宽度
-        left_widget.setMinimumWidth(800)  # 缩小左侧宽度
+        left_widget.setMinimumWidth(700)  # 缩小左侧宽度
         left_widget.setMaximumWidth(450)  # 设置最大宽度
 
         # 添加左侧配置区域到主布局
@@ -254,7 +254,7 @@ class OSAEditor(ConfigTab):
         right_layout.addWidget(self.log_window)
 
         # 设置右侧日志区域的固定宽度
-        right_widget.setMinimumWidth(500)  # 扩大右侧宽度
+        right_widget.setMinimumWidth(440)  # 扩大右侧宽度
 
         # 添加右侧日志区域到主布局
         main_layout.addWidget(right_widget)
