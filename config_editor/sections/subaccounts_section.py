@@ -165,6 +165,8 @@ class SubaccountsSection(QGroupBox):
             new_subhost = dialog.region_edit.text().strip()
             if new_subhost:
                 self.subhost_list.addItem(new_subhost)
+                # 添加后立即更新配置
+                self.update_config()
 
     def edit_region(self):
         current_item = self.subhost_list.currentItem()
@@ -174,18 +176,25 @@ class SubaccountsSection(QGroupBox):
                 new_subhost = dialog.region_edit.text().strip()
                 if new_subhost:
                     current_item.setText(new_subhost)
+                    # 编辑后立即更新配置
+                    self.update_config()
 
     def remove_subhost(self):
         current_item = self.subhost_list.currentItem()
         if current_item:
             self.subhost_list.takeItem(self.subhost_list.row(current_item))
+            # 删除后立即更新配置
+            self.update_config()
 
     def update_config(self):
         self.scheduler_section.update_config()
 
         sa_config = self.config[self.name]["subaccounts_config"]
-        sa_config["regions"] = [item.text() for item in self.subhost_list.findItems(
-            "", Qt.MatchFlag.MatchContains)]
+        sa_config["regions"] = []
+        for i in range(self.subhost_list.count()):
+            item = self.subhost_list.item(i)
+            if item is not None:
+                sa_config["regions"].append(item.text())
         sa_config["enable_collaboration"] = self.enable_collaboration.isChecked(
         )
         sa_config["collaboration_count"] = int(self.collaboration_count.text())

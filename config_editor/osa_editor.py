@@ -19,7 +19,7 @@ from config_editor.sections.demon_encounter_section import DemonEncounterSection
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import (QVBoxLayout,
                              QWidget, QScrollArea, QCheckBox, QComboBox, QSpinBox, QLineEdit,
-                             QPushButton, QHBoxLayout, QMessageBox, QLabel, QGridLayout, QGroupBox)
+                             QPushButton, QHBoxLayout, QMessageBox, QLabel, QGridLayout, QGroupBox, QListWidget)
 import sys
 import os
 from module.base.logger import logger
@@ -621,7 +621,7 @@ class OSAEditor(ConfigTab):
                         self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
                         self.shikigami_activity_section, self.area_boss_section, self.duel_section,
                         self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section, self.rifts_shadows_section]:
-            for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
+            for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton, QListWidget)):
                 if hasattr(child, 'textChanged'):
                     child.textChanged.connect(self.on_config_changed)
                 if hasattr(child, 'currentIndexChanged'):
@@ -630,6 +630,23 @@ class OSAEditor(ConfigTab):
                     child.stateChanged.connect(self.on_config_changed)
                 if hasattr(child, 'valueChanged'):
                     child.valueChanged.connect(self.on_config_changed)
+                # 为QListWidget添加完整的信号监听
+                if isinstance(child, QListWidget):
+                    child.itemChanged.connect(
+                        self.on_config_changed)      # 编辑项目
+                    child.itemSelectionChanged.connect(
+                        self.on_config_changed)  # 选择变化
+                    # 监听数据模型的删除和添加操作
+                    model = child.model()
+                    if model is not None:
+                        try:
+                            model.rowsRemoved.connect(
+                                self.on_config_changed)  # 删除项目
+                            model.rowsInserted.connect(
+                                self.on_config_changed)  # 添加项目
+                        except AttributeError:
+                            # 如果模型不支持这些信号，忽略错误
+                            pass
 
         # 给log window中的serial_edit添加自动保存
         if self.log_window and hasattr(self.log_window, 'serial_edit'):
@@ -698,7 +715,7 @@ class OSAEditor(ConfigTab):
 
     def disconnect_section_signals(self, section):
         """临时断开配置区域的信号连接"""
-        for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
+        for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton, QListWidget)):
             try:
                 if hasattr(child, 'textChanged'):
                     child.textChanged.disconnect()
@@ -708,13 +725,27 @@ class OSAEditor(ConfigTab):
                     child.stateChanged.disconnect()
                 if hasattr(child, 'valueChanged'):
                     child.valueChanged.disconnect()
+                # 断开QListWidget的信号连接
+                if isinstance(child, QListWidget):
+                    try:
+                        child.itemChanged.disconnect()
+                        child.itemSelectionChanged.disconnect()
+                        model = child.model()
+                        if model is not None:
+                            try:
+                                model.rowsRemoved.disconnect()
+                                model.rowsInserted.disconnect()
+                            except (TypeError, AttributeError):
+                                pass
+                    except TypeError:
+                        pass
             except TypeError:
                 # 信号可能没有连接，忽略错误
                 pass
 
     def connect_section_signals(self, section):
         """重新连接配置区域的信号"""
-        for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton)):
+        for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton, QListWidget)):
             if hasattr(child, 'textChanged'):
                 child.textChanged.connect(self.on_config_changed)
             if hasattr(child, 'currentIndexChanged'):
@@ -723,6 +754,22 @@ class OSAEditor(ConfigTab):
                 child.stateChanged.connect(self.on_config_changed)
             if hasattr(child, 'valueChanged'):
                 child.valueChanged.connect(self.on_config_changed)
+            # 为QListWidget添加完整的信号监听
+            if isinstance(child, QListWidget):
+                child.itemChanged.connect(self.on_config_changed)      # 编辑项目
+                child.itemSelectionChanged.connect(
+                    self.on_config_changed)  # 选择变化
+                # 监听数据模型的删除和添加操作
+                model = child.model()
+                if model is not None:
+                    try:
+                        model.rowsRemoved.connect(
+                            self.on_config_changed)  # 删除项目
+                        model.rowsInserted.connect(
+                            self.on_config_changed)  # 添加项目
+                    except AttributeError:
+                        # 如果模型不支持这些信号，忽略错误
+                        pass
 
     def generic_refresh_section(self, section):
         """通用的配置区域刷新方法"""

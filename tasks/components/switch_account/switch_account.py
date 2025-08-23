@@ -67,6 +67,7 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
         }
 
     def switch_region(self, region: str, index: int = 0):
+        logger.info(f"Switching region [{region}] with index [{index}]")
         if not self.check_page_appear(page_login):
             self.switch_account()
 
@@ -140,6 +141,6 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
             if index > 0:
                 logger.info(f"==>>> Entering index [{index}] sub region")
                 for _ in range(2):
+                    time.sleep(0.5)
                     self.click(self.sub_regions_clicks[index])
-                    time.sleep(0.3)
                 self.click(self.C_LOGIN_RANDOM_CLICK)

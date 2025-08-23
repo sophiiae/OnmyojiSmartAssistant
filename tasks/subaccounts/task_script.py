@@ -155,18 +155,18 @@ class TaskScript(SwitchAccount, DailyRoutine, Colla, SubaccountsAssets):
                 retry = 0
                 break
 
-            if retry > 3:
+            if retry > 4:
                 self.appear_then_click(self.I_CANCEL_INVITE)
                 break
 
-            if self.appear_then_click(self.I_CROSS_REGION_DISABLED, 0.96):
-                continue
+            if retry % 2:
+                self.click(self.C_SAME_REGION_FRIENDS)
+            else:
+                self.click(self.I_CROSS_REGION_DISABLED)
+            retry += 1
+            time.sleep(1)
 
-            self.click(self.C_SAME_REGION_FRIENDS)
-
-        if retry > 0:
-            self.close_quest_board()
-        else:
+        if retry == 0:
             self.send_invitation()
 
     def send_invitation(self,):
