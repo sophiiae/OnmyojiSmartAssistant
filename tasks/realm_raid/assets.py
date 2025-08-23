@@ -58,6 +58,113 @@ class RealmRaidAssets:
 	)
 
 	# Image Rule Assets
+	# 个人突破1 
+	I_REALM_PARTITION_1 = RuleImage(
+		name="realm_partition_1",
+		roi=(240, 150, 223, 113),
+		area=(240, 150, 223, 113),
+		file=""
+	)
+	# 个人突破2 
+	I_REALM_PARTITION_2 = RuleImage(
+		name="realm_partition_2",
+		roi=(574, 150, 220, 113),
+		area=(574, 150, 220, 113),
+		file=""
+	)
+	# 个人突破3 
+	I_REALM_PARTITION_3 = RuleImage(
+		name="realm_partition_3",
+		roi=(903, 150, 223, 113),
+		area=(903, 150, 223, 113),
+		file=""
+	)
+	# 个人突破4 
+	I_REALM_PARTITION_4 = RuleImage(
+		name="realm_partition_4",
+		roi=(240, 285, 223, 113),
+		area=(240, 285, 223, 113),
+		file=""
+	)
+	# 个人突破5 
+	I_REALM_PARTITION_5 = RuleImage(
+		name="realm_partition_5",
+		roi=(574, 285, 220, 113),
+		area=(574, 285, 220, 113),
+		file=""
+	)
+	# 个人突破6 
+	I_REALM_PARTITION_6 = RuleImage(
+		name="realm_partition_6",
+		roi=(903, 285, 223, 113),
+		area=(903, 285, 223, 113),
+		file=""
+	)
+	# 个人突破7 
+	I_REALM_PARTITION_7 = RuleImage(
+		name="realm_partition_7",
+		roi=(240, 420, 223, 113),
+		area=(240, 420, 223, 113),
+		file=""
+	)
+	# 个人突破8 
+	I_REALM_PARTITION_8 = RuleImage(
+		name="realm_partition_8",
+		roi=(574, 420, 220, 113),
+		area=(574, 420, 220, 113),
+		file=""
+	)
+	# 个人突破9 
+	I_REALM_PARTITION_9 = RuleImage(
+		name="realm_partition_9",
+		roi=(903, 420, 223, 113),
+		area=(903, 420, 223, 113),
+		file=""
+	)
+	# 寮突破1 
+	I_GUILD_PARTITION_1 = RuleImage(
+		name="guild_partition_1",
+		roi=(510, 118, 240, 147),
+		area=(510, 118, 240, 147),
+		file=""
+	)
+	# 寮突破2 
+	I_GUILD_PARTITION_2 = RuleImage(
+		name="guild_partition_2",
+		roi=(850, 118, 240, 147),
+		area=(850, 118, 240, 147),
+		file=""
+	)
+	# 寮突破3 
+	I_GUILD_PARTITION_3 = RuleImage(
+		name="guild_partition_3",
+		roi=(510, 265, 240, 147),
+		area=(510, 265, 240, 147),
+		file=""
+	)
+	# 寮突破4 
+	I_GUILD_PARTITION_4 = RuleImage(
+		name="guild_partition_4",
+		roi=(850, 265, 240, 147),
+		area=(850, 265, 240, 147),
+		file=""
+	)
+	# 寮突破5 
+	I_GUILD_PARTITION_5 = RuleImage(
+		name="guild_partition_5",
+		roi=(510, 400, 240, 147),
+		area=(510, 400, 240, 147),
+		file=""
+	)
+	# 寮突破6 
+	I_GUILD_PARTITION_6 = RuleImage(
+		name="guild_partition_6",
+		roi=(850, 400, 240, 147),
+		area=(850, 400, 240, 147),
+		file=""
+	)
+
+	# Image Rule Assets
 	# 结界突破界面 
 	I_REALM_RAID_HEADER = RuleImage(
 		name="realm_raid_header",
@@ -149,69 +256,6 @@ class RealmRaidAssets:
 		area=(940, 558, 142, 80),
 		file="./tasks/realm_raid/res/raid_refresh_unable.png"
 	)
-	# 个人突破1 
-	I_REALM_PARTITION_1 = RuleImage(
-		name="realm_partition_1",
-		roi=(240, 150, 223, 113),
-		area=(240, 150, 223, 113),
-		file=""
-	)
-	# 个人突破2 
-	I_REALM_PARTITION_2 = RuleImage(
-		name="realm_partition_2",
-		roi=(574, 150, 220, 113),
-		area=(574, 150, 220, 113),
-		file=""
-	)
-	# 个人突破3 
-	I_REALM_PARTITION_3 = RuleImage(
-		name="realm_partition_3",
-		roi=(903, 150, 223, 113),
-		area=(903, 150, 223, 113),
-		file=""
-	)
-	# 个人突破4 
-	I_REALM_PARTITION_4 = RuleImage(
-		name="realm_partition_4",
-		roi=(240, 285, 223, 113),
-		area=(240, 285, 223, 113),
-		file=""
-	)
-	# 个人突破5 
-	I_REALM_PARTITION_5 = RuleImage(
-		name="realm_partition_5",
-		roi=(574, 285, 220, 113),
-		area=(574, 285, 220, 113),
-		file=""
-	)
-	# 个人突破6 
-	I_REALM_PARTITION_6 = RuleImage(
-		name="realm_partition_6",
-		roi=(903, 285, 223, 113),
-		area=(903, 285, 223, 113),
-		file=""
-	)
-	# 个人突破7 
-	I_REALM_PARTITION_7 = RuleImage(
-		name="realm_partition_7",
-		roi=(240, 420, 223, 113),
-		area=(240, 420, 223, 113),
-		file=""
-	)
-	# 个人突破8 
-	I_REALM_PARTITION_8 = RuleImage(
-		name="realm_partition_8",
-		roi=(574, 420, 220, 113),
-		area=(574, 420, 220, 113),
-		file=""
-	)
-	# 个人突破9 
-	I_REALM_PARTITION_9 = RuleImage(
-		name="realm_partition_9",
-		roi=(903, 420, 223, 113),
-		area=(903, 420, 223, 113),
-		file=""
-	)
 	# 战斗失败 
 	I_REALM_RAID_FAILED = RuleImage(
 		name="realm_raid_failed",
@@ -253,48 +297,6 @@ class RealmRaidAssets:
 		roi=(675, 188, 66, 18),
 		area=(666, 179, 84, 36),
 		file="./tasks/realm_raid/res/rr_guild_lose.png"
-	)
-	# 寮突破1 
-	I_GUILD_PARTITION_1 = RuleImage(
-		name="guild_partition_1",
-		roi=(510, 118, 240, 147),
-		area=(510, 118, 240, 147),
-		file=""
-	)
-	# 寮突破2 
-	I_GUILD_PARTITION_2 = RuleImage(
-		name="guild_partition_2",
-		roi=(850, 118, 240, 147),
-		area=(850, 118, 240, 147),
-		file=""
-	)
-	# 寮突破3 
-	I_GUILD_PARTITION_3 = RuleImage(
-		name="guild_partition_3",
-		roi=(510, 265, 240, 147),
-		area=(510, 265, 240, 147),
-		file=""
-	)
-	# 寮突破4 
-	I_GUILD_PARTITION_4 = RuleImage(
-		name="guild_partition_4",
-		roi=(850, 265, 240, 147),
-		area=(850, 265, 240, 147),
-		file=""
-	)
-	# 寮突破5 
-	I_GUILD_PARTITION_5 = RuleImage(
-		name="guild_partition_5",
-		roi=(510, 400, 240, 147),
-		area=(510, 400, 240, 147),
-		file=""
-	)
-	# 寮突破6 
-	I_GUILD_PARTITION_6 = RuleImage(
-		name="guild_partition_6",
-		roi=(850, 400, 240, 147),
-		area=(850, 400, 240, 147),
-		file=""
 	)
 	# 寮突破未开启标记 
 	I_GUILD_RAID_CLOSE = RuleImage(

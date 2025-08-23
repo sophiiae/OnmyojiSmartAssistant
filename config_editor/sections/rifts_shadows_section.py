@@ -28,42 +28,28 @@ class RiftsShadowsSection(QGroupBox):
         rifts_shadows_config = self.config[self.name]["rifts_shadows_config"]
 
         # 狭间首领分数（无CheckBox，左对齐）
-        self.leader_target_score = ValueButton()
-        self.leader_target_score.setRange(1, 9999)
-        self.leader_target_score.setValue(
-            rifts_shadows_config.get("leader_target_score", 1))
+        self.leader_battle_time = ValueButton()
+        self.leader_battle_time.setRange(1, 180)
+        self.leader_battle_time.setValue(
+            rifts_shadows_config.get("leader_battle_time", 1))
         add_left_row(rs_config_layout, [QLabel(
-            "狭间首领分数(万)"), self.leader_target_score])
+            "首领战斗时长（秒）"), self.leader_battle_time])
 
         # 狭间副将分数（无CheckBox，左对齐）
-        self.deputy_target_score = ValueButton()
-        self.deputy_target_score.setRange(1, 9999)
-        self.deputy_target_score.setValue(
-            rifts_shadows_config.get("deputy_target_score", 1))
+        self.deputy_battle_time = ValueButton()
+        self.deputy_battle_time.setRange(1, 180)
+        self.deputy_battle_time.setValue(
+            rifts_shadows_config.get("deputy_battle_time", 1))
         add_left_row(rs_config_layout, [QLabel(
-            "狭间副将分数(万)"), self.deputy_target_score])
+            "副将战斗时长（秒）"), self.deputy_battle_time])
 
         # 狭间精英分数（无CheckBox，左对齐）
-        self.elite_target_score = ValueButton()
-        self.elite_target_score.setRange(1, 9999)
-        self.elite_target_score.setValue(
-            rifts_shadows_config.get("elite_target_score", 1))
+        self.elite_battle_time = ValueButton()
+        self.elite_battle_time.setRange(1, 180)
+        self.elite_battle_time.setValue(
+            rifts_shadows_config.get("elite_battle_time", 1))
         add_left_row(rs_config_layout, [QLabel(
-            "狭间副将分数(万)"), self.elite_target_score])
-
-        # 暗域选择 1（无CheckBox，左对齐）
-        self.target_shadow_1 = SelectButton()
-        self.target_shadow_1.addItems(["随机", "暗神龙", "暗孔雀", "暗白藏主", "暗黑豹"])
-        self.target_shadow_1.setCurrentText(
-            rifts_shadows_config.get("target_shadow_1", "暗孔雀"))
-        add_left_row(rs_config_layout, [QLabel("暗域选择1"), self.target_shadow_1])
-
-        # 暗域选择 2（无CheckBox，左对齐）
-        self.target_shadow_2 = SelectButton()
-        self.target_shadow_2.addItems(["随机", "暗神龙", "暗孔雀", "暗白藏主", "暗黑豹"])
-        self.target_shadow_2.setCurrentText(
-            rifts_shadows_config.get("target_shadow_2", "暗孔雀"))
-        add_left_row(rs_config_layout, [QLabel("暗域选择2"), self.target_shadow_2])
+            "副将战斗时长（秒）"), self.elite_battle_time])
 
         layout.addWidget(rs_config_group)
 
@@ -81,11 +67,9 @@ class RiftsShadowsSection(QGroupBox):
         rs_config = self.config[self.name]["rifts_shadows_config"]
 
         # 更新狭间配置
-        rs_config["leader_target_score"] = self.leader_target_score.value()
-        rs_config["deputy_target_score"] = self.deputy_target_score.value()
-        rs_config["elite_target_score"] = self.elite_target_score.value()
-        rs_config["target_shadow_1"] = self.target_shadow_1.currentText()
-        rs_config["target_shadow_2"] = self.target_shadow_2.currentText()
+        rs_config["leader_battle_time"] = self.leader_battle_time.value()
+        rs_config["deputy_battle_time"] = self.deputy_battle_time.value()
+        rs_config["elite_battle_time"] = self.elite_battle_time.value()
 
         # 更新御魂切换配置
         self.switch_soul_section.update_config()

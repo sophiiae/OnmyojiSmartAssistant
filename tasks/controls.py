@@ -241,7 +241,7 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
             bool:
         """
         x, y = target.coord()
-        self.device.click(x=x, y=y)
+        self.device.click(x=x, y=y, name=target.name)
         time.sleep(0.5)
 
     def long_click(self, target: Union[RuleImage, RuleClick]) -> None:
@@ -277,7 +277,7 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
 
     def ocr_click(self, target: RuleOcr):
         x, y = target.coord()
-        self.device.click(x, y)
+        self.device.click(x, y, target.name)
 
     def random_click_right(self, click_delay=0.2):
         """Perform random click within screen
@@ -285,7 +285,7 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
         time.sleep(click_delay)
         x = np.random.randint(990, 1260)
         y = np.random.randint(180, 550)
-        self.device.click(x=x, y=y)
+        self.device.click(x=x, y=y, name="Random click right")
 
     def click_until_disappear(self, target: RuleImage, interval: float = 1):
         """点击一个按钮直到消失

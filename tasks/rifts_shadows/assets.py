@@ -7,6 +7,50 @@ from module.image_processing.rule_click import RuleClick
 # Don't modify it manually.
 class RiftsShadowsAssets: 
 
+	# Image Rule Assets
+	# 首领（战报里） 
+	I_T_LEADER = RuleImage(
+		name="t_leader",
+		roi=(678, 149, 79, 80),
+		area=(678, 149, 79, 80),
+		file=""
+	)
+	# 副将左（战报里） 
+	I_T_DEPUTY_L = RuleImage(
+		name="t_deputy_l",
+		roi=(530, 290, 80, 82),
+		area=(530, 290, 80, 82),
+		file=""
+	)
+	# 副将右（战报里） 
+	I_T_DEPUTY_R = RuleImage(
+		name="t_deputy_r",
+		roi=(842, 290, 80, 82),
+		area=(842, 290, 80, 82),
+		file=""
+	)
+	# 精英左（战报里） 
+	I_T_ELITE_L = RuleImage(
+		name="t_elite_l",
+		roi=(440, 413, 80, 81),
+		area=(440, 413, 80, 81),
+		file=""
+	)
+	# 精英中（战报里） 
+	I_T_ELITE_M = RuleImage(
+		name="t_elite_m",
+		roi=(680, 413, 80, 81),
+		area=(680, 413, 80, 81),
+		file=""
+	)
+	# 精英右（战报里） 
+	I_T_ELITE_R = RuleImage(
+		name="t_elite_r",
+		roi=(924, 413, 80, 81),
+		area=(924, 413, 80, 81),
+		file=""
+	)
+
 	# Click Rule Assets
 	# 神龙暗域 
 	C_DARK_DIVINE_DRAGON_SHADOW = RuleClick(roi=(105, 175, 195, 365), area=(105, 175, 195, 365), name="dark_divine_dragon_shadow")
@@ -18,6 +62,18 @@ class RiftsShadowsAssets:
 	C_DARK_BLACK_PANTHER_SHADOW = RuleClick(roi=(1030, 130, 170, 355), area=(1030, 130, 170, 355), name="dark_black_panther_shadow")
 	# 暗域小地图 
 	C_RS_MINI_MAP = RuleClick(roi=(1070, 65, 140, 56), area=(1070, 65, 140, 56), name="rs_mini_map")
+	# 首领（战报里） 
+	C_R_LEADER = RuleClick(roi=(690, 155, 60, 60), area=(690, 155, 60, 60), name="r_leader")
+	# 精英左（战报里） 
+	C_R_DEPUTY_L = RuleClick(roi=(540, 300, 60, 60), area=(540, 300, 60, 60), name="r_deputy_l")
+	# 精英右（战报里） 
+	C_R_DEPUTY_R = RuleClick(roi=(850, 300, 60, 60), area=(850, 300, 60, 60), name="r_deputy_r")
+	# 精英左（战报里） 
+	C_R_ELITE_L = RuleClick(roi=(450, 420, 60, 60), area=(450, 420, 60, 60), name="r_elite_l")
+	# 精英中（战报里） 
+	C_R_ELITE_M = RuleClick(roi=(690, 420, 60, 60), area=(690, 420, 60, 60), name="r_elite_m")
+	# 精英右（战报里） 
+	C_R_ELITE_R = RuleClick(roi=(930, 420, 60, 60), area=(930, 420, 60, 60), name="r_elite_r")
 
 	# Image Rule Assets
 	# 阴阳寮内狭间入口 
@@ -159,6 +215,62 @@ class RiftsShadowsAssets:
 		roi=(672, 403, 172, 57),
 		area=(644, 375, 228, 113),
 		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
+	)
+	# 怪物分布 
+	I_RS_DEMON_DIST = RuleImage(
+		name="rs_demon_dist",
+		roi=(311, 152, 160, 40),
+		area=(291, 132, 200, 80),
+		file="./tasks/rifts_shadows/res/rs_demon_dist.png"
+	)
+	# 战报 
+	I_RS_BATTLE_REPORT = RuleImage(
+		name="rs_battle_report",
+		roi=(1202, 377, 38, 27),
+		area=(1188, 363, 66, 55),
+		file="./tasks/rifts_shadows/res/rs_battle_report.png"
+	)
+	# 神龙暗域（战报页面） 
+	I_T_DDD = RuleImage(
+		name="t_ddd",
+		roi=(142, 182, 30, 18),
+		area=(133, 173, 48, 36),
+		file="./tasks/rifts_shadows/res/t_ddd.png"
+	)
+	# 白藏主暗域（战报页面） 
+	I_T_DH = RuleImage(
+		name="t_dh",
+		roi=(143, 437, 38, 29),
+		area=(129, 423, 66, 57),
+		file="./tasks/rifts_shadows/res/t_dh.png"
+	)
+	# 孔雀暗域（战报页面） 
+	I_T_DP = RuleImage(
+		name="t_dp",
+		roi=(138, 287, 37, 23),
+		area=(126, 275, 61, 47),
+		file="./tasks/rifts_shadows/res/t_dp.png"
+	)
+	# 黑豹暗域（战报页面） 
+	I_T_DBP = RuleImage(
+		name="t_dbp",
+		roi=(149, 569, 40, 30),
+		area=(134, 554, 70, 60),
+		file="./tasks/rifts_shadows/res/t_dbp.png"
+	)
+	# 怪物40%血条（战报页面） 
+	I_DEMON_LIFE = RuleImage(
+		name="demon_life",
+		roi=(445, 489, 30, 3),
+		area=(443, 487, 34, 7),
+		file="./tasks/rifts_shadows/res/demon_life.png"
+	)
+	# 退出狭间 
+	I_RS_EXIT = RuleImage(
+		name="rs_exit",
+		roi=(24, 36, 53, 44),
+		area=(2, 14, 97, 88),
+		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
 	)
 
 	# Ocr Rule Assets

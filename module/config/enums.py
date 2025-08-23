@@ -105,10 +105,3 @@ class GreenMarkType(str, Enum):
     GREEN_LEFT3 = '第三个'
     GREEN_LEFT4 = '第四个'
     GREEN_LEFT5 = '第五个'
-
-class RiftsShadowsClass(str, Enum):
-    RANDOM = "随机",
-    Dark_Divine_Dragon = "暗神龙",
-    Dark_Peacock = "暗孔雀"
-    Dark_Hakuzousu = "暗白蔵主",
-    Dark_Black_Panther = "暗黑豹",

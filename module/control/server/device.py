@@ -211,7 +211,7 @@ class Device:
         logger.info(f"图像已保存: {filepath}")
         return True
 
-    def click(self, x, y):
+    def click(self, x, y, name: str):
         """Click the screen."""
         # 设置当前配置名称上下文
         set_current_config_name(self.config_name)
@@ -219,7 +219,7 @@ class Device:
         if self.device is None:
             logger.error("Cannot click - no device connected")
             return
-        logger.background(f"[Device] Click {x} {y}.")
+        logger.background(f"[Device] Click {name}: {x} {y}.")
         self.device.shell("input tap {} {}".format(x, y))
 
     def long_click(self, x: float, y: float, duration: float = 1500):
@@ -243,7 +243,7 @@ class Device:
             return
         x = np.random.randint(x, x + w)
         y = np.random.randint(y, y + h)
-        self.click(x, y)
+        self.click(x, y, "Random right")
 
     def swipe(self, start_x, start_y, end_x, end_y, duration=300):
         """Swipe the screen."""

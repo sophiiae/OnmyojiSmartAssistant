@@ -102,9 +102,9 @@ class TaskScript(SwitchAccount, DailyRoutine, Colla, SubaccountsAssets):
         self.invite_config = self.sub_config.invite_quest_config
 
         plus_button_list = [self.I_VIRTUAL_INVITE] + self.plus_buttons.copy()
-        while plus_button_list:
-            button = plus_button_list.pop(0)
-            self.check_invite_quest(button)
+        for idx, button in enumerate(plus_button_list):
+            if not self.check_invite_quest(button) and idx > 0:
+                break
 
         self.close_quest_board()
 
@@ -113,7 +113,7 @@ class TaskScript(SwitchAccount, DailyRoutine, Colla, SubaccountsAssets):
 
         self.wait_and_shot()
         if not self.appear(button, 0.96):
-            return
+            return False
 
         if self.appear(button, 0.97):
             self.class_logger(
@@ -124,20 +124,20 @@ class TaskScript(SwitchAccount, DailyRoutine, Colla, SubaccountsAssets):
                 self.I_QUEST_JADE.set_area(nx, ny, w, h)
                 if self.appear(self.I_QUEST_JADE):
                     self.invite_friend(button)
-                    return
+                    return True
 
             if self.invite_config.invite_ap:
                 self.I_QUEST_AP.set_area(nx, ny, w, h)
                 if self.appear(self.I_QUEST_AP):
                     self.invite_friend(button)
-                    return
+                    return True
 
             if self.invite_config.invite_pet_food:
                 self.I_QUEST_CAT.set_area(nx, ny, w, h)
                 self.I_QUEST_DOG.set_area(nx, ny, w, h)
                 if self.appear(self.I_QUEST_CAT) or self.appear(self.I_QUEST_DOG):
                     self.invite_friend(button)
-                    return
+                    return True
 
     def invite_friend(self, button: RuleImage):
         while 1:

@@ -33,5 +33,47 @@
     "roi": "1070, 65, 140, 56",
     "area": "1070, 65, 140, 56",
     "description": "暗域小地图"
+  },
+  {
+    "name": "r_leader",
+    "type": "click",
+    "roi": "690, 155, 60, 60",
+    "area": "690, 155, 60, 60",
+    "description": "首领（战报里）"
+  },
+  {
+    "name": "r_deputy_l",
+    "type": "click",
+    "roi": "540, 300, 60, 60",
+    "area": "540, 300, 60, 60",
+    "description": "精英左（战报里）"
+  },
+  {
+    "name": "r_deputy_r",
+    "type": "click",
+    "roi": "850, 300, 60, 60",
+    "area": "850, 300, 60, 60",
+    "description": "精英右（战报里）"
+  },
+  {
+    "name": "r_elite_l",
+    "type": "click",
+    "roi": "450, 420, 60, 60",
+    "area": "450, 420, 60, 60",
+    "description": "精英左（战报里）"
+  },
+  {
+    "name": "r_elite_m",
+    "type": "click",
+    "roi": "690, 420, 60, 60",
+    "area": "690, 420, 60, 60",
+    "description": "精英中（战报里）"
+  },
+  {
+    "name": "r_elite_r",
+    "type": "click",
+    "roi": "930, 420, 60, 60",
+    "area": "930, 420, 60, 60",
+    "description": "精英右（战报里）"
   }
 ]

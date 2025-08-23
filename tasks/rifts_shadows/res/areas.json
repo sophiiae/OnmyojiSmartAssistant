@@ -1,0 +1,50 @@
+[
+  {
+    "name": "t_leader",
+    "type": "image",
+    "roi": "678, 149, 79, 80",
+    "area": "678, 149, 79, 80",
+    "file": "",
+    "description": "首领（战报里）"
+  },
+  {
+    "name": "t_deputy_l",
+    "type": "image",
+    "roi": "530, 290, 80, 82",
+    "area": "530, 290, 80, 82",
+    "file": "",
+    "description": "副将左（战报里）"
+  },
+  {
+    "name": "t_deputy_r",
+    "type": "image",
+    "roi": "842, 290, 80, 82",
+    "area": "842, 290, 80, 82",
+    "file": "",
+    "description": "副将右（战报里）"
+  },
+  {
+    "name": "t_elite_l",
+    "type": "image",
+    "roi": "440, 413, 80, 81",
+    "area": "440, 413, 80, 81",
+    "file": "",
+    "description": "精英左（战报里）"
+  },
+  {
+    "name": "t_elite_m",
+    "type": "image",
+    "roi": "680, 413, 80, 81",
+    "area": "680, 413, 80, 81",
+    "file": "",
+    "description": "精英中（战报里）"
+  },
+  {
+    "name": "t_elite_r",
+    "type": "image",
+    "roi": "924, 413, 80, 81",
+    "area": "924, 413, 80, 81",
+    "file": "",
+    "description": "精英右（战报里）"
+  }
+]

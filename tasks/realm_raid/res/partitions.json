@@ -1,0 +1,122 @@
+[
+  {
+    "name": "realm_partition_1",
+    "type": "image",
+    "roi": "240, 150, 223, 113",
+    "area": "240, 150, 223, 113",
+    "file": "",
+    "description": "个人突破1"
+  },
+  {
+    "name": "realm_partition_2",
+    "type": "image",
+    "roi": "574, 150, 220, 113",
+    "area": "574, 150, 220, 113",
+    "file": "",
+    "description": "个人突破2"
+  },
+  {
+    "name": "realm_partition_3",
+    "type": "image",
+    "roi": "903, 150, 223, 113",
+    "area": "903, 150, 223, 113",
+    "file": "",
+    "description": "个人突破3"
+  },
+  {
+    "name": "realm_partition_4",
+    "type": "image",
+    "roi": "240, 285, 223, 113",
+    "area": "240, 285, 223, 113",
+    "file": "",
+    "description": "个人突破4"
+  },
+  {
+    "name": "realm_partition_5",
+    "type": "image",
+    "roi": "574, 285, 220, 113",
+    "area": "574, 285, 220, 113",
+    "file": "",
+    "description": "个人突破5"
+  },
+  {
+    "name": "realm_partition_6",
+    "type": "image",
+    "roi": "903, 285, 223, 113",
+    "area": "903, 285, 223, 113",
+    "file": "",
+    "description": "个人突破6"
+  },
+  {
+    "name": "realm_partition_7",
+    "type": "image",
+    "roi": "240, 420, 223, 113",
+    "area": "240, 420, 223, 113",
+    "file": "",
+    "description": "个人突破7"
+  },
+  {
+    "name": "realm_partition_8",
+    "type": "image",
+    "roi": "574, 420, 220, 113",
+    "area": "574, 420, 220, 113",
+    "file": "",
+    "description": "个人突破8"
+  },
+  {
+    "name": "realm_partition_9",
+    "type": "image",
+    "roi": "903, 420, 223, 113",
+    "area": "903, 420, 223, 113",
+    "file": "",
+    "description": "个人突破9"
+  },
+  {
+    "name": "guild_partition_1",
+    "type": "image",
+    "roi": "510, 118, 240, 147",
+    "area": "510, 118, 240, 147",
+    "file": "",
+    "description": "寮突破1"
+  },
+  {
+    "name": "guild_partition_2",
+    "type": "image",
+    "roi": "850, 118, 240, 147",
+    "area": "850, 118, 240, 147",
+    "file": "",
+    "description": "寮突破2"
+  },
+  {
+    "name": "guild_partition_3",
+    "type": "image",
+    "roi": "510, 265, 240, 147",
+    "area": "510, 265, 240, 147",
+    "file": "",
+    "description": "寮突破3"
+  },
+  {
+    "name": "guild_partition_4",
+    "type": "image",
+    "roi": "850, 265, 240, 147",
+    "area": "850, 265, 240, 147",
+    "file": "",
+    "description": "寮突破4"
+  },
+  {
+    "name": "guild_partition_5",
+    "type": "image",
+    "roi": "510, 400, 240, 147",
+    "area": "510, 400, 240, 147",
+    "file": "",
+    "description": "寮突破5"
+  },
+  {
+    "name": "guild_partition_6",
+    "type": "image",
+    "roi": "850, 400, 240, 147",
+    "area": "850, 400, 240, 147",
+    "file": "",
+    "description": "寮突破6"
+  }
+]

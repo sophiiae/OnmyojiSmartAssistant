@@ -13,11 +13,11 @@ class SwitchAccountAssets:
 	# 区域按钮 
 	C_REGION = RuleClick(roi=(556, 508, 152, 34), area=(556, 508, 152, 34), name="region")
 	# 合区账号1 
-	C_SUB_REGION_1 = RuleClick(roi=(110, 130, 160, 70), area=(110, 130, 160, 70), name="sub_region_1")
+	C_SUB_REGION_1 = RuleClick(roi=(120, 140, 100, 60), area=(120, 140, 100, 60), name="sub_region_1")
 	# 合区账号2 
-	C_SUB_REGION_2 = RuleClick(roi=(110, 250, 160, 70), area=(110, 250, 160, 70), name="sub_region_2")
+	C_SUB_REGION_2 = RuleClick(roi=(120, 255, 100, 60), area=(120, 255, 100, 60), name="sub_region_2")
 	# 合区账号3 
-	C_SUB_REGION_3 = RuleClick(roi=(110, 275, 160, 70), area=(110, 275, 160, 70), name="sub_region_3")
+	C_SUB_REGION_3 = RuleClick(roi=(120, 380, 100, 60), area=(120, 380, 100, 60), name="sub_region_3")
 	# 登录时随机点击 
 	C_LOGIN_RANDOM_CLICK = RuleClick(roi=(800, 150, 150, 200), area=(800, 150, 150, 200), name="login_random_click")
 

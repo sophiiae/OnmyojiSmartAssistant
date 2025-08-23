@@ -307,11 +307,9 @@
       "failure_interval": "01:00:00:00"
     },
     "rifts_shadows_config": {
-      "leader_target_score": 1400,
-      "deputy_target_score": 1500,
-      "elite_target_score": 500,
-      "target_shadow_1": "暗神龙",
-      "target_shadow_2": "暗黑豹"
+      "leader_battle_time": 100,
+      "deputy_battle_time": 60,
+      "elite_battle_time": 40
     },
     "switch_soul_config": {
       "enable": true,

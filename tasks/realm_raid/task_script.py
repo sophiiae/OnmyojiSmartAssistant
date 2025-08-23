@@ -151,7 +151,7 @@ class TaskScript(RealmRaidAssets, Battle):
                 continue
 
             x, y = target.roi_center_random()
-            self.device.click(x, y)
+            self.device.click(x, y, target.name)
 
     def start_battle(self, attack_list: list[int]) -> bool:
         # 锁定队伍

@@ -158,5 +158,69 @@
     "area": "644, 375, 228, 113",
     "file": "./tasks/components/widgets/res/buttons/b_confirm_wide.png",
     "description": "前往确认"
+  },
+  {
+    "name": "rs_demon_dist",
+    "type": "image",
+    "roi": "311, 152, 160, 40",
+    "area": "291, 132, 200, 80",
+    "file": "./tasks/rifts_shadows/res/rs_demon_dist.png",
+    "description": "怪物分布"
+  },
+  {
+    "name": "rs_battle_report",
+    "type": "image",
+    "roi": "1202, 377, 38, 27",
+    "area": "1188, 363, 66, 55",
+    "file": "./tasks/rifts_shadows/res/rs_battle_report.png",
+    "description": "战报"
+  },
+  {
+    "name": "t_ddd",
+    "type": "image",
+    "roi": "142, 182, 30, 18",
+    "area": "133, 173, 48, 36",
+    "file": "./tasks/rifts_shadows/res/t_ddd.png",
+    "description": "神龙暗域（战报页面）"
+  },
+  {
+    "name": "t_dh",
+    "type": "image",
+    "roi": "143, 437, 38, 29",
+    "area": "129, 423, 66, 57",
+    "file": "./tasks/rifts_shadows/res/t_dh.png",
+    "description": "白藏主暗域（战报页面）"
+  },
+  {
+    "name": "t_dp",
+    "type": "image",
+    "roi": "138, 287, 37, 23",
+    "area": "126, 275, 61, 47",
+    "file": "./tasks/rifts_shadows/res/t_dp.png",
+    "description": "孔雀暗域（战报页面）"
+  },
+  {
+    "name": "t_dbp",
+    "type": "image",
+    "roi": "149, 569, 40, 30",
+    "area": "134, 554, 70, 60",
+    "file": "./tasks/rifts_shadows/res/t_dbp.png",
+    "description": "黑豹暗域（战报页面）"
+  },
+  {
+    "name": "demon_life",
+    "type": "image",
+    "roi": "445, 489, 30, 3",
+    "area": "443, 487, 34, 7",
+    "file": "./tasks/rifts_shadows/res/demon_life.png",
+    "description": "怪物40%血条（战报页面）"
+  },
+  {
+    "name": "rs_exit",
+    "type": "image",
+    "roi": "24, 36, 53, 44",
+    "area": "2, 14, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "退出狭间"
   }
 ]

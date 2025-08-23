@@ -91,7 +91,7 @@ class Battle(Buff, SwitchSouls, BattleAssets):
 
         return True
 
-    def exit_battle(self) -> bool:
+    def exit_battle(self, exit_check: RuleImage) -> bool:
         self.screenshot()
 
         if not self.appear(self.I_BATTLE_EXIT):
@@ -104,6 +104,7 @@ class Battle(Buff, SwitchSouls, BattleAssets):
             self.screenshot()
             if self.appear_then_click(self.I_BATTLE_EXIT):
                 continue
+
             if self.appear(self.I_BATTLE_EXIT_CONFIRM):
                 break
 
@@ -111,12 +112,14 @@ class Battle(Buff, SwitchSouls, BattleAssets):
         while 1:
             time.sleep(0.2)
             self.screenshot()
+            if self.appear(exit_check):
+                break
+
             if self.appear_then_click(self.I_BATTLE_EXIT_CONFIRM):
                 continue
-            if self.appear_then_click(self.I_BATTLE_FAILED):
-                continue
-            if not self.appear(self.I_BATTLE_EXIT):
-                break
+
+            if self.appear(self.I_BATTLE_FAILED) or self.appear(self.I_BATTLE_WIN):
+                self.click(self.battle_end_click)
 
         return True
 

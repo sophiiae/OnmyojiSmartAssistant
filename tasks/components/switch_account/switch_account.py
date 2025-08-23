@@ -78,16 +78,19 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
         if not self.appear(self.I_C_LOGIN):
             raise RequestHumanTakeover("Not able to find login page")
 
+        if index < 2:
+            self.pick_region(target)
+
+        self.enter_game()
+        self.pick_sub_account(index)
+        time.sleep(2)
+
+    def pick_region(self, target):
         # 进入区域选择页面
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_OWN_CHARACTERS):
                 break
-
-            self.appear_then_click(self.I_APPLE_LOGO)
-
-            if self.appear_then_click(self.I_LOGIN):
-                continue
 
             if self.appear(self.I_C_LOGIN) and not self.appear(self.I_PICK_REGION):
                 self.click(self.C_REGION)
@@ -110,6 +113,7 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
                 self.swipe(self.S_REGION_TO_LEFT, duration=500)
                 time.sleep(0.5)
 
+    def enter_game(self):
         # 登录游戏
         while 1:
             self.wait_and_shot()
@@ -117,11 +121,16 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
                 logger.info("==>>> Entering game")
                 break
 
+            self.appear_then_click(self.I_APPLE_LOGO)
+            self.appear_then_click(self.I_LOGIN)
+
             if self.appear(self.I_C_LOGIN, 0.95):
                 self.click(self.C_ENTER_GAME)
                 time.sleep(2)
-
         time.sleep(1)
+
+    def pick_sub_account(self, index):
+        logger.info(f"Pick subaccount with index [{index}].")
         # 进入庭院
         while 1:
             self.wait_and_shot()
@@ -134,5 +143,3 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
                     self.click(self.sub_regions_clicks[index])
                     time.sleep(0.3)
                 self.click(self.C_LOGIN_RANDOM_CLICK)
-
-        time.sleep(2)

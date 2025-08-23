@@ -784,31 +784,21 @@ class DemonEncounter(BaseModel):
     )
 
 class RiftsShadowsConfig(BaseModel):
-    leader_target_score: int = Field(
-        default=1400,
+    leader_battle_time: int = Field(
+        default=100,
         gt=1,
-        description="首领最低成绩（万）"
+        description="首领战斗时长（秒）"
     )
-    deputy_target_score: int = Field(
-        default=1500,
+    deputy_battle_time: int = Field(
+        default=60,
         gt=1,
-        description="副将最低成绩（万）"
+        description="副将战斗时长（秒）"
     )
 
-    elite_target_score: int = Field(
-        default=500,
+    elite_battle_time: int = Field(
+        default=40,
         gt=1,
-        description="精英最低成绩（万）"
-    )
-
-    target_shadow_1: RiftsShadowsClass = Field(
-        default=RiftsShadowsClass.RANDOM,
-        description="攻打暗域1"
-    )
-
-    target_shadow_2: RiftsShadowsClass = Field(
-        default=RiftsShadowsClass.RANDOM,
-        description="攻打暗域2"
+        description="精英战斗时长（秒）"
     )
 
 class RiftsShadows(BaseModel):

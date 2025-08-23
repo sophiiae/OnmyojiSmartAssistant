@@ -166,7 +166,7 @@ class EmulatorMain:
 
         center = pro.get_match_center(self.get_image_path('logo.png'))
         if center is not None:
-            device.click(center[0], center[1])
+            device.click(center[0], center[1], name="Onmyoji Logo")
             logger.success(f"找到阴阳师Logo，正在启动...")
         else:
             logger.error("未找到阴阳师Logo, 请检查图片路径和截图质量！")
@@ -178,7 +178,7 @@ class EmulatorMain:
         center = pro.get_match_center(self.get_image_path('ad_close_icon.png'))
         if center is not None:
             logger.success(f"找到广告关闭按钮，正在关闭...")
-            device.click(center[0], center[1])
+            device.click(center[0], center[1], "AD close")
             time.sleep(0.5)
         else:
             logger.background("没有发现广告")
@@ -189,7 +189,7 @@ class EmulatorMain:
         image = cv2.imread(self.get_image_path('login_warning.png'))
         result = pro.find_target(image)
         if result:
-            device.click(600, 600)
+            device.click(600, 600, "login")
 
 
 if __name__ == "__main__":

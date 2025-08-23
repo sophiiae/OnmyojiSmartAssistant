@@ -78,13 +78,13 @@ class TaskScript(Battle, AreaBossAssets):
             if not self.appear(self.I_AB_BOSS_FIGHT):
                 break
 
+        # 准备
         while 1:
             self.wait_and_shot(1)
-            if self.appear_then_click(self.I_AB_BOSS_READY):
-                continue
-
-            if not self.appear(self.I_AB_BOSS_READY):
+            if not self.appear(self.I_AB_BOSS_READY, 0.95):
                 break
+
+            self.appear_then_click(self.I_AB_BOSS_READY, 0.95)
 
         self.run_boss_battle()
         self.exit_area_boss()
