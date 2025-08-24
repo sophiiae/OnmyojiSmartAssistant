@@ -138,7 +138,7 @@ class TaskScript(RiftsShadowsAssets, Battle):
         if ss_enable:
             self.run_switch_souls(self.I_RS_SHIKI_BOOK_ENT,
                                   ss_config.switch_group_team,
-                                  self.I_RS_BATTLE_REPORT)
+                                  self.I_RS_SHIKI_BOOK_ENT)
 
     def start_battle(self, battle_time):
         # 挑战
@@ -152,6 +152,8 @@ class TaskScript(RiftsShadowsAssets, Battle):
         while 1:
             self.wait_and_shot()
             if not self.appear(self.I_BATTLE_READY):
+                self.class_logger(
+                    self.name, f"Going to wait for {battle_time} seconds.")
                 time.sleep(battle_time)
                 break
 
@@ -164,15 +166,24 @@ class TaskScript(RiftsShadowsAssets, Battle):
         retry = 0
         while 1:
             self.wait_and_shot()
+            if self.appear(self.I_RS_HEAD_FOR):
+                break
+
             if retry > 3:
                 return False
 
             if self.appear_then_click(target, 0.96):
-                if self.appear(self.I_RS_BATTLE):
-                    return True
                 retry += 1
 
             self.click(self.C_RS_MINI_MAP)
+
+        self.wait_until_appear(self.I_RS_BATTLE, 20)
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_RS_BATTLE):
+                break
+
+            self.appear_then_click(self.I_RS_HEAD_FOR)
 
     def switch_shadow_battle(self, demon_type: int):
         # 打开战报

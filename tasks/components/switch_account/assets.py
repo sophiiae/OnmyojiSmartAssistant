@@ -71,6 +71,13 @@ class SwitchAccountAssets:
 		area=(1030, 573, 40, 51),
 		file="./tasks/components/switch_account/res/open_regions.png"
 	)
+	# 退出合区账号页面 
+	I_SUBACCOUNT_PAGE_EXIT = RuleImage(
+		name="subaccount_page_exit",
+		roi=(24, 36, 53, 44),
+		area=(2, 14, 97, 88),
+		file="./tasks/components/widgets/res/buttons/b_blue_left_angle.png"
+	)
 
 	# Image Rule Assets
 	# 海外加速区 

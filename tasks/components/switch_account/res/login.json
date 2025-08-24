@@ -53,5 +53,13 @@
     "area": "1030, 573, 40, 51",
     "file": "./tasks/components/switch_account/res/open_regions.png",
     "description": "展开已有账号区域"
+  },
+  {
+    "name": "subaccount_page_exit",
+    "type": "image",
+    "roi": "24, 36, 53, 44",
+    "area": "2, 14, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "退出合区账号页面"
   }
 ]

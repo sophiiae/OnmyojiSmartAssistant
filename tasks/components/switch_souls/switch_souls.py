@@ -110,11 +110,10 @@ class SwitchSouls(TaskBase, SS):
         # 确定更换
         while 1:
             self.wait_and_shot()
-            if not self.appear(self.I_SS_CONFIRM, 0.95):
+            if not self.appear(self.I_SS_CONFIRM, 0.97):
                 break
 
-            if self.appear(self.I_SS_CONFIRM, 0.95):
-                self.click(self.I_SS_CONFIRM)
+            self.appear_then_click(self.I_SS_CONFIRM, 0.97)
 
     def switch_souls(self, target: Union[tuple, list[tuple]]):
         if isinstance(target, tuple):

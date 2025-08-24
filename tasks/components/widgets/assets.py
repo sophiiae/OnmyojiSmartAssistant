@@ -85,13 +85,6 @@ class WidgetsAssets:
 		area=(1081, 603, 94, 56),
 		file="./tasks/components/widgets/res/main_shiki_book_ent.png"
 	)
-	# 曜 
-	I_DAY_CHARACTER = RuleImage(
-		name="day_character",
-		roi=(224, 427, 27, 28),
-		area=(210, 413, 55, 56),
-		file="./tasks/components/widgets/res/day_character.png"
-	)
 
 	# Swipe Rule Assets
 	# 往左滑 

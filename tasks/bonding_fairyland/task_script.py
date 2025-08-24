@@ -1,7 +1,7 @@
 from module.base.exception import TaskEnd
 from tasks.components.battle.battle import Battle
 from tasks.bonding_fairyland.assets import BondingFairylandAssets as BFA
-from tasks.components.page.page import page_bonding_fairyland
+from tasks.components.page.page import page_bonding_fairyland, page_main
 
 class TaskScript(Battle, BFA):
     name = "BondingFairyland"
@@ -40,6 +40,7 @@ class TaskScript(Battle, BFA):
                     break
 
         self.set_next_run(task=self.name, success=success, finish=True)
+        self.goto(page_main)
         raise TaskEnd(self.name)
 
     def toggle_bf_lock(self, lock: bool = True):

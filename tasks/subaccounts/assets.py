@@ -18,7 +18,7 @@ class SubaccountsAssets:
 	I_QUEST = RuleImage(
 		name="quest",
 		roi=(235, 337, 44, 34),
-		area=(100, 220, 320, 268),
+		area=(0, 150, 990, 440),
 		file="./tasks/subaccounts/res/quest/quest.png"
 	)
 	# 悬赏封印标题 
@@ -67,7 +67,7 @@ class SubaccountsAssets:
 	I_AVATAR = RuleImage(
 		name="avatar",
 		roi=(183, 218, 23, 21),
-		area=(173, 208, 43, 41),
+		area=(150, 170, 550, 350),
 		file="./tasks/subaccounts/res/quest/avatar.png"
 	)
 	# 好友头像已选中 

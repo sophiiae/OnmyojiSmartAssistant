@@ -120,7 +120,7 @@ class OSAEditor(ConfigTab):
             ("bonding_fairyland", "契灵之境", "bonding_fairyland.scheduler.enable"),
             ("netherworld", "阴界之门", "netherworld.scheduler.enable"),
             ("demon_encounter", "逢魔之时", "demon_encounter.scheduler.enable"),
-            ("rifts_shadows", "狭间暗域", "rifts_shadows.scheduler.enable")
+            # ("rifts_shadows", "狭间暗域", "rifts_shadows.scheduler.enable")
         ]
 
         # 设置统一的按钮样式
@@ -217,8 +217,8 @@ class OSAEditor(ConfigTab):
         self.demon_encounter_section = DemonEncounterSection(self.config)
         scroll_layout.addWidget(self.demon_encounter_section)
 
-        self.rifts_shadows_section = RiftsShadowsSection(self.config)
-        scroll_layout.addWidget(self.rifts_shadows_section)
+        # self.rifts_shadows_section = RiftsShadowsSection(self.config)
+        # scroll_layout.addWidget(self.rifts_shadows_section)
 
         # 为所有section添加点击事件
         self.setup_section_click_events()
@@ -291,7 +291,7 @@ class OSAEditor(ConfigTab):
             self.bonding_fairyland_section,
             self.netherworld_section,
             self.demon_encounter_section,
-            self.rifts_shadows_section
+            # self.rifts_shadows_section
         ]
 
         for section in sections:
@@ -483,7 +483,7 @@ class OSAEditor(ConfigTab):
         self.bonding_fairyland_section.update_config()
         self.netherworld_section.update_config()
         self.demon_encounter_section.update_config()
-        self.rifts_shadows_section.update_config()
+        # self.rifts_shadows_section.update_config()
 
         # 保存log window中的serial_edit配置
         if self.log_window and hasattr(self.log_window, 'update_serial_config'):
@@ -617,10 +617,13 @@ class OSAEditor(ConfigTab):
 
     def install_auto_save(self):
         # 给所有控件加信号，内容变动时自动保存
-        for section in [self.subaccounts_section, self.daily_routine_section, self.wanted_quests_section,
-                        self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
-                        self.shikigami_activity_section, self.area_boss_section, self.duel_section,
-                        self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section, self.rifts_shadows_section]:
+        for section in [
+            self.subaccounts_section, self.daily_routine_section, self.wanted_quests_section,
+            self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
+            self.shikigami_activity_section, self.area_boss_section, self.duel_section,
+            self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section,
+            # self.rifts_shadows_section
+        ]:
             for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton, QListWidget)):
                 if hasattr(child, 'textChanged'):
                     child.textChanged.connect(self.on_config_changed)
@@ -677,7 +680,7 @@ class OSAEditor(ConfigTab):
                 ("bonding_fairyland_section", self.bonding_fairyland_section),
                 ("netherworld_section", self.netherworld_section),
                 ("demon_encounter_section", self.demon_encounter_section),
-                ("rifts_shadows_section", self.rifts_shadows_section)
+                # ("rifts_shadows_section", self.rifts_shadows_section)
             ]
 
             for section_name, section in sections:
@@ -804,7 +807,7 @@ class OSAEditor(ConfigTab):
             "bonding_fairyland": self.bonding_fairyland_section,
             "netherworld": self.netherworld_section,
             "demon_encounter": self.demon_encounter_section,
-            "rifts_shadows": self.rifts_shadows_section
+            # "rifts_shadows": self.rifts_shadows_section
         }
 
         if section_id in section_map:

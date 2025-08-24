@@ -1,0 +1,58 @@
+[
+  {
+    "name": "nw_ent",
+    "type": "image",
+    "roi": "1074, 611, 76, 75",
+    "area": "1036, 573, 152, 151",
+    "file": "./tasks/netherworld/res/nw_ent.png",
+    "description": "阴界之门图标（右下角）"
+  },
+  {
+    "name": "nw_page_exit",
+    "type": "image",
+    "roi": "55, 37, 53, 44",
+    "area": "33, 15, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "退出阴界之门"
+  },
+  {
+    "name": "nw_challenge",
+    "type": "image",
+    "roi": "362, 607, 60, 28",
+    "area": "348, 593, 88, 56",
+    "file": "./tasks/netherworld/res/nw_challenge.png",
+    "description": "挑战方形按钮"
+  },
+  {
+    "name": "nw_shiki_book_ent",
+    "type": "image",
+    "roi": "146, 601, 43, 39",
+    "area": "126, 581, 83, 79",
+    "file": "./tasks/netherworld/res/nw_shiki_book_ent.png",
+    "description": "式神录入口"
+  },
+  {
+    "name": "nw_header",
+    "type": "image",
+    "roi": "566, 48, 122, 31",
+    "area": "550, 32, 154, 63",
+    "file": "./tasks/netherworld/res/nw_header.png",
+    "description": "阴界之门页眉"
+  },
+  {
+    "name": "nw_battle_challenge",
+    "type": "image",
+    "roi": "1185, 618, 63, 50",
+    "area": "1160, 593, 113, 100",
+    "file": "./tasks/netherworld/res/nw_battle_challenge.png",
+    "description": "挑战（组队页面）"
+  },
+  {
+    "name": "nw_guild_ent",
+    "type": "image",
+    "roi": "36, 167, 77, 20",
+    "area": "26, 157, 97, 40",
+    "file": "./tasks/netherworld/res/nw_guild_ent.png",
+    "description": "阴界之门寮入口"
+  }
+]
