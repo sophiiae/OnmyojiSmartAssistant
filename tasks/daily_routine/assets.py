@@ -102,7 +102,7 @@ class DailyRoutineAssets:
 	I_SIGN = RuleImage(
 		name="sign",
 		roi=(253, 509, 24, 20),
-		area=(243, 499, 44, 40),
+		area=(43, 450, 644, 140),
 		file="./tasks/daily_routine/res/sign.png"
 	)
 	# 每日一签 
@@ -130,21 +130,21 @@ class DailyRoutineAssets:
 	I_DAILY_JADE = RuleImage(
 		name="daily_jade",
 		roi=(734, 482, 31, 34),
-		area=(718, 466, 63, 66),
+		area=(518, 456, 463, 86),
 		file="./tasks/daily_routine/res/daily_jade.png"
 	)
 	# 每日寿司 
 	I_DAILY_AP = RuleImage(
 		name="daily_ap",
 		roi=(737, 489, 26, 28),
-		area=(724, 476, 52, 54),
+		area=(524, 466, 452, 74),
 		file="./tasks/daily_routine/res/daily_ap.png"
 	)
 	# 寮礼包 
 	I_GUILD_PACK = RuleImage(
 		name="guild_pack",
 		roi=(246, 502, 34, 34),
-		area=(229, 485, 68, 68),
+		area=(129, 485, 268, 68),
 		file="./tasks/daily_routine/res/guild_pack.png"
 	)
 	# 花合战 
@@ -172,7 +172,7 @@ class DailyRoutineAssets:
 	I_SHOP_PACK = RuleImage(
 		name="shop_pack",
 		roi=(252, 497, 32, 39),
-		area=(250, 500, 60, 70),
+		area=(150, 500, 260, 70),
 		file="./tasks/daily_routine/res/shop_pack.png"
 	)
 	# 关闭商店礼包推荐 

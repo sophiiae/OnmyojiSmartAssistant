@@ -144,3 +144,4 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
                     time.sleep(0.4)
                     self.click(self.sub_regions_clicks[index])
                 self.click(self.C_LOGIN_RANDOM_CLICK)
+                time.sleep(1)

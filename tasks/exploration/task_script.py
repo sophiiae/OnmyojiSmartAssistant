@@ -70,41 +70,6 @@ class TaskScript(ExpBase):
 
         self.init_battle = False
 
-    def post_chapter_battle(self):
-        # 检查章节奖励
-        if self.get_chapter_reward():
-            time.sleep(1)
-
-        while 1:
-            self.wait_and_shot()
-            if self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON):
-                time.sleep(1)
-                continue
-
-            # 如果回到了探索界面 -> 检查宝箱
-            if self.appear(self.I_C_EXP):
-                self.check_treasure_box()
-                break
-
-            # 如果有妖气封印，就关闭
-            if self.appear(self.I_EXP_YAOQI):
-                self.appear_then_click(self.I_EXP_YAOQI_CLOSE)
-                continue
-
-    def check_treasure_box(self):
-        while 1:
-            self.wait_and_shot()
-            if not self.appear(self.I_EXP_TREASURE_BOX, 0.95):
-                break
-
-            if self.click_static_target(self.I_EXP_TREASURE_BOX, 0.95):
-                got_reward = self.wait_until_appear(
-                    self.I_REWARD, 3)
-
-                if got_reward:   # 领取宝箱物品
-                    time.sleep(0.7)
-                    self.random_click_right()
-
     def find_assigned_chapter(self, pick_chapter):
         chapter_list = [chapter.value for chapter in Chapters]
         chapter_set = set(chapter_list)  # For faster lookup
@@ -281,25 +246,6 @@ class TaskScript(ExpBase):
             if self.appear(self.I_EXP_BATTLE) or self.appear(self.I_EXP_BOSS):
                 break
             self.swipe(self.S_EXP_TO_LEFT)
-
-    def get_chapter_reward(self):
-        found = False
-        time.sleep(1)
-        while 1:
-            self.wait_and_shot()
-            if not self.appear(self.I_EXP_C_CHAPTER, 0.95):
-                break
-
-            if self.appear(self.I_GAIN_REWARD):
-                self.random_click_right()
-                found = True
-
-            if self.appear(self.I_EXP_CHAP_REWARD):
-                self.click(self.I_EXP_CHAP_REWARD)
-
-        if found:
-            self.class_logger(self.name, "Got all chapter reward.")
-        return found
 
     def check_ticket(self):
         if not self.exp_config.scroll_mode.scroll_mode_enable:

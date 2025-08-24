@@ -1,0 +1,210 @@
+[
+  {
+    "name": "v_summon_to_main",
+    "type": "image",
+    "roi": "34, 9, 42, 41",
+    "area": "14, 0, 82, 81",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
+    "description": "召唤页面退出"
+  },
+  {
+    "name": "v_exp_modal_to_exp",
+    "type": "image",
+    "roi": "1031, 133, 32, 34",
+    "area": "1015, 117, 64, 66",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
+    "description": "探索章节入口退出"
+  },
+  {
+    "name": "v_exp_to_main",
+    "type": "image",
+    "roi": "30, 36, 53, 44",
+    "area": "4, 14, 106, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "探索界面返回主界面"
+  },
+  {
+    "name": "v_market_to_main",
+    "type": "image",
+    "roi": "24, 36, 53, 44",
+    "area": "2, 14, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "商店街退出"
+  },
+  {
+    "name": "v_store_to_market",
+    "type": "image",
+    "roi": "30, 16, 42, 41",
+    "area": "10, 0, 82, 81",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
+    "description": "商店退出到商店街"
+  },
+  {
+    "name": "v_minamoto_to_exp",
+    "type": "image",
+    "roi": "20, 16, 42, 41",
+    "area": "0, 0, 82, 81",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
+    "description": "英杰试炼退出"
+  },
+  {
+    "name": "v_guild_to_main",
+    "type": "image",
+    "roi": "30, 18, 42, 41",
+    "area": "10, 0, 82, 81",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
+    "description": "阴阳寮退出"
+  },
+  {
+    "name": "v_realm_raid_to_exp",
+    "type": "image",
+    "roi": "1190, 116, 32, 34",
+    "area": "1174, 100, 64, 66",
+    "file": "./tasks/components/widgets/res/buttons/b_red_x.png",
+    "description": "结界突破退出"
+  },
+  {
+    "name": "v_boss_to_exp",
+    "type": "image",
+    "roi": "45, 35, 53, 44",
+    "area": "23, 13, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "地域鬼王退出"
+  },
+  {
+    "name": "v_main_to_exp",
+    "type": "image",
+    "roi": "655, 102, 55, 87",
+    "area": "450, 90, 600, 110",
+    "file": "./tasks/components/page/res/goto/v_main_to_exp.png",
+    "description": "主界面探索灯笼"
+  },
+  {
+    "name": "v_exp_to_ch28",
+    "type": "image",
+    "roi": "1058, 493, 189, 94",
+    "area": "1011, 446, 268, 188",
+    "file": "./tasks/components/page/res/goto/v_exp_to_ch28.png",
+    "description": "第二十八章位置（在最底下的时候）"
+  },
+  {
+    "name": "v_main_to_guild",
+    "type": "image",
+    "roi": "542, 602, 47, 53",
+    "area": "518, 576, 94, 106",
+    "file": "./tasks/components/page/res/goto/v_main_to_guild.png",
+    "description": "主界面阴阳寮入口"
+  },
+  {
+    "name": "v_main_to_summon",
+    "type": "image",
+    "roi": "1081, 170, 35, 76",
+    "area": "1064, 132, 70, 152",
+    "file": "./tasks/components/page/res/goto/v_main_to_summon.png",
+    "description": "主界面召唤灯笼"
+  },
+  {
+    "name": "v_main_to_town",
+    "type": "image",
+    "roi": "713, 250, 52, 40",
+    "area": "360, 230, 790, 90",
+    "file": "./tasks/components/page/res/goto/v_main_to_town.png",
+    "description": "主界面町中入口"
+  },
+  {
+    "name": "v_town_to_main",
+    "type": "image",
+    "roi": "36, 47, 53, 44",
+    "area": "14, 25, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "退出町中"
+  },
+  {
+    "name": "v_town_to_dojo",
+    "type": "image",
+    "roi": "319, 343, 30, 124",
+    "area": "304, 328, 60, 154",
+    "file": "./tasks/components/page/res/goto/v_town_to_dojo.png",
+    "description": "町中武馆入口"
+  },
+  {
+    "name": "v_dojo_to_town",
+    "type": "image",
+    "roi": "34, 25, 53, 44",
+    "area": "12, 3, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "退出町中武馆"
+  },
+  {
+    "name": "v_exp_to_realm_raid",
+    "type": "image",
+    "roi": "251, 635, 58, 52",
+    "area": "222, 609, 116, 104",
+    "file": "./tasks/components/page/res/goto/v_exp_to_realm_raid.png",
+    "description": "探索界面寮突破入口"
+  },
+  {
+    "name": "v_sleep_to_main",
+    "type": "image",
+    "roi": "43, 36, 32, 34",
+    "area": "27, 20, 64, 66",
+    "file": "./tasks/components/page/res/goto/v_sleep_to_main.png",
+    "description": "退出闲庭"
+  },
+  {
+    "name": "v_main_to_store",
+    "type": "image",
+    "roi": "643, 616, 68, 56",
+    "area": "609, 588, 136, 112",
+    "file": "./tasks/components/page/res/goto/v_main_to_store.png",
+    "description": "商店入口"
+  },
+  {
+    "name": "v_exp_to_minamoto",
+    "type": "image",
+    "roi": "837, 639, 60, 46",
+    "area": "814, 616, 106, 92",
+    "file": "./tasks/components/page/res/goto/v_exp_to_minamoto.png",
+    "description": "英杰试炼入口"
+  },
+  {
+    "name": "v_exp_to_boss",
+    "type": "image",
+    "roi": "641, 638, 60, 47",
+    "area": "617, 614, 108, 95",
+    "file": "./tasks/components/page/res/goto/v_exp_to_boss.png",
+    "description": "地域鬼王入口"
+  },
+  {
+    "name": "v_exp_to_goryou",
+    "type": "image",
+    "roi": "353, 639, 51, 45",
+    "area": "331, 617, 95, 89",
+    "file": "./tasks/components/page/res/goto/v_exp_to_goryou.png",
+    "description": "御灵入口"
+  },
+  {
+    "name": "v_goryou_to_exp",
+    "type": "image",
+    "roi": "7, 15, 53, 44",
+    "area": "0, 0, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "御灵退出"
+  },
+  {
+    "name": "v_exp_to_fb",
+    "type": "image",
+    "roi": "1040, 638, 50, 35",
+    "area": "1022, 620, 86, 71",
+    "file": "./tasks/components/page/res/goto/v_exp_to_fb.png",
+    "description": "契灵之境入口"
+  },
+  {
+    "name": "v_bf_to_exp",
+    "type": "image",
+    "roi": "29, 18, 42, 41",
+    "area": "9, 0, 82, 81",
+    "file": "./tasks/components/widgets/res/buttons/b_yellow_left_angle.png",
+    "description": "退出契灵之境"
+  }
+]

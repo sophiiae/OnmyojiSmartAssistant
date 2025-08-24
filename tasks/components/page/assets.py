@@ -12,111 +12,6 @@ class PageAssets:
 	C_ENTER_GAME = RuleClick(roi=(558, 576, 158, 38), area=(558, 576, 158, 38), name="enter_game")
 
 	# Image Rule Assets
-	# 主界面 
-	I_C_MAIN = RuleImage(
-		name="c_main",
-		roi=(905, 134, 48, 48),
-		area=(600, 110, 500, 96),
-		file="./tasks/components/page/res/check/c_main.png"
-	)
-	# 适龄提示 
-	I_C_LOGIN = RuleImage(
-		name="c_login",
-		roi=(165, 565, 52, 69),
-		area=(0, 539, 300, 121),
-		file="./tasks/components/page/res/check/c_login.png"
-	)
-	# 阴阳寮 
-	I_C_GUILD = RuleImage(
-		name="c_guild",
-		roi=(1167, 617, 77, 58),
-		area=(1138, 588, 135, 116),
-		file="./tasks/components/page/res/check/c_guild.png"
-	)
-	# 町中节能模式 
-	I_C_TOWN = RuleImage(
-		name="c_town",
-		roi=(1065, 32, 90, 98),
-		area=(1020, 0, 180, 188),
-		file="./tasks/components/page/res/check/c_town.png"
-	)
-	# 町中武馆斗技 
-	I_C_DOJO = RuleImage(
-		name="c_dojo",
-		roi=(720, 254, 24, 53),
-		area=(708, 242, 48, 77),
-		file="./tasks/components/page/res/check/c_dojo.png"
-	)
-	# 探索界面妖标志 
-	I_C_EXP = RuleImage(
-		name="c_exp",
-		roi=(62, 642, 49, 41),
-		area=(42, 622, 89, 81),
-		file="./tasks/components/page/res/check/c_exp.png"
-	)
-	# 章节入口探索标志 
-	I_C_EXP_MODAL = RuleImage(
-		name="c_exp_modal",
-		roi=(1064, 233, 62, 108),
-		area=(1033, 202, 124, 170),
-		file="./tasks/components/page/res/check/c_exp_modal.png"
-	)
-	# 商店街建筑 
-	I_C_MARKET = RuleImage(
-		name="c_market",
-		roi=(258, 470, 58, 44),
-		area=(229, 448, 116, 88),
-		file="./tasks/components/page/res/check/c_market.png"
-	)
-	# 礼包屋标志 
-	I_C_GIFT_SHOP = RuleImage(
-		name="c_gift_shop",
-		roi=(1139, 658, 50, 26),
-		area=(1126, 645, 76, 52),
-		file="./tasks/components/page/res/check/c_gift_shop.png"
-	)
-	# 召唤界面蓝票 
-	I_C_SUMMON = RuleImage(
-		name="c_summon",
-		roi=(597, 606, 64, 59),
-		area=(567, 576, 124, 119),
-		file="./tasks/components/page/res/check/c_summon.png"
-	)
-	# 结界突破界面 
-	I_C_REALM_RAID = RuleImage(
-		name="c_realm_raid",
-		roi=(574, 76, 174, 37),
-		area=(556, 58, 210, 73),
-		file="./tasks/components/page/res/check/c_realm_raid.png"
-	)
-	# 闲庭设置 
-	I_C_SLEEP = RuleImage(
-		name="c_sleep",
-		roi=(256, 36, 36, 36),
-		area=(238, 18, 72, 72),
-		file="./tasks/components/page/res/check/c_sleep.png"
-	)
-	# 英杰试炼源氏补给图标 
-	I_C_MINAMOTO = RuleImage(
-		name="c_minamoto",
-		roi=(60, 615, 46, 50),
-		area=(37, 592, 92, 96),
-		file="./tasks/components/page/res/check/c_minamoto.png"
-	)
-	# 地域鬼王集结图标 
-	I_C_BOSS = RuleImage(
-		name="c_boss",
-		roi=(35, 628, 86, 50),
-		area=(10, 603, 136, 100),
-		file="./tasks/components/page/res/check/c_boss.png"
-	)
-	# 契灵之境标题 
-	I_C_FAIRYLAND = RuleImage(
-		name="c_fairyland",
-		roi=(110, 25, 126, 34),
-		area=(93, 8, 160, 68),
-		file="./tasks/components/page/res/check/c_fairyland.png"
-	)
 	# 召唤页面退出 
 	I_V_SUMMON_TO_MAIN = RuleImage(
 		name="v_summon_to_main",
@@ -184,7 +79,7 @@ class PageAssets:
 	I_V_MAIN_TO_EXP = RuleImage(
 		name="v_main_to_exp",
 		roi=(655, 102, 55, 87),
-		area=(490, 58, 600, 174),
+		area=(450, 90, 600, 110),
 		file="./tasks/components/page/res/goto/v_main_to_exp.png"
 	)
 	# 第二十八章位置（在最底下的时候） 
@@ -298,6 +193,113 @@ class PageAssets:
 		roi=(29, 18, 42, 41),
 		area=(9, 0, 82, 81),
 		file="./tasks/components/widgets/res/buttons/b_yellow_left_angle.png"
+	)
+
+	# Image Rule Assets
+	# 主界面 
+	I_C_MAIN = RuleImage(
+		name="c_main",
+		roi=(905, 134, 48, 48),
+		area=(600, 110, 500, 96),
+		file="./tasks/components/page/res/check/c_main.png"
+	)
+	# 适龄提示 
+	I_C_LOGIN = RuleImage(
+		name="c_login",
+		roi=(165, 565, 52, 69),
+		area=(0, 539, 300, 121),
+		file="./tasks/components/page/res/check/c_login.png"
+	)
+	# 阴阳寮 
+	I_C_GUILD = RuleImage(
+		name="c_guild",
+		roi=(1167, 617, 77, 58),
+		area=(1138, 588, 135, 116),
+		file="./tasks/components/page/res/check/c_guild.png"
+	)
+	# 町中节能模式 
+	I_C_TOWN = RuleImage(
+		name="c_town",
+		roi=(1065, 32, 90, 98),
+		area=(1020, 0, 180, 188),
+		file="./tasks/components/page/res/check/c_town.png"
+	)
+	# 町中武馆斗技 
+	I_C_DOJO = RuleImage(
+		name="c_dojo",
+		roi=(720, 254, 24, 53),
+		area=(708, 242, 48, 77),
+		file="./tasks/components/page/res/check/c_dojo.png"
+	)
+	# 探索界面妖标志 
+	I_C_EXP = RuleImage(
+		name="c_exp",
+		roi=(62, 642, 49, 41),
+		area=(42, 622, 89, 81),
+		file="./tasks/components/page/res/check/c_exp.png"
+	)
+	# 章节入口探索标志 
+	I_C_EXP_MODAL = RuleImage(
+		name="c_exp_modal",
+		roi=(1064, 233, 62, 108),
+		area=(1033, 202, 124, 170),
+		file="./tasks/components/page/res/check/c_exp_modal.png"
+	)
+	# 商店街建筑 
+	I_C_MARKET = RuleImage(
+		name="c_market",
+		roi=(258, 470, 58, 44),
+		area=(229, 448, 116, 88),
+		file="./tasks/components/page/res/check/c_market.png"
+	)
+	# 礼包屋标志 
+	I_C_GIFT_SHOP = RuleImage(
+		name="c_gift_shop",
+		roi=(1139, 658, 50, 26),
+		area=(1126, 645, 76, 52),
+		file="./tasks/components/page/res/check/c_gift_shop.png"
+	)
+	# 召唤界面蓝票 
+	I_C_SUMMON = RuleImage(
+		name="c_summon",
+		roi=(597, 606, 64, 59),
+		area=(567, 576, 124, 119),
+		file="./tasks/components/page/res/check/c_summon.png"
+	)
+	# 结界突破界面 
+	I_C_REALM_RAID = RuleImage(
+		name="c_realm_raid",
+		roi=(574, 76, 174, 37),
+		area=(556, 58, 210, 73),
+		file="./tasks/components/page/res/check/c_realm_raid.png"
+	)
+	# 闲庭设置 
+	I_C_SLEEP = RuleImage(
+		name="c_sleep",
+		roi=(256, 36, 36, 36),
+		area=(238, 18, 72, 72),
+		file="./tasks/components/page/res/check/c_sleep.png"
+	)
+	# 英杰试炼源氏补给图标 
+	I_C_MINAMOTO = RuleImage(
+		name="c_minamoto",
+		roi=(60, 615, 46, 50),
+		area=(37, 592, 92, 96),
+		file="./tasks/components/page/res/check/c_minamoto.png"
+	)
+	# 地域鬼王集结图标 
+	I_C_BOSS = RuleImage(
+		name="c_boss",
+		roi=(35, 628, 86, 50),
+		area=(10, 603, 136, 100),
+		file="./tasks/components/page/res/check/c_boss.png"
+	)
+	# 契灵之境标题 
+	I_C_FAIRYLAND = RuleImage(
+		name="c_fairyland",
+		roi=(110, 25, 126, 34),
+		area=(93, 8, 160, 68),
+		file="./tasks/components/page/res/check/c_fairyland.png"
 	)
 
 

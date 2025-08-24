@@ -57,5 +57,12 @@ class NetherworldAssets:
 		area=(26, 157, 97, 40),
 		file="./tasks/netherworld/res/nw_guild_ent.png"
 	)
+	# 确定从36轮开始 
+	I_NW_BATTLE_CONFIRM = RuleImage(
+		name="nw_battle_confirm",
+		roi=(672, 403, 172, 57),
+		area=(644, 375, 228, 113),
+		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
+	)
 
 

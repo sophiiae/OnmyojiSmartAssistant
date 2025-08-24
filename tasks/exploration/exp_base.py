@@ -1,4 +1,4 @@
-import random
+import time
 import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover
@@ -11,6 +11,60 @@ from tasks.components.page.page import page_exp, page_main
 class ExpBase(EA, Battle):
     name = "Exploration"
     is_buff_on = False
+
+    def post_chapter_battle(self):
+        # 检查章节奖励
+        if self.get_chapter_reward():
+            time.sleep(1)
+
+        while 1:
+            self.wait_and_shot()
+            if self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON):
+                time.sleep(1)
+                continue
+
+            # 如果回到了探索界面 -> 检查宝箱
+            if self.appear(self.I_C_EXP):
+                self.check_treasure_box()
+                break
+
+            # 如果有妖气封印，就关闭
+            if self.appear(self.I_EXP_YAOQI):
+                self.appear_then_click(self.I_EXP_YAOQI_CLOSE)
+                continue
+
+    def get_chapter_reward(self):
+        found = False
+        time.sleep(1)
+        while 1:
+            self.wait_and_shot()
+            if not self.appear(self.I_EXP_C_CHAPTER, 0.95):
+                break
+
+            if self.appear(self.I_GAIN_REWARD):
+                self.random_click_right()
+                found = True
+
+            if self.appear(self.I_EXP_CHAP_REWARD):
+                self.click(self.I_EXP_CHAP_REWARD)
+
+        if found:
+            self.class_logger(self.name, "Got all chapter reward.")
+        return found
+
+    def check_treasure_box(self):
+        while 1:
+            self.wait_and_shot()
+            if not self.appear(self.I_EXP_TREASURE_BOX, 0.95):
+                break
+
+            if self.click_static_target(self.I_EXP_TREASURE_BOX, 0.95):
+                got_reward = self.wait_until_appear(
+                    self.I_REWARD, 3)
+
+                if got_reward:   # 领取宝箱物品
+                    time.sleep(0.7)
+                    self.random_click_right()
 
     def auto_backup(self):
         success = False
@@ -129,7 +183,9 @@ class ExpBase(EA, Battle):
 
             self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON)
 
-        self.close_config_buff()
+        if raise_exception:
+            self.close_config_buff()
+
         if not self.check_page_appear(page_main, 0.97):
             self.goto(page_main)
 

@@ -18,7 +18,7 @@ class TaskScript(RiftsShadowsAssets, Battle):
         self.shadows = list(self.shadow_clicks.keys())
         random.shuffle(self.shadows)
 
-        # 进入庭院页面
+        # 进入寮页面
         if not self.check_page_appear(page_guild):
             self.goto(page_guild)
 

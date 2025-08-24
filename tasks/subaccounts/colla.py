@@ -1,11 +1,11 @@
 import time
 from module.base.exception import RequestHumanTakeover
-from tasks.exploration.task_script import TaskScript as EXP
+from tasks.exploration.exp_base import ExpBase
 from tasks.components.page.page import page_exp, page_main
 from module.base.logger import logger
 from tasks.general.assets import GeneralAssets as GA
 
-class Colla(EXP):
+class Colla(ExpBase):
 
     def start_colla(self, max_battle: int = 10):
         # 进入探索页面
