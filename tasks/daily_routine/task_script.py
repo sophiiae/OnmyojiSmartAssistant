@@ -48,8 +48,12 @@ class TaskScript(Battle, DailyRoutineAssets):
         sign = self.harvest_config["enable_sign"]
         get_mail = self.harvest_config["enable_mail"]
 
+        retry = 0
         while 1:
             self.wait_and_shot()
+            if retry > 3:
+                break
+
             if not (self.appear(self.I_MAIL) or
                     self.appear(self.I_GUILD_PACK) or
                     self.appear(self.I_DAILY_BUFF) or
@@ -71,6 +75,8 @@ class TaskScript(Battle, DailyRoutineAssets):
             if self.appear(self.I_DAILY_BUFF, 0.96):
                 self.get_buff_pack()
                 continue
+
+            retry += 1
 
         get_jade = self.harvest_config["enable_jade"]
         get_ap = self.harvest_config["enable_ap"]
@@ -191,6 +197,7 @@ class TaskScript(Battle, DailyRoutineAssets):
 
     def daily_lot(self):
         self.class_logger(self.name, "Daily lot")
+
         while 1:
             self.wait_and_shot()
             if self.appear(self.I_CLOSE_DAILY_SIGN, 0.95):

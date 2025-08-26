@@ -1,5 +1,6 @@
 from config_editor.log_window import LogWindow
 from config_editor.script_worker import ScriptWorker
+from config_editor.sections.dokan_section import DokanSection
 from config_editor.sections.rifts_shadows_section import RiftsShadowsSection
 from config_editor.widgets.select_button import SelectButton
 from config_editor.widgets.value_button import ValueButton
@@ -121,6 +122,7 @@ class OSAEditor(ConfigTab):
             ("netherworld", "阴界之门", "netherworld.scheduler.enable"),
             ("demon_encounter", "逢魔之时", "demon_encounter.scheduler.enable"),
             # ("rifts_shadows", "狭间暗域", "rifts_shadows.scheduler.enable")
+            ("dokan", "道馆", "dokan.scheduler.enable")
         ]
 
         # 设置统一的按钮样式
@@ -220,6 +222,9 @@ class OSAEditor(ConfigTab):
         # self.rifts_shadows_section = RiftsShadowsSection(self.config)
         # scroll_layout.addWidget(self.rifts_shadows_section)
 
+        self.dokan_section = DokanSection(self.config)
+        scroll_layout.addWidget(self.dokan_section)
+
         # 为所有section添加点击事件
         self.setup_section_click_events()
 
@@ -292,6 +297,7 @@ class OSAEditor(ConfigTab):
             self.netherworld_section,
             self.demon_encounter_section,
             # self.rifts_shadows_section
+            self.dokan_section
         ]
 
         for section in sections:
@@ -484,6 +490,7 @@ class OSAEditor(ConfigTab):
         self.netherworld_section.update_config()
         self.demon_encounter_section.update_config()
         # self.rifts_shadows_section.update_config()
+        self.dokan_section.update_config()
 
         # 保存log window中的serial_edit配置
         if self.log_window and hasattr(self.log_window, 'update_serial_config'):
@@ -622,6 +629,7 @@ class OSAEditor(ConfigTab):
             self.exploration_section, self.realm_raid_section, self.goryou_realm_section,
             self.shikigami_activity_section, self.area_boss_section, self.duel_section,
             self.bonding_fairyland_section, self.netherworld_section, self.demon_encounter_section,
+            self.dokan_section
             # self.rifts_shadows_section
         ]:
             for child in section.findChildren((QCheckBox, QComboBox, QSpinBox, QLineEdit, ValueButton, SelectButton, QListWidget)):
@@ -681,6 +689,7 @@ class OSAEditor(ConfigTab):
                 ("netherworld_section", self.netherworld_section),
                 ("demon_encounter_section", self.demon_encounter_section),
                 # ("rifts_shadows_section", self.rifts_shadows_section)
+                ("dokan_section", self.dokan_section)
             ]
 
             for section_name, section in sections:
@@ -808,6 +817,7 @@ class OSAEditor(ConfigTab):
             "netherworld": self.netherworld_section,
             "demon_encounter": self.demon_encounter_section,
             # "rifts_shadows": self.rifts_shadows_section
+            "dokan": self.dokan_section
         }
 
         if section_id in section_map:
@@ -903,7 +913,9 @@ class OSAEditor(ConfigTab):
             (self.shikigami_activity_section, "shikigami_activity"),
             (self.area_boss_section, "area_boss"),
             (self.duel_section, "duel"),
-            (self.bonding_fairyland_section, "bonding_fairyland")
+            (self.bonding_fairyland_section, "bonding_fairyland"),
+            # (self.rifts_shadows_section, "rifts_shadows"),
+            (self.dokan_section, "dokan")
         ]
 
         for section, section_name in sections_to_refresh:

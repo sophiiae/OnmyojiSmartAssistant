@@ -1,0 +1,106 @@
+[
+  {
+    "name": "dk_guild_ent",
+    "type": "image",
+    "roi": "34, 166, 40, 21",
+    "area": "24, 156, 60, 41",
+    "file": "./tasks/dokan/res/dk_guild_ent.png",
+    "description": "道馆寮入口"
+  },
+  {
+    "name": "dk_map_check",
+    "type": "image",
+    "roi": "98, 36, 128, 32",
+    "area": "82, 20, 160, 64",
+    "file": "./tasks/dokan/res/dk_map_check.png",
+    "description": "道馆地图页面"
+  },
+  {
+    "name": "target_dokan",
+    "type": "image",
+    "roi": "297, 202, 114, 15",
+    "area": "40, 100, 1100, 500",
+    "file": "./tasks/dokan/res/target_dokan.png",
+    "description": "目标道馆"
+  },
+  {
+    "name": "dk_page_header",
+    "type": "image",
+    "roi": "573, 19, 136, 34",
+    "area": "556, 2, 170, 68",
+    "file": "./tasks/dokan/res/dk_page_header.png",
+    "description": "道馆页面"
+  },
+  {
+    "name": "dk_challenge",
+    "type": "image",
+    "roi": "1133, 573, 82, 42",
+    "area": "1112, 552, 124, 84",
+    "file": "./tasks/dokan/res/dk_challenge.png",
+    "description": "挑战"
+  },
+  {
+    "name": "dk_conquer_sword",
+    "type": "image",
+    "roi": "556, 394, 167, 83",
+    "area": "514, 352, 251, 167",
+    "file": "./tasks/dokan/res/dk_conquer_sword.png",
+    "description": "击败馆主通知"
+  },
+  {
+    "name": "dk_win_small",
+    "type": "image",
+    "roi": "423, 39, 168, 82",
+    "area": "382, 0, 250, 164",
+    "file": "./tasks/dokan/res/dk_win_small.png",
+    "description": "胜利战报"
+  },
+  {
+    "name": "dk_win_large",
+    "type": "image",
+    "roi": "414, 45, 195, 105",
+    "area": "362, 0, 299, 209",
+    "file": "./tasks/dokan/res/dk_win_large.png",
+    "description": "胜利"
+  },
+  {
+    "name": "dk_dokan_exit",
+    "type": "image",
+    "roi": "21, 21, 30, 30",
+    "area": "6, 6, 60, 60",
+    "file": "./tasks/components/widgets/res/buttons/b_return_u.png",
+    "description": "退出道馆"
+  },
+  {
+    "name": "dk_exit_confirm",
+    "type": "image",
+    "roi": "679, 396, 124, 52",
+    "area": "653, 370, 176, 104",
+    "file": "./tasks/components/widgets/res/buttons/b_confirm_narrow.png",
+    "description": "退出确认"
+  },
+  {
+    "name": "dk_map_exit",
+    "type": "image",
+    "roi": "19, 28, 53, 44",
+    "area": "-3, 6, 97, 88",
+    "file": "./tasks/components/widgets/res/buttons/b_blue_left_angle.png",
+    "description": "退出道馆地图页面"
+  },
+  {
+    "name": "dk_shiki_book_ent",
+    "type": "image",
+    "roi": "985, 608, 80, 55",
+    "area": "957, 580, 136, 111",
+    "file": "./tasks/dokan/res/dk_shiki_book_ent.png",
+    "description": "道馆式神录入口"
+  },
+  {
+    "name": "dokan_last_fight_notice",
+    "type": "image",
+    "roi": "531, 183, 221, 18",
+    "area": "522, 174, 239, 36",
+    "file": "./tasks/dokan/res/dokan_last_fight_notice.png",
+    "description": "馆主挑战通知"
+  }
+]

@@ -46,4 +46,4 @@ class NetherworldSection(QGroupBox):
 
         except Exception as e:
             from module.base.logger import logger
-            logger.error(f"刷新结界突破设置UI时出错: {e}")
+            logger.error(f"刷新阴界之门设置UI时出错: {e}")

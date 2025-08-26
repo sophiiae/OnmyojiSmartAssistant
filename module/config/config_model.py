@@ -40,6 +40,9 @@ class ConfigModel(BaseModel):
     rifts_shadows: RiftsShadows = Field(
         default_factory=RiftsShadows
     )
+    dokan: Dokan = Field(
+        default_factory=Dokan
+    )
 
     def __init__(self, config_name: str):
         data = self.read_json(config_name)

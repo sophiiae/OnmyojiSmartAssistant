@@ -1,0 +1,16 @@
+[
+  {
+    "name": "win_blank",
+    "type": "click",
+    "roi": "1160, 140, 100, 400",
+    "area": "1160, 140, 100, 400",
+    "description": "胜利战报空白点击"
+  },
+  {
+    "name": "shiki_left_1",
+    "type": "click",
+    "roi": "200, 440, 60, 80",
+    "area": "200, 440, 60, 80",
+    "description": "左边第一个式神"
+  }
+]

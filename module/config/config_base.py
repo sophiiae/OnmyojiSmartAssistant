@@ -764,6 +764,26 @@ class Netherworld(BaseModel):
         description="预设队伍配置"
     )
 
+class Dokan(BaseModel):
+    """
+    道馆配置
+    """
+    scheduler: Scheduler = Field(
+        default_factory=Scheduler,
+        description="道馆任务调度"
+    )
+
+    switch_soul_config: SwitchSoulConfig = Field(
+        default_factory=SwitchSoulConfig,
+        description="御魂切换配置"
+    )
+
+    general_battle_config: GeneralBattleConfig = Field(
+        default_factory=GeneralBattleConfig,
+        description="预设队伍配置"
+    )
+
+
 class DemonEncounter(BaseModel):
     """
     逢魔之时配置
