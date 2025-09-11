@@ -43,9 +43,11 @@ class TaskScript(ExpBase):
         # 绘卷模式去探索页面，减少页面跳转
         if scroll_mode.scroll_mode_enable:
             self.goto(page_realm_raid, page_exp)
+            self.set_next_run(task='Exploration', success=True,
+                              finish=False, target_time=datetime.now())
         else:
             self.goto(page_main, page_exp)
-        self.set_next_run(task='Exploration', success=True, finish=False)
+            self.set_next_run(task='Exploration', success=True, finish=False)
 
         raise TaskEnd(self.name)
 
@@ -156,16 +158,25 @@ class TaskScript(ExpBase):
         self.init_hardness = False
 
     def enter_chap_28(self):
+        self.class_logger(self.name, "Opening chapter 28 modal")
         while 1:
             self.wait_and_shot()
-            if self.appear(self.I_EXP_CHAP_28, 0.98):
+            if self.appear(self.I_EXP_CHAP_MODAL_CHECK):
+                self.select_chapter_hardness()
                 break
+
+            if self.appear_then_click(self.I_EXP_CHAP_28, 0.98):
+                continue
+
             self.swipe(self.S_EXP_CHAPTER_UP)
 
         self.class_logger(self.name, "Entering chapter 28")
-        if self.click_static_target(self.I_EXP_CHAP_28):
-            self.select_chapter_hardness()
-            self.click_static_target(self.I_EXP_BUTTON, 0.97, delay=1)
+        while 1:
+            self.wait_and_shot()
+            if self.appear(self.I_EXP_C_CHAPTER, 0.96):
+                break
+
+            self.appear_then_click(self.I_EXP_BUTTON)
 
     def chapter_battle(self):
         # 进入战斗环节
@@ -177,10 +188,10 @@ class TaskScript(ExpBase):
             if stuck_count > 5:
                 self.check_auto_rotate()
 
-            self.wait_and_shot()
+            self.wait_and_shot(0.5)
 
             # BOSS 挑战
-            if self.appear(self.I_EXP_BOSS):
+            if self.appear(self.I_EXP_BOSS, 0.95):
                 self.click_moving_target(self.I_EXP_BOSS, self.I_EXP_C_CHAPTER)
 
                 if self.run_easy_battle(self.I_EXP_C_CHAPTER):
@@ -189,9 +200,10 @@ class TaskScript(ExpBase):
                     stuck_count += 1
 
             # 普通怪挑战
-            if self.appear(self.I_EXP_BATTLE):
+            if self.appear(self.I_EXP_BATTLE, 0.95):
                 self.click_moving_target(
                     self.I_EXP_BATTLE, self.I_EXP_C_CHAPTER)
+
                 if self.run_easy_battle(self.I_EXP_C_CHAPTER):
                     swipe_count = 0
                     stuck_count = 0
@@ -204,7 +216,7 @@ class TaskScript(ExpBase):
             if swipe_count > 7:
                 self.left_check()
                 swipe_count = 0
-            time.sleep(0.6)
+            time.sleep(0.5)
 
     def check_auto_rotate(self):
         if not self.turn_on_auto_rotate():

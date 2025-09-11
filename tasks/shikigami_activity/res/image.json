@@ -1,89 +1,113 @@
 [
   {
-    "name": "sa_ent",
+    "name": "sa_main_ent",
     "type": "image",
-    "roi": "452, 209, 34, 29",
-    "area": "438, 195, 62, 57",
-    "file": "./tasks/shikigami_activity/res/sa_ent.png",
+    "roi": "454, 306, 28, 68",
+    "area": "400, 290, 140, 100",
+    "file": "./tasks/shikigami_activity/res/sa_main_ent.png",
     "description": "庭院活动入口"
   },
   {
-    "name": "sa_check",
+    "name": "sa_main_check",
     "type": "image",
-    "roi": "93, 19, 123, 34",
-    "area": "76, 2, 157, 68",
-    "file": "./tasks/shikigami_activity/res/sa_check.png",
+    "roi": "91, 21, 126, 33",
+    "area": "75, 5, 158, 65",
+    "file": "./tasks/shikigami_activity/res/sa_main_check.png",
     "description": "活动页面确认"
   },
   {
-    "name": "sa_fight_ent",
+    "name": "sa_fight_page_ent",
     "type": "image",
-    "roi": "749, 328, 28, 125",
-    "area": "735, 314, 56, 153",
-    "file": "./tasks/shikigami_activity/res/sa_fight_ent.png",
+    "roi": "481, 211, 25, 114",
+    "area": "469, 199, 49, 138",
+    "file": "./tasks/shikigami_activity/res/sa_fight_page_ent.png",
     "description": "爬塔入口"
+  },
+  {
+    "name": "sa_fight_page_check",
+    "type": "image",
+    "roi": "93, 21, 124, 32",
+    "area": "77, 5, 156, 64",
+    "file": "./tasks/shikigami_activity/res/sa_fight_page_check.png",
+    "description": "爬塔页面确认"
+  },
+  {
+    "name": "sa_fight_target",
+    "type": "image",
+    "roi": "487, 386, 54, 47",
+    "area": "40, 70, 1200, 640",
+    "file": "./tasks/shikigami_activity/res/sa_fight_target.png",
+    "description": "爬塔战斗目标（个别情况）"
+  },
+  {
+    "name": "sa_fight_target_page_check",
+    "type": "image",
+    "roi": "92, 20, 123, 34",
+    "area": "75, 3, 157, 68",
+    "file": "./tasks/shikigami_activity/res/sa_fight_target_page_check.png",
+    "description": "爬塔战斗目标挑战页面"
   },
   {
     "name": "sa_fight",
     "type": "image",
-    "roi": "1133, 599, 95, 50",
-    "area": "1108, 574, 145, 100",
+    "roi": "1132, 599, 97, 54",
+    "area": "1105, 572, 151, 108",
     "file": "./tasks/shikigami_activity/res/sa_fight.png",
     "description": "战斗"
   },
   {
-    "name": "sa_fight_check",
+    "name": "sa_shiki_book_ent",
     "type": "image",
-    "roi": "90, 21, 127, 33",
-    "area": "74, 5, 159, 65",
-    "file": "./tasks/shikigami_activity/res/sa_fight_check.png",
-    "description": "爬塔页面确认"
+    "roi": "1033, 559, 36, 38",
+    "area": "1015, 541, 72, 74",
+    "file": "./tasks/shikigami_activity/res/sa_shiki_book_ent.png",
+    "description": "式神录入口"
   },
   {
     "name": "sa_shop",
     "type": "image",
-    "roi": "336, 58, 133, 85",
-    "area": "294, 16, 217, 169",
+    "roi": "362, 97, 90, 41",
+    "area": "342, 77, 130, 81",
     "file": "./tasks/shikigami_activity/res/sa_shop.png",
     "description": "爬塔商店弹窗"
   },
   {
-    "name": "sa_ep",
+    "name": "sa_ap",
     "type": "image",
-    "roi": "1127, 505, 34, 29",
-    "area": "1113, 491, 62, 57",
-    "file": "./tasks/shikigami_activity/res/sa_ep.png",
+    "roi": "1091, 549, 23, 26",
+    "area": "1079, 537, 47, 50",
+    "file": "./tasks/shikigami_activity/res/sa_ap.png",
     "description": "使用体力"
   },
   {
     "name": "sa_ticket",
     "type": "image",
-    "roi": "1126, 509, 35, 23",
-    "area": "1114, 497, 59, 47",
+    "roi": "1148, 553, 11, 9",
+    "area": "1144, 549, 19, 17",
     "file": "./tasks/shikigami_activity/res/sa_ticket.png",
     "description": "使用爬塔门票"
   },
   {
     "name": "sa_switch",
     "type": "image",
-    "roi": "1223, 508, 28, 27",
-    "area": "1209, 494, 56, 55",
+    "roi": "1244, 552, 23, 22",
+    "area": "1200, 541, 75, 44",
     "file": "./tasks/shikigami_activity/res/sa_switch.png",
     "description": "体力门票转换"
   },
   {
     "name": "sa_team_unlock",
     "type": "image",
-    "roi": "806, 650, 17, 24",
-    "area": "798, 642, 33, 40",
+    "roi": "817, 648, 17, 24",
+    "area": "810, 640, 105, 40",
     "file": "./tasks/shikigami_activity/res/sa_team_unlock.png",
     "description": "队伍不锁定"
   },
   {
     "name": "sa_team_lock",
     "type": "image",
-    "roi": "805, 649, 18, 26",
-    "area": "796, 640, 36, 44",
+    "roi": "816, 648, 19, 28",
+    "area": "805, 640, 110, 40",
     "file": "./tasks/shikigami_activity/res/sa_team_lock.png",
     "description": "队伍锁定"
   },
@@ -146,9 +170,9 @@
   {
     "name": "sa_coin",
     "type": "image",
-    "roi": "430, 211, 39, 37",
-    "area": "240, 140, 840, 160",
+    "roi": "427, 280, 52, 38",
+    "area": "408, 261, 90, 76",
     "file": "./tasks/shikigami_activity/res/sa_coin.png",
-    "description": "活动币"
+    "description": "活动币（战斗奖励）"
   }
 ]

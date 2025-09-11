@@ -2,16 +2,24 @@
   {
     "name": "ticket_count",
     "type": "text",
-    "roi": "711, 26, 99, 28",
-    "area": "711, 26, 99, 28",
+    "roi": "540, 20, 67, 22",
+    "area": "540, 20, 67, 22",
     "keyword": "",
     "description": "爬塔门票数量"
   },
   {
+    "name": "aniversary_ticket_count",
+    "type": "text",
+    "roi": "910, 20, 126, 22",
+    "area": "910, 20, 126, 22",
+    "keyword": "",
+    "description": "999门票数量"
+  },
+  {
     "name": "fivefold_count",
     "type": "text",
-    "roi": "944, 24, 65, 32",
-    "area": "944, 24, 65, 32",
+    "roi": "750, 20, 57, 22",
+    "area": "750, 20, 57, 22",
     "keyword": "",
     "description": "五倍卷数量"
   }

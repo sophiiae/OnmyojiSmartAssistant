@@ -3,7 +3,7 @@
     "name": "gold_50",
     "type": "text",
     "roi": "428,120,338,389",
-    "area": "0,0,100,100",
+    "area": "428,120,338,389",
     "keyword": "战斗胜利获得的金币增加50%",
     "description": "Ocr-description"
   },
@@ -11,7 +11,7 @@
     "name": "gold_100",
     "type": "text",
     "roi": "425,118,342,397",
-    "area": "0,0,100,100",
+    "area": "425,118,342,397",
     "keyword": "战斗胜利获得的金币增加100%",
     "description": "Ocr-description"
   },
@@ -19,7 +19,7 @@
     "name": "exp_50",
     "type": "text",
     "roi": "426,119,335,394",
-    "area": "0,0,100,100",
+    "area": "426,119,335,394",
     "keyword": "战斗胜利获得的经验增加50%",
     "description": "Ocr-description"
   },
@@ -27,7 +27,7 @@
     "name": "exp_100",
     "type": "text",
     "roi": "421,127,342,388",
-    "area": "0,0,100,100",
+    "area": "421,127,342,388",
     "keyword": "战斗胜利获得的经验增加100%",
     "description": "Ocr-description"
   }

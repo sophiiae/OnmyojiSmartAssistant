@@ -14,83 +14,108 @@ class ShikigamiActivityAssets:
 	C_SA_REWARD_BOTTOM = RuleClick(roi=(30, 600, 1200, 100), area=(30, 600, 1200, 100), name="sa_reward_bottom")
 	# right 
 	C_SA_REWARD_RIGHT = RuleClick(roi=(1010, 80, 250, 620), area=(1010, 80, 250, 620), name="sa_reward_right")
+	# 战斗简单模式 
+	C_SA_FIGHT_EASY = RuleClick(roi=(1182, 259, 50, 40), area=(1182, 259, 50, 40), name="sa_fight_easy")
+	# 战斗困难模式 
+	C_SA_FIGHT_HARD = RuleClick(roi=(1172, 365, 59, 45), area=(1172, 365, 59, 45), name="sa_fight_hard")
 
 	# Image Rule Assets
 	# 庭院活动入口 
-	I_SA_ENT = RuleImage(
-		name="sa_ent",
-		roi=(452, 209, 34, 29),
-		area=(438, 195, 62, 57),
-		file="./tasks/shikigami_activity/res/sa_ent.png"
+	I_SA_MAIN_ENT = RuleImage(
+		name="sa_main_ent",
+		roi=(454, 306, 28, 68),
+		area=(400, 290, 140, 100),
+		file="./tasks/shikigami_activity/res/sa_main_ent.png"
 	)
 	# 活动页面确认 
-	I_SA_CHECK = RuleImage(
-		name="sa_check",
-		roi=(93, 19, 123, 34),
-		area=(76, 2, 157, 68),
-		file="./tasks/shikigami_activity/res/sa_check.png"
+	I_SA_MAIN_CHECK = RuleImage(
+		name="sa_main_check",
+		roi=(91, 21, 126, 33),
+		area=(75, 5, 158, 65),
+		file="./tasks/shikigami_activity/res/sa_main_check.png"
 	)
 	# 爬塔入口 
-	I_SA_FIGHT_ENT = RuleImage(
-		name="sa_fight_ent",
-		roi=(749, 328, 28, 125),
-		area=(735, 314, 56, 153),
-		file="./tasks/shikigami_activity/res/sa_fight_ent.png"
+	I_SA_FIGHT_PAGE_ENT = RuleImage(
+		name="sa_fight_page_ent",
+		roi=(481, 211, 25, 114),
+		area=(469, 199, 49, 138),
+		file="./tasks/shikigami_activity/res/sa_fight_page_ent.png"
+	)
+	# 爬塔页面确认 
+	I_SA_FIGHT_PAGE_CHECK = RuleImage(
+		name="sa_fight_page_check",
+		roi=(93, 21, 124, 32),
+		area=(77, 5, 156, 64),
+		file="./tasks/shikigami_activity/res/sa_fight_page_check.png"
+	)
+	# 爬塔战斗目标（个别情况） 
+	I_SA_FIGHT_TARGET = RuleImage(
+		name="sa_fight_target",
+		roi=(487, 386, 54, 47),
+		area=(40, 70, 1200, 640),
+		file="./tasks/shikigami_activity/res/sa_fight_target.png"
+	)
+	# 爬塔战斗目标挑战页面 
+	I_SA_FIGHT_TARGET_PAGE_CHECK = RuleImage(
+		name="sa_fight_target_page_check",
+		roi=(92, 20, 123, 34),
+		area=(75, 3, 157, 68),
+		file="./tasks/shikigami_activity/res/sa_fight_target_page_check.png"
 	)
 	# 战斗 
 	I_SA_FIGHT = RuleImage(
 		name="sa_fight",
-		roi=(1133, 599, 95, 50),
-		area=(1108, 574, 145, 100),
+		roi=(1132, 599, 97, 54),
+		area=(1105, 572, 151, 108),
 		file="./tasks/shikigami_activity/res/sa_fight.png"
 	)
-	# 爬塔页面确认 
-	I_SA_FIGHT_CHECK = RuleImage(
-		name="sa_fight_check",
-		roi=(90, 21, 127, 33),
-		area=(74, 5, 159, 65),
-		file="./tasks/shikigami_activity/res/sa_fight_check.png"
+	# 式神录入口 
+	I_SA_SHIKI_BOOK_ENT = RuleImage(
+		name="sa_shiki_book_ent",
+		roi=(1033, 559, 36, 38),
+		area=(1015, 541, 72, 74),
+		file="./tasks/shikigami_activity/res/sa_shiki_book_ent.png"
 	)
 	# 爬塔商店弹窗 
 	I_SA_SHOP = RuleImage(
 		name="sa_shop",
-		roi=(336, 58, 133, 85),
-		area=(294, 16, 217, 169),
+		roi=(362, 97, 90, 41),
+		area=(342, 77, 130, 81),
 		file="./tasks/shikigami_activity/res/sa_shop.png"
 	)
 	# 使用体力 
-	I_SA_EP = RuleImage(
-		name="sa_ep",
-		roi=(1127, 505, 34, 29),
-		area=(1113, 491, 62, 57),
-		file="./tasks/shikigami_activity/res/sa_ep.png"
+	I_SA_AP = RuleImage(
+		name="sa_ap",
+		roi=(1091, 549, 23, 26),
+		area=(1079, 537, 47, 50),
+		file="./tasks/shikigami_activity/res/sa_ap.png"
 	)
 	# 使用爬塔门票 
 	I_SA_TICKET = RuleImage(
 		name="sa_ticket",
-		roi=(1126, 509, 35, 23),
-		area=(1114, 497, 59, 47),
+		roi=(1148, 553, 11, 9),
+		area=(1144, 549, 19, 17),
 		file="./tasks/shikigami_activity/res/sa_ticket.png"
 	)
 	# 体力门票转换 
 	I_SA_SWITCH = RuleImage(
 		name="sa_switch",
-		roi=(1223, 508, 28, 27),
-		area=(1209, 494, 56, 55),
+		roi=(1244, 552, 23, 22),
+		area=(1200, 541, 75, 44),
 		file="./tasks/shikigami_activity/res/sa_switch.png"
 	)
 	# 队伍不锁定 
 	I_SA_TEAM_UNLOCK = RuleImage(
 		name="sa_team_unlock",
-		roi=(806, 650, 17, 24),
-		area=(798, 642, 33, 40),
+		roi=(817, 648, 17, 24),
+		area=(810, 640, 105, 40),
 		file="./tasks/shikigami_activity/res/sa_team_unlock.png"
 	)
 	# 队伍锁定 
 	I_SA_TEAM_LOCK = RuleImage(
 		name="sa_team_lock",
-		roi=(805, 649, 18, 26),
-		area=(796, 640, 36, 44),
+		roi=(816, 648, 19, 28),
+		area=(805, 640, 110, 40),
 		file="./tasks/shikigami_activity/res/sa_team_lock.png"
 	)
 	# 退出 
@@ -142,26 +167,33 @@ class ShikigamiActivityAssets:
 		area=(647, 675, 49, 57),
 		file="./tasks/shikigami_activity/res/sa_battle_check.png"
 	)
-	# 活动币 
+	# 活动币（战斗奖励） 
 	I_SA_COIN = RuleImage(
 		name="sa_coin",
-		roi=(430, 211, 39, 37),
-		area=(240, 140, 840, 160),
+		roi=(427, 280, 52, 38),
+		area=(408, 261, 90, 76),
 		file="./tasks/shikigami_activity/res/sa_coin.png"
 	)
 
 	# Ocr Rule Assets
 	# 爬塔门票数量 
 	O_TICKET_COUNT = RuleOcr(
-		roi=(711, 26, 99, 28),
-		area=(711, 26, 99, 28),
+		roi=(540, 20, 67, 22),
+		area=(540, 20, 67, 22),
 		keyword="",
 		name="ticket_count"
 	)
+	# 999门票数量 
+	O_ANIVERSARY_TICKET_COUNT = RuleOcr(
+		roi=(910, 20, 126, 22),
+		area=(910, 20, 126, 22),
+		keyword="",
+		name="aniversary_ticket_count"
+	)
 	# 五倍卷数量 
 	O_FIVEFOLD_COUNT = RuleOcr(
-		roi=(944, 24, 65, 32),
-		area=(944, 24, 65, 32),
+		roi=(750, 20, 57, 22),
+		area=(750, 20, 57, 22),
 		keyword="",
 		name="fivefold_count"
 	)

@@ -59,8 +59,8 @@ class Buff(TaskBase, BuffAssets):
         :param buff:
         :return:  如果没有就返回None
         """
-        self.screenshot()
-        area = buff.ocr_full(self.device.screenshot)
+        img = self.screenshot()
+        area = buff.ocr_full(img)
 
         if area == tuple([0, 0, 0, 0]):
             logger.info(f'No {buff.name} buff')
@@ -84,19 +84,21 @@ class Buff(TaskBase, BuffAssets):
 
     def toggle_buff(self, activate: bool = True):
         if activate:
+            logger.info("Activating buff")
             while 1:
                 self.wait_and_shot()
                 if not self.appear(self.I_BUFF_CLOSE_RED):
                     return
-                if self.appear(self.I_BUFF_CLOSE_RED):
-                    self.click(self.I_BUFF_CLOSE_RED)
+
+                self.appear_then_click(self.I_BUFF_CLOSE_RED)
         else:
+            logger.info("Deactivating buff")
             while 1:
                 self.wait_and_shot()
                 if not self.appear(self.I_BUFF_OPEN_YELLOW):
                     return
-                if self.appear(self.I_BUFF_OPEN_YELLOW):
-                    self.click(self.I_BUFF_OPEN_YELLOW)
+
+                self.appear_then_click(self.I_BUFF_OPEN_YELLOW)
 
     def awake(self, activate: bool = True):
         """
@@ -105,7 +107,7 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Awake buff')
-        self.screenshot()
+        self.wait_and_shot()
         area = self.get_area_image(self.I_BUFF_AWAKE)
         if not area:
             logger.warning('No awake buff')
@@ -120,7 +122,7 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Soul buff')
-        self.screenshot()
+        self.wait_and_shot()
         area = self.get_area_image(self.I_BUFF_SOUL)
         if not area:
             logger.warning('No soul buff')
@@ -135,7 +137,7 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Gold 50 buff')
-        self.screenshot()
+        self.wait_and_shot()
         area = self.get_area(self.O_GOLD_50)
         if not area:
             logger.warning('No gold 50 buff')
@@ -151,7 +153,7 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Gold 100 buff')
-        self.screenshot()
+        self.wait_and_shot()
         area = self.get_area(self.O_GOLD_100)
         if not area:
             logger.warning('No gold 100 buff')
@@ -168,8 +170,7 @@ class Buff(TaskBase, BuffAssets):
         """
         logger.info('Exp 50 buff')
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             area = self.get_area(self.O_EXP_50)
             if not area:
                 logger.warning('No exp 50 buff')
@@ -193,8 +194,7 @@ class Buff(TaskBase, BuffAssets):
         logger.info('Exp 100 buff')
 
         while 1:
-            time.sleep(0.3)
-            self.screenshot()
+            self.wait_and_shot()
             area = self.get_area(self.O_EXP_100)
             if not area:
                 logger.warning('No exp 100 buff')
@@ -217,7 +217,7 @@ class Buff(TaskBase, BuffAssets):
         :param target:
         :return:
         """
-        self.screenshot()
+        self.device.get_screenshot()
         if not self.appear(target):
             logger.warning(f'No {target.name} buff')
             return None

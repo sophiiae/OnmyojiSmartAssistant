@@ -15,7 +15,7 @@ class TaskScript(Battle, DokanAssets):
 
         self.screenshot()
         success = True
-        if self.appear(self.I_DK_GUILD_ENT):
+        if self.appear(self.I_DK_GUILD_ENT, 0.96):
             self.enter_dk_page()
             self.run_dk()
             self.exit_dk()

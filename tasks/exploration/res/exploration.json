@@ -85,7 +85,15 @@
     "roi": "881, 511, 129, 56",
     "area": "816, 483, 258, 112",
     "file": "./tasks/exploration/res/exp_button.png",
-    "description": "探索章节确认"
+    "description": "探索章节窗口探索按钮"
+  },
+  {
+    "name": "exp_chap_modal_check",
+    "type": "image",
+    "roi": "268, 512, 55, 33",
+    "area": "252, 496, 87, 65",
+    "file": "./tasks/exploration/res/exp_chap_modal_check.png",
+    "description": "章节窗口经验图标"
   },
   {
     "name": "exp_battle",

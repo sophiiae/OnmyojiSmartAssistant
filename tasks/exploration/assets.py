@@ -98,12 +98,19 @@ class ExplorationAssets:
 		area=(603, 348, 344, 114),
 		file="./tasks/exploration/res/exp_chapter_exit_confirm.png"
 	)
-	# 探索章节确认 
+	# 探索章节窗口探索按钮 
 	I_EXP_BUTTON = RuleImage(
 		name="exp_button",
 		roi=(881, 511, 129, 56),
 		area=(816, 483, 258, 112),
 		file="./tasks/exploration/res/exp_button.png"
+	)
+	# 章节窗口经验图标 
+	I_EXP_CHAP_MODAL_CHECK = RuleImage(
+		name="exp_chap_modal_check",
+		roi=(268, 512, 55, 33),
+		area=(252, 496, 87, 65),
+		file="./tasks/exploration/res/exp_chap_modal_check.png"
 	)
 	# 探索怪物挑战图标 
 	I_EXP_BATTLE = RuleImage(

@@ -56,10 +56,11 @@ class TaskScript(RealmRaidAssets, Battle):
         # 绘卷模式去探索页面，减少页面跳转
         if exp_enabled and scroll_mode_enabled:
             self.goto(page_exp, page_realm_raid)
+            self.set_next_run(task='RealmRaid', success=success,
+                              finish=False, target_time=datetime.now())
         else:
             self.goto(page_main, page_realm_raid)
-
-        self.set_next_run(task='RealmRaid', success=success, finish=True)
+            self.set_next_run(task='RealmRaid', success=success, finish=False)
         raise TaskEnd(self.name)
 
     def start_individual_raid(self, enough_ticket) -> bool:

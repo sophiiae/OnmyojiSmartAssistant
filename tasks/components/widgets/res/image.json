@@ -51,7 +51,7 @@
     "name": "gain_reward",
     "type": "image",
     "roi": "476, 233, 329, 42",
-    "area": "312, 212, 658, 84",
+    "area": "312, 140, 658, 200",
     "file": "./tasks/components/widgets/res/signs/gain_reward.png",
     "description": "获得奖励栏标"
   },

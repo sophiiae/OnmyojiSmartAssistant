@@ -84,9 +84,9 @@ page_minamoto.link(button=PA.I_V_MINAMOTO_TO_EXP, destination=page_exp)
 page_exp.link(button=PA.I_V_EXP_TO_MINAMOTO, destination=page_minamoto)
 
 # 式神活动 / 周年庆
-page_shikigami = Page(SA.I_SA_CHECK)
+page_shikigami = Page(SA.I_SA_MAIN_CHECK)
 page_shikigami.link(button=SA.I_SA_EXIT, destination=page_main)
-page_main.link(button=SA.I_SA_ENT, destination=page_shikigami)
+page_main.link(button=SA.I_SA_MAIN_ENT, destination=page_shikigami)
 
 # 阴阳寮
 page_guild = Page(PA.I_C_GUILD)

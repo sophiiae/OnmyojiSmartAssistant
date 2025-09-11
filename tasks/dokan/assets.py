@@ -18,7 +18,7 @@ class DokanAssets:
 	I_DK_GUILD_ENT = RuleImage(
 		name="dk_guild_ent",
 		roi=(34, 166, 40, 21),
-		area=(24, 156, 60, 41),
+		area=(10, 150, 190, 400),
 		file="./tasks/dokan/res/dk_guild_ent.png"
 	)
 	# 道馆地图页面 

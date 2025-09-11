@@ -69,6 +69,8 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
         if not accept_types:
             return False
 
+        time.sleep(0.3)
+        self.device.get_screenshot()
         accept_targets = []
         for type, imgs in self.accept_request_map.items():
             if type in accept_types:
@@ -77,7 +79,7 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
         # 查看邀请符不符合设置
         click_button = self.I_QUEST_IGNORE
         for t in accept_targets:
-            if self.appear(t, 0.96):
+            if self.appear(t, 0.95):
                 click_button = self.I_QUEST_ACCEPT
                 break
 

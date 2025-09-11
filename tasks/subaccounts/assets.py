@@ -94,29 +94,29 @@ class SubaccountsAssets:
 	# 勾协邀请 
 	I_QUEST_JADE = RuleImage(
 		name="quest_jade",
-		roi=(836, 532, 42, 30),
-		area=(821, 517, 72, 60),
+		roi=(664, 476, 42, 30),
+		area=(535, 440, 225, 100),
 		file="./tasks/subaccounts/res/quest/quest_jade.png"
 	)
 	# 体协邀请 
 	I_QUEST_AP = RuleImage(
 		name="quest_ap",
 		roi=(1022, 523, 42, 40),
-		area=(1002, 503, 82, 80),
+		area=(535, 440, 225, 100),
 		file="./tasks/subaccounts/res/quest/quest_ap.png"
 	)
 	# 狗粮协作邀请 
 	I_QUEST_DOG = RuleImage(
 		name="quest_dog",
 		roi=(513, 527, 44, 42),
-		area=(492, 506, 86, 84),
+		area=(535, 440, 225, 100),
 		file="./tasks/subaccounts/res/quest/quest_dog.png"
 	)
 	# 猫粮协作邀请 
 	I_QUEST_CAT = RuleImage(
 		name="quest_cat",
 		roi=(207, 530, 56, 39),
-		area=(187, 510, 96, 79),
+		area=(535, 440, 225, 100),
 		file="./tasks/subaccounts/res/quest/quest_cat.png"
 	)
 	# 接受悬赏邀请 

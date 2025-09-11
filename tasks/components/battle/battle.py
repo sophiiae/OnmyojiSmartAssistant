@@ -27,6 +27,9 @@ class Battle(Buff, SwitchSouls, BattleAssets):
                 win = True
                 continue
 
+            if win:
+                self.click(self.battle_end_click)  # 特殊奖励情况
+
             if self.appear(self.I_BATTLE_WIN, 0.95):
                 self.click(self.battle_end_click)
                 win = True
@@ -38,6 +41,7 @@ class Battle(Buff, SwitchSouls, BattleAssets):
             elif self.appear(self.I_BATTLE_FAILED, 0.95):
                 self.click(self.battle_end_click)
                 win = False
+
         logger.info(f"** Got battle result: {win}")
         return win
 

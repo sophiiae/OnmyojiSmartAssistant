@@ -17,9 +17,10 @@ class ExpBase(EA, Battle):
         if self.get_chapter_reward():
             time.sleep(1)
 
+        time.sleep(2)
         while 1:
             self.wait_and_shot()
-            if self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON):
+            if self.appear_then_click(self.I_EXP_CHAPTER_DISMISS_ICON, 0.95):
                 time.sleep(1)
                 continue
 
@@ -35,18 +36,17 @@ class ExpBase(EA, Battle):
 
     def get_chapter_reward(self):
         found = False
-        time.sleep(1)
         while 1:
-            self.wait_and_shot()
+            self.wait_and_shot(1)
             if not self.appear(self.I_EXP_C_CHAPTER, 0.95):
                 break
 
             if self.appear(self.I_GAIN_REWARD):
                 self.random_click_right()
                 found = True
+                continue
 
-            if self.appear(self.I_EXP_CHAP_REWARD):
-                self.click(self.I_EXP_CHAP_REWARD)
+            self.appear_then_click(self.I_EXP_CHAP_REWARD)
 
         if found:
             self.class_logger(self.name, "Got all chapter reward.")
@@ -85,8 +85,7 @@ class ExpBase(EA, Battle):
             if self.appear(self.I_BACKUP_PAGE_CHECK):
                 break
 
-            if self.appear(self.I_BACKUP_CONFIG):
-                self.click(self.I_BACKUP_CONFIG)
+            self.appear_then_click(self.I_BACKUP_CONFIG)
 
         # 清空狗粮
         while 1:
@@ -111,12 +110,10 @@ class ExpBase(EA, Battle):
             if self.appear(self.I_SHIKI_MATERIAL_SELECTED):
                 break
 
-            if self.appear(self.I_SHIKI_MATERIAL):
-                self.click(self.I_SHIKI_MATERIAL)
+            if self.appear_then_click(self.I_SHIKI_MATERIAL):
                 continue
 
-            if self.appear(self.I_SHIKI_ALL):
-                self.click(self.I_SHIKI_ALL)
+            self.appear_then_click(self.I_SHIKI_ALL)
 
         # 加狗粮
         retry = 0
@@ -223,8 +220,7 @@ class ExpBase(EA, Battle):
                 self.click(self.C_SOUL_EAT_HABIT)
                 continue
 
-            if self.appear(self.I_SOUL_GREED):
-                self.click(self.I_SOUL_GREED)
+            self.appear_then_click(self.I_SOUL_GREED)
 
         # 进食御魂
         for _ in range(2):
@@ -236,8 +232,7 @@ class ExpBase(EA, Battle):
                 self.click(self.I_SOUL_GREED_EAT_CONFIRM)
                 break
 
-            if self.appear(self.I_SOUL_GREED_EAT):
-                self.click(self.I_SOUL_GREED_EAT)
+            self.appear_then_click(self.I_SOUL_GREED_EAT)
 
         # 随机点击，退出贪吃鬼
         self.click(self.reward_click)
@@ -249,8 +244,7 @@ class ExpBase(EA, Battle):
             if not self.appear(self.I_SOUL_GREED_CHECK):
                 break
 
-            if self.appear(self.I_SOUL_GREED_CLOSE):
-                self.click(self.I_SOUL_GREED_CLOSE)
+            self.appear_then_click(self.I_SOUL_GREED_CLOSE)
 
         self.exit_shiki_book(self.I_EXP_C_CHAPTER)
 

@@ -30,7 +30,7 @@ class ShikigamiActivitySection(QGroupBox):
         grid = QGridLayout()
 
         # 启用体力模式（CheckBox独占一行）
-        self.enable_ap_mode = QCheckBox("启用体力模式(普通爬塔)")
+        self.enable_ap_mode = QCheckBox("启用体力模式")
         self.enable_ap_mode.setChecked(
             climb_config.get("enable_ap_mode", False))
         grid.addWidget(self.enable_ap_mode, 0, 0)

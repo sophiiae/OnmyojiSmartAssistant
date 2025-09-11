@@ -54,7 +54,7 @@ class WidgetsAssets:
 	I_GAIN_REWARD = RuleImage(
 		name="gain_reward",
 		roi=(476, 233, 329, 42),
-		area=(312, 212, 658, 84),
+		area=(312, 140, 658, 200),
 		file="./tasks/components/widgets/res/signs/gain_reward.png"
 	)
 	# 战斗/突破/宝箱奖励领取图标 

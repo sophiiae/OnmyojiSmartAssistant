@@ -107,6 +107,10 @@ class TaskBase(Controls):
                 if self.check_page_appear(path[idx + 1]):
                     break
 
+                # 如果在庭院，就打开卷轴
+                if self.appear(self.I_C_MAIN) and self.appear_then_click(self.I_SCROLL_CLOSE):
+                    self.wait_and_shot()
+
                 button = page.links[path[idx + 1]]
                 if isinstance(button, RuleClick):
                     self.click(button)

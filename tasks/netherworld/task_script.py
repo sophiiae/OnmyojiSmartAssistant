@@ -40,8 +40,9 @@ class TaskScript(Battle, NetherworldAssets):
 
         # 进入组队页面
         while 1:
+            self.class_logger(self.name, "Entering team up page.")
             self.wait_and_shot()
-            if self.appear(self.I_NW_BATTLE_CHALLENGE):
+            if self.appear(self.I_NW_BATTLE_CHALLENGE, 0.96):
                 break
 
             if self.appear_then_click(self.I_NW_BATTLE_CONFIRM, 0.95):
@@ -51,14 +52,25 @@ class TaskScript(Battle, NetherworldAssets):
 
         # 开始战斗
         while 1:
+            self.class_logger(self.name, "Start battle.")
             self.wait_and_shot()
-            if self.appear(self.I_BATTLE_READY):
-                self.run_easy_battle(self.I_C_GUILD)
+            if self.appear(self.I_BATTLE_READY, 0.96):
+                self.run_easy_battle(self.I_NW_ENT)
                 break
 
-            self.appear_then_click(self.I_NW_CHALLENGE)
+            self.appear_then_click(self.I_NW_BATTLE_CHALLENGE)
+
+        # 退出阴界页面
+        while 1:
+            self.class_logger(self.name, "Exit netherworld.")
+            self.wait_and_shot()
+            if self.appear(self.I_C_GUILD):
+                break
+
+            self.appear_then_click(self.I_NW_PAGE_EXIT)
 
     def enter_nw_page(self):
+        self.class_logger(self.name, "Entering nw page.")
         # 进入阴界之门页面
         while 1:
             self.wait_and_shot()

@@ -19,5 +19,19 @@
     "roi": "1010, 80, 250, 620",
     "area": "1010, 80, 250, 620",
     "description": "right"
+  },
+  {
+    "name": "sa_fight_easy",
+    "type": "click",
+    "roi": "1182, 259, 50, 40",
+    "area": "1182, 259, 50, 40",
+    "description": "战斗简单模式"
+  },
+  {
+    "name": "sa_fight_hard",
+    "type": "click",
+    "roi": "1172, 365, 59, 45",
+    "area": "1172, 365, 59, 45",
+    "description": "战斗困难模式"
   }
 ]
