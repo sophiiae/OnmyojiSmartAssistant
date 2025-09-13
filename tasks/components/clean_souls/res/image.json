@@ -1,0 +1,122 @@
+[
+  {
+    "name": "soul_greed",
+    "type": "image",
+    "roi": "1160, 617, 56, 48",
+    "area": "1136, 593, 104, 96",
+    "file": "./tasks/components/clean_souls/res/soul_greed.png",
+    "description": "贪吃鬼"
+  },
+  {
+    "name": "soul_greed_check",
+    "type": "image",
+    "roi": "326, 263, 92, 65",
+    "area": "294, 231, 156, 129",
+    "file": "./tasks/components/clean_souls/res/soul_greed_check.png",
+    "description": "贪吃鬼小屋"
+  },
+  {
+    "name": "soul_greed_eat",
+    "type": "image",
+    "roi": "933, 601, 72, 58",
+    "area": "904, 572, 130, 116",
+    "file": "./tasks/components/clean_souls/res/soul_greed_eat.png",
+    "description": "立刻进食"
+  },
+  {
+    "name": "soul_greed_eat_confirm",
+    "type": "image",
+    "roi": "672, 403, 172, 57",
+    "area": "644, 375, 228, 113",
+    "file": "./tasks/components/widgets/res/buttons/b_confirm_wide.png",
+    "description": "确定进食"
+  },
+  {
+    "name": "soul_greed_close",
+    "type": "image",
+    "roi": "936, 216, 29, 30",
+    "area": "922, 202, 57, 58",
+    "file": "./tasks/components/clean_souls/res/soul_greed_close.png",
+    "description": "关闭贪吃鬼小屋"
+  },
+  {
+    "name": "mass_upgrade_icon",
+    "type": "image",
+    "roi": "45, 637, 54, 51",
+    "area": "19, 611, 106, 103",
+    "file": "./tasks/components/clean_souls/res/mass_upgrade_icon.png",
+    "description": "批量强化"
+  },
+  {
+    "name": "maneki_neko",
+    "type": "image",
+    "roi": "806, 233, 45, 33",
+    "area": "790, 217, 77, 65",
+    "file": "./tasks/components/clean_souls/res/maneki_neko.png",
+    "description": "招财猫"
+  },
+  {
+    "name": "dump_icon",
+    "type": "image",
+    "roi": "252, 653, 27, 24",
+    "area": "240, 641, 51, 48",
+    "file": "./tasks/components/clean_souls/res/dump_icon.png",
+    "description": "弃置图标"
+  },
+  {
+    "name": "lock_icon",
+    "type": "image",
+    "roi": "256, 652, 20, 22",
+    "area": "246, 642, 40, 42",
+    "file": "./tasks/components/clean_souls/res/lock_icon.png",
+    "description": "锁定图标(灰)"
+  },
+  {
+    "name": "select_all_schemes",
+    "type": "image",
+    "roi": "959, 207, 31, 24",
+    "area": "947, 195, 55, 48",
+    "file": "./tasks/components/clean_souls/res/select_all.png",
+    "description": "全选方案"
+  },
+  {
+    "name": "select_all_souls",
+    "type": "image",
+    "roi": "487, 102, 31, 24",
+    "area": "475, 90, 55, 48",
+    "file": "./tasks/components/clean_souls/res/select_all.png",
+    "description": "全选御魂"
+  },
+  {
+    "name": "scheme_import_icon",
+    "type": "image",
+    "roi": "619, 652, 32, 32",
+    "area": "603, 636, 64, 64",
+    "file": "./tasks/components/clean_souls/res/scheme_import_icon.png",
+    "description": "方案码导入图标"
+  },
+  {
+    "name": "empty_lantern",
+    "type": "image",
+    "roi": "244, 287, 114, 152",
+    "area": "187, 230, 228, 266",
+    "file": "./tasks/components/clean_souls/res/empty_lantern.png",
+    "description": "无符合条件御魂时的灯笼"
+  },
+  {
+    "name": "recover",
+    "type": "image",
+    "roi": "274, 651, 60, 28",
+    "area": "260, 637, 88, 56",
+    "file": "./tasks/components/clean_souls/res/recover.png",
+    "description": "恢复"
+  },
+  {
+    "name": "scheme_3",
+    "type": "image",
+    "roi": "661, 415, 11, 17",
+    "area": "655, 409, 23, 29",
+    "file": "./tasks/components/clean_souls/res/scheme_3.png",
+    "description": "3号方案"
+  }
+]

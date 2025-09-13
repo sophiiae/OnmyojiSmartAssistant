@@ -52,34 +52,6 @@ class TaskScript(Battle, GR):
             GoryouClass.Dark_Peacock: self.I_GR_DP_OPEN
         }
 
-    def get_goryou_class(self, pick: GoryouClass):
-        self.screenshot()
-        if pick is not GoryouClass.RANDOM:
-            # 如果选择的御灵开放就直接返回
-            if self.appear(self.open_class_match[pick]):
-                self.class_logger(self.name, f"Choose assigned Goryou: {pick}")
-                return pick
-
-        # 查找开放的御灵
-        open_classes = []
-        for k, v in self.open_class_match.items():
-            if self.appear(v, 0.985):
-                open_classes.append(k)
-
-        # 如果都不开放
-        if not open_classes:
-            logger.warning("No Goryou open.")
-            return None
-
-        self.class_logger(
-            self.name, f"Current open goryou classes: {open_classes}")
-
-        # 随机御灵
-        index = random.randint(0, len(open_classes) - 1)
-        chosen_class = open_classes[index]
-        self.class_logger(self.name, f"Choose random Goryou: {chosen_class}")
-        return chosen_class
-
     @cached_property
     def goryou_class_click(self):
         return {
@@ -90,18 +62,30 @@ class TaskScript(Battle, GR):
         }
 
     def choose_class(self) -> bool:
-        target_class = self.get_goryou_class(self.gr_class)
-        if target_class is None:
-            return False
-
-        # 进入御灵战斗界面
-        while 1:
+        if self.gr_class is not GoryouClass.RANDOM:
+            target_class = self.open_class_match[self.gr_class]
+            self.class_logger(
+                self.name, f"Choose assigned Goryou: {self.gr_class}")
+            self.click(target_class)
             self.wait_and_shot()
             if self.appear(self.I_GR_FIGHT_CHECK):
-                break
+                self.class_logger(
+                    self.name, f"Entered Goryou: {self.gr_class}")
+                return True
 
-            self.click(self.goryou_class_click[target_class])
-        return True
+        # 随机御灵
+        class_clicks = list(self.open_class_match.values())
+
+        random.shuffle(class_clicks)
+        for click in class_clicks:
+            self.click(click)
+            self.wait_and_shot()
+            if self.appear(self.I_GR_FIGHT_CHECK):
+                self.class_logger(self.name, f"Entered random Goryou.")
+                return True
+
+        logger.warning("No Goryou open.")
+        return False
 
     def choose_level(self):
         if not self.appear(self.I_GR_FIGHT_CHECK):

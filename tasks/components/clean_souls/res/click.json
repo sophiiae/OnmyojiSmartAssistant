@@ -1,0 +1,100 @@
+[
+  {
+    "name": "soul_ent_pos1",
+    "type": "click",
+    "roi": "550, 430, 40, 30",
+    "area": "550, 430, 40, 30",
+    "description": "御魂标记位置（六字式神名字）"
+  },
+  {
+    "name": "soul_ent_pos2",
+    "type": "click",
+    "roi": "550, 400, 40, 30",
+    "area": "550, 400, 40, 30",
+    "description": "御魂标记位置（五字式神名字）"
+  },
+  {
+    "name": "soul_ent_pos3",
+    "type": "click",
+    "roi": "550, 365, 40, 30",
+    "area": "550, 365, 40, 30",
+    "description": "御魂标记位置（普通式神名字）"
+  },
+  {
+    "name": "soul_eat_habit",
+    "type": "click",
+    "roi": "830, 540, 140, 40",
+    "area": "830, 540, 140, 40",
+    "description": "贪吃鬼进食习惯"
+  },
+  {
+    "name": "soul_eat_comfirm_checkbox",
+    "type": "click",
+    "roi": "550, 350, 20, 20",
+    "area": "550, 350, 20, 20",
+    "description": "贪吃鬼进食不再提示检查框"
+  },
+  {
+    "name": "tidy_up_lantern",
+    "type": "click",
+    "roi": "1160, 335, 60, 80",
+    "area": "1160, 335, 60, 80",
+    "description": "整理灯笼"
+  },
+  {
+    "name": "donat_lantern",
+    "type": "click",
+    "roi": "1165, 200, 55, 80",
+    "area": "1165, 200, 55, 80",
+    "description": "奉纳灯笼"
+  },
+  {
+    "name": "dump_scheme",
+    "type": "click",
+    "roi": "655, 180, 80, 45",
+    "area": "655, 180, 80, 45",
+    "description": "弃置(方案)"
+  },
+  {
+    "name": "upgrade_scheme",
+    "type": "click",
+    "roi": "755, 180, 75, 45",
+    "area": "755, 180, 75, 45",
+    "description": "强化(方案)"
+  },
+  {
+    "name": "filters",
+    "type": "click",
+    "roi": "645, 110, 90, 35",
+    "area": "645, 110, 90, 35",
+    "description": "筛选"
+  },
+  {
+    "name": "schemes",
+    "type": "click",
+    "roi": "760, 110, 90, 35",
+    "area": "760, 110, 90, 35",
+    "description": "方案"
+  },
+  {
+    "name": "dumped_souls",
+    "type": "click",
+    "roi": "45, 95, 95, 35",
+    "area": "45, 95, 95, 35",
+    "description": "已弃置"
+  },
+  {
+    "name": "untidy_souls",
+    "type": "click",
+    "roi": "165, 95, 90, 35",
+    "area": "165, 95, 90, 35",
+    "description": "待整理"
+  },
+  {
+    "name": "random_click",
+    "type": "click",
+    "roi": "110, 130, 130, 300",
+    "area": "110, 130, 130, 300",
+    "description": "left"
+  }
+]

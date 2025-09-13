@@ -198,7 +198,8 @@ class SubaccountsSection(QGroupBox):
         sa_config["enable_collaboration"] = self.enable_collaboration.isChecked(
         )
         sa_config["collaboration_count"] = int(self.collaboration_count.text())
-        sa_config["collaboration_account_number"] = self.collaboration_account_number.text()
+        sa_config["collaboration_account_number"] = int(
+            self.collaboration_account_number.text())
         sa_config["enable_daily_routine"] = self.enable_daily_routine.isChecked(
         )
 

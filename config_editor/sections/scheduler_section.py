@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import (QCheckBox, QGroupBox, QVBoxLayout,
-                             QHBoxLayout, QLabel, QTimeEdit, QSizePolicy, QRadioButton)
-from PyQt6.QtCore import QTime
+                             QHBoxLayout, QLabel, QSizePolicy)
 from config_editor.widgets.select_button import SelectButton
 from config_editor.utils import add_left_row
 import re

@@ -29,6 +29,16 @@ class RuleImage:
         截取图片
         """
         x, y, w, h = self.area
+
+        # Add bounds checking and validation
+        if h <= 0 or w <= 0:
+            logger.warning(
+                f"[Image] {self.name} Invalid area dimensions: {self.area} (w={w}, h={h})")
+            # Return a minimal valid array to prevent crashes
+            return screenshot
+
+        # logger.info(
+        #     f"[Image] Crop {self.name} from height ({y} to {y + h}), width ({x} to {x + w})")
         return screenshot[y: y + h, x: x + w]
 
     def coord(self) -> tuple:
@@ -97,6 +107,12 @@ class RuleImage:
         target = self.image
         if target is None:
             logger.error(f"[Image] {self.name} failed to load target image")
+            return False
+
+        # Check if template is larger than screenshot
+        if target.shape[0] > screenshot.shape[0] or target.shape[1] > screenshot.shape[1]:
+            logger.warning(
+                f"[Image] {self.name} template size ({target.shape[1]}x{target.shape[0]}) is larger than screenshot size ({screenshot.shape[1]}x{screenshot.shape[0]}), skipping match")
             return False
 
         result = cv2.matchTemplate(screenshot, target, cv2.TM_CCORR_NORMED)

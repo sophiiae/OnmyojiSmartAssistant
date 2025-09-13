@@ -3,7 +3,8 @@ from module.control.server.device import Device
 from tasks.subaccounts.task_script import TaskScript as TS
 from tasks.duel.task_script import TaskScript as RB
 from module.base.logger import logger
-
+from tasks.components.clean_souls.clean_souls import CleanSouls
+from tasks.exploration.task_script import TaskScript as EXP
 
 def RunTaskTest(name):
     d = Device(config_name=name)
@@ -16,8 +17,12 @@ def RunTaskTest(name):
                "永生之海",
                "有龙则灵"
                ]
-    # dr.get_region_group(regions)
-    dr.quest_invite()
+    # # dr.get_region_group(regions)
+    # dr.quest_invite()
+    # cs = CleanSouls(device=d)
+    # cs.clean_souls()
+    exp = EXP(device=d)
+    exp.close_config_buff()
 
 
 if __name__ == "__main__":

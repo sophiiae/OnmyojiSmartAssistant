@@ -3,7 +3,14 @@
     "name": "buff_up",
     "type": "swipe",
     "roi_start": "397,124,456,35",
-    "roi_end": "447,457,386,37",
-    "description": "description"
+    "roi_end": "447,457,386,35",
+    "description": "往上走"
+  },
+  {
+    "name": "buff_down",
+    "type": "swipe",
+    "roi_start": "447,457,386,35",
+    "roi_end": "397,124,456,35",
+    "description": "往下走"
   }
 ]

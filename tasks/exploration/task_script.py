@@ -43,12 +43,10 @@ class TaskScript(ExpBase):
         # 绘卷模式去探索页面，减少页面跳转
         if scroll_mode.scroll_mode_enable:
             self.goto(page_realm_raid, page_exp)
-            self.set_next_run(task='Exploration', success=True,
-                              finish=False, target_time=datetime.now())
         else:
             self.goto(page_main, page_exp)
-            self.set_next_run(task='Exploration', success=True, finish=False)
 
+        self.set_next_run(task='Exploration', success=True, finish=False)
         raise TaskEnd(self.name)
 
     def pre_chapter_battle(self):
@@ -182,33 +180,24 @@ class TaskScript(ExpBase):
         # 进入战斗环节
         self.class_logger(self.name, "Start battle...")
         swipe_count = 0
-        stuck_count = 0
         while 1:
-            # 如果一直卡住，检查候补狗粮
-            if stuck_count > 5:
+            # 检查候补狗粮
+            if not self.appear(self.I_AUTO_ROTATE_ON):
                 self.check_auto_rotate()
 
             self.wait_and_shot(0.5)
 
             # BOSS 挑战
-            if self.appear(self.I_EXP_BOSS, 0.95):
-                self.click_moving_target(self.I_EXP_BOSS, self.I_EXP_C_CHAPTER)
-
+            if self.appear(self.I_EXP_BOSS, 0.95) and self.click_moving_target(self.I_EXP_BOSS, self.I_EXP_C_CHAPTER):
                 if self.run_easy_battle(self.I_EXP_C_CHAPTER):
                     break
-                else:
-                    stuck_count += 1
 
             # 普通怪挑战
-            if self.appear(self.I_EXP_BATTLE, 0.95):
-                self.click_moving_target(
-                    self.I_EXP_BATTLE, self.I_EXP_C_CHAPTER)
+            if self.appear(self.I_EXP_BATTLE, 0.95) and self.click_moving_target(
+                    self.I_EXP_BATTLE, self.I_EXP_C_CHAPTER):
 
                 if self.run_easy_battle(self.I_EXP_C_CHAPTER):
                     swipe_count = 0
-                    stuck_count = 0
-                else:
-                    stuck_count += 1
                 continue
 
             self.swipe(self.S_EXP_TO_RIGHT)
@@ -290,9 +279,7 @@ class TaskScript(ExpBase):
                                               minutes=int(min),
                                               seconds=int(sec))
         logger.warning(f"next run time: {next_run}")
-        self.set_next_run(task='Exploration', success=False,
-                          finish=False, target_time=next_run)
-        self.set_next_run(task='RealmRaid', success=False,
-                          finish=False, target_time=datetime.now())
+        self.set_next_target_time('Exploration', next_run)
+        self.set_next_target_time('RealmRaid', datetime.now())
 
         raise TaskEnd(self.name)

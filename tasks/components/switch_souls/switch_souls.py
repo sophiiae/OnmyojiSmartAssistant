@@ -135,6 +135,3 @@ class SwitchSouls(TaskBase, SS):
             if len(parts) == 2:
                 result.append((int(parts[0]), int(parts[1])))
         return result
-
-    def class_logger(self, task: str, message: str):
-        logger.info(f"*{task}* {message}")

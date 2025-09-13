@@ -40,7 +40,7 @@ class WidgetsAssets:
 	I_B_CONFIRM_WIDE = RuleImage(
 		name="b_confirm_wide",
 		roi=(672, 403, 172, 57),
-		area=(586, 374, 344, 114),
+		area=(420, 374, 440, 114),
 		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
 	)
 	# 确认 

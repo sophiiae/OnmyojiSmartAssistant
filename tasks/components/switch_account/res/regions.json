@@ -54,5 +54,13 @@
     "area": "220, 450, 830, 120",
     "file": "./tasks/components/switch_account/res/regions/r_mo_ka_qi_yu.png",
     "description": "魔卡绮遇"
+  },
+  {
+    "name": "r_bai_zai_tong_xing",
+    "type": "image",
+    "roi": "715, 492, 60, 47",
+    "area": "220, 450, 830, 120",
+    "file": "./tasks/components/switch_account/res/regions/r_bai_zai_tong_xing.png",
+    "description": "百崽同行"
   }
 ]

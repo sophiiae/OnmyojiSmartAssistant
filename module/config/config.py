@@ -167,10 +167,42 @@ class Config:
                 f"Task call: {task} (skipped because disabled by user)")
             return False
 
+    def set_next_target_time(self, task: str, target_time: datetime):
+        # 任务预处理
+        if not task:
+            if not self.task:
+                raise ValueError(
+                    "No task provided and no current task available")
+            task = self.task.name
+
+        task = inflection.underscore(task)
+
+        task_object = getattr(self.model, task, None)
+        if not task_object:
+            logger.warning(f'No task named {task}')
+            return
+        scheduler = getattr(task_object, 'scheduler', None)
+        if not scheduler:
+            logger.warning(f'No scheduler in {task}')
+            return
+
+        next_run = target_time.replace(second=0)
+
+        # 保证线程安全的
+        self.lock_config.acquire()
+        self.lock_config.release()
+        # 设置
+        logger.info(f"{task}.next_run: {next_run}")
+
+        # 实际设置到配置中
+        self.model.deep_set(
+            self.model, keys=f'{task}.scheduler.next_run', value=next_run)
+        self.save()
+
     def task_delay(self, task: str, start_time: Optional[datetime] = None,
-                   success: bool | None = None, target_time: datetime | None = None) -> None:
+                   success: bool | None = None) -> None:
         """
-        设置下次运行时间  当然这个也是可以重写的
+        设置下次运行时间
         :param target_time: 可以自定义的下次运行时间
         :param success: 判断是成功的还是失败的时间间隔
         :param task: 任务名称，大驼峰的
@@ -199,7 +231,8 @@ class Config:
             start_time = datetime.now().replace(microsecond=0)
 
         # 依次判断是否有自定义的下次运行时间
-        run = []
+        run = None
+
         if success is not None:
             interval = (
                 scheduler.success_interval
@@ -210,19 +243,15 @@ class Config:
                 d, h, m, s = interval.split(":")
                 interval = timedelta(days=int(d), hours=int(
                     h), minutes=int(m), seconds=int(s))
-            run.append(start_time + interval)
-
-        if target_time is not None:
-            target_time = nearest_future(target_time)
-            run.append(target_time)
+            run = start_time + interval
 
         if not run:
             # 如果没有设置任何时间，使用默认随机间隔
             m = random.randint(1, 20)
             default_interval = timedelta(minutes=m)  # 默认随机间隔
-            run.append(datetime.now() + default_interval)
+            run = datetime.now() + default_interval
 
-        next_run = min(run).replace(microsecond=0)
+        next_run = run.replace(microsecond=0)
 
         # 确保next_run是未来的时间
         now = datetime.now()
@@ -234,15 +263,7 @@ class Config:
             logger.warning(
                 f"Calculated next_run time {next_run} is in the past, using {next_run}")
 
-        # 将这些连接起来，方便日志输出
-        kv = dict_to_kv(
-            {
-                "success": success,
-                "target": target_time,
-            },
-            allow_none=False,
-        )
-        logger.info(f"Delay task [{task}] to {next_run} ({kv})")
+        logger.info(f"Delay task [{task}] to {next_run} (success: {success})")
 
         # 保证线程安全的
         self.lock_config.acquire()

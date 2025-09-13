@@ -82,16 +82,16 @@
   {
     "name": "buff_open_yellow",
     "type": "image",
-    "roi": "772,347,21,21",
-    "area": "766,133,35,366",
+    "roi": "772, 347, 21, 21",
+    "area": "766, 133, 35, 366",
     "file": "./tasks/components/buff/res/buff_open_yellow.png",
     "description": "description"
   },
   {
     "name": "buff_close_red",
     "type": "image",
-    "roi": "772,347,21,21",
-    "area": "766,133,35,366",
+    "roi": "772, 347, 21, 21",
+    "area": "766, 133, 35, 366",
     "file": "./tasks/components/buff/res/buff_close_red.png",
     "description": "description"
   }

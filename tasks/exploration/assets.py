@@ -12,16 +12,6 @@ class ExplorationAssets:
 	C_BACKUP_FRAME_TOP = RuleClick(roi=(500, 180, 620, 10), area=(500, 180, 620, 10), name="backup_frame_top")
 	# 候补式神,框下沿 
 	C_BACKUP_FRAME_BOTTOM = RuleClick(roi=(500, 380, 620, 10), area=(500, 380, 620, 10), name="backup_frame_bottom")
-	# 御魂标记位置（六字式神名字） 
-	C_SOUL_ENT_POS1 = RuleClick(roi=(550, 430, 40, 30), area=(550, 430, 40, 30), name="soul_ent_pos1")
-	# 御魂标记位置（五字式神名字） 
-	C_SOUL_ENT_POS2 = RuleClick(roi=(550, 400, 40, 30), area=(550, 400, 40, 30), name="soul_ent_pos2")
-	# 御魂标记位置（普通式神名字） 
-	C_SOUL_ENT_POS3 = RuleClick(roi=(550, 365, 40, 30), area=(550, 365, 40, 30), name="soul_ent_pos3")
-	# 贪吃鬼进食习惯 
-	C_SOUL_EAT_HABIT = RuleClick(roi=(830, 540, 140, 40), area=(830, 540, 140, 40), name="soul_eat_habit")
-	# 贪吃鬼进食不再提示检查框 
-	C_SOUL_EAT_COMFIRM_CHECKBOX = RuleClick(roi=(550, 350, 20, 20), area=(550, 350, 20, 20), name="soul_eat_comfirm_checkbox")
 	# 普通难度 
 	C_EXP_REGULAR = RuleClick(roi=(308, 210, 60, 35), area=(308, 210, 60, 35), name="exp_regular")
 	# 困难难度 
@@ -257,42 +247,7 @@ class ExplorationAssets:
 		name="shiki_book_ent",
 		roi=(788, 645, 47, 41),
 		area=(768, 625, 87, 81),
-		file="./tasks/exploration/res/soul/shiki_book.png"
-	)
-	# 贪吃鬼 
-	I_SOUL_GREED = RuleImage(
-		name="soul_greed",
-		roi=(1160, 617, 56, 48),
-		area=(1136, 593, 104, 96),
-		file="./tasks/exploration/res/soul/soul_greed.png"
-	)
-	# 贪吃鬼小屋 
-	I_SOUL_GREED_CHECK = RuleImage(
-		name="soul_greed_check",
-		roi=(326, 263, 92, 65),
-		area=(294, 231, 156, 129),
-		file="./tasks/exploration/res/soul/soul_greed_check.png"
-	)
-	# 立刻进食 
-	I_SOUL_GREED_EAT = RuleImage(
-		name="soul_greed_eat",
-		roi=(933, 601, 72, 58),
-		area=(904, 572, 130, 116),
-		file="./tasks/exploration/res/soul/soul_greed_eat.png"
-	)
-	# 确定进食 
-	I_SOUL_GREED_EAT_CONFIRM = RuleImage(
-		name="soul_greed_eat_confirm",
-		roi=(672, 403, 172, 57),
-		area=(644, 375, 228, 113),
-		file="./tasks/components/widgets/res/buttons/b_confirm_wide.png"
-	)
-	# 关闭贪吃鬼小屋 
-	I_SOUL_GREED_CLOSE = RuleImage(
-		name="soul_greed_close",
-		roi=(936, 216, 29, 30),
-		area=(922, 202, 57, 58),
-		file="./tasks/exploration/res/soul/soul_greed_close.png"
+		file="./tasks/exploration/res/shiki_book.png"
 	)
 
 	# Ocr Rule Assets

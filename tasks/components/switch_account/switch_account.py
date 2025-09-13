@@ -20,7 +20,8 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
             ("人间千年"): self.I_R_REN_JIAN_QIAN_NIAN,
             ("守山谣"): self.I_R_SHOU_SHAN_YAO,
             ("永生之海"): self.I_R_YONG_SHENG_ZHI_HAI,
-            ("有龙则灵"): self.I_R_YOU_LONG_ZE_LING
+            ("有龙则灵"): self.I_R_YOU_LONG_ZE_LING,
+            ("百崽同行"): self.I_R_BAI_ZAI_TONG_XING
         }
 
     def switch_account(self):

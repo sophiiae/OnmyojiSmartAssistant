@@ -67,19 +67,21 @@ class RuleOcr:
         if keyword is None:
             keyword = self.keyword
 
+        new_area = 0, 0, 0, 0
         boxed_results = self.detect_and_ocr(screenshot)
         if not boxed_results:
-            return 0, 0, 0, 0
+            return new_area
 
         logger.background(f"<OCR> boxed_results: {boxed_results}")
         index_list = self.filter(boxed_results, keyword)
-        logger.background(
-            f"<OCR> [{keyword}] detected in {index_list} with {boxed_results[index_list[0]]}")
         # 如果一个都没有匹配到
         if not index_list:
-            return 0, 0, 0, 0
+            return new_area
 
+        logger.background(
+            f"<OCR> [{keyword}] detected in {index_list} with {boxed_results[index_list[0]]}")
         logger.background(f"<OCR> index_list: {index_list}")
+
         # 如果匹配到了多个,则合并所有的坐标，返回合并后的坐标
         if len(index_list) > 1:
             logger.info(f"<OCR> Going to merge areas.")
@@ -96,18 +98,18 @@ class RuleOcr:
             area = merge_area(area_list)
             self.roi = area[0] + self.roi[0], area[1] + \
                 self.roi[1], self.roi[2], self.roi[3]
-            self.area = area[0] + self.roi[0], area[1] + \
+            new_area = area[0] + self.roi[0], area[1] + \
                 self.roi[1], self.area[2], self.area[3]
         else:
             logger.info(f"<OCR> Found single area.")
             box = cast(np.ndarray, boxed_results[index_list[0]].box)
             self.roi = int(box[0][0] + self.roi[0]), int(box[0][1] + self.roi[1]
                                                          ), self.roi[2], self.roi[3]
-            self.area = int(box[0][0] + self.roi[0]), int(box[0][1] + self.roi[1]
-                                                          ), self.area[2], self.area[3]
+            new_area = int(box[0][0] + self.roi[0]), int(box[0][1] + self.roi[1]
+                                                         ), self.area[2], self.area[3]
         logger.background(
-            f"<OCR> [{keyword if keyword else self.name}] detected in {self.area}, roi: {self.roi}")
-        return self.area
+            f"<OCR> [{keyword if keyword else self.name}] detected in new area: {new_area}, roi: {self.roi}")
+        return new_area
 
     def ocr_single(self, screenshot) -> str:
         screenshot = self.crop(screenshot)

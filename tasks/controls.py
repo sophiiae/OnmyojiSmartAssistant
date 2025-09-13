@@ -60,26 +60,13 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
         if not self.appear(self.I_QUEST_ACCEPT):
             return False
 
-        # 查看设置
-        quest_config = self.config.model.wanted_quests.accept_quest_config
-        accept_types = [
-            k for k, v in quest_config.model_dump().items() if v is True]
-
-        # 如果任何类型都不接受直接返回
-        if not accept_types:
-            return False
+        click_button = self.I_QUEST_IGNORE
+        accept_quests = [self.I_QUEST_JADE, self.I_QUEST_CAT, self.I_QUEST_DOG]
 
         time.sleep(0.3)
         self.device.get_screenshot()
-        accept_targets = []
-        for type, imgs in self.accept_request_map.items():
-            if type in accept_types:
-                accept_targets.extend(imgs)
-
-        # 查看邀请符不符合设置
-        click_button = self.I_QUEST_IGNORE
-        for t in accept_targets:
-            if self.appear(t, 0.95):
+        for quest in accept_quests:
+            if self.appear(quest, 0.96):
                 click_button = self.I_QUEST_ACCEPT
                 break
 
@@ -91,6 +78,7 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
                 break
 
             self.appear_then_click(click_button, threshold=0.96)
+
         return True
 
     def appear(self, target: RuleImage, threshold: float = 0.9, delay: float = 0.1) -> bool:
@@ -315,22 +303,26 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
             time.sleep(delay)
         return False
 
-    def click_moving_target(self, target: RuleImage, fail_check: RuleImage, threshold: float = 0.9):
+    def click_moving_target(self, target: RuleImage, fail_check: RuleImage, threshold: float = 0.9, retry: int = 3):
         """
         点击移动的图标，比如怪物
         """
-        while 1:
+        for _ in range(retry):
             self.wait_and_shot(0.1)
             if not self.appear(fail_check, threshold=threshold):
                 return True
+
             self.appear_then_click(target, threshold=threshold)
         return False
 
     def set_next_run(self, task: str, finish: bool = False,
-                     success: Optional[bool] = None, target_time: Optional[datetime] = None) -> None:
+                     success: Optional[bool] = None) -> None:
         if finish:
             start_time = datetime.now().replace(microsecond=0)
         else:
             start_time = self.start_time
         self.config.task_delay(task, start_time=start_time,
-                               success=success, target_time=target_time)
+                               success=success)
+
+    def set_next_target_time(self, task: str, target_time: datetime):
+        self.config.set_next_target_time(task, target_time)

@@ -14,41 +14,6 @@
     "description": "候补式神,框下沿"
   },
   {
-    "name": "soul_ent_pos1",
-    "type": "click",
-    "roi": "550, 430, 40, 30",
-    "area": "550, 430, 40, 30",
-    "description": "御魂标记位置（六字式神名字）"
-  },
-  {
-    "name": "soul_ent_pos2",
-    "type": "click",
-    "roi": "550, 400, 40, 30",
-    "area": "550, 400, 40, 30",
-    "description": "御魂标记位置（五字式神名字）"
-  },
-  {
-    "name": "soul_ent_pos3",
-    "type": "click",
-    "roi": "550, 365, 40, 30",
-    "area": "550, 365, 40, 30",
-    "description": "御魂标记位置（普通式神名字）"
-  },
-  {
-    "name": "soul_eat_habit",
-    "type": "click",
-    "roi": "830, 540, 140, 40",
-    "area": "830, 540, 140, 40",
-    "description": "贪吃鬼进食习惯"
-  },
-  {
-    "name": "soul_eat_comfirm_checkbox",
-    "type": "click",
-    "roi": "550, 350, 20, 20",
-    "area": "550, 350, 20, 20",
-    "description": "贪吃鬼进食不再提示检查框"
-  },
-  {
     "name": "exp_regular",
     "type": "click",
     "roi": "308, 210, 60, 35",

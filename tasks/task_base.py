@@ -125,3 +125,6 @@ class TaskBase(Controls):
                         "Unable to identify the page button")
 
                 time.sleep(0.2)
+
+    def class_logger(self, task: str, message: str):
+        logger.info(f"*{task}* {message}")

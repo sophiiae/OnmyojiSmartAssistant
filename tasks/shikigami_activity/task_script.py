@@ -32,8 +32,8 @@ class TaskScript(Battle, SA):
         else:
             self.run_climb()
 
-        self.set_next_run(self.name, finish=True, success=True)
         self.exit_activity()
+        self.set_next_run(self.name, finish=True, success=True)
         raise TaskEnd(self.name)
 
     def run_climb(self):
@@ -62,19 +62,33 @@ class TaskScript(Battle, SA):
         # self.toggle_team_lock(self.I_SA_TEAM_LOCK, self.I_SA_TEAM_UNLOCK)
         self.change_souls()
 
-        # 每天指定御魂不一样，不刷的话，就先关了体力模式
-        self.switch_mode()
-        use_ap = self.sa_config.enable_ap_mode
-        count = self.get_ticket_count()
-        if use_ap:
-            # 用体力刷999
-            count = self.anni_ticket_count()
+        ticket_count = self.get_ticket_count()
+        ap_count = self.anni_ap_count()
 
+        # 自动转换
+        auto_switch = self.sa_config.auto_switch
+        if auto_switch:
+            if ticket_count > 0:
+                self.switch_mode(False)
+                self.start_anni_battle(ticket_count)
+                self.class_logger(self.name, "*** Finished ticket battles")
+
+            if ap_count > 0:
+                self.switch_mode()
+                self.start_anni_battle(ap_count)
+            return
+
+        # 每天指定御魂不一样，不刷的话，就先关了体力模式
+        use_ap = self.sa_config.enable_ap_mode
+        self.switch_mode(use_ap)
+        count = ap_count if use_ap else ticket_count
+        self.start_anni_battle(count)
+
+    def start_anni_battle(self, count: int = 0):
         while count:
-            if count // 100 == 0:
-                wait = random.randint(1, 30)
-                self.class_logger(self.name, f"Random waiting time: {wait}")
-                time.sleep(wait)
+            if count >= 300 and count % 300 == 0:
+                self.soul_clear()
+                self.class_logger(self.name, "Clean up low level souls")
 
             self.class_logger(self.name,
                               f"======== Round {count} by AP ========")
@@ -91,7 +105,12 @@ class TaskScript(Battle, SA):
                                   ss_config.switch_group_team,
                                   self.I_SA_FIGHT_TARGET_PAGE_CHECK)
 
-    def anni_ticket_count(self):
+    def soul_clear(self):
+        self.enter_shiki_book(self.I_SA_SHIKI_BOOK_ENT)
+        self.clean_souls()
+        self.exit_shiki_book(self.I_SA_FIGHT_TARGET_PAGE_CHECK)
+
+    def anni_ap_count(self):
         image = self.screenshot()
         ap_max = self.sa_config.ap_max
         count, total = self.O_ANIVERSARY_TICKET_COUNT.digit_counter(image)
@@ -179,7 +198,6 @@ class TaskScript(Battle, SA):
         return True
 
     def switch_mode(self, use_ap: bool = True):
-        use_ap = self.sa_config.enable_ap_mode
         if use_ap:
             self.class_logger(self.name, "Enable AP mode.")
             while 1:

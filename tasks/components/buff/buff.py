@@ -10,7 +10,6 @@ from tasks.task_base import TaskBase
 from tasks.components.page.page import Page
 from tasks.components.page.page import page_main, page_exp, page_minamoto
 
-
 class Buff(TaskBase, BuffAssets):
 
     def open_buff(self, page: Page = page_main):
@@ -60,18 +59,21 @@ class Buff(TaskBase, BuffAssets):
         :return:  如果没有就返回None
         """
         img = self.screenshot()
+        # x,y坐标就是文字的坐上角
         area = buff.ocr_full(img)
 
         if area == tuple([0, 0, 0, 0]):
             logger.info(f'No {buff.name} buff')
             return None
 
-        # 开始的x坐标就是文字的右边
-        start_x = area[0] + area[2] + 10  # 10是文字和开关之间的间隔
-        start_y = area[1] - 10
-        width = 80  # 开关的宽度 80够了
-        height = area[3] + 20
-        return int(start_x), int(start_y), int(width), int(height)
+        roi = buff.roi
+        start_x = 775  # 开关最左边
+        start_y = max(0, roi[1] - 10)  # 确保y坐标不为负数
+        width = 100  # 增加开关的宽度
+        height = 100  # 增加开关的高度
+
+        logger.info(f"Get target area: {(start_x, start_y, width, height)}")
+        return start_x, start_y, width, height
 
     def set_switch_area(self, area):
         """
@@ -79,7 +81,7 @@ class Buff(TaskBase, BuffAssets):
         :param area:
         :return:
         """
-        self.I_BUFF_OPEN_YELLOW.area = tuple(area)  # 动态设置roi
+        self.I_BUFF_OPEN_YELLOW.area = tuple(area)  # 动态设置area
         self.I_BUFF_CLOSE_RED.area = tuple(area)
 
     def toggle_buff(self, activate: bool = True):
@@ -87,7 +89,7 @@ class Buff(TaskBase, BuffAssets):
             logger.info("Activating buff")
             while 1:
                 self.wait_and_shot()
-                if not self.appear(self.I_BUFF_CLOSE_RED):
+                if not self.appear(self.I_BUFF_CLOSE_RED, 0.95):
                     return
 
                 self.appear_then_click(self.I_BUFF_CLOSE_RED)
@@ -95,7 +97,7 @@ class Buff(TaskBase, BuffAssets):
             logger.info("Deactivating buff")
             while 1:
                 self.wait_and_shot()
-                if not self.appear(self.I_BUFF_OPEN_YELLOW):
+                if not self.appear(self.I_BUFF_OPEN_YELLOW, 0.95):
                     return
 
                 self.appear_then_click(self.I_BUFF_OPEN_YELLOW)
@@ -137,14 +139,8 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Gold 50 buff')
-        self.wait_and_shot()
-        area = self.get_area(self.O_GOLD_50)
-        if not area:
-            logger.warning('No gold 50 buff')
-            return None
-        self.I_BUFF_OPEN_YELLOW.area = tuple(area)  # 动态设置roi
-        self.I_BUFF_CLOSE_RED.area = tuple(area)
-        self.toggle_buff(activate)
+        if self.find_target_buff(self.O_GOLD_50):
+            self.toggle_buff(activate)
 
     def gold_100(self, activate: bool = True):
         """
@@ -153,14 +149,8 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Gold 100 buff')
-        self.wait_and_shot()
-        area = self.get_area(self.O_GOLD_100)
-        if not area:
-            logger.warning('No gold 100 buff')
-            return None
-        self.I_BUFF_OPEN_YELLOW.area = tuple(area)
-        self.I_BUFF_CLOSE_RED.area = tuple(area)
-        self.toggle_buff(activate)
+        if self.find_target_buff(self.O_GOLD_100):
+            self.toggle_buff(activate)
 
     def exp_50(self, activate: bool = True):
         """
@@ -169,21 +159,8 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Exp 50 buff')
-        while 1:
-            self.wait_and_shot()
-            area = self.get_area(self.O_EXP_50)
-            if not area:
-                logger.warning('No exp 50 buff')
-                continue
-            self.set_switch_area(area)
-
-            if not self.appear(self.I_BUFF_OPEN_YELLOW) and not self.appear(self.I_BUFF_CLOSE_RED):
-                logger.info('No exp 50 buff')
-                self.device.swipe(530, 240, 580, 320)
-                time.sleep(0.7)
-            else:
-                break
-        self.toggle_buff(activate)
+        if self.find_target_buff(self.O_EXP_50):
+            self.toggle_buff(activate)
 
     def exp_100(self, activate: bool = True):
         """
@@ -192,22 +169,25 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Exp 100 buff')
+        if self.find_target_buff(self.O_EXP_100):
+            self.toggle_buff(activate)
 
+    def find_target_buff(self, target: RuleOcr) -> bool:
+        retry = 0
         while 1:
             self.wait_and_shot()
-            area = self.get_area(self.O_EXP_100)
-            if not area:
-                logger.warning('No exp 100 buff')
-                continue
-            self.set_switch_area(area)
+            area = self.get_area(target)
+            if retry > 3:
+                logger.warning(f'Cannot find {target.name} buff')
+                return False
 
-            if not self.appear(self.I_BUFF_OPEN_YELLOW) and not self.appear(self.I_BUFF_CLOSE_RED):
-                logger.info('No exp 100 buff')
-                self.device.swipe(530, 240, 580, 320)
-                time.sleep(0.7)
-            else:
-                break
-        self.toggle_buff(activate)
+            if area:
+                self.set_switch_area(area)
+                return True
+
+            self.swipe(self.S_BUFF_DOWN)
+            retry += 1
+        return True
 
     def get_area_image(self, target: RuleImage) -> list | None:
         """

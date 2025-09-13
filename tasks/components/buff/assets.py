@@ -81,54 +81,60 @@ class BuffAssets:
 	# description 
 	I_BUFF_OPEN_YELLOW = RuleImage(
 		name="buff_open_yellow",
-		roi=(772,347,21,21),
-		area=(766,133,35,366),
+		roi=(772, 347, 21, 21),
+		area=(766, 133, 35, 366),
 		file="./tasks/components/buff/res/buff_open_yellow.png"
 	)
 	# description 
 	I_BUFF_CLOSE_RED = RuleImage(
 		name="buff_close_red",
-		roi=(772,347,21,21),
-		area=(766,133,35,366),
+		roi=(772, 347, 21, 21),
+		area=(766, 133, 35, 366),
 		file="./tasks/components/buff/res/buff_close_red.png"
 	)
 
 	# Ocr Rule Assets
 	# Ocr-description 
 	O_GOLD_50 = RuleOcr(
-		roi=(428,120,338,389),
-		area=(428,120,338,389),
+		roi=(430, 135, 335, 375),
+		area=(430, 135, 335, 375),
 		keyword="战斗胜利获得的金币增加50%",
 		name="gold_50"
 	)
 	# Ocr-description 
 	O_GOLD_100 = RuleOcr(
-		roi=(425,118,342,397),
-		area=(425,118,342,397),
+		roi=(430, 135, 335, 375),
+		area=(430, 135, 335, 375),
 		keyword="战斗胜利获得的金币增加100%",
 		name="gold_100"
 	)
 	# Ocr-description 
 	O_EXP_50 = RuleOcr(
-		roi=(426,119,335,394),
-		area=(426,119,335,394),
+		roi=(430, 135, 335, 375),
+		area=(430, 135, 335, 375),
 		keyword="战斗胜利获得的经验增加50%",
 		name="exp_50"
 	)
 	# Ocr-description 
 	O_EXP_100 = RuleOcr(
-		roi=(421,127,342,388),
-		area=(421,127,342,388),
+		roi=(430, 135, 335, 375),
+		area=(430, 135, 335, 375),
 		keyword="战斗胜利获得的经验增加100%",
 		name="exp_100"
 	)
 
 	# Swipe Rule Assets
-	# description 
+	# 往上走 
 	S_BUFF_UP = RuleSwipe(
 		roi_start=(397,124,456,35),
-		roi_end=(447,457,386,37),
+		roi_end=(447,457,386,35),
 		name="buff_up"
+	)
+	# 往下走 
+	S_BUFF_DOWN = RuleSwipe(
+		roi_start=(447,457,386,35),
+		roi_end=(397,124,456,35),
+		name="buff_down"
 	)
 
 

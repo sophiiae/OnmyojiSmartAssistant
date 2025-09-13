@@ -3,10 +3,9 @@ import sys
 from module.base.logger import logger
 from module.base.exception import RequestHumanTakeover
 from module.config.enums import BuffClass
-from module.image_processing.rule_image import RuleImage
-from tasks.components.battle.battle import Battle
 from tasks.exploration.assets import ExplorationAssets as EA
 from tasks.components.page.page import page_exp, page_main
+from tasks.components.battle.battle import Battle
 
 class ExpBase(EA, Battle):
     name = "Exploration"
@@ -191,61 +190,7 @@ class ExpBase(EA, Battle):
 
     def soul_clear(self):
         self.enter_shiki_book(self.I_SHIKI_BOOK_ENT)
-
-        # 进入御魂页面
-        pos = 1
-        while 1:
-            logger.info("Entered soul page")
-            self.wait_and_shot()
-            if self.appear(self.I_SOUL_GREED):
-                break
-
-            if pos == 1:
-                self.click(self.C_SOUL_ENT_POS1)
-                pos += 1
-            elif pos == 2:
-                self.click(self.C_SOUL_ENT_POS2)
-                pos += 1
-            else:
-                self.click(self.C_SOUL_ENT_POS3)
-
-        # 进入贪吃鬼小屋
-        while 1:
-            logger.info("Entered soul greed house")
-            self.wait_and_shot()
-            if self.appear(self.I_SOUL_GREED_EAT):
-                break
-
-            if self.appear(self.I_SOUL_GREED_CHECK):
-                self.click(self.C_SOUL_EAT_HABIT)
-                continue
-
-            self.appear_then_click(self.I_SOUL_GREED)
-
-        # 进食御魂
-        for _ in range(2):
-            logger.info("Start eating souls...")
-            self.wait_and_shot()
-
-            if self.appear(self.I_SOUL_GREED_EAT_CONFIRM, 0.95):
-                self.click(self.C_SOUL_EAT_COMFIRM_CHECKBOX)
-                self.click(self.I_SOUL_GREED_EAT_CONFIRM)
-                break
-
-            self.appear_then_click(self.I_SOUL_GREED_EAT)
-
-        # 随机点击，退出贪吃鬼
-        self.click(self.reward_click)
-
-        # 关闭贪吃鬼小屋
-        while 1:
-            logger.info("Exit soul greed house")
-            self.wait_and_shot()
-            if not self.appear(self.I_SOUL_GREED_CHECK):
-                break
-
-            self.appear_then_click(self.I_SOUL_GREED_CLOSE)
-
+        self.clean_souls()
         self.exit_shiki_book(self.I_EXP_C_CHAPTER)
 
     def open_config_buff(self):

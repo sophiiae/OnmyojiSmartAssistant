@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QLineEdit, QLabel, QGroupBox, QVBoxLayout, QGridLayout, QCheckBox
+from PyQt6.QtWidgets import QGroupBox, QVBoxLayout, QGridLayout, QCheckBox
 
 class WantedQuestsSection(QGroupBox):
     def __init__(self, config):

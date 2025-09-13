@@ -9,11 +9,13 @@ from tasks.components.buff.buff import Buff
 from tasks.components.page.page import Page
 from tasks.components.page.page import page_main
 from tasks.components.switch_souls.switch_souls import SwitchSouls
-class Battle(Buff, SwitchSouls, BattleAssets):
+from tasks.components.clean_souls.clean_souls import CleanSouls
+
+class Battle(Buff, SwitchSouls, CleanSouls, BattleAssets):
     def run_easy_battle(self, exit_battle_check: RuleImage, failed_check: RuleImage | None = None) -> bool:
         logger.info("Start easy battle process")
 
-        win = True
+        win = False
 
         while 1:
             self.wait_and_shot(0.4)
@@ -147,7 +149,8 @@ class Battle(Buff, SwitchSouls, BattleAssets):
         }
 
         self.open_buff(page)
-        for b in buff:
+        while buff:
+            b = buff.pop(0)
             func, activate = match_buff[b]
             func(activate)
             time.sleep(0.1)

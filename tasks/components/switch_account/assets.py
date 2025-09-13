@@ -129,6 +129,13 @@ class SwitchAccountAssets:
 		area=(220, 450, 830, 120),
 		file="./tasks/components/switch_account/res/regions/r_mo_ka_qi_yu.png"
 	)
+	# 百崽同行 
+	I_R_BAI_ZAI_TONG_XING = RuleImage(
+		name="r_bai_zai_tong_xing",
+		roi=(715, 492, 60, 47),
+		area=(220, 450, 830, 120),
+		file="./tasks/components/switch_account/res/regions/r_bai_zai_tong_xing.png"
+	)
 
 	# Swipe Rule Assets
 	# 已有角色往左滑 
