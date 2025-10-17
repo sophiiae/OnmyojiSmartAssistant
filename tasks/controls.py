@@ -63,21 +63,19 @@ class Controls(PageAssets, SubaccountsAssets, PageMap, WidgetsAssets):
         click_button = self.I_QUEST_IGNORE
         accept_quests = [self.I_QUEST_JADE, self.I_QUEST_CAT, self.I_QUEST_DOG]
 
-        time.sleep(0.3)
-        self.device.get_screenshot()
         for quest in accept_quests:
             if self.appear(quest, 0.96):
                 click_button = self.I_QUEST_ACCEPT
                 break
 
         while 1:
-            time.sleep(0.3)
             self.device.get_screenshot()
             if not self.appear(target=click_button, threshold=0.96):
                 logger.info('Handled invitation.')
                 break
 
             self.appear_then_click(click_button, threshold=0.96)
+            time.sleep(0.1)
 
         return True
 

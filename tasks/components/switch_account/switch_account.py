@@ -141,7 +141,7 @@ class SwitchAccount(TaskBase, SwitchAccountAssets):
 
             logger.info(f"==>>> Entering index [{index}] sub region")
             if self.appear(self.I_SUBACCOUNT_PAGE_EXIT):
-                for _ in range(2):
+                for _ in range(3):
                     time.sleep(0.4)
                     self.click(self.sub_regions_clicks[index])
                 self.click(self.C_LOGIN_RANDOM_CLICK)

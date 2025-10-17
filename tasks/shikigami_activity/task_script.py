@@ -33,7 +33,7 @@ class TaskScript(Battle, SA):
             self.run_climb()
 
         self.exit_activity()
-        self.set_next_run(self.name, finish=True, success=True)
+        self.set_next_run(self.name, finish=False, success=True)
         raise TaskEnd(self.name)
 
     def run_climb(self):
@@ -106,9 +106,11 @@ class TaskScript(Battle, SA):
                                   self.I_SA_FIGHT_TARGET_PAGE_CHECK)
 
     def soul_clear(self):
-        self.enter_shiki_book(self.I_SA_SHIKI_BOOK_ENT)
-        self.clean_souls()
-        self.exit_shiki_book(self.I_SA_FIGHT_TARGET_PAGE_CHECK)
+        # self.enter_shiki_book(self.I_SA_SHIKI_BOOK_ENT)
+        # TODO： donate souls
+
+        # self.exit_shiki_book(self.I_SA_FIGHT_TARGET_PAGE_CHECK)
+        pass
 
     def anni_ap_count(self):
         image = self.screenshot()

@@ -225,7 +225,7 @@ class TaskScript(Battle, DuelAssets):
 
                 self.appear_then_click(self.I_DUEL_FIGHT_BLUE)
         else:
-            self.start_battle()
+            self.enter_battle()
 
         self.battle_ready()
         self.toggle_battle_auto()
@@ -233,6 +233,7 @@ class TaskScript(Battle, DuelAssets):
 
     def run_duel_battle(self):
         while 1:
+            self.class_logger(self.name, "Start duel battle.")
             self.wait_and_shot(0.4)
             if self.appear(self.page_check, 0.95):
                 break
@@ -243,19 +244,12 @@ class TaskScript(Battle, DuelAssets):
                 self.get_reward()
                 continue
 
-            if self.appear(self.I_BATTLE_WIN, 0.95):
-                self.click(self.battle_end_click)
-                continue
-
-            if self.appear(self.I_DUEL_BATTLE_FAILED, 0.95):
+            if self.appear(self.I_BATTLE_WIN, 0.95) or self.appear(self.I_DUEL_BATTLE_FAILED, 0.95) or self.appear(self.I_DUEL_BATTLE_SHARE, 0.95):
                 self.click(self.battle_end_click)
 
-            if self.appear(self.I_DUEL_BATTLE_SHARE):
-                self.click(self.battle_end_click)
-                continue
-
-    def start_battle(self):
+    def enter_battle(self):
         count = 0
+        self.class_logger(self.name, "Enter duel battle.")
         # 开始斗技
         while 1:
             self.wait_and_shot(1)
@@ -296,6 +290,7 @@ class TaskScript(Battle, DuelAssets):
                 break
 
     def exit_duel(self):
+        self.class_logger(self.name, "Exit duel battle.")
         # 退出页面
         while 1:
             self.wait_and_shot()

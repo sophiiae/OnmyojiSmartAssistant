@@ -9,7 +9,7 @@ class CleanSouls(TaskBase, CleanSoulsAssets):
 
     def clean_souls(self):
         self.enter_soul_page()
-        self.feed_low_lv_souls()
+        # self.feed_low_lv_souls()
         # self.tidy_up_souls()
 
     def enter_soul_page(self):
@@ -29,6 +29,10 @@ class CleanSouls(TaskBase, CleanSoulsAssets):
                 pos += 1
             else:
                 self.click(self.C_SOUL_ENT_POS3)
+
+    def donate_dumped_souls(self):
+        # TODO
+        pass
 
     def feed_low_lv_souls(self):
         # 进入贪吃鬼小屋

@@ -90,32 +90,32 @@
   {
     "name": "quest_jade",
     "type": "image",
-    "roi": "664, 476, 42, 30",
-    "area": "535, 440, 225, 100",
+    "roi": "663, 466, 43, 40",
+    "area": "520, 420, 245, 140",
     "file": "./tasks/subaccounts/res/quest/quest_jade.png",
     "description": "勾协邀请"
   },
   {
     "name": "quest_ap",
     "type": "image",
-    "roi": "1022, 523, 42, 40",
-    "area": "535, 440, 225, 100",
+    "roi": "662, 466, 42, 40",
+    "area": "520, 420, 245, 140",
     "file": "./tasks/subaccounts/res/quest/quest_ap.png",
     "description": "体协邀请"
   },
   {
     "name": "quest_dog",
     "type": "image",
-    "roi": "513, 527, 44, 42",
-    "area": "535, 440, 225, 100",
+    "roi": "567, 471, 55, 42",
+    "area": "520, 420, 245, 140",
     "file": "./tasks/subaccounts/res/quest/quest_dog.png",
     "description": "狗粮协作邀请"
   },
   {
     "name": "quest_cat",
     "type": "image",
-    "roi": "207, 530, 56, 39",
-    "area": "535, 440, 225, 100",
+    "roi": "569, 474, 49, 36",
+    "area": "520, 420, 245, 140",
     "file": "./tasks/subaccounts/res/quest/quest_cat.png",
     "description": "猫粮协作邀请"
   },

@@ -5,6 +5,11 @@ from tasks.duel.task_script import TaskScript as RB
 from module.base.logger import logger
 from tasks.components.clean_souls.clean_souls import CleanSouls
 from tasks.exploration.task_script import TaskScript as EXP
+from tasks.exploration.assets import ExplorationAssets
+
+from tasks.components.buff.buff import Buff
+from tasks.components.buff.assets import BuffAssets
+from tasks.components.page.page import page_exp
 
 def RunTaskTest(name):
     d = Device(config_name=name)
@@ -21,8 +26,9 @@ def RunTaskTest(name):
     # dr.quest_invite()
     # cs = CleanSouls(device=d)
     # cs.clean_souls()
-    exp = EXP(device=d)
-    exp.close_config_buff()
+    buff = Buff(device=d)
+    # buff.open_buff(page_exp)
+    buff.get_area(BuffAssets.O_GOLD_50, True)
 
 
 if __name__ == "__main__":

@@ -32,8 +32,8 @@ class Buff(TaskBase, BuffAssets):
             if self.appear(self.I_BUFF_AWAKE, 0.95):
                 break
 
-            if self.appear_then_click(open_button):
-                continue
+            self.appear_then_click(open_button)
+        time.sleep(0.5)
 
     def close_buff(self):
         """
@@ -47,10 +47,9 @@ class Buff(TaskBase, BuffAssets):
             self.screenshot()
             if not self.appear(self.I_BUFF_AWAKE, 0.95):
                 break
-            if self.appear_then_click(self.I_BUFF_CLOUD):
-                continue
+            self.appear_then_click(self.I_BUFF_CLOUD)
 
-    def get_area(self, buff: RuleOcr) -> tuple | None:
+    def get_area(self, buff: RuleOcr, activate: bool) -> tuple | None:
         """
         获取要点击的开关buff的区域
         :param cls:
@@ -59,21 +58,29 @@ class Buff(TaskBase, BuffAssets):
         :return:  如果没有就返回None
         """
         img = self.screenshot()
-        # x,y坐标就是文字的坐上角
-        area = buff.ocr_full(img)
 
-        if area == tuple([0, 0, 0, 0]):
-            logger.info(f'No {buff.name} buff')
-            return None
+        # 已经启动的buff就不用再重新查找了，roi在开启的时候就更新了
+        if activate:
+            area = buff.ocr_full(img)
 
-        roi = buff.roi
-        start_x = 775  # 开关最左边
-        start_y = max(0, roi[1] - 10)  # 确保y坐标不为负数
-        width = 100  # 增加开关的宽度
-        height = 100  # 增加开关的高度
+            if area == tuple([0, 0, 0, 0]):
+                logger.info(f'No {buff.name} buff')
+                return None
 
-        logger.info(f"Get target area: {(start_x, start_y, width, height)}")
-        return start_x, start_y, width, height
+        x = 775  # 开关最左边
+        y = max(0, buff.roi[1] - 10)  # 确保y坐标不为负数
+        w = 80  # 增加开关的宽度
+        h = 80  # 增加开关的高度
+
+        logger.info(
+            f"Get target area: {(x, y, w, h)}")
+
+        # # 测试用
+        # cv2.rectangle(self.device.image, (x, y),
+        #               (x + w, y + h), (101, 67, 196), 2)
+        # cv2.imwrite(f'{Path.cwd()}/area.png', self.device.image)
+
+        return x, y, w, h
 
     def set_switch_area(self, area):
         """
@@ -139,7 +146,7 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Gold 50 buff')
-        if self.find_target_buff(self.O_GOLD_50):
+        if self.find_target_buff(self.O_GOLD_50, activate):
             self.toggle_buff(activate)
 
     def gold_100(self, activate: bool = True):
@@ -149,7 +156,7 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Gold 100 buff')
-        if self.find_target_buff(self.O_GOLD_100):
+        if self.find_target_buff(self.O_GOLD_100, activate):
             self.toggle_buff(activate)
 
     def exp_50(self, activate: bool = True):
@@ -159,7 +166,7 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Exp 50 buff')
-        if self.find_target_buff(self.O_EXP_50):
+        if self.find_target_buff(self.O_EXP_50, activate):
             self.toggle_buff(activate)
 
     def exp_100(self, activate: bool = True):
@@ -169,14 +176,14 @@ class Buff(TaskBase, BuffAssets):
         :return:
         """
         logger.info('Exp 100 buff')
-        if self.find_target_buff(self.O_EXP_100):
+        if self.find_target_buff(self.O_EXP_100, activate):
             self.toggle_buff(activate)
 
-    def find_target_buff(self, target: RuleOcr) -> bool:
+    def find_target_buff(self, target: RuleOcr, activate: bool) -> bool:
         retry = 0
         while 1:
             self.wait_and_shot()
-            area = self.get_area(target)
+            area = self.get_area(target, activate)
             if retry > 3:
                 logger.warning(f'Cannot find {target.name} buff')
                 return False
@@ -206,6 +213,7 @@ class Buff(TaskBase, BuffAssets):
         w = 80
         h = int(target.roi[3])
 
+        # # 测试用
         # cv2.rectangle(self.device.image, (x, y),
         #               (x + w, y + h), (101, 67, 196), 2)
         # cv2.imwrite(f'{Path.cwd()}/area.png', self.device.image)

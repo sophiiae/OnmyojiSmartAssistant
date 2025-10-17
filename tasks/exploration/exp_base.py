@@ -31,7 +31,6 @@ class ExpBase(EA, Battle):
             # 如果有妖气封印，就关闭
             if self.appear(self.I_EXP_YAOQI):
                 self.appear_then_click(self.I_EXP_YAOQI_CLOSE)
-                continue
 
     def get_chapter_reward(self):
         found = False
@@ -54,7 +53,7 @@ class ExpBase(EA, Battle):
     def check_treasure_box(self):
         while 1:
             self.wait_and_shot()
-            if not self.appear(self.I_EXP_TREASURE_BOX, 0.95):
+            if self.appear(self.I_C_EXP) and not self.appear(self.I_EXP_TREASURE_BOX, 0.95):
                 break
 
             if self.click_static_target(self.I_EXP_TREASURE_BOX, 0.95):
@@ -62,8 +61,13 @@ class ExpBase(EA, Battle):
                     self.I_REWARD, 3)
 
                 if got_reward:   # 领取宝箱物品
-                    time.sleep(0.7)
+                    time.sleep(0.4)
                     self.random_click_right()
+                    continue
+
+            # 如果有妖气封印，就关闭
+            if self.appear(self.I_EXP_YAOQI):
+                self.appear_then_click(self.I_EXP_YAOQI_CLOSE)
 
     def auto_backup(self):
         success = False

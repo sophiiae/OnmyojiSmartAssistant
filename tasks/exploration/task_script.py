@@ -182,10 +182,10 @@ class TaskScript(ExpBase):
         swipe_count = 0
         while 1:
             # 检查候补狗粮
-            if not self.appear(self.I_AUTO_ROTATE_ON):
+            if self.appear(self.I_EXP_C_CHAPTER, 0.96) and not self.appear(self.I_AUTO_ROTATE_ON):
                 self.check_auto_rotate()
 
-            self.wait_and_shot(0.5)
+            self.wait_and_shot(0.7)
 
             # BOSS 挑战
             if self.appear(self.I_EXP_BOSS, 0.95) and self.click_moving_target(self.I_EXP_BOSS, self.I_EXP_C_CHAPTER):
@@ -202,23 +202,19 @@ class TaskScript(ExpBase):
 
             self.swipe(self.S_EXP_TO_RIGHT)
             swipe_count += 1
-            if swipe_count > 7:
+            if swipe_count > 5:
                 self.left_check()
                 swipe_count = 0
-            time.sleep(0.5)
 
     def check_auto_rotate(self):
         if not self.turn_on_auto_rotate():
             auto_backup = self.exp_config.exploration_config.auto_backup
-            auto_soul_clear = self.exp_config.exploration_config.auto_soul_clear
 
-            if not auto_backup and not auto_soul_clear:
+            if not auto_backup:
                 self.exit_chapter(raise_exception=True)
 
             if auto_backup:
                 self.auto_backup()
-            if auto_soul_clear:
-                self.soul_clear()
 
     def turn_on_auto_rotate(self) -> bool:
         # 自动轮换功能打开

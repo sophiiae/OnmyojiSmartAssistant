@@ -24,10 +24,9 @@ class Battle(Buff, SwitchSouls, CleanSouls, BattleAssets):
 
             self.appear_then_click(self.I_BATTLE_READY, 0.95)
 
-            if self.appear(self.I_REWARD):
-                self.get_reward()
+            if self.appear(self.I_REWARD) and self.get_reward(exit_battle_check):
                 win = True
-                continue
+                break
 
             if win:
                 self.click(self.battle_end_click)  # 特殊奖励情况
@@ -57,15 +56,23 @@ class Battle(Buff, SwitchSouls, CleanSouls, BattleAssets):
         return random.choice(
             [self.C_WIN_L, self.C_WIN_R])
 
-    def get_reward(self):
+    def get_reward(self, exit_check: RuleImage | None = None):
         """领奖励
         """
-        while 1:
-            self.screenshot()
-            if not self.appear(self.I_REWARD):
-                break
+        self.click(self.reward_click)
+        if exit_check:
+            while 1:
+                self.wait_and_shot(0.2)
+                if self.appear(exit_check, 0.95) and not self.appear(self.I_REWARD, 0.95):
+                    return True
 
-            if self.appear(self.I_REWARD):
+                self.click(self.reward_click)
+        else:
+            while 1:
+                self.wait_and_shot(0.2)
+                if not self.appear(self.I_REWARD, 0.95):
+                    return True
+
                 self.click(self.reward_click)
 
     def run_battle_quit(self):

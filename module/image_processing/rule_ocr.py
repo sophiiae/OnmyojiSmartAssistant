@@ -48,13 +48,22 @@ class RuleOcr:
         x, y, w, h = self.roi
         x += np.random.randint(0, w)
         y += np.random.randint(0, h)
-        return x, y
+        return int(x), int(y)
 
     def crop(self, screenshot) -> np.ndarray:
         """
         截取图片
         """
-        x, y, w, h = self.area
+        x, y, w, h = int(self.area[0]), int(
+            self.area[1]), int(self.area[2]), int(self.area[3])
+
+        # Add bounds checking and validation
+        if h <= 0 or w <= 0:
+            logger.warning(
+                f"[Image] {self.name} Invalid area dimensions: {self.area} (w={w}, h={h})")
+            # Return a minimal valid array to prevent crashes
+            return screenshot[y: y + 400, x: x + 600]
+
         return screenshot[y: y + h, x: x + w]
 
     def ocr_full(self, screenshot, keyword: Optional[str] = None) -> Tuple[int, int, int, int]:
@@ -73,42 +82,46 @@ class RuleOcr:
             return new_area
 
         logger.background(f"<OCR> boxed_results: {boxed_results}")
-        index_list = self.filter(boxed_results, keyword)
         # 如果一个都没有匹配到
-        if not index_list:
+        if not boxed_results:
             return new_area
 
-        logger.background(
-            f"<OCR> [{keyword}] detected in {index_list} with {boxed_results[index_list[0]]}")
-        logger.background(f"<OCR> index_list: {index_list}")
+        logger.background(f"<OCR> boxed_results: {boxed_results}")
 
         # 如果匹配到了多个,则合并所有的坐标，返回合并后的坐标
-        if len(index_list) > 1:
+        if len(boxed_results) > 1:
             logger.info(f"<OCR> Going to merge areas.")
             area_list = [(
-                int(cast(np.ndarray, boxed_results[index].box)[0][0]),  # x
-                int(cast(np.ndarray, boxed_results[index].box)[0][1]),  # y
-                int(cast(np.ndarray, boxed_results[index].box)[
+                int(cast(np.ndarray, result.box)[0][0]),  # x
+                int(cast(np.ndarray, result.box)[0][1]),  # y
+                int(cast(np.ndarray, result.box)[
                     # width
-                    1][0] - cast(np.ndarray, boxed_results[index].box)[0][0]),
-                int(cast(np.ndarray, boxed_results[index].box)[
+                    1][0] - cast(np.ndarray, result.box)[0][0]),
+                int(cast(np.ndarray, result.box)[
                     # height
-                    2][1] - cast(np.ndarray, boxed_results[index].box)[0][1]),
-            ) for index in index_list]
+                    2][1] - cast(np.ndarray, result.box)[0][1]),
+            ) for result in boxed_results]
             area = merge_area(area_list)
-            self.roi = area[0] + self.roi[0], area[1] + \
-                self.roi[1], self.roi[2], self.roi[3]
-            new_area = area[0] + self.roi[0], area[1] + \
-                self.roi[1], self.area[2], self.area[3]
+            self.roi = int(area[0] + self.roi[0]), int(area[1] +
+                                                       self.roi[1]), int(self.roi[2]), int(self.roi[3])
+            new_area = int(area[0] + self.roi[0]), int(area[1] +
+                                                       self.roi[1]), int(self.area[2]), (self.area[3])
         else:
             logger.info(f"<OCR> Found single area.")
-            box = cast(np.ndarray, boxed_results[index_list[0]].box)
+            box = cast(np.ndarray, boxed_results[0].box)
             self.roi = int(box[0][0] + self.roi[0]), int(box[0][1] + self.roi[1]
                                                          ), self.roi[2], self.roi[3]
             new_area = int(box[0][0] + self.roi[0]), int(box[0][1] + self.roi[1]
                                                          ), self.area[2], self.area[3]
         logger.background(
             f"<OCR> [{keyword if keyword else self.name}] detected in new area: {new_area}, roi: {self.roi}")
+
+        # 测试用
+        # logger.warning(str(new_area))
+        # target_rectangle_color = (101, 67, 196)
+        # cv2.rectangle(screenshot, (self.roi[0], self.roi[1]),
+        #               (self.roi[0] + self.roi[2], self.roi[1] + self.roi[3]), target_rectangle_color, 2)
+        # cv2.imwrite(f'{Path.cwd()}/buff_output.png', screenshot)
         return new_area
 
     def ocr_single(self, screenshot) -> str:
@@ -174,22 +187,22 @@ class RuleOcr:
         :return:
         """
         # pre process
-        start_time = time.time()
         image = self.crop(image)
         image = self.enlarge_canvas(image)
 
         # ocr
         boxed_results: list[BoxedResult] = self.model.detect_and_ocr(image)
+
         results = []
         # after proces
         for result in boxed_results:
             # logger.background("ocr result score: %s" % result.score)
-            if result.score < self.score:
-                continue
-            results.append(result)
+            if result.ocr_text == self.keyword:
+                logger.warning(f"<OCR> result box: {result.box}")
+                results.append(result)
 
-        text_results = [result.ocr_text for result in results]
-        logger.background(f"<OCR> detect results: {str(text_results)}")
+        # text_results = [result.ocr_text for result in results]
+        logger.background(f"<OCR> detect results: {str(results)}")
         return results
 
     def filter(self, boxed_results: List[BoxedResult], keyword: Optional[str] = None) -> List[int]:

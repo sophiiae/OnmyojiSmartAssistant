@@ -28,17 +28,16 @@ class RuleImage:
         """
         截取图片
         """
-        x, y, w, h = self.area
+        x, y, w, h = int(self.area[0]), int(
+            self.area[1]), int(self.area[2]), int(self.area[3])
 
         # Add bounds checking and validation
         if h <= 0 or w <= 0:
             logger.warning(
                 f"[Image] {self.name} Invalid area dimensions: {self.area} (w={w}, h={h})")
-            # Return a minimal valid array to prevent crashes
+            # Return whole screenshot
             return screenshot
 
-        # logger.info(
-        #     f"[Image] Crop {self.name} from height ({y} to {y + h}), width ({x} to {x + w})")
         return screenshot[y: y + h, x: x + w]
 
     def coord(self) -> tuple:

@@ -75,12 +75,6 @@ class ExplorationSection(QGroupBox):
         self.auto_backup.setChecked(self.exploration_config["auto_backup"])
         add_left_row(exploration_layout, [self.auto_backup])
 
-        # 自动清御魂（CheckBox独占一行）
-        self.auto_soul_clear = QCheckBox("自动清御魂")
-        self.auto_soul_clear.setChecked(
-            self.exploration_config["auto_soul_clear"])
-        add_left_row(exploration_layout, [self.auto_soul_clear])
-
         # 狗粮稀有度（无CheckBox，左对齐）
         self.backup_rarity = SelectButton()
         self.backup_rarity.addItems(["素材", "N", "R", "SR", "SSR", "SP"])
